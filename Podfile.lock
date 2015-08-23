@@ -1,0 +1,29 @@
+PODS:
+  - Alamofire (2.0.0-beta.1)
+  - RxSwift (1.9)
+
+DEPENDENCIES:
+  - Alamofire (from `https://github.com/Alamofire/Alamofire.git`, branch `swift-2.0`)
+  - RxSwift (from `git@github.com:kzaher/RxSwift.git`, branch `rxswift-2.0`)
+
+EXTERNAL SOURCES:
+  Alamofire:
+    :branch: swift-2.0
+    :git: https://github.com/Alamofire/Alamofire.git
+  RxSwift:
+    :branch: rxswift-2.0
+    :git: git@github.com:kzaher/RxSwift.git
+
+CHECKOUT OPTIONS:
+  Alamofire:
+    :commit: f8f881c03f4d9515f09b8bb50fcc932df8c1960d
+    :git: https://github.com/Alamofire/Alamofire.git
+  RxSwift:
+    :commit: 75ef8e09037146ed7a1e64e042693de9e35b3568
+    :git: git@github.com:kzaher/RxSwift.git
+
+SPEC CHECKSUMS:
+  Alamofire: 96feccc1e48a735edb92395cf023ba4ed52bdb45
+  RxSwift: 204bf4262908521aa815ec850d93e87e9d635dd5
+
+COCOAPODS: 0.38.2
