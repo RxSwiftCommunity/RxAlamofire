@@ -10,26 +10,38 @@ import Foundation
 import RxSwift
 import Alamofire
 
-// MARK: Common Response Handlers
+// MARK: Global Functions
 
+
+// MARK: Common Response Handlers
 extension Request {
     
     /**
     Returns an `Observable` of NSData for the current request.
     - parameter cancelOnDispose: Indicates if the request has to be canceled when the observer is disposed, **default:** `false`
     
-    - returns: An instance of `Observable<(NSURLRequest, NSHTTPURLResponse, NSData?)>`
+    - returns: An instance of `Observable<NSData>`
     */
-    func rx_response(cancelOnDispose: Bool = false) -> Observable<(NSURLRequest, NSHTTPURLResponse, NSData?)> {
+    func rx_response(cancelOnDispose: Bool = false) -> Observable<NSData> {
         
-        return create { (observer: ObserverOf<(NSURLRequest, NSHTTPURLResponse, NSData?)>) -> Disposable in
+        return create { (observer: ObserverOf<NSData>) -> Disposable in
             
             self.response { request, response, data, error in
                 if let e = error {
                     sendError(observer, e)
                 } else {
-                    sendNext(observer, (request!, response!, data))
-                    sendCompleted(observer)
+                    if let d = data {
+                        if 200 ..< 300 ~= response?.statusCode ?? 0 {
+                            sendNext(observer, d)
+                            sendCompleted(observer)
+                        } else {
+                            sendError(observer, NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil))
+                        }
+                    }
+                    else {
+                        sendError(observer, error ?? NSError(domain: "Empty data received", code: -1, userInfo: nil))
+                    }
+                    
                 }
             }
             
@@ -47,17 +59,21 @@ extension Request {
     - parameter encoding: Type of the string encoding, **default:** `nil`
     - parameter cancelOnDispose: Indicates if the request has to be canceled when the observer is disposed, **default:** `false`
     
-    - returns: An instance of `Observable<(NSURLRequest, NSHTTPURLResponse, String)>`
+    - returns: An instance of `Observable<String>`
     */
-    func rx_responseString(encoding: NSStringEncoding? = nil, cancelOnDispose: Bool = false) -> Observable<(NSURLRequest, NSHTTPURLResponse, String)> {
+    func rx_responseString(encoding: NSStringEncoding? = nil, cancelOnDispose: Bool = false) -> Observable<String> {
         
-        return create { (observer: ObserverOf<(NSURLRequest, NSHTTPURLResponse, String)>) -> Disposable in
+        return create { (observer: ObserverOf<String>) -> Disposable in
             
             self.responseString(encoding: encoding) { request, response, result in
                 switch result {
                 case .Success(let v):
-                    sendNext(observer, (request!, response!, v))
-                    sendCompleted(observer)
+                    if 200 ..< 300 ~= response?.statusCode ?? 0 {
+                        sendNext(observer, v)
+                        sendCompleted(observer)
+                    } else {
+                        sendError(observer, NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil))
+                    }
                 case .Failure(_, let e):
                     sendError(observer, e)
                 }
@@ -77,17 +93,21 @@ extension Request {
     - parameter options: Reading optinons for JSON decoding process, **default:** `.AllowFragments`
     - parameter cancelOnDispose: Indicates if the request has to be canceled when the observer is disposed, **default:** `false`
     
-    - returns: An instance of `Observable<(NSURLRequest, NSHTTPURLResponse, AnyObject))>`
+    - returns: An instance of `Observable<AnyObject>`
     */
-    func rx_responseJSON(options: NSJSONReadingOptions = .AllowFragments, cancelOnDispose: Bool = false) -> Observable<(NSURLRequest, NSHTTPURLResponse, AnyObject)> {
+    func rx_responseJSON(options: NSJSONReadingOptions = .AllowFragments, cancelOnDispose: Bool = false) -> Observable<AnyObject> {
         
-        return create { (observer: ObserverOf<(NSURLRequest, NSHTTPURLResponse, AnyObject)>) -> Disposable in
+        return create { (observer: ObserverOf<AnyObject>) -> Disposable in
             
             self.responseJSON(options: options) { request, response, result in
                 switch result {
                 case .Success(let v):
-                    sendNext(observer, (request!, response!, v))
-                    sendCompleted(observer)
+                    if 200 ..< 300 ~= response?.statusCode ?? 0 {
+                        sendNext(observer, v)
+                        sendCompleted(observer)
+                    } else {
+                        sendError(observer, NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil))
+                    }
                 case .Failure(_, let e):
                     sendError(observer, e)
                 }
@@ -107,17 +127,21 @@ extension Request {
     - parameter options: Property list reading options, **default:** `NSPropertyListReadOptions()`
     - parameter cancelOnDispose: Indicates if the request has to be canceled when the observer is disposed, **default:** `false`
     
-    - returns: An instance of `Observable<(NSURLRequest, NSHTTPURLResponse, AnyObject))>`
+    - returns: An instance of `Observable<AnyObject>`
     */
-    func rx_responsePropertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions(), cancelOnDispose: Bool = false) -> Observable<(NSURLRequest, NSHTTPURLResponse, AnyObject)> {
+    func rx_responsePropertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions(), cancelOnDispose: Bool = false) -> Observable<AnyObject> {
         
-        return create { (observer: ObserverOf<(NSURLRequest, NSHTTPURLResponse, AnyObject)>) -> Disposable in
+        return create { (observer: ObserverOf<AnyObject>) -> Disposable in
             
             self.responsePropertyList(options: options) { request, response, result in
                 switch result {
                 case .Success(let v):
-                    sendNext(observer, (request!, response!, v))
-                    sendCompleted(observer)
+                    if 200 ..< 300 ~= response?.statusCode ?? 0 {
+                        sendNext(observer, v)
+                        sendCompleted(observer)
+                    } else {
+                        sendError(observer, NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil))
+                    }
                 case .Failure(_, let e):
                     sendError(observer, e)
                 }

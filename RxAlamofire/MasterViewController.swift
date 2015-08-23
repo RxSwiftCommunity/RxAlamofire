@@ -8,6 +8,7 @@
 
 import UIKit
 import Alamofire
+import RxSwift
 
 class MasterViewController: UIViewController {
     
@@ -34,29 +35,33 @@ class MasterViewController: UIViewController {
     // MARK: - UI Actions
     
     @IBAction func convertPressed(sender: UIButton) {
-        
-        Alamofire.request(.GET, sourceStringURL).rx_responseJSON().subscribeNext() { request, response, json in
-            if let dict = json as? [String: AnyObject] {
-                let formatter = NSNumberFormatter()
-                formatter.numberStyle = .CurrencyStyle
-                formatter.currencyCode = "USD"
-                let valDict = dict["rates"] as! Dictionary<String, AnyObject>
-                let value = valDict["USD"] as? Float
-                let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!)?.floatValue
-                
-                if let v = value, let fv = fromValue {
-                    self.toTextField?.text = formatter.stringFromNumber(v*fv)!
+        Alamofire.request(.GET, sourceStringURL).rx_responseJSON()
+            .observeOn(MainScheduler.sharedInstance)
+            .subscribeNext() { json in
+                if let dict = json as? [String: AnyObject] {
+                    let formatter = NSNumberFormatter()
+                    formatter.numberStyle = .CurrencyStyle
+                    formatter.currencyCode = "USD"
+                    let valDict = dict["rates"] as! Dictionary<String, AnyObject>
+                    let value = valDict["USD"] as? Float
+                    let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!)?.floatValue
+                    
+                    if let v = value, let fv = fromValue {
+                        self.toTextField?.text = formatter.stringFromNumber(v*fv)!
+                    }
                 }
+            }.subscribeError() { (e: NSError) in
+                self.displayError(e)
             }
-        }
-        
     }
     
     // MARK: - Utils
     
-    func displayError(e: NSError) {
-        let alert = UIAlertController(title: "Error", message: e.localizedDescription, preferredStyle: .Alert)
-        self.presentViewController(alert, animated: true, completion: nil)
+    func displayError(error: NSError?) {
+        if let e = error {
+            let alert = UIAlertController(title: "Error", message: e.localizedDescription, preferredStyle: .Alert)
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
 
 }
