@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0hF-X2-3MG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0hF-X2-3MG">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
         <!--Master View Controller-->
@@ -20,6 +20,9 @@
                                 <rect key="frame" x="20" y="92" width="335" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0hF-X2-3MG" id="ltc-tU-4fm"/>
+                                </connections>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="to" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aaI-Ws-mG6">
                                 <rect key="frame" x="20" y="166" width="335" height="30"/>
@@ -34,9 +37,11 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rgX-FO-WCT">
                                 <rect key="frame" x="20" y="221" width="335" height="44"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="ATF-bR-SWr"/>
                                 </constraints>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <state key="normal" title="Convert">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -50,6 +55,38 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2B5-Qw-7Kf">
+                                <rect key="frame" x="0.0" y="280" width="375" height="387"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e9h-R6-Pms">
+                                        <rect key="frame" x="20" y="333" width="335" height="44"/>
+                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="ce7-eG-ySu"/>
+                                        </constraints>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="deviceRGB"/>
+                                        <state key="normal" title="Get Dummy Data">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="getDummyDataPressed:" destination="0hF-X2-3MG" eventType="touchUpInside" id="nWt-Tg-Bec"/>
+                                        </connections>
+                                    </button>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="NO DATA!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="phK-8d-VhV">
+                                        <rect key="frame" x="20" y="8" width="335" height="317"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.90196079015731812" green="0.90196079015731812" blue="0.90196079015731812" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="phK-8d-VhV" secondAttribute="trailing" constant="20" id="93n-ya-1XF"/>
+                                    <constraint firstItem="phK-8d-VhV" firstAttribute="top" secondItem="2B5-Qw-7Kf" secondAttribute="top" constant="8" id="X1A-pi-2ez"/>
+                                    <constraint firstItem="e9h-R6-Pms" firstAttribute="top" secondItem="phK-8d-VhV" secondAttribute="bottom" constant="8" id="dPk-oy-Izg"/>
+                                    <constraint firstAttribute="bottom" secondItem="e9h-R6-Pms" secondAttribute="bottom" constant="10" id="fZ8-iy-4pA"/>
+                                    <constraint firstItem="phK-8d-VhV" firstAttribute="leading" secondItem="2B5-Qw-7Kf" secondAttribute="leading" constant="20" id="qbU-Ma-ua9"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -59,16 +96,22 @@
                             <constraint firstAttribute="trailing" secondItem="1N6-8t-mdG" secondAttribute="trailing" constant="20" id="5L1-if-2dF"/>
                             <constraint firstItem="1N6-8t-mdG" firstAttribute="leading" secondItem="f8i-T2-26K" secondAttribute="leading" constant="20" id="8zQ-Yd-4UR"/>
                             <constraint firstItem="xWH-Nr-FOm" firstAttribute="top" secondItem="1N6-8t-mdG" secondAttribute="bottom" constant="8" id="Dje-iE-iSi"/>
+                            <constraint firstItem="2B5-Qw-7Kf" firstAttribute="top" secondItem="rgX-FO-WCT" secondAttribute="bottom" constant="15" id="DvN-HP-RLB"/>
                             <constraint firstItem="xWH-Nr-FOm" firstAttribute="top" secondItem="1N6-8t-mdG" secondAttribute="bottom" constant="8" id="GUW-MD-gFy"/>
+                            <constraint firstItem="e9h-R6-Pms" firstAttribute="centerX" secondItem="rgX-FO-WCT" secondAttribute="centerX" id="Ihf-cI-iAa"/>
                             <constraint firstAttribute="trailing" secondItem="rgX-FO-WCT" secondAttribute="trailing" constant="20" id="Jtg-d4-Zi5"/>
                             <constraint firstItem="GLi-Dr-CIx" firstAttribute="leading" secondItem="f8i-T2-26K" secondAttribute="leading" constant="20" id="JwO-uy-SoX"/>
                             <constraint firstItem="GLi-Dr-CIx" firstAttribute="top" secondItem="xWH-Nr-FOm" secondAttribute="bottom" constant="15" id="MaN-Zo-KiS"/>
                             <constraint firstItem="1N6-8t-mdG" firstAttribute="top" secondItem="6et-XK-7L2" secondAttribute="bottom" constant="43" id="PXW-j5-Vt1"/>
+                            <constraint firstItem="2B5-Qw-7Kf" firstAttribute="leading" secondItem="f8i-T2-26K" secondAttribute="leading" id="QZQ-0d-r9e"/>
+                            <constraint firstItem="e9h-R6-Pms" firstAttribute="width" secondItem="rgX-FO-WCT" secondAttribute="width" id="TKJ-VU-lXY"/>
                             <constraint firstItem="aaI-Ws-mG6" firstAttribute="top" secondItem="GLi-Dr-CIx" secondAttribute="bottom" constant="8" id="Vuc-RD-dFZ"/>
                             <constraint firstAttribute="trailing" secondItem="GLi-Dr-CIx" secondAttribute="trailing" constant="20" id="XEJ-0b-Sfv"/>
                             <constraint firstItem="rgX-FO-WCT" firstAttribute="top" secondItem="aaI-Ws-mG6" secondAttribute="bottom" constant="25" id="cwk-7L-SmZ"/>
+                            <constraint firstItem="tWo-hp-Wxy" firstAttribute="top" secondItem="2B5-Qw-7Kf" secondAttribute="bottom" id="e1B-EH-FMP"/>
                             <constraint firstItem="aaI-Ws-mG6" firstAttribute="top" secondItem="GLi-Dr-CIx" secondAttribute="bottom" constant="8" id="fMW-un-dvU"/>
                             <constraint firstItem="rgX-FO-WCT" firstAttribute="leading" secondItem="f8i-T2-26K" secondAttribute="leading" constant="20" id="hy1-ep-2AR"/>
+                            <constraint firstAttribute="trailing" secondItem="2B5-Qw-7Kf" secondAttribute="trailing" id="mQC-ZL-Qdh"/>
                             <constraint firstItem="GLi-Dr-CIx" firstAttribute="top" secondItem="xWH-Nr-FOm" secondAttribute="bottom" constant="15" id="q9g-ij-3gf"/>
                             <constraint firstItem="aaI-Ws-mG6" firstAttribute="leading" secondItem="f8i-T2-26K" secondAttribute="leading" constant="20" id="uZF-UM-CdG"/>
                             <constraint firstItem="rgX-FO-WCT" firstAttribute="top" secondItem="aaI-Ws-mG6" secondAttribute="bottom" constant="25" id="z1y-ir-f9D"/>
@@ -77,13 +120,15 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="convertBtn" destination="rgX-FO-WCT" id="X4M-pv-MPs"/>
+                        <outlet property="dummyDataBtn" destination="e9h-R6-Pms" id="It7-RX-bLu"/>
+                        <outlet property="dummyDataTextView" destination="phK-8d-VhV" id="plO-xi-SpN"/>
                         <outlet property="fromTextField" destination="xWH-Nr-FOm" id="bHm-dW-fOW"/>
                         <outlet property="toTextField" destination="aaI-Ws-mG6" id="4sE-Qn-hmO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2QS-sf-41v" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="250" y="-315"/>
+            <point key="canvasLocation" x="249.5" y="-315.5"/>
         </scene>
     </scenes>
 </document>

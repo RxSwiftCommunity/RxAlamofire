@@ -2,7 +2,9 @@
 //  RxAlamofire.swift
 //  RxAlamofire
 //
-//  Created by Junior B. on 23/08/15.
+//  Created by Junior B. (@bontojr) on 23/08/15.
+//  Developed with the kind help of Krunoslav Zaher (@KrunoslavZaher)
+//
 //  Copyright © 2015 Bonto.ch. All rights reserved.
 //
 
@@ -13,7 +15,7 @@ import Alamofire
 // MARK: Global Functions
 
 
-// MARK: Common Response Handlers
+// MARK: Request - Common Response Handlers
 extension Request {
     
     /**
@@ -27,19 +29,19 @@ extension Request {
         return create { (observer: ObserverOf<NSData>) -> Disposable in
             
             self.response { request, response, data, error in
-                if let e = error {
-                    sendError(observer, e)
+                if let e = error as NSError? {
+                    observer.on(.Error(e))
                 } else {
                     if let d = data {
                         if 200 ..< 300 ~= response?.statusCode ?? 0 {
-                            sendNext(observer, d)
-                            sendCompleted(observer)
+                            observer.on(.Next(d))
+                            observer.on(.Completed)
                         } else {
-                            sendError(observer, NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil))
+                            observer.on(.Error(NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil)))
                         }
                     }
                     else {
-                        sendError(observer, error ?? NSError(domain: "Empty data received", code: -1, userInfo: nil))
+                        observer.on(.Error(error ?? NSError(domain: "Empty data received", code: -1, userInfo: nil)))
                     }
                     
                 }
@@ -69,13 +71,13 @@ extension Request {
                 switch result {
                 case .Success(let v):
                     if 200 ..< 300 ~= response?.statusCode ?? 0 {
-                        sendNext(observer, v)
-                        sendCompleted(observer)
+                        observer.on(.Next(v))
+                        observer.on(.Completed)
                     } else {
-                        sendError(observer, NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil))
+                        observer.on(.Error(NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil)))
                     }
                 case .Failure(_, let e):
-                    sendError(observer, e)
+                    observer.on(.Error(e))
                 }
             }
             
@@ -103,13 +105,13 @@ extension Request {
                 switch result {
                 case .Success(let v):
                     if 200 ..< 300 ~= response?.statusCode ?? 0 {
-                        sendNext(observer, v)
-                        sendCompleted(observer)
+                        observer.on(.Next(v))
+                        observer.on(.Completed)
                     } else {
-                        sendError(observer, NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil))
+                        observer.on(.Error(NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil)))
                     }
                 case .Failure(_, let e):
-                    sendError(observer, e)
+                    observer.on(.Error(e))
                 }
             }
             
@@ -137,13 +139,13 @@ extension Request {
                 switch result {
                 case .Success(let v):
                     if 200 ..< 300 ~= response?.statusCode ?? 0 {
-                        sendNext(observer, v)
-                        sendCompleted(observer)
+                        observer.on(.Next(v))
+                        observer.on(.Completed)
                     } else {
-                        sendError(observer, NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil))
+                        observer.on(.Error(NSError(domain: "Wrong status code, expected 200-206, got \(response?.statusCode ?? -1)", code: -1, userInfo: nil)))
                     }
                 case .Failure(_, let e):
-                    sendError(observer, e)
+                    observer.on(.Error(e))
                 }
             }
             
@@ -158,7 +160,7 @@ extension Request {
 }
 
 
-// MARK: Upload and Download progress
+// MARK: Requesst - Upload and Download progress
 
 extension Request {
     
@@ -178,7 +180,7 @@ extension Request {
         return create { (observer: ObserverOf<(Int64, Int64, Int64)>) -> Disposable in
             
             self.progress() { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-                sendNext(observer, (bytesWritten, totalBytesWritten, totalBytesExpectedToWrite))
+                observer.on(.Next(bytesWritten, totalBytesWritten, totalBytesExpectedToWrite))
             }
             
             return AnonymousDisposable {}

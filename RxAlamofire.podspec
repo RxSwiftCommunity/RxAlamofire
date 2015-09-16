@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'RxAlamofire'
-  s.version = '0.9'
+  s.version = '1.0'
   s.license = 'MIT'
   s.summary = 'RxSwift wrapper around the elegant HTTP networking in Swift Alamofire'
   s.homepage = 'https://github.com/bontoJR/RxAlamofire'
@@ -10,10 +10,10 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
 
-  s.source_files = 'Source/*.swift'
+  s.source_files = 'RxAlamofire/Source/*.swift'
 
   s.requires_arc = true
 
-  s.dependency "RxSwift", :git => "git@github.com:kzaher/RxSwift.git", :branch => 'rxswift-2.0'
-  s.dependency "Alamofire", :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'swift-2.0'
+  s.dependency "RxSwift", "~> 2.0"
+  s.dependency "Alamofire", "~> 2.0"
 end
