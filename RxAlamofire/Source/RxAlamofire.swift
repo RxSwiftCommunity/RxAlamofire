@@ -12,9 +12,6 @@ import Foundation
 import RxSwift
 import Alamofire
 
-// MARK: Global Functions
-
-
 // MARK: Request - Common Response Handlers
 extension Request {
     

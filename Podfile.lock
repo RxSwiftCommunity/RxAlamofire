@@ -4,17 +4,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 2.0)
-  - RxSwift (from `git@github.com:ReactiveX/RxSwift.git`, branch `develop`)
-
-EXTERNAL SOURCES:
-  RxSwift:
-    :branch: develop
-    :git: git@github.com:ReactiveX/RxSwift.git
-
-CHECKOUT OPTIONS:
-  RxSwift:
-    :commit: 98de89c3e5015d3b351b84d342e132b3b02cbc76
-    :git: git@github.com:ReactiveX/RxSwift.git
+  - RxSwift (~> 2.0.0-alpha)
 
 SPEC CHECKSUMS:
   Alamofire: 2f13548b29d25a58ecd91c9225fb51493e2b782b

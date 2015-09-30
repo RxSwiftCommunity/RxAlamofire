@@ -77,21 +77,31 @@ Currently, the library features the following extensions:
 
 ```swift 
 // Request - Common Response Handlers
-func rx_response(cancelOnDispose: Bool = false) -> Observable<NSData>
-func rx_responseString(encoding: NSStringEncoding? = nil, cancelOnDispose: Bool = false) -> Observable<String>
-rx_responseJSON(options: NSJSONReadingOptions = .AllowFragments, cancelOnDispose: Bool = false) -> Observable<AnyObject>
-func rx_responsePropertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions(), cancelOnDispose: Bool = false) -> Observable<AnyObject>
+func rx_response(cancelOnDispose: Bool = false) -> Observable<NSData> {}
+func rx_responseString(encoding: NSStringEncoding? = nil, cancelOnDispose: Bool = false) -> Observable<String> {}
+func rx_responseJSON(options: NSJSONReadingOptions = .AllowFragments, cancelOnDispose: Bool = false) -> Observable<AnyObject> {}
+func rx_responsePropertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions(), cancelOnDispose: Bool = false) -> Observable<AnyObject> {}
 
 // Upload and Download progress
-func rx_progress() -> Observable<(Int64, Int64, Int64)>
+func rx_progress() -> Observable<(Int64, Int64, Int64)> {}
 ```
 
 ## Installation
 
-The current version of RxSwift 2.0 is still in alpha stage, so to install this extension you should get the `RxAlamofire/Source/RxAlamofire.swift` imported into your project.
+There are two ways to install RxAlamofire
 
-RxAlamofire will be available as Pod as soon as RxSwift 2.0 is released.
+### Cocoapods
+
+Just add to your project's `Podfile`:
+
+```
+pod 'RxAlamofire'
+```
+
+### Manually
+
+To manual install this extension you should get the `RxAlamofire/Source/RxAlamofire.swift` imported into your project, alongside RxSwift and Alamofire.
 
 ## Requirements
 
-RxAlamofire requires Swift 2.0 and dedicated versions of Alamofire (2.0) and RxSwift (2.0).
+RxAlamofire requires Swift 2.0 and dedicated versions of Alamofire (2.0) and RxSwift (2.0.0-alpha).
