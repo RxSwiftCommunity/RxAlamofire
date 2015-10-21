@@ -46,7 +46,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
             
             let observable = Alamofire.request(Method.GET, sourceStringURL).rx_responseJSON()
             observable.observeOn(MainScheduler.sharedInstance)
-                      .subscribe(next: { json -> Void in
+                      .subscribe(onNext: { json -> Void in
                         
                             if let dict = json as? [String: AnyObject] {
                                 let valDict = dict["rates"] as! Dictionary<String, AnyObject>
@@ -55,7 +55,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
                                 }
                             }
                             
-                            }, error: { (e) -> Void in
+                            }, onError: { (e) -> Void in
                                 self.displayError(e as NSError)
                                 
                       })
@@ -74,7 +74,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
         self.dummyDataTextView.text = "Loading..."
         zip(postObservable, commentsObservable) { postJSON, commentsJSON in
                 return (postJSON, commentsJSON)
-            }.observeOn(MainScheduler.sharedInstance).subscribe(next: { postJSON, commentsJSON in
+            }.observeOn(MainScheduler.sharedInstance).subscribe(onNext: { postJSON, commentsJSON in
                 
                 let postInfo = NSMutableString()
                 if let postDict = postJSON as? [String: AnyObject], let commentsArray = commentsJSON as? Array<[String: AnyObject]> {
@@ -92,7 +92,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
                 }
                 
                 self.dummyDataTextView.text = String(postInfo)
-            }, error:{ e in
+            }, onError:{ e in
                 self.dummyDataTextView.text = "An Error Occurred"
                 self.displayError(e as NSError)
             })
