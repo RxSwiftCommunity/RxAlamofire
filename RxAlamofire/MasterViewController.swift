@@ -13,6 +13,7 @@ import RxSwift
 class MasterViewController: UIViewController, UITextFieldDelegate {
     
     let sourceStringURL = "http://api.fixer.io/latest?base=EUR&symbols=USD"
+    let disposeBag = DisposeBag()
     
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
@@ -58,7 +59,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
                             }, onError: { (e) -> Void in
                                 self.displayError(e as NSError)
                                 
-                      })
+                      }).addDisposableTo(disposeBag)
 
         } else {
             self.toTextField.text = "Invalid Input!"
@@ -95,7 +96,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
             }, onError:{ e in
                 self.dummyDataTextView.text = "An Error Occurred"
                 self.displayError(e as NSError)
-            })
+            }).addDisposableTo(disposeBag)
     }
     
     // MARK: - Utils
