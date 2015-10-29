@@ -14,107 +14,251 @@ import Foundation
 
 import Alamofire
 import RxSwift
-
+import RxCocoa
 
 let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: -1, userInfo: nil)
 
-// MARK: Wrap of global functions
+// MARK: Convenience functions
 
-/**
-    Returns an observalbe of a request using the shared manager instance for the specified URL request.
-    The request is started immediately.
+public func URLRequest(
+    method: Alamofire.Method,
+    _ URLString: URLStringConvertible,
+    parameters: [String: AnyObject]? = nil,
+    encoding: ParameterEncoding = .URL,
+    headers: [String: String]? = nil)
+    throws -> NSMutableURLRequest
+{
+    var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString.URLString)!)
+    mutableURLRequest.HTTPMethod = method.rawValue
 
-    - parameter URLRequest: The URL to create the request
-    - returns: The observalbe of `NSData` for the created request.
-*/
-public func rx_requestData(URLRequest: URLRequestConvertible) -> Observable<(NSHTTPURLResponse, NSData)> {
-    return Manager.sharedInstance.rx_responseData(URLRequest)
+    if let headers = headers {
+        for (headerField, headerValue) in headers {
+            mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerField)
+        }
+    }
+
+    if let parameters = parameters {
+        let encoded = encoding.encode(mutableURLRequest, parameters: parameters)
+        if let error = encoded.1 {
+            throw error
+        }
+        mutableURLRequest = encoded.0
+    }
+
+    return mutableURLRequest
 }
 
-/**
-    Returns an observalbe of a request using the shared manager instance for the specified URL request.
-    The request is started immediately.
+// MARK: NSURLSession extensions
 
-    - parameter URLRequest: The URL to create the request
-    - paramenter ecoding: The string encoding to use
-    - returns: The observalbe of `String` for the created request.
- */
-public func rx_requestString(URLRequest: URLRequestConvertible, encoding: NSStringEncoding? = nil) -> Observable<(NSHTTPURLResponse, String)> {
-    return Manager.sharedInstance.rx_responseString(URLRequest, encoding: encoding)
+extension NSURLSession {
+    public func rx_JSON(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil) -> Observable<AnyObject!> {
+        do {
+            return rx_JSON(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
+        }
+        catch let error {
+            return failWith(error)
+        }
+    }
+
+    public func rx_response(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil) -> Observable<(NSData!, NSURLResponse!)> {
+            do {
+                return rx_response(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
+            }
+            catch let error {
+                return failWith(error)
+            }
+    }
+
+    public func rx_data(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil) -> Observable<NSData> {
+        do {
+            return rx_data(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
+        }
+        catch let error {
+            return failWith(error)
+        }
+    }
 }
 
-/**
-    Returns an observalbe of a request using the shared manager instance for the specified URL request.
-    The request is started immediately.
+// MARK: Request
 
-    - parameter URLRequest: The URL to create the request.
-    - parameter options: The JSON reading options.
-    - returns: The observalbe of `AnyObject` for the created request.
- */
-public func rx_requestJSON(URLRequest: URLRequestConvertible, options: NSJSONReadingOptions = .AllowFragments) -> Observable<(NSHTTPURLResponse, AnyObject)> {
-    return Manager.sharedInstance.rx_responseJSON(URLRequest, options: options)
+public func request(method: Alamofire.Method,
+    _ URLString: URLStringConvertible,
+    parameters: [String: AnyObject]? = nil,
+    encoding: ParameterEncoding = .URL,
+    headers: [String: String]? = nil)
+    -> Observable<Request>
+{
+    return Manager.sharedInstance.rx_request(
+        method,
+        URLString,
+        parameters: parameters,
+        encoding: encoding,
+        headers: headers
+    )
 }
 
+// MARK: data
+
+public func requestData(method: Alamofire.Method,
+    _ URLString: URLStringConvertible,
+    parameters: [String: AnyObject]? = nil,
+    encoding: ParameterEncoding = .URL,
+    headers: [String: String]? = nil)
+    -> Observable<(NSHTTPURLResponse, NSData)>
+{
+    return Manager.sharedInstance.rx_responseData(
+        method,
+        URLString,
+        parameters: parameters,
+        encoding: encoding,
+        headers: headers
+    )
+}
+
+public func data(method: Alamofire.Method,
+    _ URLString: URLStringConvertible,
+    parameters: [String: AnyObject]? = nil,
+    encoding: ParameterEncoding = .URL,
+    headers: [String: String]? = nil)
+    -> Observable<NSData>
+{
+    return Manager.sharedInstance.rx_data(
+        method,
+        URLString,
+        parameters: parameters,
+        encoding: encoding,
+        headers: headers
+    )
+}
+
+// MARK: string
+
+public func requestString(method: Alamofire.Method,
+    _ URLString: URLStringConvertible,
+    parameters: [String: AnyObject]? = nil,
+    encoding: ParameterEncoding = .URL,
+    headers: [String: String]? = nil)
+    -> Observable<(NSHTTPURLResponse, String)>
+{
+    return Manager.sharedInstance.rx_responseString(
+        method,
+        URLString,
+        parameters: parameters,
+        encoding: encoding,
+        headers: headers
+    )
+}
+
+public func string(method: Alamofire.Method,
+    _ URLString: URLStringConvertible,
+    parameters: [String: AnyObject]? = nil,
+    encoding: ParameterEncoding = .URL,
+    headers: [String: String]? = nil)
+    -> Observable<String>
+{
+    return Manager.sharedInstance.rx_string(
+        method,
+        URLString,
+        parameters: parameters,
+        encoding: encoding,
+        headers: headers
+    )
+}
+
+// MARK: JSON
+
+public func requestJSON(method: Alamofire.Method,
+    _ URLString: URLStringConvertible,
+    parameters: [String: AnyObject]? = nil,
+    encoding: ParameterEncoding = .URL,
+    headers: [String: String]? = nil)
+    -> Observable<(NSHTTPURLResponse, AnyObject)>
+{
+    return Manager.sharedInstance.rx_responseJSON(
+        method,
+        URLString,
+        parameters: parameters,
+        encoding: encoding,
+        headers: headers
+    )
+}
+
+public func JSON(method: Alamofire.Method,
+    _ URLString: URLStringConvertible,
+    parameters: [String: AnyObject]? = nil,
+    encoding: ParameterEncoding = .URL,
+    headers: [String: String]? = nil)
+    -> Observable<AnyObject>
+{
+    return Manager.sharedInstance.rx_JSON(
+        method,
+        URLString,
+        parameters: parameters,
+        encoding: encoding,
+        headers: headers
+    )
+}
+
+// MARK: Upload
+
 /**
-    Returns an observalbe of a request using the shared manager instance to upload a specific file to a specified URL.
+    Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
     The request is started immediately.
 
     - parameter URLRequest: The request object to start the upload.
     - paramenter file: An instance of NSURL holding the information of the local file.
-    - returns: The observalbe of `AnyObject` for the created request.
+    - returns: The observable of `AnyObject` for the created request.
  */
-public func rx_upload(URLRequest: URLRequestConvertible, file: NSURL) -> Observable<(NSData?, RxProgress)> {
-    return create() { observer -> Disposable in
-        let request = Manager.sharedInstance.upload(URLRequest, file: file)
-
-        return handleProgress(request, observer: observer)
-    }
+public func upload(URLRequest: URLRequestConvertible, file: NSURL) -> Observable<Request> {
+    return Manager.sharedInstance.rx_upload(URLRequest, file: file)
 }
 
 /**
-    Returns an observalbe of a request using the shared manager instance to upload any data to a specified URL.
+    Returns an observable of a request using the shared manager instance to upload any data to a specified URL.
     The request is started immediately.
 
     - parameter URLRequest: The request object to start the upload.
     - paramenter data: An instance of NSData holdint the data to upload.
-    - returns: The observalbe of `AnyObject` for the created request.
+    - returns: The observable of `AnyObject` for the created request.
  */
-public func rx_upload(URLRequest: URLRequestConvertible, data: NSData) -> Observable<(NSData?, RxProgress)> {
-    return create() { observer -> Disposable in
-        let request = Manager.sharedInstance.upload(URLRequest, data: data)
-        
-        return handleProgress(request, observer: observer)
-    }
+public func upload(URLRequest: URLRequestConvertible, data: NSData) -> Observable<Request> {
+    return Manager.sharedInstance.rx_upload(URLRequest, data: data)
 }
 
 /**
-    Returns an observalbe of a request using the shared manager instance to upload any stream to a specified URL.
+    Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
     The request is started immediately.
 
     - parameter URLRequest: The request object to start the upload.
     - paramenter stream: The stream to upload.
-    - returns: The observalbe of `(NSData?, RxProgress)` for the created upload request.
+    - returns: The observable of `(NSData?, RxProgress)` for the created upload request.
  */
-public func rx_upload(URLRequest: URLRequestConvertible, stream: NSInputStream) -> Observable<(NSData?, RxProgress)> {
-    return create() { observer -> Disposable in
-        let request = Manager.sharedInstance.upload(URLRequest, stream: stream)
-        
-        return handleProgress(request, observer: observer)
-    }
+public func upload(URLRequest: URLRequestConvertible, stream: NSInputStream) -> Observable<Request> {
+    return Manager.sharedInstance.rx_upload(URLRequest, stream: stream)
 }
+
+// MARK: Download
 
 /**
     Creates a download request using the shared manager instance for the specified URL request.
     - parameter URLRequest:  The URL request.
     - parameter destination: The closure used to determine the destination of the downloaded file.
-    - returns: The observalbe of `(NSData?, RxProgress)` for the created download request.
+    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
  */
-public func rx_download(URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Observable<(NSData?, RxProgress)> {
-    return create() { observer -> Disposable in
-        let request = Manager.sharedInstance.download(URLRequest, destination: destination)
-        
-        return handleProgress(request, observer: observer)
-    }
+public func download(URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Observable<Request> {
+    return Manager.sharedInstance.rx_download(URLRequest, destination: destination)
 }
 
 // MARK: Resume Data
@@ -127,176 +271,314 @@ public func rx_download(URLRequest: URLRequestConvertible, destination: Request.
     when a task is cancelled. See `NSURLSession -downloadTaskWithResumeData:` for additional
     information.
     - parameter destination: The closure used to determine the destination of the downloaded file.
-    - returns: The observalbe of `(NSData?, RxProgress)` for the created download request.
+    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
 */
-public func rx_download(resumeData data: NSData, destination: Request.DownloadFileDestination) -> Observable<(NSData?, RxProgress)> {
-    return create() { observer -> Disposable in
-        let request = Manager.sharedInstance.download(data, destination: destination)
-        
-        return handleProgress(request, observer: observer)
-    }
-}
-
-// MARK: Internal convenience
-internal func handleProgress(request: Request, observer: AnyObserver<(NSData?, RxProgress)>) -> Disposable {
-    
-    request.progress() { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-        let p = RxProgress(bytesWritten: bytesWritten,
-            totalBytesWritten: totalBytesWritten,
-            totalBytesExpectedToWrite: totalBytesExpectedToWrite)
-        observer.onNext((nil, p))
-    }
-    
-    request.response() { request, response, data, error in
-        if let e = error {
-            observer.on(.Error(e as ErrorType))
-            return
-        }
-        
-        if let d = data {
-            observer.onNext((d, RxProgress.None))
-            observer.onComplete()
-            return
-        }
-        
-        observer.onError(RxAlamofireUnknownError)
-    }
-    
-    if Manager.sharedInstance.startRequestsImmediately == false {
-        request.resume()
-    }
-    
-    return AnonymousDisposable {
-        request.cancel()
-    }
+public func download(resumeData data: NSData, destination: Request.DownloadFileDestination) -> Observable<Request> {
+    return Manager.sharedInstance.rx_download(resumeData: data, destination: destination)
 }
 
 // MARK: Manager - Extension of Manager
 
 extension Manager {
-    /**
-     Returns an observable of a request using the shared manager instance for the specified URL request.
-     
-     Request is started when observer is subscribed to result observable.
-     
-     - parameter URLRequest: The URL to create the request
-     - returns: The observalbe of `NSData` for the created request.
-     */
-    public func rx_responseData(URLRequest: URLRequestConvertible) -> Observable<(NSHTTPURLResponse, NSData)> {
-        return create() { observer -> Disposable in
-            let req = self.request(URLRequest)
-            
-            req.response() { request, response, data, error in
-                if let d = data, let r = response {
-                    observer.onNext(r, d)
-                    observer.onComplete()
-                    return
-                }
-                
-                if let e = error {
-                    observer.onError(e as ErrorType)
-                    return
-                }
-                
-                observer.onError(RxAlamofireUnknownError)
+
+    // MARK: Generic request convenience
+
+    public func rx_request(createRequest: (Manager) throws -> Request) -> Observable<Request> {
+        return create { observer -> Disposable in
+            let request: Request
+            do {
+                request = try createRequest(self)
             }
-            
-            if self.startRequestsImmediately == false {
-                req.resume()
+            catch let error {
+                observer.on(.Error(error))
+                return NopDisposable.instance
             }
-            
+
+            observer.on(.Next(request))
+
+            // needs to wait for response because sending complete immediatelly will cancel the request
+            request.response { (_, _, _, error) -> Void in
+                if let error = error {
+                    observer.on(.Error(error))
+                }
+                else {
+                    observer.on(.Completed)
+                }
+            }
+
+            if !self.startRequestsImmediately {
+                request.resume()
+            }
+
             return AnonymousDisposable {
-                req.cancel()
+                request.cancel()
             }
         }
     }
-    
-    /**
-     Returns an observalbe of a request using the shared manager instance for the specified URL request.
-     The request is started immediately.
-     
-     - parameter URLRequest: The URL to create the request
-     - paramenter ecoding: The string encoding to use
-     - returns: The observalbe of `String` for the created request.
-     */
-    public func rx_responseString(URLRequest: URLRequestConvertible, encoding: NSStringEncoding? = nil) -> Observable<(NSHTTPURLResponse, String)> {
-        return create() { observer -> Disposable in
-            let req = self.request(URLRequest)
-            
-            req.responseString(encoding: encoding) { responseData in
-                
-                let result = responseData.result
-                let response = responseData.response
-                
-                switch result {
-                case .Success(let d):
-                    if let r = response {
-                        observer.onNext((r, d))
-                        observer.onComplete()
-                    } else {
-                        observer.onError(RxAlamofireUnknownError)
-                    }
-                case .Failure(let e):
-                    observer.onError(e)
-                }
-                
-            }
-            
-            if self.startRequestsImmediately == false {
-                req.resume()
-            }
-            
-            return AnonymousDisposable {
-                req.cancel()
-            }
+
+    public func rx_request(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil
+    )
+        -> Observable<Request>
+    {
+        return rx_request { manager in
+            return manager.request(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
         }
     }
-    
+
+    public func rx_request(URLRequest: URLRequestConvertible)
+        -> Observable<Request>
+    {
+        return rx_request { manager in
+            return manager.request(URLRequest)
+        }
+    }
+
+    // MARK: data
+
+    public func rx_responseData(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil
+    )
+        -> Observable<(NSHTTPURLResponse, NSData)>
+    {
+        return rx_request(
+            method,
+            URLString,
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers
+        ).flatMap { $0.rx_responseData() }
+    }
+
+    public func rx_data(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil
+        )
+        -> Observable<NSData>
+    {
+        return rx_request(
+            method,
+            URLString,
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers
+            ).flatMap { $0.rx_data() }
+    }
+
+    // MARK: string
+
+    public func rx_responseString(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil
+    )
+        -> Observable<(NSHTTPURLResponse, String)>
+    {
+        return rx_request(
+            method,
+            URLString,
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers
+        ).flatMap { $0.rx_responseString() }
+    }
+
+    public func rx_string(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil
+        )
+        -> Observable<String>
+    {
+        return rx_request(
+            method,
+            URLString,
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers
+            ).flatMap { $0.rx_string() }
+    }
+
+    // MARK: JSON
+
+    public func rx_responseJSON(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil
+    )
+        -> Observable<(NSHTTPURLResponse, AnyObject)>
+    {
+        return rx_request(
+            method,
+            URLString,
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers
+        ).flatMap { $0.rx_responseJSON() }
+    }
+
+    public func rx_JSON(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil
+        )
+        -> Observable<AnyObject>
+    {
+        return rx_request(
+            method,
+            URLString,
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers
+            ).flatMap { $0.rx_JSON() }
+    }
+
+    // MARK: Upload
+
     /**
-     Returns an observalbe of a request using the shared manager instance for the specified URL request.
+     Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
      The request is started immediately.
-     
-     - parameter URLRequest: The URL to create the request.
-     - parameter options: The JSON reading options.
-     - returns: The observalbe of `AnyObject` for the created request.
+
+     - parameter URLRequest: The request object to start the upload.
+     - paramenter file: An instance of NSURL holding the information of the local file.
+     - returns: The observable of `AnyObject` for the created request.
      */
-    public func rx_responseJSON(URLRequest: URLRequestConvertible, options: NSJSONReadingOptions = .AllowFragments) -> Observable<(NSHTTPURLResponse, AnyObject)> {
-        return create() { observer -> Disposable in
-            let req = self.request(URLRequest)
-            
-            req.responseJSON(options: options) { responseData in
-                
-                let result = responseData.result
-                let response = responseData.response
-                
-                switch result {
-                case .Success(let d):
-                    if let r = response {
-                        observer.onNext((r, d))
-                        observer.onComplete()
-                    } else {
-                        observer.onError(RxAlamofireUnknownError)
-                    }
-                case .Failure(let e):
-                    observer.onError(e)
-                }
-                
-            }
-            
-            if self.startRequestsImmediately == false {
-                req.resume()
-            }
-            
-            return AnonymousDisposable {
-                req.cancel()
-            }
+    public func rx_upload(URLRequest: URLRequestConvertible, file: NSURL) -> Observable<Request> {
+        return rx_request { manager in
+            return manager.upload(URLRequest, file: file)
+        }
+    }
+
+    /**
+     Returns an observable of a request using the shared manager instance to upload any data to a specified URL.
+     The request is started immediately.
+
+     - parameter URLRequest: The request object to start the upload.
+     - paramenter data: An instance of NSData holdint the data to upload.
+     - returns: The observable of `AnyObject` for the created request.
+     */
+    public func rx_upload(URLRequest: URLRequestConvertible, data: NSData) -> Observable<Request> {
+        return rx_request { manager in
+            return self.upload(URLRequest, data: data)
+        }
+    }
+
+    /**
+     Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
+     The request is started immediately.
+
+     - parameter URLRequest: The request object to start the upload.
+     - paramenter stream: The stream to upload.
+     - returns: The observable of `(NSData?, RxProgress)` for the created upload request.
+     */
+    public func rx_upload(URLRequest: URLRequestConvertible, stream: NSInputStream) -> Observable<Request> {
+        return rx_request { manager in
+            return self.upload(URLRequest, stream: stream)
+        }
+    }
+
+    // MARK: Download
+
+    /**
+     Creates a download request using the shared manager instance for the specified URL request.
+     - parameter URLRequest:  The URL request.
+     - parameter destination: The closure used to determine the destination of the downloaded file.
+     - returns: The observable of `(NSData?, RxProgress)` for the created download request.
+     */
+    public func rx_download(URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Observable<Request> {
+        return rx_request { manager in
+            return self.download(URLRequest, destination: destination)
+        }
+    }
+
+    /**
+    Creates a request using the shared manager instance for downloading from the resume data produced from a
+    previous request cancellation.
+
+    - parameter resumeData:  The resume data. This is an opaque data blob produced by `NSURLSessionDownloadTask`
+    when a task is cancelled. See `NSURLSession -downloadTaskWithResumeData:` for additional
+    information.
+    - parameter destination: The closure used to determine the destination of the downloaded file.
+    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
+    */
+    public func rx_download(resumeData data: NSData, destination: Request.DownloadFileDestination) -> Observable<Request> {
+        return rx_request { manager in
+            return self.download(data, destination: destination)
         }
     }
 }
 
 // MARK: Request - Common Response Handlers
 extension Request {
-    
+
+    // MARK: Defaults
+
+    func rx_validateSuccessfulResponse() -> Request {
+        return self.validate(statusCode: 200 ..< 300)
+    }
+
+    public func rx_responseResult<T: ResponseSerializerType>(
+        queue queue: dispatch_queue_t? = nil,
+        responseSerializer: T)
+        -> Observable<(NSHTTPURLResponse, T.SerializedObject)>
+    {
+        return create { observer in
+            self.response(queue: queue, responseSerializer: responseSerializer) { (packedResponse) -> Void in
+                switch packedResponse.result {
+                case .Success(let result):
+                    if let httpResponse = packedResponse.response {
+                        observer.on(.Next(httpResponse, result))
+                    }
+                    else {
+                        observer.on(.Error(RxAlamofireUnknownError))
+                    }
+                    observer.on(.Completed)
+                case .Failure(let error):
+                    observer.on(.Error(error as ErrorType))
+                }
+            }
+            return NopDisposable.instance
+        }
+    }
+
+    public func rx_result<T: ResponseSerializerType>(
+        queue queue: dispatch_queue_t? = nil,
+        responseSerializer: T)
+        -> Observable<T.SerializedObject>
+    {
+        return create { observer in
+            self
+                .rx_validateSuccessfulResponse()
+                .response(queue: queue, responseSerializer: responseSerializer) { (packedResponse) -> Void in
+                    switch packedResponse.result {
+                    case .Success(let result):
+                        if let _ = packedResponse.response {
+                            observer.on(.Next(result))
+                        }
+                        else {
+                            observer.on(.Error(RxAlamofireUnknownError))
+                        }
+                        observer.on(.Completed)
+                    case .Failure(let error):
+                        observer.on(.Error(error as ErrorType))
+                    }
+                }
+            return NopDisposable.instance
+        }
+    }
+
     /**
     Returns an `Observable` of NSData for the current request.
     
@@ -304,171 +586,68 @@ extension Request {
     
     - returns: An instance of `Observable<NSData>`
     */
-    func rx_response(cancelOnDispose: Bool = false) -> Observable<NSData> {
-        
-        return create { observer -> Disposable in
-            
-            self.response { request, response, data, error in
-                
-                if let e = error as NSError? {
-                    observer.onError(e)
-                } else {
-                    if let d = data {
-                        if 200 ..< 300 ~= response?.statusCode ?? 0 {
-                            observer.onNext(d)
-                            observer.onComplete()
-                        } else {
-                            observer.onError(NSError(domain: "Wrong status code, expected 200 - 206, got \(response?.statusCode ?? -1)",
-                                code: -1,
-                                userInfo: nil))
-                        }
-                    } else {
-                        observer.onError(error ?? NSError(domain: "Empty data received", code: -1, userInfo: nil))
-                    }
-                }
-                
-            }
-            
-            return AnonymousDisposable {
-                if cancelOnDispose {
-                    self.cancel()
-                }
-            }
-            
-        }
+    public func rx_responseData() -> Observable<(NSHTTPURLResponse, NSData)> {
+        return rx_responseResult(responseSerializer: Request.dataResponseSerializer())
     }
-    
+
+    public func rx_data() -> Observable<NSData> {
+        return rx_result(responseSerializer: Request.dataResponseSerializer())
+    }
+
     /**
     Returns an `Observable` of a String for the current request
     
     - parameter encoding:        Type of the string encoding, **default:** `nil`
-    - parameter cancelOnDispose: Indicates if the request has to be canceled when the observer is disposed, **default:** `false`
-    
+
     - returns: An instance of `Observable<String>`
     */
-    func rx_responseString(encoding: NSStringEncoding? = nil, cancelOnDispose: Bool = false) -> Observable<String> {
-        
-        return create { observer -> Disposable in
-            
-            self.responseString(encoding: encoding) { responseData in
-                
-                let result = responseData.result
-                let response = responseData.response
-                
-                switch result {
-                case .Success(let s):
-                    if 200 ..< 300 ~= response?.statusCode ?? 0 {
-                        observer.onNext(s)
-                        observer.onComplete()
-                    } else {
-                        observer.onError(NSError(domain: "Wrong status code, expected 200 - 206, got \(response?.statusCode ?? -1)",
-                            code: -1,
-                            userInfo: nil))
-                    }
-                case .Failure(let e):
-                    observer.onError(e)
-                }
-                
-            }
-            
-            return AnonymousDisposable {
-                if cancelOnDispose {
-                    self.cancel()
-                }
-            }
-            
-        }
-        
+    public func rx_responseString(encoding: NSStringEncoding? = nil) -> Observable<(NSHTTPURLResponse, String)> {
+        return rx_responseResult(responseSerializer: Request.stringResponseSerializer(encoding: encoding))
+    }
+
+    public func rx_string(encoding: NSStringEncoding? = nil) -> Observable<String> {
+        return rx_result(responseSerializer: Request.stringResponseSerializer(encoding: encoding))
     }
     
     /**
     Returns an `Observable` of a deserialized JSON for the current request.
     
     - parameter options:         Reading options for JSON decoding process, **default:** `.AllowFragments`
-    - parameter cancelOnDispose: Indicates if the request has to be canceled when the observer is disposed, **default:** `false`
-    
+
     - returns: An instance of `Observable<AnyObject>`
     */
-    func rx_responseJSON(options: NSJSONReadingOptions = .AllowFragments, cancelOnDispose: Bool = false) -> Observable<AnyObject> {
-        
-        return create { observer in
-            
-            self.responseJSON(options: options) { responseData in
-                
-                let result = responseData.result
-                let response = responseData.response
-                
-                switch result {
-                case .Success(let d):
-                    if 200 ..< 300 ~= response?.statusCode ?? 0 {
-                        observer.onNext(d)
-                        observer.onComplete()
-                    } else {
-                        observer.onError(NSError(domain: "Wrong status code, expected 200 - 206, got \(response?.statusCode ?? -1)",
-                            code: -1,
-                            userInfo: nil))
-                    }
-                case .Failure(let e):
-                    observer.onError(e)
-                }
-                
-            }
-            
-            return AnonymousDisposable {
-                if cancelOnDispose {
-                    self.cancel()
-                }
-            }
-        }
+    public func rx_responseJSON(options: NSJSONReadingOptions = .AllowFragments) -> Observable<(NSHTTPURLResponse, AnyObject)> {
+        return rx_responseResult(responseSerializer: Request.JSONResponseSerializer(options: options))
     }
-    
+
+    /**
+     Returns an `Observable` of a deserialized JSON for the current request.
+
+     - parameter options:         Reading options for JSON decoding process, **default:** `.AllowFragments`
+
+     - returns: An instance of `Observable<AnyObject>`
+     */
+    public func rx_JSON(options: NSJSONReadingOptions = .AllowFragments) -> Observable<AnyObject> {
+        return rx_result(responseSerializer: Request.JSONResponseSerializer(options: options))
+    }
+
     /**
     Returns and `Observable` of a deserialized property list for the current request.
     
     - parameter options:         Property list reading options, **default:** `NSPropertyListReadOptions()`
-    - parameter cancelOnDispose: Indicates if the request has to be canceled when the observer is disposed, **default:** `false`
-    
+
     - returns: An instance of `Observable<AnyData>`
     */
-    func rx_responsePropertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions(), cancelOnDispose: Bool = false) -> Observable<AnyObject> {
-        
-        return create { observer in
-            
-            self.responsePropertyList(options: options) { responseData in
-                
-                let result = responseData.result
-                let response = responseData.response
-                
-                switch result {
-                case .Success(let d):
-                    if 200 ..< 300 ~= response?.statusCode ?? 0 {
-                        observer.onNext(d)
-                        observer.onComplete()
-                    } else {
-                        observer.onError(NSError(domain: "Wrong status code, expected 200 - 206, got \(response?.statusCode ?? -1)",
-                            code: -1,
-                            userInfo: nil))
-                    }
-                case .Failure(let e):
-                    observer.onError(e)
-                }
-                
-            }
-            
-            return AnonymousDisposable {
-                if cancelOnDispose {
-                    self.cancel()
-                }
-            }
-        }
-        
+    public func rx_responsePropertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions()) -> Observable<(NSHTTPURLResponse, AnyObject)> {
+        return rx_responseResult(responseSerializer: Request.propertyListResponseSerializer(options: options))
     }
-    
-}
 
-// MARK: Request - Upload and download progress
-extension Request {
-    
+    public func rx_propertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions()) -> Observable<AnyObject> {
+        return rx_result(responseSerializer: Request.propertyListResponseSerializer(options: options))
+    }
+
+    // MARK: Request - Upload and download progress
+
     /**
     Returns an `Observable` for the current progress status.
     
@@ -480,19 +659,16 @@ extension Request {
     
     - returns: An instance of `Observable<(Int64, Int64, Int64)>`
     */
-    func rx_progress() -> Observable<(Int64, Int64, Int64)> {
-        
+    public func rx_progress() -> Observable<RxProgress> {
         return create { observer in
-            
             self.progress() { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
-                
-                observer.onNext((bytesWritten, totalBytesWritten, totalBytesExpectedToWrite))
-                
+                observer.onNext(RxProgress(bytesWritten: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite))
             }
             
-            return AnonymousDisposable {
-            }
+            return NopDisposable.instance
         }
+            // warm up a bit :)
+            .startWith(RxProgress(bytesWritten: 0, totalBytesWritten: 0, totalBytesExpectedToWrite: 0))
     }
 }
 
@@ -501,17 +677,20 @@ public struct RxProgress {
     let bytesWritten: Int64
     let totalBytesWritten: Int64
     let totalBytesExpectedToWrite: Int64
-    
-    public static let None = RxProgress(bytesWritten: 0, totalBytesWritten: 0, totalBytesExpectedToWrite: 0)
-    
-    init(bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+
+    public init(bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
         self.bytesWritten = bytesWritten
         self.totalBytesWritten = totalBytesWritten
         self.totalBytesExpectedToWrite = totalBytesExpectedToWrite
     }
     
     public func floatValue() -> Float {
-        return Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+        if totalBytesExpectedToWrite > 0 {
+            return Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+        }
+        else {
+            return 0
+        }
     }
 }
 

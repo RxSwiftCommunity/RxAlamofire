@@ -26,7 +26,7 @@
         <!--Basic-->
         <scene sceneID="y0A-Z6-cPe">
             <objects>
-                <viewController id="0hF-X2-3MG" customClass="MasterViewController" customModule="RxAlamofire" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0hF-X2-3MG" customClass="MasterViewController" customModule="RxAlamofireExample" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="6et-XK-7L2"/>
                         <viewControllerLayoutGuide type="bottom" id="tWo-hp-Wxy"/>
