@@ -219,7 +219,7 @@ public func JSON(method: Alamofire.Method,
 
     - parameter URLRequest: The request object to start the upload.
     - paramenter file: An instance of NSURL holding the information of the local file.
-    - returns: The observable of `AnyObject` for the created request.
+    - returns: The observable of `Request` for the created request.
  */
 public func upload(URLRequest: URLRequestConvertible, file: NSURL) -> Observable<Request> {
     return Manager.sharedInstance.rx_upload(URLRequest, file: file)
@@ -231,7 +231,7 @@ public func upload(URLRequest: URLRequestConvertible, file: NSURL) -> Observable
 
     - parameter URLRequest: The request object to start the upload.
     - paramenter data: An instance of NSData holdint the data to upload.
-    - returns: The observable of `AnyObject` for the created request.
+    - returns: The observable of `Request` for the created request.
  */
 public func upload(URLRequest: URLRequestConvertible, data: NSData) -> Observable<Request> {
     return Manager.sharedInstance.rx_upload(URLRequest, data: data)
@@ -243,7 +243,7 @@ public func upload(URLRequest: URLRequestConvertible, data: NSData) -> Observabl
 
     - parameter URLRequest: The request object to start the upload.
     - paramenter stream: The stream to upload.
-    - returns: The observable of `(NSData?, RxProgress)` for the created upload request.
+    - returns: The observable of `Request` for the created upload request.
  */
 public func upload(URLRequest: URLRequestConvertible, stream: NSInputStream) -> Observable<Request> {
     return Manager.sharedInstance.rx_upload(URLRequest, stream: stream)
@@ -255,7 +255,7 @@ public func upload(URLRequest: URLRequestConvertible, stream: NSInputStream) -> 
     Creates a download request using the shared manager instance for the specified URL request.
     - parameter URLRequest:  The URL request.
     - parameter destination: The closure used to determine the destination of the downloaded file.
-    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
+    - returns: The observable of `Request` for the created download request.
  */
 public func download(URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Observable<Request> {
     return Manager.sharedInstance.rx_download(URLRequest, destination: destination)
@@ -271,7 +271,7 @@ public func download(URLRequest: URLRequestConvertible, destination: Request.Dow
     when a task is cancelled. See `NSURLSession -downloadTaskWithResumeData:` for additional
     information.
     - parameter destination: The closure used to determine the destination of the downloaded file.
-    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
+    - returns: The observable of `Request` for the created download request.
 */
 public func download(resumeData data: NSData, destination: Request.DownloadFileDestination) -> Observable<Request> {
     return Manager.sharedInstance.rx_download(resumeData: data, destination: destination)
@@ -695,6 +695,7 @@ public struct RxProgress {
 }
 
 // MARK: Response Code
+/*
 enum RxResponse: Int {
     case OK = 200
     case Created = 201
@@ -719,3 +720,4 @@ enum RxResponse: Int {
     
     case Unknown = 0
 }
+*/
