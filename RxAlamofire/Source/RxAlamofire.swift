@@ -5,7 +5,7 @@
 //  Created by Junior B. (@bontojr) on 23/08/15.
 //  Developed with the kind help of Krunoslav Zaher (@KrunoslavZaher)
 //
-//  Updated by Ivan Đikić for the latest version of Alamofire(3) and RxSwift(2) on 21/10/15
+//  Updated by Ivan Đikić for the latest version of Alamofire(3) and RxSwift(2, beta-2) on 03/11/15
 //
 //  Copyright © 2015 Bonto.ch. All rights reserved.
 //
@@ -36,7 +36,7 @@ extension Request {
                     if let d = data {
                         if 200 ..< 300 ~= response?.statusCode ?? 0 {
                             observer.onNext(d)
-                            observer.onComplete()
+                            observer.onCompleted()
                         } else {
                             observer.onError(NSError(domain: "Wrong status code, expected 200 - 206, got \(response?.statusCode ?? -1)",
                                 code: -1,
@@ -79,7 +79,7 @@ extension Request {
                 case .Success(let s):
                     if 200 ..< 300 ~= response?.statusCode ?? 0 {
                         observer.onNext(s)
-                        observer.onComplete()
+                        observer.onCompleted()
                     } else {
                         observer.onError(NSError(domain: "Wrong status code, expected 200 - 206, got \(response?.statusCode ?? -1)",
                             code: -1,
@@ -122,7 +122,7 @@ extension Request {
                 case .Success(let d):
                     if 200 ..< 300 ~= response?.statusCode ?? 0 {
                         observer.onNext(d)
-                        observer.onComplete()
+                        observer.onCompleted()
                     } else {
                         observer.onError(NSError(domain: "Wrong status code, expected 200 - 206, got \(response?.statusCode ?? -1)",
                             code: -1,
@@ -163,7 +163,7 @@ extension Request {
                 case .Success(let d):
                     if 200 ..< 300 ~= response?.statusCode ?? 0 {
                         observer.onNext(d)
-                        observer.onComplete()
+                        observer.onCompleted()
                     } else {
                         observer.onError(NSError(domain: "Wrong status code, expected 200 - 206, got \(response?.statusCode ?? -1)",
                             code: -1,
