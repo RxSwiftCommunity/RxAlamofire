@@ -1,10 +1,10 @@
 PODS:
-  - Alamofire (3.0.1)
-  - RxBlocking (2.0.0-beta.1):
+  - Alamofire (3.1.1)
+  - RxBlocking (2.0.0-beta.2):
     - RxSwift (~> 2.0.0-beta)
-  - RxCocoa (2.0.0-beta.1):
+  - RxCocoa (2.0.0-beta.2):
     - RxSwift (~> 2.0.0-beta)
-  - RxSwift (2.0.0-beta.1)
+  - RxSwift (2.0.0-beta.2)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
@@ -13,9 +13,9 @@ DEPENDENCIES:
   - RxSwift (~> 2.0.0-beta)
 
 SPEC CHECKSUMS:
-  Alamofire: 2457e1b2e6c46bb05c3a598c542b7bfd08893775
-  RxBlocking: db06b6f8ea08b35b8b5bcd325389f73af3e94716
-  RxCocoa: a3c35a39c3b4e8175f271bd3a28be8ca52f97c93
-  RxSwift: a9b0f4d876eac130cda0ae2f3fba627be3baf3ef
+  Alamofire: 9b0a7188b961a03914a99304488bd226b0e46c0e
+  RxBlocking: ffb518856fb7712dcef7e18406ccb8c2854b3104
+  RxCocoa: ee39aa3ab24a8dde3832669f8e1e2c7652925e0c
+  RxSwift: 795720c22352cf1f62669ef3695b5df7e195103b
 
 COCOAPODS: 0.39.0.beta.5
