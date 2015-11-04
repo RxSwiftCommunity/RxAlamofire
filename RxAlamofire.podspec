@@ -10,15 +10,16 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
 
-  s.source_files = 'RxAlamofire/Source/RxAlamofire.swift'
+  s.source_files = 'RxAlamofire/Source/*.swift'
 
   s.requires_arc = true
 
   s.dependency "RxSwift", "~> 2.0.0-beta"
   s.dependency "Alamofire", "~> 3.0"
 
-  s.subspec "Cocoa" do |ss|
-    ss.source_files = "Source/RxSwift/NSURLSession+RxAlamofire.swift"
-    ss.dependency "RxCocoa", "~> 2.0.0-beta"
-  end
+  # s.subspec "Cocoa" do |ss|
+  #   ss.source_files = "RxAlamofire/Source/Cocoa/*.swift"
+  #   ss.dependency "RxCocoa", "~> 2.0.0-beta"
+  # end
+  
 end
