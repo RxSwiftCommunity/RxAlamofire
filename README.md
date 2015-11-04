@@ -36,41 +36,6 @@ if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!
 }
 ```
 
-Composing two requests is also a simple task:
-
-```swift
-let postObservable = Alamofire.request(Method.GET, dummyPostURLString).rx_responseJSON()
-let commentsObservable = Alamofire.request(Method.GET, dummyCommentsURLString).rx_responseJSON()
-self.dummyDataTextView.text = "Loading..."
-zip(postObservable, commentsObservable) { postJSON, commentsJSON in
-        return (postJSON, commentsJSON)
-    }.observeOn(MainScheduler.sharedInstance).subscribe(next: { postJSON, commentsJSON in
-        
-        let postInfo = NSMutableString()
-        if let postDict = postJSON as? [String: AnyObject], let commentsArray = commentsJSON as? Array<[String: AnyObject]> {
-            postInfo.appendString("Title: ")
-            postInfo.appendString(postDict["title"] as! String)
-            postInfo.appendString("\n\n")
-            postInfo.appendString(postDict["body"] as! String)
-            postInfo.appendString("\n\n\nComments:\n")
-            for comment in commentsArray {
-                postInfo.appendString(comment["email"] as! String)
-                postInfo.appendString(": ")
-                postInfo.appendString(comment["body"] as! String)
-                postInfo.appendString("\n\n")
-            }
-        }
-        
-        self.dummyDataTextView.text = String(postInfo)
-    }, error:{ e in
-        self.dummyDataTextView.text = "An Error Occurred"
-        self.displayError(e as NSError)
-    })
-
-```
-
-The previous code will update `dummyDataTextView` only when the 2 requests are completed, if one of them fails, the error will be prompted.
-
 ## Example Usages
 
 Currently, the library features the following extensions:
