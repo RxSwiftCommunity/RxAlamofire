@@ -17,13 +17,13 @@
 		C89A9DDB1BE235F7005113E4 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C89A9DD71BE235F7005113E4 /* Alamofire.framework */; };
 		C89A9DDD1BE235F7005113E4 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C89A9DD91BE235F7005113E4 /* RxCocoa.framework */; };
 		C89A9DDE1BE235F7005113E4 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C89A9DDA1BE235F7005113E4 /* RxSwift.framework */; };
-		C89A9DE01BE238AA005113E4 /* RxAlamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C89A0D2B1BE0D50E00744695 /* RxAlamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		CB40E3F61B89C59F00D1DB5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40E3F51B89C59F00D1DB5A /* AppDelegate.swift */; };
 		CB40E3F81B89C59F00D1DB5A /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40E3F71B89C59F00D1DB5A /* MasterViewController.swift */; };
 		CB40E3FD1B89C59F00D1DB5A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB40E3FB1B89C59F00D1DB5A /* Main.storyboard */; };
 		CB40E3FF1B89C59F00D1DB5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CB40E3FE1B89C59F00D1DB5A /* Assets.xcassets */; };
 		CB40E4021B89C59F00D1DB5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB40E4001B89C59F00D1DB5A /* LaunchScreen.storyboard */; };
 		CB40E40D1B89C59F00D1DB5A /* RxAlamofireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40E40C1B89C59F00D1DB5A /* RxAlamofireTests.swift */; };
+		CBBAD1641BE8FCE2005C1196 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40E4181B89C6AF00D1DB5A /* RxAlamofire.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				C89A9DE01BE238AA005113E4 /* RxAlamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +382,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB40E3F81B89C59F00D1DB5A /* MasterViewController.swift in Sources */,
+				CBBAD1641BE8FCE2005C1196 /* RxAlamofire.swift in Sources */,
 				CB40E3F61B89C59F00D1DB5A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

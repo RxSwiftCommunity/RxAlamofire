@@ -16,10 +16,21 @@ import Alamofire
 import RxSwift
 import RxCocoa
 
-let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: -1, userInfo: nil)
+/// Default instance of unknown error
+public let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: -1, userInfo: nil)
 
 // MARK: Convenience functions
 
+/**
+    Creates a NSMutableURLRequest using all necessary parameters.
+    
+    - parameter method: Alamofire method object
+    - parameter URLString: An object adopting `URLStringConvertible`
+    - parameter parameters: A dictionary containing all necessary options
+    - parameter encoding: The kind of encoding used to process parameters
+    - parameter header: A dictionary containing all the addional headers
+    - returns: An instance of `NSMutableURLRequest`
+*/
 public func URLRequest(
     method: Alamofire.Method,
     _ URLString: URLStringConvertible,
@@ -51,6 +62,18 @@ public func URLRequest(
 // MARK: NSURLSession extensions
 
 extension NSURLSession {
+    
+    /**
+     Creates an observable returning a decoded JSON object as `AnyObject`.
+     
+     - parameter method: Alamofire method object
+     - parameter URLString: An object adopting `URLStringConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of a decoded JSON object as `AnyObject`
+     */
     public func rx_JSON(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -64,6 +87,17 @@ extension NSURLSession {
         }
     }
 
+    /**
+     Creates an observable returning a tuple of `(NSData!, NSURLResponse!)`.
+     
+     - parameter method: Alamofire method object
+     - parameter URLString: An object adopting `URLStringConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of a tuple containing data and the request
+     */
     public func rx_response(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -76,7 +110,18 @@ extension NSURLSession {
                 return failWith(error)
             }
     }
-
+    
+    /**
+     Creates an observable of response's content as `NSData`.
+     
+     - parameter method: Alamofire method object
+     - parameter URLString: An object adopting `URLStringConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of a data
+     */
     public func rx_data(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -93,6 +138,17 @@ extension NSURLSession {
 
 // MARK: Request
 
+/**
+Creates an observable of the generated `Request`.
+
+- parameter method: Alamofire method object
+- parameter URLString: An object adopting `URLStringConvertible`
+- parameter parameters: A dictionary containing all necessary options
+- parameter encoding: The kind of encoding used to process parameters
+- parameter header: A dictionary containing all the addional headers
+
+- returns: An observable of a the `Request`
+*/
 public func request(method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
@@ -111,6 +167,17 @@ public func request(method: Alamofire.Method,
 
 // MARK: data
 
+/**
+Creates an observable of the `(NSHTTPURLResponse, NSData)` instance.
+
+- parameter method: Alamofire method object
+- parameter URLString: An object adopting `URLStringConvertible`
+- parameter parameters: A dictionary containing all necessary options
+- parameter encoding: The kind of encoding used to process parameters
+- parameter header: A dictionary containing all the addional headers
+
+- returns: An observable of a tuple containing `(NSHTTPURLResponse, NSData)`
+*/
 public func requestData(method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
@@ -127,6 +194,17 @@ public func requestData(method: Alamofire.Method,
     )
 }
 
+/**
+ Creates an observable of the returned data.
+ 
+ - parameter method: Alamofire method object
+ - parameter URLString: An object adopting `URLStringConvertible`
+ - parameter parameters: A dictionary containing all necessary options
+ - parameter encoding: The kind of encoding used to process parameters
+ - parameter header: A dictionary containing all the addional headers
+ 
+ - returns: An observable of `NSData`
+ */
 public func data(method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
@@ -145,6 +223,17 @@ public func data(method: Alamofire.Method,
 
 // MARK: string
 
+/**
+Creates an observable of the returned decoded string and response.
+
+- parameter method: Alamofire method object
+- parameter URLString: An object adopting `URLStringConvertible`
+- parameter parameters: A dictionary containing all necessary options
+- parameter encoding: The kind of encoding used to process parameters
+- parameter header: A dictionary containing all the addional headers
+
+- returns: An observable of the tuple `(NSHTTPURLResponse, String)`
+*/
 public func requestString(method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
@@ -161,6 +250,17 @@ public func requestString(method: Alamofire.Method,
     )
 }
 
+/**
+ Creates an observable of the returned decoded string.
+ 
+ - parameter method: Alamofire method object
+ - parameter URLString: An object adopting `URLStringConvertible`
+ - parameter parameters: A dictionary containing all necessary options
+ - parameter encoding: The kind of encoding used to process parameters
+ - parameter header: A dictionary containing all the addional headers
+ 
+ - returns: An observable of `String`
+ */
 public func string(method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
@@ -179,6 +279,17 @@ public func string(method: Alamofire.Method,
 
 // MARK: JSON
 
+/**
+Creates an observable of the returned decoded JSON as `AnyObject` and the response.
+
+- parameter method: Alamofire method object
+- parameter URLString: An object adopting `URLStringConvertible`
+- parameter parameters: A dictionary containing all necessary options
+- parameter encoding: The kind of encoding used to process parameters
+- parameter header: A dictionary containing all the addional headers
+
+- returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
+*/
 public func requestJSON(method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
@@ -195,6 +306,17 @@ public func requestJSON(method: Alamofire.Method,
     )
 }
 
+/**
+ Creates an observable of the returned decoded JSON.
+ 
+ - parameter method: Alamofire method object
+ - parameter URLString: An object adopting `URLStringConvertible`
+ - parameter parameters: A dictionary containing all necessary options
+ - parameter encoding: The kind of encoding used to process parameters
+ - parameter header: A dictionary containing all the addional headers
+ 
+ - returns: An observable of the decoded JSON as `AnyObject`
+ */
 public func JSON(method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
@@ -282,7 +404,14 @@ public func download(resumeData data: NSData, destination: Request.DownloadFileD
 extension Manager {
 
     // MARK: Generic request convenience
-
+    
+    /**
+    Creates an observable of the returned decoded JSON.
+    
+    - parameter createRequest: A function used to create a `Request` using a `Manager`
+    
+    - returns: A generic observable of created request
+    */
     public func rx_request(createRequest: (Manager) throws -> Request) -> Observable<Request> {
         return create { observer -> Disposable in
             let request: Request
@@ -299,9 +428,8 @@ extension Manager {
             // needs to wait for response because sending complete immediatelly will cancel the request
             request.response { (_, _, _, error) -> Void in
                 if let error = error {
-                    observer.on(.Error(error))
-                }
-                else {
+                    observer.on(.Error(error as ErrorType))
+                } else {
                     observer.on(.Completed)
                 }
             }
@@ -316,6 +444,17 @@ extension Manager {
         }
     }
 
+    /**
+     Creates an observable of the `Request`.
+     
+     - parameter method: Alamofire method object
+     - parameter URLString: An object adopting `URLStringConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of the `Request`
+     */
     public func rx_request(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -329,6 +468,16 @@ extension Manager {
         }
     }
 
+    /**
+     Creates an observable of the `Request`.
+     
+     - parameter URLRequest: An object adopting `URLRequestConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of the `Request`
+     */
     public func rx_request(URLRequest: URLRequestConvertible)
         -> Observable<Request>
     {
@@ -338,7 +487,17 @@ extension Manager {
     }
 
     // MARK: data
-
+    
+    /**
+    Creates an observable of the data.
+    
+    - parameter URLRequest: An object adopting `URLRequestConvertible`
+    - parameter parameters: A dictionary containing all necessary options
+    - parameter encoding: The kind of encoding used to process parameters
+    - parameter header: A dictionary containing all the addional headers
+    
+    - returns: An observable of the tuple `(NSHTTPURLResponse, NSData)`
+    */
     public func rx_responseData(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -355,7 +514,17 @@ extension Manager {
             headers: headers
         ).flatMap { $0.rx_responseData() }
     }
-
+    
+    /**
+     Creates an observable of the data.
+     
+     - parameter URLRequest: An object adopting `URLRequestConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of `NSData`
+     */
     public func rx_data(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -375,6 +544,16 @@ extension Manager {
 
     // MARK: string
 
+    /**
+    Creates an observable of the tuple `(NSHTTPURLResponse, String)`.
+    
+    - parameter URLRequest: An object adopting `URLRequestConvertible`
+    - parameter parameters: A dictionary containing all necessary options
+    - parameter encoding: The kind of encoding used to process parameters
+    - parameter header: A dictionary containing all the addional headers
+    
+    - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
+    */
     public func rx_responseString(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -392,6 +571,16 @@ extension Manager {
         ).flatMap { $0.rx_responseString() }
     }
 
+    /**
+     Creates an observable of the data encoded as String.
+     
+     - parameter URLRequest: An object adopting `URLRequestConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of `String`
+     */
     public func rx_string(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -411,6 +600,16 @@ extension Manager {
 
     // MARK: JSON
 
+    /**
+    Creates an observable of the data decoded from JSON and processed as tuple `(NSHTTPURLResponse, AnyObject)`.
+    
+    - parameter URLRequest: An object adopting `URLRequestConvertible`
+    - parameter parameters: A dictionary containing all necessary options
+    - parameter encoding: The kind of encoding used to process parameters
+    - parameter header: A dictionary containing all the addional headers
+    
+    - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
+    */
     public func rx_responseJSON(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -428,6 +627,16 @@ extension Manager {
         ).flatMap { $0.rx_responseJSON() }
     }
 
+    /**
+     Creates an observable of the data decoded from JSON and processed as `AnyObject`.
+     
+     - parameter URLRequest: An object adopting `URLRequestConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of `AnyObject`
+     */
     public func rx_JSON(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
@@ -504,7 +713,7 @@ extension Manager {
     }
 
     /**
-    Creates a request using the shared manager instance for downloading from the resume data produced from a
+    Creates a request using the shared manager instance for downloading with a resume data produced from a
     previous request cancellation.
 
     - parameter resumeData:  The resume data. This is an opaque data blob produced by `NSURLSessionDownloadTask`
@@ -524,11 +733,19 @@ extension Manager {
 extension Request {
 
     // MARK: Defaults
-
+    
+    /// - returns: A validated request based on the status code
     func rx_validateSuccessfulResponse() -> Request {
         return self.validate(statusCode: 200 ..< 300)
     }
-
+    
+    /**
+     Transform a request into an observable of the response and serialized object.
+     
+     - parameter queue: The dispatch queue to use.
+     - parameter responseSerializer: The the serializer.
+     - returns: The observable of `(NSHTTPURLResponse, T.SerializedObject)` for the created download request.
+     */
     public func rx_responseResult<T: ResponseSerializerType>(
         queue queue: dispatch_queue_t? = nil,
         responseSerializer: T)
@@ -553,6 +770,13 @@ extension Request {
         }
     }
 
+    /**
+     Transform a request into an observable of the serialized object.
+     
+     - parameter queue: The dispatch queue to use.
+     - parameter responseSerializer: The the serializer.
+     - returns: The observable of `T.SerializedObject` for the created download request.
+     */
     public func rx_result<T: ResponseSerializerType>(
         queue queue: dispatch_queue_t? = nil,
         responseSerializer: T)
@@ -597,7 +821,7 @@ extension Request {
     /**
     Returns an `Observable` of a String for the current request
     
-    - parameter encoding:        Type of the string encoding, **default:** `nil`
+    - parameter encoding: Type of the string encoding, **default:** `nil`
 
     - returns: An instance of `Observable<String>`
     */
@@ -610,9 +834,9 @@ extension Request {
     }
     
     /**
-    Returns an `Observable` of a deserialized JSON for the current request.
+    Returns an `Observable` of a serialized JSON for the current request.
     
-    - parameter options:         Reading options for JSON decoding process, **default:** `.AllowFragments`
+    - parameter options: Reading options for JSON decoding process, **default:** `.AllowFragments`
 
     - returns: An instance of `Observable<AnyObject>`
     */
@@ -621,9 +845,9 @@ extension Request {
     }
 
     /**
-     Returns an `Observable` of a deserialized JSON for the current request.
+     Returns an `Observable` of a serialized JSON for the current request.
 
-     - parameter options:         Reading options for JSON decoding process, **default:** `.AllowFragments`
+     - parameter options: Reading options for JSON decoding process, **default:** `.AllowFragments`
 
      - returns: An instance of `Observable<AnyObject>`
      */
@@ -632,9 +856,9 @@ extension Request {
     }
 
     /**
-    Returns and `Observable` of a deserialized property list for the current request.
+    Returns and `Observable` of a serialized property list for the current request.
     
-    - parameter options:         Property list reading options, **default:** `NSPropertyListReadOptions()`
+    - parameter options: Property list reading options, **default:** `NSPropertyListReadOptions()`
 
     - returns: An instance of `Observable<AnyData>`
     */

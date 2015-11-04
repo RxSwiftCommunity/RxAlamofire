@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import RxSwift
-import RxAlamofire
 
 class MasterViewController: UIViewController, UITextFieldDelegate {
     
@@ -46,7 +45,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
         formatter.currencyCode = "USD"
         if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!) {
 
-            RxAlamofire.requestJSON(Method.GET, sourceStringURL)
+            requestJSON(Method.GET, sourceStringURL)
                 .observeOn(MainScheduler.sharedInstance)
                 .debug()
                 .subscribe(onNext: { (r, json) -> Void in
@@ -68,153 +67,156 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
     }
 
 
-    func exampleUsages() {
-        // MARK: NSURLSession simple and fast
-        let session = NSURLSession.sharedSession()
-
-        _ = session
-            .rx_JSON(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        _ = session
-            .rx_data(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // MARK: With Alamofire engine
-
-        _ = RxAlamofire.JSON(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        _ = RxAlamofire.request(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .flatMap {
-                $0
-                    .validate(statusCode: 200 ..< 300)
-                    .validate(contentType: ["text/json"])
-                    .rx_JSON()
-            }
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // progress
-        _ = RxAlamofire.request(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .flatMap {
-                $0
-                    .validate(statusCode: 200 ..< 300)
-                    .validate(contentType: ["text/json"])
-                    .rx_progress()
-            }
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // just fire upload and display progress
-        _ = RxAlamofire.upload(try! URLRequest(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD"), data: NSData())
-            .flatMap {
-                $0
-                    .validate(statusCode: 200 ..< 300)
-                    .validate(contentType: ["text/json"])
-                    .rx_progress()
-            }
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // progress and final result
-        // uploading files with progress showing is processing intensive operation anyway, so
-        // this doesn't add much overhead
-        _ = RxAlamofire.request(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .flatMap { request -> Observable<(NSData?, RxProgress)> in
-                let validatedRequest = request
-                    .validate(statusCode: 200 ..< 300)
-                    .validate(contentType: ["text/json"])
-
-                let dataPart = validatedRequest
-                    .rx_data()
-                    .map { d -> NSData? in d }
-                    .startWith(nil as NSData?)
-                let progressPart = validatedRequest.rx_progress()
-                return combineLatest(dataPart, progressPart) { ($0, $1) }
-            }
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-
-        // MARK: Alamofire manager
-        // same methods with with any alamofire manager
-
-        let manager = Manager.sharedInstance
-
-        // simple case
-        _ = manager.rx_JSON(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-
-        // NSURLHTTPResponse + JSON
-        _ = manager.rx_responseJSON(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // NSURLHTTPResponse + String
-        _ = manager.rx_responseString(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // NSURLHTTPResponse + Validation + String
-        _ = manager.rx_request(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .flatMap {
-                $0
-                    .validate(statusCode: 200 ..< 300)
-                    .validate(contentType: ["text/json"])
-                    .rx_string()
-            }
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String
-        _ = manager.rx_request(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .flatMap {
-                $0
-                    .validate(statusCode: 200 ..< 300)
-                    .validate(contentType: ["text/json"])
-                    .rx_responseString()
-            }
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String + Progress
-        _ = manager.rx_request(.GET, "http://api.fixer.io/latest?base=EUR&symbols=USD")
-            .flatMap { request -> Observable<(String?, RxProgress)> in
-                let validatedRequest = request
-                    .validate(statusCode: 200 ..< 300)
-                    .validate(contentType: ["text/something"])
-
-                let stringPart = validatedRequest
-                    .rx_string()
-                    .map { d -> String? in d }
-                    .startWith(nil as String?)
-                let progressPart = validatedRequest.rx_progress()
-                return combineLatest(stringPart, progressPart) { ($0, $1) }
-            }
-            .observeOn(MainScheduler.sharedInstance)
-            .subscribe { print($0) }
-
-        // MARK: wrapping of some request that isn't explicitly wrapped
-
-        _ = manager.rx_request { manager in
-            return manager.request(try URLRequest(.GET, "wonderland"))
+func exampleUsages() {
+    
+    let stringURL = ""
+    // MARK: NSURLSession simple and fast
+    let session = NSURLSession.sharedSession()
+    
+    _ = session
+        .rx_JSON(.GET, stringURL)
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    _ = session
+        .rx_data(.GET, stringURL)
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // MARK: With Alamofire engine
+    
+    _ = JSON(.GET, stringURL)
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    _ = request(.GET, stringURL)
+        .flatMap {
+            $0
+                .validate(statusCode: 200 ..< 300)
+                .validate(contentType: ["text/json"])
+                .rx_JSON()
+        }
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // progress
+    _ = request(.GET, stringURL)
+        .flatMap {
+            $0
+                .validate(statusCode: 200 ..< 300)
+                .validate(contentType: ["text/json"])
+                .rx_progress()
+        }
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // just fire upload and display progress
+    _ = upload(try! URLRequest(.GET, stringURL), data: NSData())
+        .flatMap {
+            $0
+                .validate(statusCode: 200 ..< 300)
+                .validate(contentType: ["text/json"])
+                .rx_progress()
+        }
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // progress and final result
+    // uploading files with progress showing is processing intensive operation anyway, so
+    // this doesn't add much overhead
+    _ = request(.GET, stringURL)
+        .flatMap { request -> Observable<(NSData?, RxProgress)> in
+            let validatedRequest = request
+                .validate(statusCode: 200 ..< 300)
+                .validate(contentType: ["text/json"])
+            
+            let dataPart = validatedRequest
+                .rx_data()
+                .map { d -> NSData? in d }
+                .startWith(nil as NSData?)
+            let progressPart = validatedRequest.rx_progress()
+            return combineLatest(dataPart, progressPart) { ($0, $1) }
+        }
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    
+    // MARK: Alamofire manager
+    // same methods with with any alamofire manager
+    
+    let manager = Manager.sharedInstance
+    
+    // simple case
+    _ = manager.rx_JSON(.GET, stringURL)
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    
+    // NSURLHTTPResponse + JSON
+    _ = manager.rx_responseJSON(.GET, stringURL)
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // NSURLHTTPResponse + String
+    _ = manager.rx_responseString(.GET, stringURL)
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // NSURLHTTPResponse + Validation + String
+    _ = manager.rx_request(.GET, stringURL)
+        .flatMap {
+            $0
+                .validate(statusCode: 200 ..< 300)
+                .validate(contentType: ["text/json"])
+                .rx_string()
+        }
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String
+    _ = manager.rx_request(.GET, stringURL)
+        .flatMap {
+            $0
+                .validate(statusCode: 200 ..< 300)
+                .validate(contentType: ["text/json"])
+                .rx_responseString()
+        }
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String + Progress
+    _ = manager.rx_request(.GET, stringURL)
+        .flatMap { request -> Observable<(String?, RxProgress)> in
+            let validatedRequest = request
+                .validate(statusCode: 200 ..< 300)
+                .validate(contentType: ["text/something"])
+            
+            let stringPart = validatedRequest
+                .rx_string()
+                .map { d -> String? in d }
+                .startWith(nil as String?)
+            let progressPart = validatedRequest.rx_progress()
+            return combineLatest(stringPart, progressPart) { ($0, $1) }
+        }
+        .observeOn(MainScheduler.sharedInstance)
+        .subscribe { print($0) }
+    
+    // MARK: wrapping of some request that isn't explicitly wrapped
+    
+    _ = manager.rx_request { manager in
+        return manager.request(try URLRequest(.GET, "wonderland"))
         }.flatMap { request in
             return request.rx_responseString()
-        }
     }
+    
+}
 
     @IBAction func getDummyDataPressed(sender: UIButton) {
         let dummyPostURLString = "http://jsonplaceholder.typicode.com/posts/1"
         let dummyCommentsURLString = "http://jsonplaceholder.typicode.com/posts/1/comments"
 
-        let postObservable = RxAlamofire.JSON(Method.GET, dummyPostURLString)
-        let commentsObservable = RxAlamofire.JSON(Method.GET, dummyCommentsURLString)
+        let postObservable = JSON(Method.GET, dummyPostURLString)
+        let commentsObservable = JSON(Method.GET, dummyCommentsURLString)
         self.dummyDataTextView.text = "Loading..."
         zip(postObservable, commentsObservable) { postJSON, commentsJSON in
                 return (postJSON, commentsJSON)
