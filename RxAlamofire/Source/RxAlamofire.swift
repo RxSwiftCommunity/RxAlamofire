@@ -6,6 +6,7 @@
 //  Developed with the kind help of Krunoslav Zaher (@KrunoslavZaher)
 //
 //  Updated by Ivan Đikić for the latest version of Alamofire(3) and RxSwift(2) on 21/10/15
+//  Updated by Krunoslav Zaher to better wrap Alamofire (3) on 1/10/15
 //
 //  Copyright © 2015 Bonto.ch. All rights reserved.
 //
