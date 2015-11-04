@@ -24,6 +24,8 @@
 		CB40E4021B89C59F00D1DB5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CB40E4001B89C59F00D1DB5A /* LaunchScreen.storyboard */; };
 		CB40E40D1B89C59F00D1DB5A /* RxAlamofireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40E40C1B89C59F00D1DB5A /* RxAlamofireTests.swift */; };
 		CBBAD1641BE8FCE2005C1196 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB40E4181B89C6AF00D1DB5A /* RxAlamofire.swift */; };
+		CBBAD1671BEA174C005C1196 /* NSURLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAD1661BEA174C005C1196 /* NSURLSession+RxAlamofire.swift */; };
+		CBBAD1681BEA174C005C1196 /* NSURLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBBAD1661BEA174C005C1196 /* NSURLSession+RxAlamofire.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,7 @@
 		CB40E40C1B89C59F00D1DB5A /* RxAlamofireTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxAlamofireTests.swift; sourceTree = "<group>"; };
 		CB40E40E1B89C59F00D1DB5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CB40E4181B89C6AF00D1DB5A /* RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxAlamofire.swift; sourceTree = "<group>"; };
+		CBBAD1661BEA174C005C1196 /* NSURLSession+RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+RxAlamofire.swift"; sourceTree = "<group>"; };
 		D54CDD85419EBF089E0C5733 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -208,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				CB40E4181B89C6AF00D1DB5A /* RxAlamofire.swift */,
+				CBBAD1661BEA174C005C1196 /* NSURLSession+RxAlamofire.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -373,6 +377,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBBAD1681BEA174C005C1196 /* NSURLSession+RxAlamofire.swift in Sources */,
 				C89A0D381BE0D53200744695 /* RxAlamofire.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,6 +388,7 @@
 			files = (
 				CB40E3F81B89C59F00D1DB5A /* MasterViewController.swift in Sources */,
 				CBBAD1641BE8FCE2005C1196 /* RxAlamofire.swift in Sources */,
+				CBBAD1671BEA174C005C1196 /* NSURLSession+RxAlamofire.swift in Sources */,
 				CB40E3F61B89C59F00D1DB5A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
