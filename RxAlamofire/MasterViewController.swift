@@ -9,6 +9,7 @@
 import UIKit
 import Alamofire
 import RxSwift
+import RxAlamofire
 
 class MasterViewController: UIViewController, UITextFieldDelegate {
     
@@ -45,7 +46,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
         formatter.currencyCode = "USD"
         if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!) {
 
-            requestJSON(Method.GET, sourceStringURL)
+            RxAlamofire.requestJSON(Method.GET, sourceStringURL)
                 .observeOn(MainScheduler.sharedInstance)
                 .debug()
                 .subscribe(onNext: { (r, json) -> Void in

@@ -7,30 +7,39 @@
 //
 
 import XCTest
-@testable import RxAlamofire
+import RxSwift
+import RxCocoa
+import Alamofire
+import OHHTTPStubs
+import RxAlamofire
 
-class RxAlamofireTests: XCTestCase {
+private struct Dummy {
+    static let ErrorStringURL = "http://test.com/error"
+    static let JSONStringURL = "http://test.com/test.json"
+    static let JSONRequest = NSURLRequest(URL: NSURL(string: JSONStringURL )!)
+    static let JSONPath = NSBundle(forClass: RxAlamofireSpec.self).pathForResource("test", ofType: "json")!
+    static let DataStringURL = "http://test.com/test.json"
+    static let DataStringRequest = NSURLRequest(URL: NSURL(string: DataStringURL)!)
+    static let DataStringContent = "Hello World"
+    static let DataStringData = DataStringContent.dataUsingEncoding(NSUTF8StringEncoding)!
+}
+
+class RxAlamofireSpec: XCTestCase {
     
+    var manager: Manager!
+    
+    let testError = NSError(domain: "RxAlamofire Test Error", code: -1, userInfo: nil)
+    let disposeBag = DisposeBag()
+    
+    //MARK: Configuration
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        manager = Manager(configuration: .defaultSessionConfiguration())
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        OHHTTPStubs.removeAllStubs()
         super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock {
-            // Put the code you want to measure the time of here.
-        }
     }
     
 }

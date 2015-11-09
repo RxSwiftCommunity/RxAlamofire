@@ -1,5 +1,20 @@
 PODS:
   - Alamofire (3.1.0)
+  - Nimble (3.0.0)
+  - OHHTTPStubs (4.6.0):
+    - OHHTTPStubs/Default (= 4.6.0)
+  - OHHTTPStubs/Core (4.6.0)
+  - OHHTTPStubs/Default (4.6.0):
+    - OHHTTPStubs/Core
+    - OHHTTPStubs/JSON
+    - OHHTTPStubs/NSURLSession
+    - OHHTTPStubs/OHPathHelpers
+  - OHHTTPStubs/JSON (4.6.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/NSURLSession (4.6.0):
+    - OHHTTPStubs/Core
+  - OHHTTPStubs/OHPathHelpers (4.6.0)
+  - Quick (0.8.0)
   - RxBlocking (2.0.0-beta.1):
     - RxSwift (~> 2.0.0-beta)
   - RxCocoa (2.0.0-beta.1):
@@ -8,12 +23,18 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
+  - Nimble
+  - OHHTTPStubs
+  - Quick
   - RxBlocking (~> 2.0.0-beta)
   - RxCocoa (~> 2.0.0-beta)
   - RxSwift (~> 2.0.0-beta)
 
 SPEC CHECKSUMS:
   Alamofire: 415bd7f56197722978759078486689f7ef913dce
+  Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
+  OHHTTPStubs: cb1aefbbeb4de4e741644455d4b945538e5248a2
+  Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
   RxBlocking: db06b6f8ea08b35b8b5bcd325389f73af3e94716
   RxCocoa: a3c35a39c3b4e8175f271bd3a28be8ca52f97c93
   RxSwift: a9b0f4d876eac130cda0ae2f3fba627be3baf3ef
