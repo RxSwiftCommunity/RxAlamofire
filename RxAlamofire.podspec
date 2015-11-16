@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'RxAlamofire'
-  s.version = '0.3.1'
+  s.version = '0.3.2'
   s.license = 'MIT'
   s.summary = 'RxSwift wrapper around the elegant HTTP networking in Swift Alamofire'
   s.homepage = 'https://github.com/bontoJR/RxAlamofire'
