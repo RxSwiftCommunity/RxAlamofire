@@ -41,7 +41,7 @@ extension NSURLSession {
     }
     
     /**
-     Creates an observable returning a tuple of `(NSData!, NSURLResponse!)`.
+     Creates an observable returning a tuple of `(NSData!, NSURLResponse)`.
      
      - parameter method: Alamofire method object
      - parameter URLString: An object adopting `URLStringConvertible`
@@ -51,18 +51,21 @@ extension NSURLSession {
      
      - returns: An observable of a tuple containing data and the request
      */
+    
+    /*
     public func rx_response(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
-        headers: [String: String]? = nil) -> Observable<(NSData!, NSURLResponse!)> {
+        headers: [String: String]? = nil) -> Observable<(NSData!, NSURLResponse)> {
             do {
-                return rx_response(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
+                let request = try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers) as NSURLRequest
+                return rx_response(request: request)
             }
             catch let error {
                 return failWith(error)
             }
-    }
+    }*/
     
     /**
      Creates an observable of response's content as `NSData`.
