@@ -32,12 +32,7 @@ extension NSURLSession {
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
         headers: [String: String]? = nil) -> Observable<AnyObject!> {
-            do {
-                return rx_JSON(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
-            }
-            catch let error {
-                return failWith(error)
-            }
+            return rx_JSON(method, URLString, parameters: parameters, encoding: encoding, headers: headers)
     }
     
     /**
@@ -87,7 +82,7 @@ extension NSURLSession {
                 return rx_data(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
             }
             catch let error {
-                return failWith(error)
+                return Observable.error(error)
             }
     }
 }
