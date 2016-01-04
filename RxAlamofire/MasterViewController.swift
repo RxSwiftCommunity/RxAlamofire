@@ -47,7 +47,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
         if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!) {
 
             RxAlamofire.requestJSON(Method.GET, sourceStringURL)
-                .observeOn(MainScheduler.sharedInstance)
+                .observeOn(MainScheduler.instance)
                 .debug()
                 .subscribe(onNext: { (r, json) -> Void in
                         if let dict = json as? [String: AnyObject] {
@@ -76,18 +76,18 @@ func exampleUsages() {
     
     _ = session
         .rx_JSON(.GET, stringURL)
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     _ = session
         .rx_data(.GET, stringURL)
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // MARK: With Alamofire engine
     
     _ = JSON(.GET, stringURL)
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     _ = request(.GET, stringURL)
@@ -97,7 +97,7 @@ func exampleUsages() {
                 .validate(contentType: ["text/json"])
                 .rx_JSON()
         }
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // progress
@@ -108,7 +108,7 @@ func exampleUsages() {
                 .validate(contentType: ["text/json"])
                 .rx_progress()
         }
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // just fire upload and display progress
@@ -119,7 +119,7 @@ func exampleUsages() {
                 .validate(contentType: ["text/json"])
                 .rx_progress()
         }
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // progress and final result
@@ -136,9 +136,9 @@ func exampleUsages() {
                 .map { d -> NSData? in d }
                 .startWith(nil as NSData?)
             let progressPart = validatedRequest.rx_progress()
-            return combineLatest(dataPart, progressPart) { ($0, $1) }
+            return Observable.combineLatest(dataPart, progressPart) { ($0, $1) }
         }
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     
@@ -149,18 +149,18 @@ func exampleUsages() {
     
     // simple case
     _ = manager.rx_JSON(.GET, stringURL)
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     
     // NSURLHTTPResponse + JSON
     _ = manager.rx_responseJSON(.GET, stringURL)
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + String
     _ = manager.rx_responseString(.GET, stringURL)
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + String
@@ -171,7 +171,7 @@ func exampleUsages() {
                 .validate(contentType: ["text/json"])
                 .rx_string()
         }
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String
@@ -182,7 +182,7 @@ func exampleUsages() {
                 .validate(contentType: ["text/json"])
                 .rx_responseString()
         }
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String + Progress
@@ -197,9 +197,9 @@ func exampleUsages() {
                 .map { d -> String? in d }
                 .startWith(nil as String?)
             let progressPart = validatedRequest.rx_progress()
-            return combineLatest(stringPart, progressPart) { ($0, $1) }
+            return Observable.combineLatest(stringPart, progressPart) { ($0, $1) }
         }
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // MARK: wrapping of some request that isn't explicitly wrapped
@@ -219,10 +219,10 @@ func exampleUsages() {
         let postObservable = JSON(Method.GET, dummyPostURLString)
         let commentsObservable = JSON(Method.GET, dummyCommentsURLString)
         self.dummyDataTextView.text = "Loading..."
-        zip(postObservable, commentsObservable) { postJSON, commentsJSON in
+        Observable.zip(postObservable, commentsObservable) { postJSON, commentsJSON in
                 return (postJSON, commentsJSON)
             }
-            .observeOn(MainScheduler.sharedInstance)
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { postJSON, commentsJSON in
                 
                 let postInfo = NSMutableString()
