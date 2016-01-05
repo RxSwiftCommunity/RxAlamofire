@@ -219,8 +219,7 @@ func exampleUsages() {
         let postObservable = JSON(Method.GET, dummyPostURLString)
         let commentsObservable = JSON(Method.GET, dummyCommentsURLString)
         self.dummyDataTextView.text = "Loading..."
-        Observable
-            .zip(postObservable, commentsObservable) { postJSON, commentsJSON in
+        Observable.zip(postObservable, commentsObservable) { postJSON, commentsJSON in
                 return (postJSON, commentsJSON)
             }
             .observeOn(MainScheduler.instance)
