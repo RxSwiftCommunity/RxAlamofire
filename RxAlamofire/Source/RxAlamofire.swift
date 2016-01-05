@@ -336,7 +336,7 @@ extension Manager {
     - returns: A generic observable of created request
     */
     public func rx_request(createRequest: (Manager) throws -> Request) -> Observable<Request> {
-        return create { observer -> Disposable in
+        return Observable.create { observer -> Disposable in
             let request: Request
             do {
                 request = try createRequest(self)
@@ -674,7 +674,7 @@ extension Request {
         responseSerializer: T)
         -> Observable<(NSHTTPURLResponse, T.SerializedObject)>
     {
-        return create { observer in
+        return Observable.create { observer in
             self.response(queue: queue, responseSerializer: responseSerializer) { (packedResponse) -> Void in
                 switch packedResponse.result {
                 case .Success(let result):
@@ -705,7 +705,7 @@ extension Request {
         responseSerializer: T)
         -> Observable<T.SerializedObject>
     {
-        return create { observer in
+        return Observable.create { observer in
             self
                 .rx_validateSuccessfulResponse()
                 .response(queue: queue, responseSerializer: responseSerializer) { (packedResponse) -> Void in
@@ -807,7 +807,7 @@ extension Request {
     - returns: An instance of `Observable<(Int64, Int64, Int64)>`
     */
     public func rx_progress() -> Observable<RxProgress> {
-        return create { observer in
+        return Observable.create { observer in
             self.progress() { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
                 observer.onNext(RxProgress(bytesWritten: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite))
             }
