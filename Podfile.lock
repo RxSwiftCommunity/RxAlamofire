@@ -26,9 +26,9 @@ DEPENDENCIES:
   - Nimble
   - OHHTTPStubs
   - Quick
-  - RxBlocking (~> 2.0.0-beta)
-  - RxCocoa (~> 2.0.0-beta)
-  - RxSwift (~> 2.0.0-beta)
+  - RxBlocking (~> 2.0)
+  - RxCocoa (~> 2.0)
+  - RxSwift (~> 2.0)
 
 SPEC CHECKSUMS:
   Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
