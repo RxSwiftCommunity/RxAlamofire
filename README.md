@@ -187,7 +187,7 @@ _ = manager.rx_request { manager in
 
 There are two ways to install RxAlamofire
 
-### Cocoapods
+### CocoaPods
 
 Just add to your project's `Podfile`:
 
