@@ -15,28 +15,28 @@ PODS:
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (4.7.0)
   - Quick (0.8.0)
-  - RxBlocking (2.0.0):
+  - RxBlocking (2.1.0):
     - RxSwift (~> 2.0)
-  - RxCocoa (2.0.0):
+  - RxCocoa (2.1.0):
     - RxSwift (~> 2.0)
-  - RxSwift (2.0.0)
+  - RxSwift (2.1.0)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0)
+  - Alamofire (~> 3.1)
   - Nimble
   - OHHTTPStubs
   - Quick
-  - RxBlocking (~> 2.0)
-  - RxCocoa (~> 2.0)
-  - RxSwift (~> 2.0)
+  - RxBlocking (~> 2.1)
+  - RxCocoa (~> 2.1)
+  - RxSwift (~> 2.1)
 
 SPEC CHECKSUMS:
   Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   OHHTTPStubs: d2bf6a0f407620d67e75a1d3f12d86a2b1dd15c0
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
-  RxBlocking: a95a10ed54eb5d116f6c9a87047ff671e181d07b
-  RxCocoa: b0ebd70b4f7450bdb3c8987b122f8fd568dc1e2f
-  RxSwift: d83246efa6f16c50c143bec134649d045498f601
+  RxBlocking: fa297def258d85c5beae9ed507f94645260b3747
+  RxCocoa: 79b5feb8378545336e756a0a33fcf5e95050b71c
+  RxSwift: 110fb07f81c17c2c3b3254d168363057b1880d18
 
 COCOAPODS: 0.39.0
