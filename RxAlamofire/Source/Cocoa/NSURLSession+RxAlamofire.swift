@@ -31,15 +31,16 @@ extension NSURLSession {
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
-        headers: [String: String]? = nil) -> Observable<AnyObject!> {
+        headers: [String: String]? = nil) -> Observable<AnyObject> {
             do {
-                return rx_JSON(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
+                let request = try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers) as NSURLRequest
+                return rx_JSON(request)
             }
             catch let error {
-                return failWith(error)
+                return Observable.error(error)
             }
     }
-    
+
     /**
      Creates an observable returning a tuple of `(NSData!, NSURLResponse)`.
      
@@ -51,22 +52,20 @@ extension NSURLSession {
      
      - returns: An observable of a tuple containing data and the request
      */
-    
-    /*
     public func rx_response(method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
-        headers: [String: String]? = nil) -> Observable<(NSData!, NSURLResponse)> {
+        headers: [String: String]? = nil) -> Observable<(NSData, NSHTTPURLResponse)> {
             do {
                 let request = try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers) as NSURLRequest
-                return rx_response(request: request)
+                return rx_response(request)
             }
             catch let error {
-                return failWith(error)
+                return Observable.error(error)
             }
-    }*/
-    
+    }
+
     /**
      Creates an observable of response's content as `NSData`.
      
@@ -87,7 +86,7 @@ extension NSURLSession {
                 return rx_data(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
             }
             catch let error {
-                return failWith(error)
+                return Observable.error(error)
             }
     }
 }

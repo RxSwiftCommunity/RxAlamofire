@@ -16,7 +16,7 @@ formatter.currencyCode = "USD"
 if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!) {
 
     requestJSON(Method.GET, sourceStringURL)
-        .observeOn(MainScheduler.sharedInstance)
+        .observeOn(MainScheduler.instance)
         .debug()
         .subscribe(onNext: { (r, json) -> Void in
                 if let dict = json as? [String: AnyObject] {
@@ -48,18 +48,18 @@ let session = NSURLSession.sharedSession()
 
 _ = session
     .rx_JSON(.GET, stringURL)
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 _ = session
     .rx_data(.GET, stringURL)
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // MARK: With Alamofire engine
 
 _ = JSON(.GET, stringURL)
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 _ = request(.GET, stringURL)
@@ -69,7 +69,7 @@ _ = request(.GET, stringURL)
             .validate(contentType: ["text/json"])
             .rx_JSON()
     }
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // progress
@@ -80,7 +80,7 @@ _ = request(.GET, stringURL)
             .validate(contentType: ["text/json"])
             .rx_progress()
     }
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // just fire upload and display progress
@@ -91,7 +91,7 @@ _ = upload(try! URLRequest(.GET, stringURL), data: NSData())
             .validate(contentType: ["text/json"])
             .rx_progress()
     }
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // progress and final result
@@ -110,7 +110,7 @@ _ = request(.GET, stringURL)
         let progressPart = validatedRequest.rx_progress()
         return combineLatest(dataPart, progressPart) { ($0, $1) }
     }
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 
@@ -121,18 +121,18 @@ let manager = Manager.sharedInstance
 
 // simple case
 _ = manager.rx_JSON(.GET, stringURL)
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 
 // NSURLHTTPResponse + JSON
 _ = manager.rx_responseJSON(.GET, stringURL)
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // NSURLHTTPResponse + String
 _ = manager.rx_responseString(.GET, stringURL)
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // NSURLHTTPResponse + Validation + String
@@ -143,7 +143,7 @@ _ = manager.rx_request(.GET, stringURL)
             .validate(contentType: ["text/json"])
             .rx_string()
     }
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String
@@ -154,7 +154,7 @@ _ = manager.rx_request(.GET, stringURL)
             .validate(contentType: ["text/json"])
             .rx_responseString()
     }
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String + Progress
@@ -171,7 +171,7 @@ _ = manager.rx_request(.GET, stringURL)
         let progressPart = validatedRequest.rx_progress()
         return combineLatest(stringPart, progressPart) { ($0, $1) }
     }
-    .observeOn(MainScheduler.sharedInstance)
+    .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // MARK: wrapping of some request that isn't explicitly wrapped
@@ -187,7 +187,7 @@ _ = manager.rx_request { manager in
 
 There are two ways to install RxAlamofire
 
-### Cocoapods
+### CocoaPods
 
 Just add to your project's `Podfile`:
 

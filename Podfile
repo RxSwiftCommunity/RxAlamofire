@@ -3,11 +3,10 @@ platform :ios, '8.0'
 
 use_frameworks!
 
-pod 'Alamofire', '~> 3.0'
-pod 'RxSwift', '~> 2.0.0-beta'
-pod 'RxCocoa', '~> 2.0.0-beta'
-pod 'RxBlocking', '~> 2.0.0-beta'
-
+pod 'Alamofire', '~> 3.1'
+pod 'RxSwift', '~> 2.1'
+pod 'RxCocoa', '~> 2.1'
+pod 'RxBlocking', '~> 2.1'
 
 target 'RxAlamofireTests' do
   pod 'Quick'
