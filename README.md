@@ -195,6 +195,14 @@ Just add to your project's `Podfile`:
 pod 'RxAlamofire'
 ```
 
+### Carthage
+
+Add following to `Cartfile`:
+
+```
+github "RxSwiftCommunity/RxAlamofire" "master"
+```
+
 ### Manually
 
 To manual install this extension you should get the `RxAlamofire/Source/RxAlamofire.swift` imported into your project, alongside RxSwift and Alamofire.
