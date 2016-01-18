@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (3.1.4)
+  - Alamofire (3.1.5)
   - Nimble (3.0.0)
   - OHHTTPStubs (4.7.0):
     - OHHTTPStubs/Default (= 4.7.0)
@@ -31,7 +31,7 @@ DEPENDENCIES:
   - RxSwift (~> 2.1)
 
 SPEC CHECKSUMS:
-  Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
+  Alamofire: 5f730ba29fd113b7ddd71c1e65d0c630acf5d7b0
   Nimble: 4c353d43735b38b545cbb4cb91504588eb5de926
   OHHTTPStubs: d2bf6a0f407620d67e75a1d3f12d86a2b1dd15c0
   Quick: 563d0f6ec5f72e394645adb377708639b7dd38ab
