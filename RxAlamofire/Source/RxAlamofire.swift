@@ -650,6 +650,54 @@ extension Manager {
             return self.download(data, destination: destination)
         }
     }
+    
+    //MARK: Stream
+    
+    /**
+    Creates a request for streaming
+    
+    - parameter URLRequest: An object adopting `URLRequestConvertible`
+    - parameter parameters: A dictionary containing all necessary options
+    - parameter encoding: The kind of encoding used to process parameters
+    - parameter header: A dictionary containing all the addional headers
+    
+    - returns: An observable of `NSData`
+    */
+    public func rx_stream(method: Alamofire.Method,
+        _ URLString: URLStringConvertible,
+        parameters: [String: AnyObject]? = nil,
+        encoding: ParameterEncoding = .URL,
+        headers: [String: String]? = nil
+        )
+        -> Observable<NSData>
+    {
+        return rx_request(
+            method,
+            URLString,
+            parameters: parameters,
+            encoding: encoding,
+            headers: headers
+            ).flatMap { $0.rx_stream() }
+    }
+    
+    /**
+     Creates a request for streaming
+     
+     - parameter URLRequest: An object adopting `URLRequestConvertible`
+     - parameter parameters: A dictionary containing all necessary options
+     - parameter encoding: The kind of encoding used to process parameters
+     - parameter header: A dictionary containing all the addional headers
+     
+     - returns: An observable of `NSData`
+     */
+    public func rx_stream(URLRequest: URLRequestConvertible) -> Observable<NSData> {
+        
+        return rx_request { manager in
+            
+            return self.request(URLRequest)
+            
+        }.flatMap { $0.rx_stream() }
+    }
 }
 
 // MARK: Request - Common Response Handlers
@@ -792,7 +840,80 @@ extension Request {
     public func rx_propertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions()) -> Observable<AnyObject> {
         return rx_result(responseSerializer: Request.propertyListResponseSerializer(options: options))
     }
-
+    
+    public enum StreamResponse {
+        
+        case Response(response:NSHTTPURLResponse)
+        case Data(data:NSData)
+    }
+    
+    public enum StreamError:ErrorType {
+        
+        case NoResponse
+    }
+    
+    public func rx_streamResponse() -> Observable<StreamResponse> {
+        
+        return Observable.create { observer in
+            
+            self.rx_validateSuccessfulResponse()
+                .stream { data in
+                    
+                    observer.on(.Next(.Data(data:data)))
+                }
+                .response { (_, response, _, error) -> Void in
+                    
+                    if let error = error {
+                        
+                        observer.on(.Error(error))
+                    }
+                    
+                    if let response = response {
+                        
+                        observer.on(.Next(.Response(response:response)))
+                        observer.on(.Completed)
+                    }
+                    else {
+                        
+                        observer.on(.Error(StreamError.NoResponse))
+                    }
+            }
+            
+            return AnonymousDisposable {
+                
+                self.cancel()
+            }
+        }
+    }
+    
+    public func rx_stream() -> Observable<NSData> {
+        
+        return Observable.create { observer in
+            
+            self.rx_validateSuccessfulResponse()
+            .stream { data in
+                
+                observer.on(.Next(data))
+            }
+            .response { (_, _, _, error) -> Void in
+            
+                if let error = error {
+                    
+                    observer.on(.Error(error))
+                }
+                else {
+                    
+                    observer.on(.Completed)
+                }
+            }
+            
+            return AnonymousDisposable {
+                
+                self.cancel()
+            }
+        }
+    }
+    
     // MARK: Request - Upload and download progress
 
     /**
