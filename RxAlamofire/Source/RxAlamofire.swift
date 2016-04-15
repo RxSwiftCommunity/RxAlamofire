@@ -812,7 +812,7 @@ extension Request {
                 
                 observer.onNext(RxProgress(bytesWritten: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite))
                 
-                if totalBytesWritten == totalBytesExpectedToWrite {
+                if totalBytesWritten >= totalBytesExpectedToWrite {
                     observer.onCompleted()
                 }
 
