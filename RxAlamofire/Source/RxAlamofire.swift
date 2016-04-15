@@ -809,13 +809,19 @@ extension Request {
     public func rx_progress() -> Observable<RxProgress> {
         return Observable.create { observer in
             self.progress() { bytesWritten, totalBytesWritten, totalBytesExpectedToWrite in
+                
                 observer.onNext(RxProgress(bytesWritten: bytesWritten, totalBytesWritten: totalBytesWritten, totalBytesExpectedToWrite: totalBytesExpectedToWrite))
+                
+                if totalBytesWritten >= totalBytesExpectedToWrite {
+                    observer.onCompleted()
+                }
+
             }
             
             return NopDisposable.instance
         }
-            // warm up a bit :)
-            .startWith(RxProgress(bytesWritten: 0, totalBytesWritten: 0, totalBytesExpectedToWrite: 0))
+        // warm up a bit :)
+        .startWith(RxProgress(bytesWritten: 0, totalBytesWritten: 0, totalBytesExpectedToWrite: 0))
     }
 }
 
