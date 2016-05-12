@@ -402,7 +402,6 @@
 				181B4FF31C4D74A8000BA6D6 /* Frameworks */,
 				181B4FF41C4D74A8000BA6D6 /* Headers */,
 				181B4FF51C4D74A8000BA6D6 /* Resources */,
-				181B50011C4D74FC000BA6D6 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -638,22 +637,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RxAlamofireExample-RxAlamofireTests/Pods-RxAlamofireExample-RxAlamofireTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		181B50011C4D74FC000BA6D6 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		408DAD04CF7ECEEDE7AED4E4 /* Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
