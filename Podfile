@@ -24,3 +24,7 @@ target 'RxAlamofiretvOSExample' do
     platform :tvos, '9.0'
     common
 end
+
+target 'RxAlamofire-iOS' do
+   common
+end
