@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (3.4.0)
-  - Nimble (4.0.1)
   - OHHTTPStubs (5.0.0):
     - OHHTTPStubs/Default (= 5.0.0)
   - OHHTTPStubs/Core (5.0.0)
@@ -14,7 +13,8 @@ PODS:
   - OHHTTPStubs/NSURLSession (5.0.0):
     - OHHTTPStubs/Core
   - OHHTTPStubs/OHPathHelpers (5.0.0)
-  - Quick (0.9.2)
+  - OHHTTPStubs/Swift (5.0.0):
+    - OHHTTPStubs/Core
   - RxBlocking (2.4):
     - RxSwift (~> 2.4)
   - RxCocoa (2.4):
@@ -23,22 +23,19 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
-  - Nimble
   - OHHTTPStubs
-  - Quick
-  - RxBlocking (~> 2.4)
+  - OHHTTPStubs/Swift
+  - RxBlocking
   - RxCocoa (~> 2.4)
   - RxSwift (~> 2.4)
 
 SPEC CHECKSUMS:
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
-  Nimble: 0f3c8b8b084cda391209c3c5efbb48bedeeb920a
   OHHTTPStubs: a5d2e9eea07869d42ec03338325f398bc520e159
-  Quick: 18d057bc66451eedd5d1c8dc99ba2a5db6e60226
   RxBlocking: 1226c1fa0ca1e0ca5f964d4330ca3649f2128680
   RxCocoa: 7d6cd877de99f5640306b3d6cf87f580c1d91b61
   RxSwift: 67b9ef4e8b34fb394e200e754c6a09cc16559f94
 
-PODFILE CHECKSUM: 6a9bb9caa582af0e62147098608274983fe2d1c9
+PODFILE CHECKSUM: 47307a47dfaf50ac084b7699f90b85190ec47ba1
 
 COCOAPODS: 1.0.0

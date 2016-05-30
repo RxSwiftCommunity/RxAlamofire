@@ -9,19 +9,17 @@
 import XCTest
 import RxSwift
 import RxCocoa
+import RxBlocking
 import Alamofire
 import OHHTTPStubs
 import RxAlamofire
 
 private struct Dummy {
-    static let ErrorStringURL = "http://test.com/error"
-    static let JSONStringURL = "http://test.com/test.json"
-    static let JSONRequest = NSURLRequest(URL: NSURL(string: JSONStringURL )!)
-    static let JSONPath = NSBundle(forClass: RxAlamofireSpec.self).pathForResource("test", ofType: "json")!
-    static let DataStringURL = "http://test.com/test.json"
-    static let DataStringRequest = NSURLRequest(URL: NSURL(string: DataStringURL)!)
     static let DataStringContent = "Hello World"
     static let DataStringData = DataStringContent.dataUsingEncoding(NSUTF8StringEncoding)!
+    static let DataJSONContent = "{\"hello\":\"world\", \"foo\":\"bar\", \"zero\": 0}"
+    static let DataJSON = DataJSONContent.dataUsingEncoding(NSUTF8StringEncoding)!
+    static let GithubURL = "http://github.com/RxSwiftCommunity"
 }
 
 class RxAlamofireSpec: XCTestCase {
@@ -35,11 +33,37 @@ class RxAlamofireSpec: XCTestCase {
     override func setUp() {
         super.setUp()
         manager = Manager(configuration: .defaultSessionConfiguration())
+        
+        stub(isHost("mywebservice.com")) { _ in
+            return OHHTTPStubsResponse(data: Dummy.DataStringData, statusCode:200, headers:nil)
+        }
+        
+        stub(isHost("myjsondata.com")) { _ in
+            return OHHTTPStubsResponse(data: Dummy.DataJSON, statusCode:200, headers:["Content-Type":"application/json"])
+        }
     }
     
     override func tearDown() {
-        OHHTTPStubs.removeAllStubs()
         super.tearDown()
+        OHHTTPStubs.removeAllStubs()
     }
     
+    //MARK: Tests
+    func testBasicRequest() {
+        if let (result, string) = try! requestString(Method.GET, "http://mywebservice.com").toBlocking().first() {
+            XCTAssertEqual(result.statusCode, 200)
+            XCTAssertEqual(string, Dummy.DataStringContent)
+        } else {
+            XCTFail("Basic Request Failed")
+        }
+    }
+    
+    func testJSONRequest() {
+        if let (result, json) = try! requestJSON(Method.GET, "http://myjsondata.com").toBlocking().first() {
+            XCTAssertEqual(result.statusCode, 200)
+            XCTAssertEqual(json["hello"], "world")
+        } else {
+            XCTFail("Basic Request Failed")
+        }
+    }
 }
