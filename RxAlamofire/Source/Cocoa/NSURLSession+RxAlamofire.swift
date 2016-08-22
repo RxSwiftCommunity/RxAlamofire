@@ -14,7 +14,7 @@ import RxCocoa
 
 // MARK: NSURLSession extensions
 
-extension NSURLSession {
+extension Reactive where Base: URLSession {
     
     /**
      Creates an observable returning a decoded JSON object as `AnyObject`.
@@ -27,14 +27,18 @@ extension NSURLSession {
      
      - returns: An observable of a decoded JSON object as `AnyObject`
      */
-    public func rx_JSON(method: Alamofire.Method,
+    public func JSON(_ method: Alamofire.HTTPMethod,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
-        encoding: ParameterEncoding = .URL,
+        encoding: ParameterEncoding = .url,
         headers: [String: String]? = nil) -> Observable<AnyObject> {
             do {
-                let request = try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers) as NSURLRequest
-                return rx_JSON(request)
+                let request = try RxAlamofire.URLRequest(method,
+                                                         URLString,
+                                                         parameters: parameters,
+                                                         encoding: encoding,
+                                                         headers: headers)
+                return JSON(request)
             }
             catch let error {
                 return Observable.error(error)
@@ -52,14 +56,18 @@ extension NSURLSession {
      
      - returns: An observable of a tuple containing data and the request
      */
-    public func rx_response(method: Alamofire.Method,
+    public func response(method: Alamofire.HTTPMethod,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
-        encoding: ParameterEncoding = .URL,
-        headers: [String: String]? = nil) -> Observable<(NSData, NSHTTPURLResponse)> {
+        encoding: ParameterEncoding = .url,
+        headers: [String: String]? = nil) -> Observable<(Data, HTTPURLResponse)> {
             do {
-                let request = try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers) as NSURLRequest
-                return rx_response(request)
+                let request = try RxAlamofire.URLRequest(method,
+                                                         URLString,
+                                                         parameters: parameters,
+                                                         encoding: encoding,
+                                                         headers: headers)
+                return response(request)
             }
             catch let error {
                 return Observable.error(error)
@@ -77,13 +85,18 @@ extension NSURLSession {
      
      - returns: An observable of a data
      */
-    public func rx_data(method: Alamofire.Method,
+    public func data(_ method: Alamofire.HTTPMethod,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
-        encoding: ParameterEncoding = .URL,
-        headers: [String: String]? = nil) -> Observable<NSData> {
+        encoding: ParameterEncoding = .url,
+        headers: [String: String]? = nil) -> Observable<Data> {
             do {
-                return rx_data(try URLRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
+                let request = try RxAlamofire.URLRequest(method,
+                                                         URLString,
+                                                         parameters: parameters,
+                                                         encoding: encoding,
+                                                         headers: headers)
+                return data(request)
             }
             catch let error {
                 return Observable.error(error)
