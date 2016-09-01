@@ -21,11 +21,14 @@ end
 target 'RxAlamofire-iOS' do
    common
 
-   target 'RxAlamofireTests' do
-       pod 'OHHTTPStubs', :git => 'https://github.com/AliSoftware/OHHTTPStubs.git', :branch => 'swift-3.0'
-       pod 'OHHTTPStubs/Swift', :git => 'https://github.com/AliSoftware/OHHTTPStubs.git', :branch => 'swift-3.0'
-       pod 'RxBlocking', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '3.0.0.alpha.1'
-   end
+
+end
+
+target 'RxAlamofireTests' do
+    common
+    pod 'OHHTTPStubs', :git => 'https://github.com/AliSoftware/OHHTTPStubs.git', :branch => 'swift-3.0'
+    pod 'OHHTTPStubs/Swift', :git => 'https://github.com/AliSoftware/OHHTTPStubs.git', :branch => 'swift-3.0'
+    pod 'RxBlocking', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '3.0.0.alpha.1'
 end
 
 target 'RxAlamofire-tvOS' do
