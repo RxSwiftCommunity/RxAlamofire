@@ -3,9 +3,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 def common
-    pod 'Alamofire', '~> 3.4'
-    pod 'RxSwift', '~> 2.4'
-    pod 'RxCocoa', '~> 2.4'
+    pod 'Alamofire', :branch => 'swift3'
+    pod 'RxSwift',    '~> 3.0.0.alpha.1'
+    pod 'RxCocoa',    '~> 3.0.0.alpha.1'
 end
 
 target 'RxAlamofireExample' do

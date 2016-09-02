@@ -16,9 +16,9 @@ import RxAlamofire
 
 private struct Dummy {
     static let DataStringContent = "Hello World"
-    static let DataStringData = DataStringContent.dataUsingEncoding(NSUTF8StringEncoding)!
+    static let DataStringData = DataStringContent.data(using: String.Encoding.utf8)!
     static let DataJSONContent = "{\"hello\":\"world\", \"foo\":\"bar\", \"zero\": 0}"
-    static let DataJSON = DataJSONContent.dataUsingEncoding(NSUTF8StringEncoding)!
+    static let DataJSON = DataJSONContent.data(using: String.Encoding.utf8)!
     static let GithubURL = "http://github.com/RxSwiftCommunity"
 }
 

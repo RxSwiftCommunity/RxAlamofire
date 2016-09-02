@@ -27,7 +27,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
         
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
@@ -38,13 +38,13 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - UI Actions
     
-    @IBAction func convertPressed(sender: UIButton) {
+    @IBAction func convertPressed(_ sender: UIButton) {
         fromTextField.resignFirstResponder()
         
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
         formatter.currencyCode = "USD"
-        if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!) {
+        if let fromValue = NumberFormatter().number(from: self.fromTextField.text!) {
 
             RxAlamofire.requestJSON(Method.GET, sourceStringURL)
                 .observeOn(MainScheduler.instance)
@@ -72,7 +72,7 @@ func exampleUsages() {
     
     let stringURL = ""
     // MARK: NSURLSession simple and fast
-    let session = NSURLSession.sharedSession()
+    let session = URLSession.shared
     
     _ = session
         .rx_JSON(.GET, stringURL)
@@ -112,7 +112,7 @@ func exampleUsages() {
         .subscribe { print($0) }
     
     // just fire upload and display progress
-    _ = upload(try! URLRequest(.GET, stringURL), data: NSData())
+    _ = upload(try! URLRequest(.GET, stringURL), data: Data())
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
@@ -212,7 +212,7 @@ func exampleUsages() {
     
 }
 
-    @IBAction func getDummyDataPressed(sender: UIButton) {
+    @IBAction func getDummyDataPressed(_ sender: UIButton) {
         let dummyPostURLString = "http://jsonplaceholder.typicode.com/posts/1"
         let dummyCommentsURLString = "http://jsonplaceholder.typicode.com/posts/1/comments"
 
@@ -250,14 +250,14 @@ func exampleUsages() {
     
     // MARK: - Utils
     
-    func displayError(error: NSError?) {
+    func displayError(_ error: NSError?) {
         if let e = error {
-            let alertController = UIAlertController(title: "Error", message: e.localizedDescription, preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+            let alertController = UIAlertController(title: "Error", message: e.localizedDescription, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
                 // do nothing...
             }
             alertController.addAction(okAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 

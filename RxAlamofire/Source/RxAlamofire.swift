@@ -32,14 +32,14 @@ public let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: 
     - returns: An instance of `NSMutableURLRequest`
 */
 public func URLRequest(
-    method: Alamofire.Method,
+    _ method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding = .URL,
     headers: [String: String]? = nil)
     throws -> NSMutableURLRequest
 {
-    var mutableURLRequest = NSMutableURLRequest(URL: NSURL(string: URLString.URLString)!)
+    var mutableURLRequest = NSMutableURLRequest(URL: URL(string: URLString.URLString)!)
     mutableURLRequest.HTTPMethod = method.rawValue
 
     if let headers = headers {
@@ -72,7 +72,7 @@ Creates an observable of the generated `Request`.
 
 - returns: An observable of a the `Request`
 */
-public func request(method: Alamofire.Method,
+public func request(_ method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding = .URL,
@@ -101,7 +101,7 @@ Creates an observable of the `(NSHTTPURLResponse, NSData)` instance.
 
 - returns: An observable of a tuple containing `(NSHTTPURLResponse, NSData)`
 */
-public func requestData(method: Alamofire.Method,
+public func requestData(_ method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding = .URL,
@@ -128,7 +128,7 @@ public func requestData(method: Alamofire.Method,
  
  - returns: An observable of `NSData`
  */
-public func data(method: Alamofire.Method,
+public func data(_ method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding = .URL,
@@ -157,7 +157,7 @@ Creates an observable of the returned decoded string and response.
 
 - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
 */
-public func requestString(method: Alamofire.Method,
+public func requestString(_ method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding = .URL,
@@ -184,7 +184,7 @@ public func requestString(method: Alamofire.Method,
  
  - returns: An observable of `String`
  */
-public func string(method: Alamofire.Method,
+public func string(_ method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding = .URL,
@@ -213,7 +213,7 @@ Creates an observable of the returned decoded JSON as `AnyObject` and the respon
 
 - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
 */
-public func requestJSON(method: Alamofire.Method,
+public func requestJSON(_ method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding = .URL,
@@ -240,7 +240,7 @@ public func requestJSON(method: Alamofire.Method,
  
  - returns: An observable of the decoded JSON as `AnyObject`
  */
-public func JSON(method: Alamofire.Method,
+public func JSON(_ method: Alamofire.Method,
     _ URLString: URLStringConvertible,
     parameters: [String: AnyObject]? = nil,
     encoding: ParameterEncoding = .URL,
@@ -266,7 +266,7 @@ public func JSON(method: Alamofire.Method,
     - paramenter file: An instance of NSURL holding the information of the local file.
     - returns: The observable of `Request` for the created request.
  */
-public func upload(URLRequest: URLRequestConvertible, file: NSURL) -> Observable<Request> {
+public func upload(_ URLRequest: URLRequestConvertible, file: NSURL) -> Observable<Request> {
     return Manager.sharedInstance.rx_upload(URLRequest, file: file)
 }
 
@@ -278,7 +278,7 @@ public func upload(URLRequest: URLRequestConvertible, file: NSURL) -> Observable
     - paramenter data: An instance of NSData holdint the data to upload.
     - returns: The observable of `Request` for the created request.
  */
-public func upload(URLRequest: URLRequestConvertible, data: NSData) -> Observable<Request> {
+public func upload(_ URLRequest: URLRequestConvertible, data: NSData) -> Observable<Request> {
     return Manager.sharedInstance.rx_upload(URLRequest, data: data)
 }
 
@@ -290,7 +290,7 @@ public func upload(URLRequest: URLRequestConvertible, data: NSData) -> Observabl
     - paramenter stream: The stream to upload.
     - returns: The observable of `Request` for the created upload request.
  */
-public func upload(URLRequest: URLRequestConvertible, stream: NSInputStream) -> Observable<Request> {
+public func upload(_ URLRequest: URLRequestConvertible, stream: NSInputStream) -> Observable<Request> {
     return Manager.sharedInstance.rx_upload(URLRequest, stream: stream)
 }
 
@@ -302,7 +302,7 @@ public func upload(URLRequest: URLRequestConvertible, stream: NSInputStream) -> 
     - parameter destination: The closure used to determine the destination of the downloaded file.
     - returns: The observable of `Request` for the created download request.
  */
-public func download(URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Observable<Request> {
+public func download(_ URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Observable<Request> {
     return Manager.sharedInstance.rx_download(URLRequest, destination: destination)
 }
 
@@ -335,7 +335,7 @@ extension Manager {
     
     - returns: A generic observable of created request
     */
-    public func rx_request(createRequest: (Manager) throws -> Request) -> Observable<Request> {
+    public func rx_request(_ createRequest: (Manager) throws -> Request) -> Observable<Request> {
         return Observable.create { observer -> Disposable in
             let request: Request
             do {
@@ -378,7 +378,7 @@ extension Manager {
      
      - returns: An observable of the `Request`
      */
-    public func rx_request(method: Alamofire.Method,
+    public func rx_request(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -401,7 +401,7 @@ extension Manager {
      
      - returns: An observable of the `Request`
      */
-    public func rx_request(URLRequest: URLRequestConvertible)
+    public func rx_request(_ URLRequest: URLRequestConvertible)
         -> Observable<Request>
     {
         return rx_request { manager in
@@ -421,7 +421,7 @@ extension Manager {
     
     - returns: An observable of the tuple `(NSHTTPURLResponse, NSData)`
     */
-    public func rx_responseData(method: Alamofire.Method,
+    public func rx_responseData(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -448,7 +448,7 @@ extension Manager {
      
      - returns: An observable of `NSData`
      */
-    public func rx_data(method: Alamofire.Method,
+    public func rx_data(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -477,7 +477,7 @@ extension Manager {
     
     - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
     */
-    public func rx_responseString(method: Alamofire.Method,
+    public func rx_responseString(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -504,7 +504,7 @@ extension Manager {
      
      - returns: An observable of `String`
      */
-    public func rx_string(method: Alamofire.Method,
+    public func rx_string(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -533,7 +533,7 @@ extension Manager {
     
     - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
     */
-    public func rx_responseJSON(method: Alamofire.Method,
+    public func rx_responseJSON(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -560,7 +560,7 @@ extension Manager {
      
      - returns: An observable of `AnyObject`
      */
-    public func rx_JSON(method: Alamofire.Method,
+    public func rx_JSON(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -587,7 +587,7 @@ extension Manager {
      - paramenter file: An instance of NSURL holding the information of the local file.
      - returns: The observable of `AnyObject` for the created request.
      */
-    public func rx_upload(URLRequest: URLRequestConvertible, file: NSURL) -> Observable<Request> {
+    public func rx_upload(_ URLRequest: URLRequestConvertible, file: NSURL) -> Observable<Request> {
         return rx_request { manager in
             return manager.upload(URLRequest, file: file)
         }
@@ -601,7 +601,7 @@ extension Manager {
      - paramenter data: An instance of NSData holdint the data to upload.
      - returns: The observable of `AnyObject` for the created request.
      */
-    public func rx_upload(URLRequest: URLRequestConvertible, data: NSData) -> Observable<Request> {
+    public func rx_upload(_ URLRequest: URLRequestConvertible, data: NSData) -> Observable<Request> {
         return rx_request { manager in
             return self.upload(URLRequest, data: data)
         }
@@ -615,7 +615,7 @@ extension Manager {
      - paramenter stream: The stream to upload.
      - returns: The observable of `(NSData?, RxProgress)` for the created upload request.
      */
-    public func rx_upload(URLRequest: URLRequestConvertible, stream: NSInputStream) -> Observable<Request> {
+    public func rx_upload(_ URLRequest: URLRequestConvertible, stream: NSInputStream) -> Observable<Request> {
         return rx_request { manager in
             return self.upload(URLRequest, stream: stream)
         }
@@ -629,7 +629,7 @@ extension Manager {
      - parameter destination: The closure used to determine the destination of the downloaded file.
      - returns: The observable of `(NSData?, RxProgress)` for the created download request.
      */
-    public func rx_download(URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Observable<Request> {
+    public func rx_download(_ URLRequest: URLRequestConvertible, destination: Request.DownloadFileDestination) -> Observable<Request> {
         return rx_request { manager in
             return self.download(URLRequest, destination: destination)
         }
@@ -670,7 +670,7 @@ extension Request {
      - returns: The observable of `(NSHTTPURLResponse, T.SerializedObject)` for the created download request.
      */
     public func rx_responseResult<T: ResponseSerializerType>(
-        queue queue: dispatch_queue_t? = nil,
+        _ queue: dispatch_queue_t? = nil,
         responseSerializer: T)
         -> Observable<(NSHTTPURLResponse, T.SerializedObject)>
     {
@@ -701,7 +701,7 @@ extension Request {
      - returns: The observable of `T.SerializedObject` for the created download request.
      */
     public func rx_result<T: ResponseSerializerType>(
-        queue queue: dispatch_queue_t? = nil,
+        _ queue: dispatch_queue_t? = nil,
         responseSerializer: T)
         -> Observable<T.SerializedObject>
     {
@@ -748,11 +748,11 @@ extension Request {
 
     - returns: An instance of `Observable<String>`
     */
-    public func rx_responseString(encoding: NSStringEncoding? = nil) -> Observable<(NSHTTPURLResponse, String)> {
+    public func rx_responseString(_ encoding: NSStringEncoding? = nil) -> Observable<(NSHTTPURLResponse, String)> {
         return rx_responseResult(responseSerializer: Request.stringResponseSerializer(encoding: encoding))
     }
 
-    public func rx_string(encoding: NSStringEncoding? = nil) -> Observable<String> {
+    public func rx_string(_ encoding: NSStringEncoding? = nil) -> Observable<String> {
         return rx_result(responseSerializer: Request.stringResponseSerializer(encoding: encoding))
     }
     
@@ -763,7 +763,7 @@ extension Request {
 
     - returns: An instance of `Observable<AnyObject>`
     */
-    public func rx_responseJSON(options: NSJSONReadingOptions = .AllowFragments) -> Observable<(NSHTTPURLResponse, AnyObject)> {
+    public func rx_responseJSON(_ options: NSJSONReadingOptions = .AllowFragments) -> Observable<(NSHTTPURLResponse, AnyObject)> {
         return rx_responseResult(responseSerializer: Request.JSONResponseSerializer(options: options))
     }
 
@@ -774,7 +774,7 @@ extension Request {
 
      - returns: An instance of `Observable<AnyObject>`
      */
-    public func rx_JSON(options: NSJSONReadingOptions = .AllowFragments) -> Observable<AnyObject> {
+    public func rx_JSON(_ options: NSJSONReadingOptions = .AllowFragments) -> Observable<AnyObject> {
         return rx_result(responseSerializer: Request.JSONResponseSerializer(options: options))
     }
 
@@ -785,11 +785,11 @@ extension Request {
 
     - returns: An instance of `Observable<AnyData>`
     */
-    public func rx_responsePropertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions()) -> Observable<(NSHTTPURLResponse, AnyObject)> {
+    public func rx_responsePropertyList(_ options: NSPropertyListReadOptions = NSPropertyListReadOptions()) -> Observable<(NSHTTPURLResponse, AnyObject)> {
         return rx_responseResult(responseSerializer: Request.propertyListResponseSerializer(options: options))
     }
 
-    public func rx_propertyList(options: NSPropertyListReadOptions = NSPropertyListReadOptions()) -> Observable<AnyObject> {
+    public func rx_propertyList(_ options: NSPropertyListReadOptions = NSPropertyListReadOptions()) -> Observable<AnyObject> {
         return rx_result(responseSerializer: Request.propertyListResponseSerializer(options: options))
     }
 

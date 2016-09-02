@@ -14,7 +14,7 @@ import RxCocoa
 
 // MARK: NSURLSession extensions
 
-extension NSURLSession {
+extension URLSession {
     
     /**
      Creates an observable returning a decoded JSON object as `AnyObject`.
@@ -27,7 +27,7 @@ extension NSURLSession {
      
      - returns: An observable of a decoded JSON object as `AnyObject`
      */
-    public func rx_JSON(method: Alamofire.Method,
+    public func rx_JSON(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -52,7 +52,7 @@ extension NSURLSession {
      
      - returns: An observable of a tuple containing data and the request
      */
-    public func rx_response(method: Alamofire.Method,
+    public func rx_response(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
@@ -77,7 +77,7 @@ extension NSURLSession {
      
      - returns: An observable of a data
      */
-    public func rx_data(method: Alamofire.Method,
+    public func rx_data(_ method: Alamofire.Method,
         _ URLString: URLStringConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = .URL,
