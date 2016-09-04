@@ -26,13 +26,14 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB30D9D61BF09E9C0084C1C0"
+               BlueprintIdentifier = "A57A28CA1D78E8EB000D88BA"
                BuildableName = "RxAlamofireTests.xctest"
                BlueprintName = "RxAlamofireTests"
                ReferencedContainer = "container:RxAlamofire.xcodeproj">
