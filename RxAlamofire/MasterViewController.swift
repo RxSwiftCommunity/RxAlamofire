@@ -27,7 +27,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
         
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
 
@@ -41,25 +41,24 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
     @IBAction func convertPressed(sender: UIButton) {
         fromTextField.resignFirstResponder()
         
-        let formatter = NSNumberFormatter()
-        formatter.numberStyle = .CurrencyStyle
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
         formatter.currencyCode = "USD"
-        if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!) {
+        if let fromValue = NumberFormatter().number(from: self.fromTextField.text!) {
 
-            RxAlamofire.requestJSON(Method.GET, sourceStringURL)
+            RxAlamofire.requestJSON(.get, sourceStringURL)
                 .observeOn(MainScheduler.instance)
                 .debug()
                 .subscribe(onNext: { (r, json) -> Void in
                         if let dict = json as? [String: AnyObject] {
                             let valDict = dict["rates"] as! Dictionary<String, AnyObject>
                             if let conversionRate = valDict["USD"] as? Float {
-                                self.toTextField?.text = formatter.stringFromNumber(conversionRate * fromValue.floatValue)!
+                                self.toTextField?.text = formatter.string(from: NSNumber(value: conversionRate * fromValue.floatValue))!
                             }
                         }
                         
                         }, onError: { (e) -> Void in
-                            self.displayError(e as NSError)
-                            
+                            self.displayError(e)
                   }).addDisposableTo(disposeBag)
 
         } else {
@@ -72,25 +71,25 @@ func exampleUsages() {
     
     let stringURL = ""
     // MARK: NSURLSession simple and fast
-    let session = NSURLSession.sharedSession()
+    let session = URLSession.shared
     
     _ = session
-        .rx_JSON(.GET, stringURL)
+        .rx_JSON(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     _ = session
-        .rx_data(.GET, stringURL)
+        .rx_data(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // MARK: With Alamofire engine
     
-    _ = JSON(.GET, stringURL)
+    _ = JSON(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
-    _ = request(.GET, stringURL)
+    _ = request(.get, stringURL)
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
@@ -101,7 +100,7 @@ func exampleUsages() {
         .subscribe { print($0) }
     
     // progress
-    _ = request(.GET, stringURL)
+    _ = request(.get, stringURL)
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
@@ -112,7 +111,7 @@ func exampleUsages() {
         .subscribe { print($0) }
     
     // just fire upload and display progress
-    _ = upload(try! URLRequest(.GET, stringURL), data: NSData())
+    _ = upload(try! urlRequest(.get, stringURL), data: Data())
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
@@ -125,16 +124,16 @@ func exampleUsages() {
     // progress and final result
     // uploading files with progress showing is processing intensive operation anyway, so
     // this doesn't add much overhead
-    _ = request(.GET, stringURL)
-        .flatMap { request -> Observable<(NSData?, RxProgress)> in
+    _ = request(.get, stringURL)
+        .flatMap { request -> Observable<(Data?, Progress)> in
             let validatedRequest = request
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
             
             let dataPart = validatedRequest
                 .rx_data()
-                .map { d -> NSData? in d }
-                .startWith(nil as NSData?)
+                .map { d -> Data? in d }
+                .startWith(nil as Data?)
             let progressPart = validatedRequest.rx_progress()
             return Observable.combineLatest(dataPart, progressPart) { ($0, $1) }
         }
@@ -145,26 +144,26 @@ func exampleUsages() {
     // MARK: Alamofire manager
     // same methods with with any alamofire manager
     
-    let manager = Manager.sharedInstance
+    let manager = SessionManager.default
     
     // simple case
-    _ = manager.rx_JSON(.GET, stringURL)
+    _ = manager.rx_JSON(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     
     // NSURLHTTPResponse + JSON
-    _ = manager.rx_responseJSON(.GET, stringURL)
+    _ = manager.rx_responseJSON(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + String
-    _ = manager.rx_responseString(.GET, stringURL)
+    _ = manager.rx_responseString(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + String
-    _ = manager.rx_request(.GET, stringURL)
+    _ = manager.rx_request(.get, stringURL)
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
@@ -175,7 +174,7 @@ func exampleUsages() {
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String
-    _ = manager.rx_request(.GET, stringURL)
+    _ = manager.rx_request(.get, stringURL)
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
@@ -186,8 +185,8 @@ func exampleUsages() {
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String + Progress
-    _ = manager.rx_request(.GET, stringURL)
-        .flatMap { request -> Observable<(String?, RxProgress)> in
+    _ = manager.rx_request(.get, stringURL)
+        .flatMap { request -> Observable<(String?, Progress)> in
             let validatedRequest = request
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/something"])
@@ -205,7 +204,7 @@ func exampleUsages() {
     // MARK: wrapping of some request that isn't explicitly wrapped
     
     _ = manager.rx_request { manager in
-        return manager.request(try URLRequest(.GET, "wonderland"))
+        return manager.request(try urlRequest(.get, "wonderland"))
         }.flatMap { request in
             return request.rx_responseString()
     }
@@ -216,8 +215,8 @@ func exampleUsages() {
         let dummyPostURLString = "http://jsonplaceholder.typicode.com/posts/1"
         let dummyCommentsURLString = "http://jsonplaceholder.typicode.com/posts/1/comments"
 
-        let postObservable = JSON(Method.GET, dummyPostURLString)
-        let commentsObservable = JSON(Method.GET, dummyCommentsURLString)
+        let postObservable = JSON(HTTPMethod.get, dummyPostURLString)
+        let commentsObservable = JSON(HTTPMethod.get, dummyCommentsURLString)
         self.dummyDataTextView.text = "Loading..."
         Observable.zip(postObservable, commentsObservable) { postJSON, commentsJSON in
                 return (postJSON, commentsJSON)
@@ -227,37 +226,37 @@ func exampleUsages() {
                 
                 let postInfo = NSMutableString()
                 if let postDict = postJSON as? [String: AnyObject], let commentsArray = commentsJSON as? Array<[String: AnyObject]> {
-                    postInfo.appendString("Title: ")
-                    postInfo.appendString(postDict["title"] as! String)
-                    postInfo.appendString("\n\n")
-                    postInfo.appendString(postDict["body"] as! String)
-                    postInfo.appendString("\n\n\nComments:\n")
+                    postInfo.append("Title: ")
+                    postInfo.append(postDict["title"] as! String)
+                    postInfo.append("\n\n")
+                    postInfo.append(postDict["body"] as! String)
+                    postInfo.append("\n\n\nComments:\n")
                     for comment in commentsArray {
-                        postInfo.appendString(comment["email"] as! String)
-                        postInfo.appendString(": ")
-                        postInfo.appendString(comment["body"] as! String)
-                        postInfo.appendString("\n\n")
+                        postInfo.append(comment["email"] as! String)
+                        postInfo.append(": ")
+                        postInfo.append(comment["body"] as! String)
+                        postInfo.append("\n\n")
                     }
                 }
                 
                 self.dummyDataTextView.text = String(postInfo)
             }, onError:{ e in
                 self.dummyDataTextView.text = "An Error Occurred"
-                self.displayError(e as NSError)
+                self.displayError(e)
             }).addDisposableTo(disposeBag)
 
     }
     
     // MARK: - Utils
     
-    func displayError(error: NSError?) {
+    func displayError(_ error: Error?) {
         if let e = error {
-            let alertController = UIAlertController(title: "Error", message: e.localizedDescription, preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: "OK", style: .Default) { (action) in
+            let alertController = UIAlertController(title: "Error", message: e.localizedDescription, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
                 // do nothing...
             }
             alertController.addAction(okAction)
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.present(alertController, animated: true, completion: nil)
         }
     }
 
