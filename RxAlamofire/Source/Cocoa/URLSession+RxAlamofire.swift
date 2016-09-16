@@ -13,8 +13,7 @@ import RxSwift
 import RxCocoa
 
 // MARK: URLSession extensions
-
-extension URLSession {
+extension Reactive where Base: URLSession {
     
     /**
      Creates an observable returning a decoded JSON object as `Any`.
@@ -27,14 +26,14 @@ extension URLSession {
      
      - returns: An observable of a decoded JSON object as `Any`
      */
-    public func rx_JSON(_ method: Alamofire.HTTPMethod,
+    public func JSON(_ method: Alamofire.HTTPMethod,
         _ URLString: URLConvertible,
         parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<Any> {
             do {
                 let request = try urlRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers) as URLRequest
-                return rx.JSON(request).map({ (o) -> Any in o })
+                return JSON(request).map({ (o) -> Any in o })
             }
             catch let error {
                 return Observable.error(error)
@@ -52,14 +51,14 @@ extension URLSession {
      
      - returns: An observable of a tuple containing data and the request
      */
-    public func rx_response(_ method: Alamofire.HTTPMethod,
+    public func response(_ method: Alamofire.HTTPMethod,
         _ URLString: URLConvertible,
         parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<(Data, HTTPURLResponse)> {
             do {
                 let request = try urlRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers) as URLRequest
-                return rx.response(request)
+                return response(request)
             }
             catch let error {
                 return Observable.error(error)
@@ -77,13 +76,13 @@ extension URLSession {
      
      - returns: An observable of a data
      */
-    public func rx_data(_ method: Alamofire.HTTPMethod,
+    public func data(_ method: Alamofire.HTTPMethod,
         _ URLString: URLConvertible,
         parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<Data> {
             do {
-                return rx.data(try urlRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
+                return data(try urlRequest(method, URLString, parameters: parameters, encoding: encoding, headers: headers))
             }
             catch let error {
                 return Observable.error(error)

@@ -74,12 +74,12 @@ func exampleUsages() {
     let session = URLSession.shared
     
     _ = session
-        .rx_JSON(.get, stringURL)
+        .rx.JSON(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     _ = session
-        .rx_data(.get, stringURL)
+        .rx.data(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
@@ -94,7 +94,7 @@ func exampleUsages() {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx_JSON()
+                .rx.JSON()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
@@ -105,7 +105,7 @@ func exampleUsages() {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx_progress()
+                .rx.progress()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
@@ -116,7 +116,7 @@ func exampleUsages() {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx_progress()
+                .rx.progress()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
@@ -131,10 +131,10 @@ func exampleUsages() {
                 .validate(contentType: ["text/json"])
             
             let dataPart = validatedRequest
-                .rx_data()
+                .rx.data()
                 .map { d -> Data? in d }
                 .startWith(nil as Data?)
-            let progressPart = validatedRequest.rx_progress()
+            let progressPart = validatedRequest.rx.progress()
             return Observable.combineLatest(dataPart, progressPart) { ($0, $1) }
         }
         .observeOn(MainScheduler.instance)
@@ -147,55 +147,55 @@ func exampleUsages() {
     let manager = SessionManager.default
     
     // simple case
-    _ = manager.rx_JSON(.get, stringURL)
+    _ = manager.rx.JSON(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     
     // NSURLHTTPResponse + JSON
-    _ = manager.rx_responseJSON(.get, stringURL)
+    _ = manager.rx.responseJSON(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + String
-    _ = manager.rx_responseString(.get, stringURL)
+    _ = manager.rx.responseString(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + String
-    _ = manager.rx_request(.get, stringURL)
+    _ = manager.rx.request(.get, stringURL)
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx_string()
+                .rx.string()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String
-    _ = manager.rx_request(.get, stringURL)
+    _ = manager.rx.request(.get, stringURL)
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx_responseString()
+                .rx.responseString()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // NSURLHTTPResponse + Validation + NSURLHTTPResponse + String + Progress
-    _ = manager.rx_request(.get, stringURL)
+    _ = manager.rx.request(.get, stringURL)
         .flatMap { request -> Observable<(String?, Progress)> in
             let validatedRequest = request
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/something"])
             
             let stringPart = validatedRequest
-                .rx_string()
+                .rx.string()
                 .map { d -> String? in d }
                 .startWith(nil as String?)
-            let progressPart = validatedRequest.rx_progress()
+            let progressPart = validatedRequest.rx.progress()
             return Observable.combineLatest(stringPart, progressPart) { ($0, $1) }
         }
         .observeOn(MainScheduler.instance)
@@ -203,10 +203,10 @@ func exampleUsages() {
     
     // MARK: wrapping of some request that isn't explicitly wrapped
     
-    _ = manager.rx_request { manager in
+    _ = manager.rx.request { manager in
         return manager.request(try urlRequest(.get, "wonderland"))
         }.flatMap { request in
-            return request.rx_responseString()
+            return request.rx.responseString()
     }
     
 }
