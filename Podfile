@@ -28,3 +28,8 @@ target 'RxAlamofire-iOS' do
        pod 'RxBlocking', '~> 3.0.0-beta.1'
    end
 end
+
+target 'RxAlamofire-tvOS' do
+   platform :tvos, '9.0'
+   common
+end
