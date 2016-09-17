@@ -71,14 +71,13 @@ func exampleUsages() {
     let stringURL = ""
     // MARK: NSURLSession simple and fast
     let session = URLSession.shared
-    
     _ = session.rx
-        .JSON(.get, stringURL)
+        .json(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     _ = session
-        .rx.JSON(.get, stringURL)
+        .rx.json(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
@@ -89,17 +88,16 @@ func exampleUsages() {
     
     // MARK: With Alamofire engine
     
-    _ = JSON(.get, stringURL)
+    _ = json(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     
     _ = request(.get, stringURL)
-        .flatMap {
-            $0
-                .validate(statusCode: 200 ..< 300)
+        .flatMap { request in
+            return request.validate(statusCode: 200..<300)
                 .validate(contentType: ["text/json"])
-                .rx.JSON()
+                .rx.json()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
@@ -117,7 +115,8 @@ func exampleUsages() {
     
     // just fire upload and display progress
     
-    _ = upload(try! RxAlamofire.URLRequest(.get, stringURL), data: Data())
+    
+    _ = upload(Data(), urlRequest: try! RxAlamofire.urlRequest(.get, stringURL))
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
@@ -153,7 +152,7 @@ func exampleUsages() {
     let manager = SessionManager.default
     
     // simple case
-    _ = manager.rx.JSON(.get, stringURL)
+    _ = manager.rx.json(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
@@ -206,23 +205,14 @@ func exampleUsages() {
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
-    
-    // MARK: wrapping of some request that isn't explicitly wrapped
-    
-    _ = manager.rx.request { manager in
-            return manager.request(try URLRequest(.get, "wonderland"))
-        }.flatMap { request in
-            return request.rx.responseString()
-        }
-    
 }
 
     @IBAction func getDummyDataPressed(_ sender: UIButton) {
         let dummyPostURLString = "http://jsonplaceholder.typicode.com/posts/1"
         let dummyCommentsURLString = "http://jsonplaceholder.typicode.com/posts/1/comments"
 
-        let postObservable = JSON(.get, dummyPostURLString)
-        let commentsObservable = JSON(.get, dummyCommentsURLString)
+        let postObservable = json(.get, dummyPostURLString)
+        let commentsObservable = json(.get, dummyCommentsURLString)
         self.dummyDataTextView.text = "Loading..."
         Observable.zip(postObservable, commentsObservable) { postJSON, commentsJSON in
                 return (postJSON, commentsJSON)

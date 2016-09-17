@@ -3,9 +3,9 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 def common
-    pod 'Alamofire', :git => 'https://github.com/Alamofire/Alamofire.git', :branch => 'swift3'
-    pod 'RxSwift', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '3.0.0.alpha.1'
-    pod 'RxCocoa', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '3.0.0.alpha.1'
+    pod 'Alamofire', '~> 4.0'
+    pod 'RxSwift', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '3.0.0-beta.1'
+    pod 'RxCocoa', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '3.0.0-beta.1'
 end
 
 target 'RxAlamofireExample' do
@@ -26,9 +26,9 @@ end
 
 target 'RxAlamofireTests' do
     common
-    pod 'OHHTTPStubs', :git => 'https://github.com/AliSoftware/OHHTTPStubs.git', :branch => 'swift-3.0'
-    pod 'OHHTTPStubs/Swift', :git => 'https://github.com/AliSoftware/OHHTTPStubs.git', :branch => 'swift-3.0'
-    pod 'RxBlocking', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '3.0.0.alpha.1'
+    pod 'OHHTTPStubs', '~> 5.0'
+    pod 'OHHTTPStubs/Swift', '~> 5.0'
+    pod 'RxBlocking', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '3.0.0-beta.1'
 end
 
 target 'RxAlamofire-tvOS' do

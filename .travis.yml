@@ -2,5 +2,8 @@ osx_image: xcode8
 language: objective-c
 podfile: Podfile
 cache: cocoapods
+before_install:
+  - gem install cocoapods -v '1.0.1'
+  - pod repo update
 
 script: set -o pipefail && xcodebuild -workspace 'RxAlamofire.xcworkspace' -scheme 'RxAlamofire-iOS' -configuration 'Debug' -sdk iphonesimulator -destination platform='iOS Simulator',OS='9.3',name='iPhone 6s' build test  | xcpretty -c --test
