@@ -1,0 +1,6 @@
+framework module Pods_RxAlamofireExample {
+  umbrella header "Pods-RxAlamofireExample-umbrella.h"
+
+  export *
+  module * { export * }
+}
