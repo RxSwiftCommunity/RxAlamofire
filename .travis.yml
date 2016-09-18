@@ -3,4 +3,4 @@ language: objective-c
 podfile: Podfile
 cache: cocoapods
 
-script: set -o pipefail && xcodebuild -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -scheme 'RxAlamofire-iOS' -configuration 'Debug' -sdk iphonesimulator -destination platform='iOS Simulator',OS='9.3',name='iPhone 6s' build test  | xcpretty -c --test
+script: set -o pipefail && xcodebuild -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -scheme 'RxAlamofire-iOS' -configuration 'Debug' -sdk iphonesimulator -destination platform='iOS Simulator',OS='10.0',name='iPhone 6s' build test  | xcpretty -c --test
