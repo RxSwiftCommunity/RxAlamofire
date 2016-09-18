@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "CB40E3F11B89C59F00D1DB5A"
-               BuildableName = "RxAlamofireExample.app"
-               BlueprintName = "RxAlamofireExample"
-               ReferencedContainer = "container:RxAlamofire.xcodeproj">
+               BlueprintIdentifier = "C88CB7651D8F30320021D83F"
+               BuildableName = "RxAlamofire.framework"
+               BlueprintName = "RxAlamofire-tvOS"
+               ReferencedContainer = "container:_.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "A57A28CA1D78E8EB000D88BA"
-               BuildableName = "RxAlamofireTests.xctest"
-               BlueprintName = "RxAlamofireTests"
-               ReferencedContainer = "container:RxAlamofire.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB40E3F11B89C59F00D1DB5A"
-            BuildableName = "RxAlamofireExample.app"
-            BlueprintName = "RxAlamofireExample"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -61,16 +42,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB40E3F11B89C59F00D1DB5A"
-            BuildableName = "RxAlamofireExample.app"
-            BlueprintName = "RxAlamofireExample"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
+            BlueprintIdentifier = "C88CB7651D8F30320021D83F"
+            BuildableName = "RxAlamofire.framework"
+            BlueprintName = "RxAlamofire-tvOS"
+            ReferencedContainer = "container:_.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -80,16 +60,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "CB40E3F11B89C59F00D1DB5A"
-            BuildableName = "RxAlamofireExample.app"
-            BlueprintName = "RxAlamofireExample"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
+            BlueprintIdentifier = "C88CB7651D8F30320021D83F"
+            BuildableName = "RxAlamofire.framework"
+            BlueprintName = "RxAlamofire-tvOS"
+            ReferencedContainer = "container:_.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

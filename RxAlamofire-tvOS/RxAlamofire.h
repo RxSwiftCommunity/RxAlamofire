@@ -2,8 +2,8 @@
 //  RxAlamofire-tvOS.h
 //  RxAlamofire-tvOS
 //
-//  Created by David Bonnet on 19/01/2016.
-//  Copyright © 2016 Bonto.ch. All rights reserved.
+//  Created by Krunoslav Zaher on 9/18/16.
+//  Copyright © 2016 RxSwiftCommunity. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
