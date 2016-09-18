@@ -28,9 +28,9 @@ extension Reactive where Base: URLSession {
      - returns: An observable of a decoded JSON object as `AnyObject`
      */
     public func JSON(_ method: Alamofire.HTTPMethod,
-        _ URLString: URLStringConvertible,
+        _ URLString: URLConvertible,
         parameters: [String: AnyObject]? = nil,
-        encoding: ParameterEncoding = .url,
+        encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<AnyObject> {
             do {
                 let request = try RxAlamofire.URLRequest(method,
@@ -57,9 +57,9 @@ extension Reactive where Base: URLSession {
      - returns: An observable of a tuple containing data and the request
      */
     public func response(_ method: Alamofire.HTTPMethod,
-        _ URLString: URLStringConvertible,
+        _ URLString: URLConvertible,
         parameters: [String: AnyObject]? = nil,
-        encoding: ParameterEncoding = .url,
+        encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<(Data, HTTPURLResponse)> {
             do {
                 let request = try RxAlamofire.URLRequest(method,
@@ -86,9 +86,9 @@ extension Reactive where Base: URLSession {
      - returns: An observable of a data
      */
     public func data(_ method: Alamofire.HTTPMethod,
-        _ URLString: URLStringConvertible,
+        _ URLString: URLConvertible,
         parameters: [String: AnyObject]? = nil,
-        encoding: ParameterEncoding = .url,
+        encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<Data> {
             do {
                 let request = try RxAlamofire.URLRequest(method,

@@ -24,7 +24,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        exampleUsages()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +68,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
 
 func exampleUsages() {
     
-    let stringURL = ""
+    let stringURL = "https://azspdeastasia.blob.core.windows.net/private/100MB.bin?sv=2015-07-08&sr=b&sig=%2FQYKRlT2aClJ4kBqdkq97Z7UjjhYbqSpHQBpVWZgygg%3D&se=2016-09-18T17%3A32%3A10Z&sp=r"
     // MARK: NSURLSession simple and fast
     let session = URLSession.shared
     
@@ -110,19 +110,19 @@ func exampleUsages() {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx.progress()
+                .rx.downloadProgress()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // just fire upload and display progress
     
-    _ = upload(try! RxAlamofire.URLRequest(.get, stringURL), data: Data())
+    _ = upload(Data(), with: try! RxAlamofire.URLRequest(.get, stringURL))
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx.progress()
+                .rx.uploadProgress()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
@@ -140,7 +140,7 @@ func exampleUsages() {
                 .rx.data()
                 .map { d -> Data? in d }
                 .startWith(nil as Data?)
-            let progressPart = validatedRequest.rx.progress()
+            let progressPart = validatedRequest.rx.downloadProgress()
             return Observable.combineLatest(dataPart, progressPart) { ($0, $1) }
         }
         .observeOn(MainScheduler.instance)
@@ -201,7 +201,7 @@ func exampleUsages() {
                 .rx.string()
                 .map { d -> String? in d }
                 .startWith(nil as String?)
-            let progressPart = validatedRequest.rx.progress()
+            let progressPart = validatedRequest.rx.downloadProgress()
             return Observable.combineLatest(stringPart, progressPart) { ($0, $1) }
         }
         .observeOn(MainScheduler.instance)
