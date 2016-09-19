@@ -14,8 +14,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var window: UIWindow?
 
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: Any]?) -> Bool {
-        return true
+    func applicationDidFinishLaunching(_ application: UIApplication) {
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

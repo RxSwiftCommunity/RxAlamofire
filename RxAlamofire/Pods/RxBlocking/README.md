@@ -5,6 +5,10 @@
 
 ## About Rx
 
+**:warning: This readme describes RxSwift 3.0 version that requires Swift 3.0:warning:**
+
+**:warning: If you are looking for Swift 2.3 compatible version, please take a look at RxSwift ~> 2.0 versions and [swift-2.3](https://github.com/ReactiveX/RxSwift/tree/rxswift-2.0) branch :warning:**
+
 Rx is a [generic abstraction of computation](https://youtu.be/looJcaeboBY) expressed through `Observable<Element>` interface.
 
 This is a Swift version of [Rx](https://github.com/Reactive-Extensions/Rx.NET).
@@ -107,7 +111,7 @@ searchResults
 
 ## Requirements
 
-* Xcode 8.0 beta 6 (8S201h)
+* Xcode 8.0 GM (8A218a)
 * Swift 3.0
 
 * iOS 8.0+
@@ -132,14 +136,14 @@ Open Rx.xcworkspace, choose `RxExample` and hit run. This method will build ever
 use_frameworks!
 
 target 'YOUR_TARGET_NAME' do
-    pod 'RxSwift',    '~> 3.0.0.alpha.1'
-    pod 'RxCocoa',    '~> 3.0.0.alpha.1'
+    pod 'RxSwift',    '~> 3.0.0-beta.1'
+    pod 'RxCocoa',    '~> 3.0.0-beta.1'
 end
 
 # RxTests and RxBlocking make the most sense in the context of unit/integration tests
 target 'YOUR_TESTING_TARGET' do
-    pod 'RxBlocking', '~> 3.0.0.alpha.1'
-    pod 'RxTests',    '~> 3.0.0.alpha.1'
+    pod 'RxBlocking', '~> 3.0.0-beta.1'
+    pod 'RxTests',    '~> 3.0.0-beta.1'
 end
 ```
 
@@ -168,7 +172,7 @@ $ pod install
 Add this to `Cartfile`
 
 ```
-github "ReactiveX/RxSwift" ~> 3.0.0.alpha.1
+github "ReactiveX/RxSwift" "3.0.0-beta.1"
 ```
 
 ```

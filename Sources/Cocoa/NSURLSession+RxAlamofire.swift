@@ -20,24 +20,25 @@ extension Reactive where Base: URLSession {
      Creates an observable returning a decoded JSON object as `AnyObject`.
      
      - parameter method: Alamofire method object
-     - parameter URLString: An object adopting `URLStringConvertible`
+     - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
      - parameter header: A dictionary containing all the addional headers
      
      - returns: An observable of a decoded JSON object as `AnyObject`
      */
-    public func JSON(_ method: Alamofire.HTTPMethod,
-        _ URLString: URLConvertible,
-        parameters: [String: AnyObject]? = nil,
+    public func json(_ method: Alamofire.HTTPMethod,
+        _ url: URLConvertible,
+        parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<AnyObject> {
             do {
-                let request = try RxAlamofire.URLRequest(method,
-                                                         URLString,
-                                                         parameters: parameters,
-                                                         encoding: encoding,
-                                                         headers: headers)
+                let request = try RxAlamofire.urlRequest(
+                        method,
+                        url,
+                        parameters: parameters,
+                        encoding: encoding,
+                        headers: headers)
                 return JSON(request)
             }
             catch let error {
@@ -49,21 +50,21 @@ extension Reactive where Base: URLSession {
      Creates an observable returning a tuple of `(NSData!, NSURLResponse)`.
      
      - parameter method: Alamofire method object
-     - parameter URLString: An object adopting `URLStringConvertible`
+     - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
      - parameter header: A dictionary containing all the addional headers
      
      - returns: An observable of a tuple containing data and the request
      */
-    public func response(_ method: Alamofire.HTTPMethod,
-        _ URLString: URLConvertible,
-        parameters: [String: AnyObject]? = nil,
+    public func response(method: Alamofire.HTTPMethod,
+        _ url: URLConvertible,
+        parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<(Data, HTTPURLResponse)> {
             do {
-                let request = try RxAlamofire.URLRequest(method,
-                                                         URLString,
+                let request = try RxAlamofire.urlRequest(method,
+                                                         url,
                                                          parameters: parameters,
                                                          encoding: encoding,
                                                          headers: headers)
@@ -78,7 +79,7 @@ extension Reactive where Base: URLSession {
      Creates an observable of response's content as `NSData`.
      
      - parameter method: Alamofire method object
-     - parameter URLString: An object adopting `URLStringConvertible`
+     - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
      - parameter header: A dictionary containing all the addional headers
@@ -86,13 +87,13 @@ extension Reactive where Base: URLSession {
      - returns: An observable of a data
      */
     public func data(_ method: Alamofire.HTTPMethod,
-        _ URLString: URLConvertible,
+        _ url: URLConvertible,
         parameters: [String: AnyObject]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil) -> Observable<Data> {
             do {
-                let request = try RxAlamofire.URLRequest(method,
-                                                         URLString,
+                let request = try RxAlamofire.urlRequest(method,
+                                                         url,
                                                          parameters: parameters,
                                                          encoding: encoding,
                                                          headers: headers)

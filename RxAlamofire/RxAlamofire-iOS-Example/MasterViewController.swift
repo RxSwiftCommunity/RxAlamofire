@@ -24,7 +24,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        exampleUsages()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -68,17 +68,16 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
 
 func exampleUsages() {
     
-    let stringURL = "https://azspdeastasia.blob.core.windows.net/private/100MB.bin?sv=2015-07-08&sr=b&sig=%2FQYKRlT2aClJ4kBqdkq97Z7UjjhYbqSpHQBpVWZgygg%3D&se=2016-09-18T17%3A32%3A10Z&sp=r"
+    let stringURL = ""
     // MARK: NSURLSession simple and fast
     let session = URLSession.shared
-    
     _ = session.rx
-        .JSON(.get, stringURL)
+        .json(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     _ = session
-        .rx.JSON(.get, stringURL)
+        .rx.json(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
@@ -89,17 +88,16 @@ func exampleUsages() {
     
     // MARK: With Alamofire engine
     
-    _ = JSON(.get, stringURL)
+    _ = json(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     
     _ = request(.get, stringURL)
-        .flatMap {
-            $0
-                .validate(statusCode: 200 ..< 300)
+        .flatMap { request in
+            return request.validate(statusCode: 200..<300)
                 .validate(contentType: ["text/json"])
-                .rx.JSON()
+                .rx.json()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
@@ -110,19 +108,20 @@ func exampleUsages() {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx.downloadProgress()
+                .rx.progress()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
     // just fire upload and display progress
     
-    _ = upload(Data(), with: try! RxAlamofire.URLRequest(.get, stringURL))
+    
+    _ = upload(Data(), urlRequest: try! RxAlamofire.urlRequest(.get, stringURL))
         .flatMap {
             $0
                 .validate(statusCode: 200 ..< 300)
                 .validate(contentType: ["text/json"])
-                .rx.uploadProgress()
+                .rx.progress()
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
@@ -140,7 +139,7 @@ func exampleUsages() {
                 .rx.data()
                 .map { d -> Data? in d }
                 .startWith(nil as Data?)
-            let progressPart = validatedRequest.rx.downloadProgress()
+            let progressPart = validatedRequest.rx.progress()
             return Observable.combineLatest(dataPart, progressPart) { ($0, $1) }
         }
         .observeOn(MainScheduler.instance)
@@ -153,7 +152,7 @@ func exampleUsages() {
     let manager = SessionManager.default
     
     // simple case
-    _ = manager.rx.JSON(.get, stringURL)
+    _ = manager.rx.json(.get, stringURL)
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
     
@@ -201,28 +200,19 @@ func exampleUsages() {
                 .rx.string()
                 .map { d -> String? in d }
                 .startWith(nil as String?)
-            let progressPart = validatedRequest.rx.downloadProgress()
+            let progressPart = validatedRequest.rx.progress()
             return Observable.combineLatest(stringPart, progressPart) { ($0, $1) }
         }
         .observeOn(MainScheduler.instance)
         .subscribe { print($0) }
-    
-    // MARK: wrapping of some request that isn't explicitly wrapped
-    
-    _ = manager.rx.request { manager in
-            return manager.request(try URLRequest(.get, "wonderland"))
-        }.flatMap { request in
-            return request.rx.responseString()
-        }
-    
 }
 
     @IBAction func getDummyDataPressed(_ sender: UIButton) {
         let dummyPostURLString = "http://jsonplaceholder.typicode.com/posts/1"
         let dummyCommentsURLString = "http://jsonplaceholder.typicode.com/posts/1/comments"
 
-        let postObservable = JSON(.get, dummyPostURLString)
-        let commentsObservable = JSON(.get, dummyCommentsURLString)
+        let postObservable = json(.get, dummyPostURLString)
+        let commentsObservable = json(.get, dummyCommentsURLString)
         self.dummyDataTextView.text = "Loading..."
         Observable.zip(postObservable, commentsObservable) { postJSON, commentsJSON in
                 return (postJSON, commentsJSON)

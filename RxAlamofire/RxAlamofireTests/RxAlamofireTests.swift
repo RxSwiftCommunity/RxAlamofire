@@ -50,21 +50,23 @@ class RxAlamofireSpec: XCTestCase {
 	
 	//MARK: Tests
 	func testBasicRequest() {
-		if let (result, string) = try! requestString(HTTPMethod.get, "http://mywebservice.com").toBlocking().first() {
-			XCTAssertEqual(result.statusCode, 200)
-			XCTAssertEqual(string, Dummy.DataStringContent)
-		} else {
-			XCTFail("Basic Request Failed")
-		}
+        do {
+            let (result, string) = try requestString(HTTPMethod.get, "http://mywebservice.com").toBlocking().first()!
+            XCTAssertEqual(result.statusCode, 200)
+            XCTAssertEqual(string, Dummy.DataStringContent)
+        } catch {
+            XCTFail("\(error)")
+        }
 	}
 	
 	func testJSONRequest() {
-		if let (result, obj) = try! requestJSON(HTTPMethod.get, "http://myjsondata.com").toBlocking().first() {
-			let json = obj as! [String : Any]
-			XCTAssertEqual(result.statusCode, 200)
-			XCTAssertEqual(json["hello"] as! String, "world")
-		} else {
-			XCTFail("Basic Request Failed")
-		}
+        do {
+            let (result, obj) = try requestJSON(HTTPMethod.get, "http://myjsondata.com").toBlocking().first()!
+            let json = obj as! [String : Any]
+            XCTAssertEqual(result.statusCode, 200)
+            XCTAssertEqual(json["hello"] as! String, "world")
+        } catch {
+            XCTFail("\(error)")
+        }
 	}
 }

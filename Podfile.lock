@@ -25,9 +25,31 @@ DEPENDENCIES:
   - Alamofire (~> 4.0)
   - OHHTTPStubs (~> 5.0)
   - OHHTTPStubs/Swift (~> 5.0)
-  - RxBlocking (~> 3.0.0-beta.1)
-  - RxCocoa (~> 3.0.0-beta.1)
-  - RxSwift (~> 3.0.0-beta.1)
+  - RxBlocking (from `https://github.com/ReactiveX/RxSwift.git`, tag `3.0.0-beta.1`)
+  - RxCocoa (from `https://github.com/ReactiveX/RxSwift.git`, tag `3.0.0-beta.1`)
+  - RxSwift (from `https://github.com/ReactiveX/RxSwift.git`, tag `3.0.0-beta.1`)
+
+EXTERNAL SOURCES:
+  RxBlocking:
+    :git: https://github.com/ReactiveX/RxSwift.git
+    :tag: 3.0.0-beta.1
+  RxCocoa:
+    :git: https://github.com/ReactiveX/RxSwift.git
+    :tag: 3.0.0-beta.1
+  RxSwift:
+    :git: https://github.com/ReactiveX/RxSwift.git
+    :tag: 3.0.0-beta.1
+
+CHECKOUT OPTIONS:
+  RxBlocking:
+    :git: https://github.com/ReactiveX/RxSwift.git
+    :tag: 3.0.0-beta.1
+  RxCocoa:
+    :git: https://github.com/ReactiveX/RxSwift.git
+    :tag: 3.0.0-beta.1
+  RxSwift:
+    :git: https://github.com/ReactiveX/RxSwift.git
+    :tag: 3.0.0-beta.1
 
 SPEC CHECKSUMS:
   Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
@@ -36,6 +58,6 @@ SPEC CHECKSUMS:
   RxCocoa: 8cecf331302b8ae5381bbab1bccba4ede2eae6a8
   RxSwift: 0823e8d7969c23bfa9ddfb2afa4881e424a1a710
 
-PODFILE CHECKSUM: 8fd93aaebf6bb8cac48c75e28b0c7a7ed81bf689
+PODFILE CHECKSUM: c1a44f3ee2ab5e3b88125d94d1342c01a022d4f9
 
 COCOAPODS: 1.0.1

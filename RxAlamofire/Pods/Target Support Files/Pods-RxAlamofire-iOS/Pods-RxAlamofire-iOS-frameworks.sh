@@ -87,13 +87,9 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire-iOS/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxCocoa-iOS/RxCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift-iOS/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/OHHTTPStubs/OHHTTPStubs.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RxBlocking/RxBlocking.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Alamofire-iOS/Alamofire.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxCocoa-iOS/RxCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/RxSwift-iOS/RxSwift.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/OHHTTPStubs/OHHTTPStubs.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/RxBlocking/RxBlocking.framework"
 fi

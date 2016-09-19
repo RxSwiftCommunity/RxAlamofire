@@ -15,43 +15,27 @@ PODS:
   - OHHTTPStubs/OHPathHelpers (5.2.1)
   - OHHTTPStubs/Swift (5.2.1):
     - OHHTTPStubs/Core
-  - RxBlocking (3.0.0.alpha.1):
-    - RxSwift (~> 3.0.0.alpha.1)
+  - RxBlocking (3.0.0-beta.1):
+    - RxSwift (~> 3.0.0-beta.1)
   - RxCocoa (3.0.0-beta.1):
     - RxSwift (~> 3.0.0-beta.1)
   - RxSwift (3.0.0-beta.1)
 
 DEPENDENCIES:
   - Alamofire (~> 4.0)
-  - OHHTTPStubs (from `https://github.com/AliSoftware/OHHTTPStubs.git`, branch `swift-3.0`)
-  - OHHTTPStubs/Swift (from `https://github.com/AliSoftware/OHHTTPStubs.git`, branch `swift-3.0`)
-  - RxBlocking (from `https://github.com/ReactiveX/RxSwift.git`, tag `3.0.0.alpha.1`)
+  - OHHTTPStubs (~> 5.0)
+  - OHHTTPStubs/Swift (~> 5.0)
+  - RxBlocking (~> 3.0.0-beta.1)
   - RxCocoa (~> 3.0.0-beta.1)
   - RxSwift (~> 3.0.0-beta.1)
-
-EXTERNAL SOURCES:
-  OHHTTPStubs:
-    :branch: swift-3.0
-    :git: https://github.com/AliSoftware/OHHTTPStubs.git
-  RxBlocking:
-    :git: https://github.com/ReactiveX/RxSwift.git
-    :tag: 3.0.0.alpha.1
-
-CHECKOUT OPTIONS:
-  OHHTTPStubs:
-    :commit: 624d51619bc88144015c2b275e761b359ae5ecb3
-    :git: https://github.com/AliSoftware/OHHTTPStubs.git
-  RxBlocking:
-    :git: https://github.com/ReactiveX/RxSwift.git
-    :tag: 3.0.0.alpha.1
 
 SPEC CHECKSUMS:
   Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
   OHHTTPStubs: 3a42f25c00563b71355ac73112ba2324e9e6cef4
-  RxBlocking: 7ef3e27c267d71ec7d69165dafcf3408a23c7507
+  RxBlocking: 422944880fe63b432c459dc87be7c8178dcf45f3
   RxCocoa: 8cecf331302b8ae5381bbab1bccba4ede2eae6a8
   RxSwift: 0823e8d7969c23bfa9ddfb2afa4881e424a1a710
 
-PODFILE CHECKSUM: 17e51a1fd5b78bea99ba40f08e4cc17fa9939253
+PODFILE CHECKSUM: 8fd93aaebf6bb8cac48c75e28b0c7a7ed81bf689
 
-COCOAPODS: 1.1.0.beta.2
+COCOAPODS: 1.0.1

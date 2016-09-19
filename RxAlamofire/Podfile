@@ -8,12 +8,12 @@ def common
     pod 'RxCocoa', '~> 3.0.0-beta.1'
 end
 
-target 'RxAlamofireExample' do
+target 'RxAlamofire-iOS-Example' do
     #platform :ios, '9.0'
     common
 end
 
-target 'RxAlamofiretvOSExample' do
+target 'RxAlamofire-tvOS-Example' do
     #platform :tvos, '9.0'
     common
 end
@@ -23,9 +23,9 @@ target 'RxAlamofire-iOS' do
 end
 
 target 'RxAlamofireTests' do
-    #common
-    pod 'OHHTTPStubs', :git => 'https://github.com/AliSoftware/OHHTTPStubs.git', :branch => 'swift-3.0'
-    pod 'OHHTTPStubs/Swift', :git => 'https://github.com/AliSoftware/OHHTTPStubs.git', :branch => 'swift-3.0'
+    common
+    pod 'OHHTTPStubs', '~> 5.0'
+    pod 'OHHTTPStubs/Swift', '~> 5.0'
     pod 'RxBlocking', '~> 3.0.0-beta.1'
 end
 
