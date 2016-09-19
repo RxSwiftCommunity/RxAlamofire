@@ -3,5 +3,5 @@ language: objective-c
 notifications:
   email: false
 script: 
-  - SIMULATOR=`xcrun simctl create "RxSwiftSimulator" "com.apple.CoreSimulator.SimDeviceType.iPhone-7" "com.apple.CoreSimulator.SimRuntime.iOS-10-0"`; \
-    xcodebuild -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -scheme 'RxAlamofire-iOS' -configuration 'Debug' -sdk iphonesimulator -destination 'platform=iOS Simulator,OS=iOS,id=${SIMULATOR}' build test
+  - : set -o pipefail && xcodebuild -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -scheme 'RxAlamofire-iOS' -configuration 'Debug' -sdk iphonesimulator -destination platform='iOS Simulator',OS='10.0',name='iPhone 7' build test  | xcpretty -c --test
+
