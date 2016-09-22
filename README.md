@@ -209,4 +209,4 @@ To manual install this extension you should get the `RxAlamofire/Source/RxAlamof
 
 ## Requirements
 
-RxAlamofire requires Swift 2.0 and dedicated versions of Alamofire (2.0) and RxSwift (2.0.0-beta).
+RxAlamofire requires Swift 3.0 and dedicated versions of Alamofire (4.0.0) and RxSwift (3.0.0-beta.1).
