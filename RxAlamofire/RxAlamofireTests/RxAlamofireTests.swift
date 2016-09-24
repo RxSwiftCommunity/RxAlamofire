@@ -14,6 +14,8 @@ import Alamofire
 import OHHTTPStubs
 import RxAlamofire
 
+@testable import Alamofire
+
 private struct Dummy {
 	static let DataStringContent = "Hello World"
 	static let DataStringData = DataStringContent.data(using: String.Encoding.utf8)!
@@ -69,4 +71,40 @@ class RxAlamofireSpec: XCTestCase {
             XCTFail("\(error)")
         }
 	}
+
+    func testProgress() {
+        do {
+            let dataRequest = try request(HTTPMethod.get, "http://myjsondata.com").toBlocking().first()!
+            let progressObservable = dataRequest.rx.progress().observeOn(MainScheduler.instance).replayAll()
+            let _ = progressObservable.connect()
+            let delegate = dataRequest.delegate as! DataTaskDelegate
+            let progressHandler = delegate.progressHandler!
+            [(1000, 4000), (4000, 4000)].forEach { completed, total in
+                let progress = Alamofire.Progress()
+                progress.completedUnitCount = Int64(completed)
+                progress.totalUnitCount = Int64(total)
+                progressHandler.closure(progress)
+            }
+            let actualEvents = try progressObservable.toBlocking().toArray()
+            let expectedEvents = [
+                RxProgress(bytesWritten: 0, bytesRemaining: 0, totalBytes: 0),
+                RxProgress(bytesWritten: 1000, bytesRemaining: 3000, totalBytes: 4000),
+                RxProgress(bytesWritten: 4000, bytesRemaining: 0, totalBytes: 4000),
+            ]
+            XCTAssertEqual(actualEvents.count, expectedEvents.count)
+            for i in 0..<actualEvents.count {
+                XCTAssertEqual(actualEvents[i], expectedEvents[i])
+            }
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+}
+
+extension RxProgress: Equatable {}
+
+public func ==(lhs: RxProgress, rhs: RxProgress) -> Bool {
+    return lhs.bytesWritten == rhs.bytesWritten &&
+        lhs.bytesRemaining == rhs.bytesRemaining &&
+        lhs.totalBytes == rhs.totalBytes
 }
