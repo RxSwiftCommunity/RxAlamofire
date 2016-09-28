@@ -880,12 +880,14 @@ public struct RxProgress {
         self.bytesWritten = bytesWritten
         self.totalBytes = totalBytes
     }
-    
+}
+
+extension RxProgress {
     public var bytesRemaining: Int64 {
         return totalBytes - bytesWritten
     }
 
-    public var floatValue: Float {
+    public var completed: Float {
         if totalBytes > 0 {
             return Float(bytesWritten) / Float(totalBytes)
         }
