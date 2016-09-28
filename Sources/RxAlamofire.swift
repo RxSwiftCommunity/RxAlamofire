@@ -849,17 +849,15 @@ extension Reactive where Base: DataRequest {
     
     Parameters on observed tuple:
     
-    1. bytes written
-    1. bytes remaining
-    1. total bytes expected to write.
+    1. bytes written so far.
+    1. total bytes to write.
     
     - returns: An instance of `Observable<RxProgress>`
     */
     public func progress() -> Observable<RxProgress> {
         return Observable.create { observer in
-            self.base.downloadProgress { (progress) in
+            self.base.downloadProgress { progress in
                 let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
-                                            bytesRemaining: progress.totalUnitCount - progress.completedUnitCount,
                                             totalBytes: progress.totalUnitCount)
                 observer.onNext(rxProgress)
                 if rxProgress.bytesWritten >= rxProgress.totalBytes {
@@ -869,22 +867,24 @@ extension Reactive where Base: DataRequest {
             return Disposables.create()
             }
             // warm up a bit :)
-            .startWith(RxProgress(bytesWritten: 0, bytesRemaining: 0, totalBytes: 0))
+            .startWith(RxProgress(bytesWritten: 0, totalBytes: 0))
     }
 }
 
 // MARK: RxProgress
 public struct RxProgress {
     public let bytesWritten: Int64
-    public let bytesRemaining: Int64
     public let totalBytes: Int64
 
-    public init(bytesWritten: Int64, bytesRemaining: Int64, totalBytes: Int64) {
+    public init(bytesWritten: Int64, totalBytes: Int64) {
         self.bytesWritten = bytesWritten
-        self.bytesRemaining = bytesRemaining
         self.totalBytes = totalBytes
     }
     
+    public var bytesRemaining: Int64 {
+        return totalBytes - bytesWritten
+    }
+
     public func floatValue() -> Float {
         if totalBytes > 0 {
             return Float(bytesWritten) / Float(totalBytes)
@@ -899,6 +899,5 @@ extension RxProgress: Equatable {}
 
 public func ==(lhs: RxProgress, rhs: RxProgress) -> Bool {
     return lhs.bytesWritten == rhs.bytesWritten &&
-        lhs.bytesRemaining == rhs.bytesRemaining &&
         lhs.totalBytes == rhs.totalBytes
 }

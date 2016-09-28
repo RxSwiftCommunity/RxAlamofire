@@ -87,9 +87,9 @@ class RxAlamofireSpec: XCTestCase {
             }
             let actualEvents = try progressObservable.toBlocking().toArray()
             let expectedEvents = [
-                RxProgress(bytesWritten: 0, bytesRemaining: 0, totalBytes: 0),
-                RxProgress(bytesWritten: 1000, bytesRemaining: 3000, totalBytes: 4000),
-                RxProgress(bytesWritten: 4000, bytesRemaining: 0, totalBytes: 4000),
+                RxProgress(bytesWritten: 0, totalBytes: 0),
+                RxProgress(bytesWritten: 1000, totalBytes: 4000),
+                RxProgress(bytesWritten: 4000, totalBytes: 4000),
             ]
             XCTAssertEqual(actualEvents.count, expectedEvents.count)
             for i in 0..<actualEvents.count {
@@ -98,5 +98,15 @@ class RxAlamofireSpec: XCTestCase {
         } catch {
             XCTFail("\(error)")
         }
+    }
+
+    func testRxProgress() {
+        let subject = RxProgress(bytesWritten: 1000, totalBytes: 4000)
+        XCTAssertEqual(subject.bytesRemaining, 3000)
+        XCTAssertEqualWithAccuracy(subject.floatValue(), 0.25, accuracy: 0.000000001)
+        let similar = RxProgress(bytesWritten: 1000, totalBytes: 4000)
+        XCTAssertEqual(subject, similar)
+        let different = RxProgress(bytesWritten: 2000, totalBytes: 4000)
+        XCTAssertNotEqual(subject, different)
     }
 }
