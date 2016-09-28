@@ -853,7 +853,7 @@ extension Reactive where Base: DataRequest {
     1. bytes remaining
     1. total bytes expected to write.
     
-    - returns: An instance of `Observable<(Int64, Int64, Int64)>`
+    - returns: An instance of `Observable<RxProgress>`
     */
     public func progress() -> Observable<RxProgress> {
         return Observable.create { observer in
