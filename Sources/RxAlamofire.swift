@@ -885,7 +885,7 @@ public struct RxProgress {
         return totalBytes - bytesWritten
     }
 
-    public func floatValue() -> Float {
+    public var floatValue: Float {
         if totalBytes > 0 {
             return Float(bytesWritten) / Float(totalBytes)
         }

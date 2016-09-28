@@ -103,7 +103,7 @@ class RxAlamofireSpec: XCTestCase {
     func testRxProgress() {
         let subject = RxProgress(bytesWritten: 1000, totalBytes: 4000)
         XCTAssertEqual(subject.bytesRemaining, 3000)
-        XCTAssertEqualWithAccuracy(subject.floatValue(), 0.25, accuracy: 0.000000001)
+        XCTAssertEqualWithAccuracy(subject.floatValue, 0.25, accuracy: 0.000000001)
         let similar = RxProgress(bytesWritten: 1000, totalBytes: 4000)
         XCTAssertEqual(subject, similar)
         let different = RxProgress(bytesWritten: 2000, totalBytes: 4000)
