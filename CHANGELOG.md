@@ -9,6 +9,9 @@ All notable changes to this project will be documented in this file.
 
 * Rename `RxProgress.totalBytesWritten` to `RxProgress.bytesRemaining`.
 * Rename `RxProgress.totalBytesExpectedToWrite` to `RxProgress.totalBytes`.
+* Convert `RxProgress.bytesRemaining` from a stored- to a computed-property.
+* Convert `RxProgress.floatValue` from a function to a computed-property.
+* Add `Equatable` conformation to `RxProgress`.
 
 #### Fixed
 
