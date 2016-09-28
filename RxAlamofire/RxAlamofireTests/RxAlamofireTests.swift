@@ -100,11 +100,3 @@ class RxAlamofireSpec: XCTestCase {
         }
     }
 }
-
-extension RxProgress: Equatable {}
-
-public func ==(lhs: RxProgress, rhs: RxProgress) -> Bool {
-    return lhs.bytesWritten == rhs.bytesWritten &&
-        lhs.bytesRemaining == rhs.bytesRemaining &&
-        lhs.totalBytes == rhs.totalBytes
-}
