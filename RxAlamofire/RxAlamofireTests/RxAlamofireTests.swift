@@ -75,7 +75,7 @@ class RxAlamofireSpec: XCTestCase {
     func testProgress() {
         do {
             let dataRequest = try request(HTTPMethod.get, "http://myjsondata.com").toBlocking().first()!
-            let progressObservable = dataRequest.rx.progress().observeOn(MainScheduler.instance).replayAll()
+            let progressObservable = dataRequest.rx.progress().replayAll()
             let _ = progressObservable.connect()
             let delegate = dataRequest.delegate as! DataTaskDelegate
             let progressHandler = delegate.progressHandler!
