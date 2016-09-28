@@ -849,48 +849,55 @@ extension Reactive where Base: DataRequest {
     
     Parameters on observed tuple:
     
-    1. bytes written
-    1. total bytes written
-    1. total bytes expected to write.
+    1. bytes written so far.
+    1. total bytes to write.
     
-    - returns: An instance of `Observable<(Int64, Int64, Int64)>`
+    - returns: An instance of `Observable<RxProgress>`
     */
     public func progress() -> Observable<RxProgress> {
         return Observable.create { observer in
-            self.base.downloadProgress { (progress) in
+            self.base.downloadProgress { progress in
                 let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
-                                            totalBytesWritten: progress.totalUnitCount - progress.completedUnitCount,
-                                            totalBytesExpectedToWrite: progress.totalUnitCount)
+                                            totalBytes: progress.totalUnitCount)
                 observer.onNext(rxProgress)
-                if rxProgress.totalBytesWritten >= rxProgress.totalBytesExpectedToWrite {
+                if rxProgress.bytesWritten >= rxProgress.totalBytes {
                     observer.onCompleted()
                 }
             }
             return Disposables.create()
             }
             // warm up a bit :)
-            .startWith(RxProgress(bytesWritten: 0, totalBytesWritten: 0, totalBytesExpectedToWrite: 0))
+            .startWith(RxProgress(bytesWritten: 0, totalBytes: 0))
     }
 }
 
 // MARK: RxProgress
 public struct RxProgress {
-    let bytesWritten: Int64
-    let totalBytesWritten: Int64
-    let totalBytesExpectedToWrite: Int64
+    public let bytesWritten: Int64
+    public let totalBytes: Int64
 
-    public init(bytesWritten: Int64, totalBytesWritten: Int64, totalBytesExpectedToWrite: Int64) {
+    public init(bytesWritten: Int64, totalBytes: Int64) {
         self.bytesWritten = bytesWritten
-        self.totalBytesWritten = totalBytesWritten
-        self.totalBytesExpectedToWrite = totalBytesExpectedToWrite
+        self.totalBytes = totalBytes
     }
     
-    public func floatValue() -> Float {
-        if totalBytesExpectedToWrite > 0 {
-            return Float(totalBytesWritten) / Float(totalBytesExpectedToWrite)
+    public var bytesRemaining: Int64 {
+        return totalBytes - bytesWritten
+    }
+
+    public var floatValue: Float {
+        if totalBytes > 0 {
+            return Float(bytesWritten) / Float(totalBytes)
         }
         else {
             return 0
         }
     }
+}
+
+extension RxProgress: Equatable {}
+
+public func ==(lhs: RxProgress, rhs: RxProgress) -> Bool {
+    return lhs.bytesWritten == rhs.bytesWritten &&
+        lhs.totalBytes == rhs.totalBytes
 }

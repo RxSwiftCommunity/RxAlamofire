@@ -14,6 +14,8 @@ import Alamofire
 import OHHTTPStubs
 import RxAlamofire
 
+@testable import Alamofire
+
 private struct Dummy {
 	static let DataStringContent = "Hello World"
 	static let DataStringData = DataStringContent.data(using: String.Encoding.utf8)!
@@ -69,4 +71,42 @@ class RxAlamofireSpec: XCTestCase {
             XCTFail("\(error)")
         }
 	}
+
+    func testProgress() {
+        do {
+            let dataRequest = try request(HTTPMethod.get, "http://myjsondata.com").toBlocking().first()!
+            let progressObservable = dataRequest.rx.progress().replayAll()
+            let _ = progressObservable.connect()
+            let delegate = dataRequest.delegate as! DataTaskDelegate
+            let progressHandler = delegate.progressHandler!
+            [(1000, 4000), (4000, 4000)].forEach { completed, total in
+                let progress = Alamofire.Progress()
+                progress.completedUnitCount = Int64(completed)
+                progress.totalUnitCount = Int64(total)
+                progressHandler.closure(progress)
+            }
+            let actualEvents = try progressObservable.toBlocking().toArray()
+            let expectedEvents = [
+                RxProgress(bytesWritten: 0, totalBytes: 0),
+                RxProgress(bytesWritten: 1000, totalBytes: 4000),
+                RxProgress(bytesWritten: 4000, totalBytes: 4000),
+            ]
+            XCTAssertEqual(actualEvents.count, expectedEvents.count)
+            for i in 0..<actualEvents.count {
+                XCTAssertEqual(actualEvents[i], expectedEvents[i])
+            }
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+
+    func testRxProgress() {
+        let subject = RxProgress(bytesWritten: 1000, totalBytes: 4000)
+        XCTAssertEqual(subject.bytesRemaining, 3000)
+        XCTAssertEqualWithAccuracy(subject.floatValue, 0.25, accuracy: 0.000000001)
+        let similar = RxProgress(bytesWritten: 1000, totalBytes: 4000)
+        XCTAssertEqual(subject, similar)
+        let different = RxProgress(bytesWritten: 2000, totalBytes: 4000)
+        XCTAssertNotEqual(subject, different)
+    }
 }
