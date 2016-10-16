@@ -15,6 +15,7 @@ import Foundation
 
 import Alamofire
 import RxSwift
+
 /// Default instance of unknown error
 public let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: -1, userInfo: nil)
 

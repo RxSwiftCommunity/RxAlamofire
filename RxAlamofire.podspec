@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name = 'RxAlamofire'
 
-  s.version = '3.0.0-beta.2'
+  s.version = '3.0.0-rc.1'
   s.license = 'MIT'
   s.summary = 'RxSwift wrapper around the elegant HTTP networking in Swift Alamofire'
   s.homepage = 'https://github.com/RxSwiftCommunity/RxAlamofire'
@@ -19,15 +19,14 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |ss|
     ss.source_files  = "Sources/*.swift"
-    ss.dependency "RxSwift", "~> 3.0.0-beta.2"
-    ss.dependency "RxCocoa", "~> 3.0.0-beta.2"
+    ss.dependency "RxSwift", "~> 3.0.0-rc.1"
     ss.dependency "Alamofire", "~> 4.0"
     ss.framework  = "Foundation"
   end
 
   s.subspec "RxCocoa" do |ss|
     ss.source_files = "Sources/Cocoa/*.swift"
-    ss.dependency "RxCocoa", "~> 3.0.0-beta.2"
+    ss.dependency "RxCocoa", "~> 3.0.0-rc.1"
     ss.dependency "RxAlamofire/Core"
   end
 

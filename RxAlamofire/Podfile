@@ -4,8 +4,8 @@ use_frameworks!
 
 def common
     pod 'Alamofire', '~> 4.0'
-    pod 'RxSwift', '~> 3.0.0-beta.2'
-    pod 'RxCocoa', '~> 3.0.0-beta.2'
+    pod 'RxSwift', :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => 'master'
+    pod 'RxCocoa', :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => 'master'
 end
 
 target 'RxAlamofire-iOS-Example' do
