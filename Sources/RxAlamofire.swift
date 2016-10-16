@@ -23,7 +23,7 @@ public let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: 
 
 /**
     Creates a NSMutableURLRequest using all necessary parameters.
-    
+
     - parameter method: Alamofire method object
     - parameter url: An object adopting `URLConvertible`
     - parameter parameters: A dictionary containing all necessary options
@@ -99,7 +99,7 @@ Creates an observable of the `(NSHTTPURLResponse, NSData)` instance.
 */
 public func requestData(_ method: Alamofire.HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: AnyObject]? = nil,
+    parameters: [String: Any]? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: [String: String]? = nil)
     -> Observable<(HTTPURLResponse, Data)>
@@ -115,18 +115,18 @@ public func requestData(_ method: Alamofire.HTTPMethod,
 
 /**
  Creates an observable of the returned data.
- 
+
  - parameter method: Alamofire method object
  - parameter url: An object adopting `URLConvertible`
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the addional headers
- 
+
  - returns: An observable of `NSData`
  */
 public func data(_ method: Alamofire.HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: AnyObject]? = nil,
+    parameters: [String: Any]? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: [String: String]? = nil)
     -> Observable<Data>
@@ -171,13 +171,13 @@ public func requestString(_ method: Alamofire.HTTPMethod,
 
 /**
  Creates an observable of the returned decoded string.
- 
+
  - parameter method: Alamofire method object
  - parameter url: An object adopting `URLConvertible`
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the addional headers
- 
+
  - returns: An observable of `String`
  */
 public func string(_ method: Alamofire.HTTPMethod,
@@ -211,7 +211,7 @@ Creates an observable of the returned decoded JSON as `AnyObject` and the respon
 */
 public func requestJSON(_ method: Alamofire.HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: AnyObject]? = nil,
+    parameters: [String: Any]? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: [String: String]? = nil)
     -> Observable<(HTTPURLResponse, Any)>
@@ -227,18 +227,18 @@ public func requestJSON(_ method: Alamofire.HTTPMethod,
 
 /**
  Creates an observable of the returned decoded JSON.
- 
+
  - parameter method: Alamofire method object
  - parameter url: An object adopting `URLConvertible`
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the addional headers
- 
+
  - returns: An observable of the decoded JSON as `Any`
  */
 public func json(_ method: Alamofire.HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: AnyObject]? = nil,
+    parameters: [String: Any]? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: [String: String]? = nil)
     -> Observable<Any>
@@ -326,7 +326,7 @@ extension SessionManager: ReactiveCompatible {
 }
 
 protocol RxAlamofireRequest {
-    
+
     func responseWith(completionHandler: @escaping (RxAlamofireResponse) -> Void)
     func resume()
     func cancel()
@@ -360,12 +360,12 @@ extension DownloadRequest: RxAlamofireRequest {
 extension Reactive where Base: SessionManager {
 
     // MARK: Generic request convenience
-    
+
     /**
     Creates an observable of the DataRequest.
-    
+
     - parameter createRequest: A function used to create a `Request` using a `Manager`
-    
+
     - returns: A generic observable of created data request
     */
     func request<R: RxAlamofireRequest>(_ createRequest: @escaping (SessionManager) throws -> R) -> Observable<R> {
@@ -381,11 +381,11 @@ extension Reactive where Base: SessionManager {
                         observer.on(.completed)
                     }
                 })
-                
+
                 if !self.base.startRequestsImmediately {
                     request.resume()
                 }
-                
+
                 return Disposables.create {
                     request.cancel()
                 }
@@ -396,17 +396,17 @@ extension Reactive where Base: SessionManager {
             }
         }
     }
-    
+
 
     /**
      Creates an observable of the `Request`.
-     
+
      - parameter method: Alamofire method object
      - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
      - parameter header: A dictionary containing all the addional headers
-     
+
      - returns: An observable of the `Request`
      */
     public func request(_ method: Alamofire.HTTPMethod,
@@ -428,12 +428,12 @@ extension Reactive where Base: SessionManager {
 
     /**
      Creates an observable of the `Request`.
-     
+
      - parameter URLRequest: An object adopting `URLRequestConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
      - parameter header: A dictionary containing all the addional headers
-     
+
      - returns: An observable of the `Request`
      */
     public func request(urlRequest: URLRequestConvertible)
@@ -445,15 +445,15 @@ extension Reactive where Base: SessionManager {
     }
 
     // MARK: data
-    
+
     /**
     Creates an observable of the data.
-    
+
     - parameter url: An object adopting `URLConvertible`
     - parameter parameters: A dictionary containing all necessary options
     - parameter encoding: The kind of encoding used to process parameters
     - parameter header: A dictionary containing all the addional headers
-    
+
     - returns: An observable of the tuple `(NSHTTPURLResponse, NSData)`
     */
     public func responseData(_ method: Alamofire.HTTPMethod,
@@ -472,15 +472,15 @@ extension Reactive where Base: SessionManager {
             headers: headers
         ).flatMap { $0.rx.responseData() }
     }
-    
+
     /**
      Creates an observable of the data.
-     
+
      - parameter URLRequest: An object adopting `URLRequestConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
      - parameter header: A dictionary containing all the addional headers
-     
+
      - returns: An observable of `NSData`
      */
     public func data(_ method: Alamofire.HTTPMethod,
@@ -504,12 +504,12 @@ extension Reactive where Base: SessionManager {
 
     /**
     Creates an observable of the tuple `(NSHTTPURLResponse, String)`.
-    
+
     - parameter url: An object adopting `URLRequestConvertible`
     - parameter parameters: A dictionary containing all necessary options
     - parameter encoding: The kind of encoding used to process parameters
     - parameter header: A dictionary containing all the addional headers
-    
+
     - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
     */
     public func responseString(_ method: Alamofire.HTTPMethod,
@@ -531,12 +531,12 @@ extension Reactive where Base: SessionManager {
 
     /**
      Creates an observable of the data encoded as String.
-     
+
      - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
      - parameter header: A dictionary containing all the addional headers
-     
+
      - returns: An observable of `String`
      */
     public func string(_ method: Alamofire.HTTPMethod,
@@ -563,17 +563,17 @@ extension Reactive where Base: SessionManager {
 
     /**
     Creates an observable of the data decoded from JSON and processed as tuple `(NSHTTPURLResponse, AnyObject)`.
-    
+
     - parameter url: An object adopting `URLRequestConvertible`
     - parameter parameters: A dictionary containing all necessary options
     - parameter encoding: The kind of encoding used to process parameters
     - parameter header: A dictionary containing all the addional headers
-    
+
     - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
     */
     public func responseJSON(_ method: Alamofire.HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: AnyObject]? = nil,
+        parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil
     )
@@ -589,12 +589,12 @@ extension Reactive where Base: SessionManager {
 
     /**
      Creates an observable of the data decoded from JSON and processed as `AnyObject`.
-     
+
      - parameter URLRequest: An object adopting `URLRequestConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
      - parameter header: A dictionary containing all the addional headers
-     
+
      - returns: An observable of `AnyObject`
      */
     public func json(_ method: Alamofire.HTTPMethod,
@@ -625,7 +625,7 @@ extension Reactive where Base: SessionManager {
      - returns: The observable of `AnyObject` for the created request.
      */
     public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-        
+
         return request { manager in
             return manager.upload(file, with: urlRequest)
         }
@@ -701,15 +701,15 @@ extension Request: ReactiveCompatible {
 extension Reactive where Base: DataRequest {
 
     // MARK: Defaults
-    
+
     /// - returns: A validated request based on the status code
     func validateSuccessfulResponse() -> DataRequest {
         return self.base.validate(statusCode: 200 ..< 300)
     }
-    
+
     /**
      Transform a request into an observable of the response and serialized object.
-     
+
      - parameter queue: The dispatch queue to use.
      - parameter responseSerializer: The the serializer.
      - returns: The observable of `(NSHTTPURLResponse, T.SerializedObject)` for the created download request.
@@ -742,7 +742,7 @@ extension Reactive where Base: DataRequest {
 
     /**
      Transform a request into an observable of the serialized object.
-     
+
      - parameter queue: The dispatch queue to use.
      - parameter responseSerializer: The the serializer.
      - returns: The observable of `T.SerializedObject` for the created download request.
@@ -776,9 +776,9 @@ extension Reactive where Base: DataRequest {
 
     /**
     Returns an `Observable` of NSData for the current request.
-    
+
     - parameter cancelOnDispose: Indicates if the request has to be canceled when the observer is disposed, **default:** `false`
-    
+
     - returns: An instance of `Observable<NSData>`
     */
     public func responseData() -> Observable<(HTTPURLResponse, Data)> {
@@ -791,7 +791,7 @@ extension Reactive where Base: DataRequest {
 
     /**
     Returns an `Observable` of a String for the current request
-    
+
     - parameter encoding: Type of the string encoding, **default:** `nil`
 
     - returns: An instance of `Observable<String>`
@@ -803,10 +803,10 @@ extension Reactive where Base: DataRequest {
     public func string(encoding: String.Encoding? = nil) -> Observable<String> {
         return result(responseSerializer: Base.stringResponseSerializer(encoding: encoding))
     }
-    
+
     /**
     Returns an `Observable` of a serialized JSON for the current request.
-    
+
     - parameter options: Reading options for JSON decoding process, **default:** `.AllowFragments`
 
     - returns: An instance of `Observable<AnyObject>`
@@ -828,7 +828,7 @@ extension Reactive where Base: DataRequest {
 
     /**
     Returns and `Observable` of a serialized property list for the current request.
-    
+
     - parameter options: Property list reading options, **default:** `NSPropertyListReadOptions()`
 
     - returns: An instance of `Observable<AnyData>`
@@ -845,12 +845,12 @@ extension Reactive where Base: DataRequest {
 
     /**
     Returns an `Observable` for the current progress status.
-    
+
     Parameters on observed tuple:
-    
+
     1. bytes written so far.
     1. total bytes to write.
-    
+
     - returns: An instance of `Observable<RxProgress>`
     */
     public func progress() -> Observable<RxProgress> {
