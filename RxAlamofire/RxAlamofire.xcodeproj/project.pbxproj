@@ -899,7 +899,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = FA25A2CCFED5992060335D27 /* Pods-RxAlamofire-tvOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -923,7 +922,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C9D18F145805B959DFADFC6F /* Pods-RxAlamofire-tvOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1017,7 +1015,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E3047B1B0CF89A93A17C5E39 /* Pods-RxAlamofire-iOS.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -1039,7 +1036,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 639B9B7BC37EEAB3F0CEE781 /* Pods-RxAlamofire-iOS.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
