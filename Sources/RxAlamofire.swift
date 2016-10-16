@@ -299,8 +299,8 @@ public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> 
     - returns: The observable of `DownloadRequest` for the created download request.
  */
 public func download(_ urlRequest: URLRequestConvertible,
-                     destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
-    return SessionManager.default.rx.download(urlRequest, destination: destination)
+                     to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
+    return SessionManager.default.rx.download(urlRequest, to: destination)
 }
 
 // MARK: Resume Data
@@ -316,8 +316,8 @@ public func download(_ urlRequest: URLRequestConvertible,
     - returns: The observable of `Request` for the created download request.
 */
 public func download(resumeData: Data,
-                     destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
-    return SessionManager.default.rx.download(resumeData: resumeData, destination: destination)
+                     to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
+    return SessionManager.default.rx.download(resumeData: resumeData, to: destination)
 }
 
 // MARK: Manager - Extension of Manager
@@ -669,7 +669,7 @@ extension Reactive where Base: SessionManager {
      - returns: The observable of `(NSData?, RxProgress)` for the created download request.
      */
     public func download(_ urlRequest: URLRequestConvertible,
-                         destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
+                         to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
         return request { manager in
             return manager.download(urlRequest, to: destination)
         }
@@ -686,7 +686,7 @@ extension Reactive where Base: SessionManager {
     - returns: The observable of `(NSData?, RxProgress)` for the created download request.
     */
     public func download(resumeData: Data,
-                         destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
+                         to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
         return request { manager in
             return manager.download(resumingWith: resumeData, to: destination)
         }
@@ -856,6 +856,62 @@ extension Reactive where Base: DataRequest {
     public func progress() -> Observable<RxProgress> {
         return Observable.create { observer in
             self.base.downloadProgress { progress in
+                let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
+                                            totalBytes: progress.totalUnitCount)
+                observer.onNext(rxProgress)
+                if rxProgress.bytesWritten >= rxProgress.totalBytes {
+                    observer.onCompleted()
+                }
+            }
+            return Disposables.create()
+            }
+            // warm up a bit :)
+            .startWith(RxProgress(bytesWritten: 0, totalBytes: 0))
+    }
+}
+
+extension Reactive where Base: DownloadRequest {
+    /**
+     Returns an `Observable` for the current progress status.
+
+     Parameters on observed tuple:
+
+     1. bytes written so far.
+     1. total bytes to write.
+
+     - returns: An instance of `Observable<RxProgress>`
+     */
+    public func progress() -> Observable<RxProgress> {
+        return Observable.create { observer in
+            self.base.downloadProgress { progress in
+                let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
+                                            totalBytes: progress.totalUnitCount)
+                observer.onNext(rxProgress)
+                if rxProgress.bytesWritten >= rxProgress.totalBytes {
+                    observer.onCompleted()
+                }
+            }
+            return Disposables.create()
+            }
+            // warm up a bit :)
+            .startWith(RxProgress(bytesWritten: 0, totalBytes: 0))
+    }
+}
+
+extension Reactive where Base: UploadRequest {
+    /**
+     Returns an `Observable` for the current progress status.
+
+     Parameters on observed tuple:
+
+     1. bytes written so far.
+     1. total bytes to write.
+
+     - returns: An instance of `Observable<RxProgress>`
+     */
+    public func progress() -> Observable<RxProgress> {
+        return Observable.create { observer in
+            self.base.uploadProgress { progress in
                 let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
                                             totalBytes: progress.totalUnitCount)
                 observer.onNext(rxProgress)
