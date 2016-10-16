@@ -100,7 +100,7 @@ Creates an observable of the `(NSHTTPURLResponse, NSData)` instance.
 */
 public func requestData(_ method: Alamofire.HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: AnyObject]? = nil,
+    parameters: [String: Any]? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: [String: String]? = nil)
     -> Observable<(HTTPURLResponse, Data)>
@@ -127,7 +127,7 @@ public func requestData(_ method: Alamofire.HTTPMethod,
  */
 public func data(_ method: Alamofire.HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: AnyObject]? = nil,
+    parameters: [String: Any]? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: [String: String]? = nil)
     -> Observable<Data>
@@ -212,7 +212,7 @@ Creates an observable of the returned decoded JSON as `AnyObject` and the respon
 */
 public func requestJSON(_ method: Alamofire.HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: AnyObject]? = nil,
+    parameters: [String: Any]? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: [String: String]? = nil)
     -> Observable<(HTTPURLResponse, Any)>
@@ -239,7 +239,7 @@ public func requestJSON(_ method: Alamofire.HTTPMethod,
  */
 public func json(_ method: Alamofire.HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: AnyObject]? = nil,
+    parameters: [String: Any]? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
     headers: [String: String]? = nil)
     -> Observable<Any>
@@ -574,7 +574,7 @@ extension Reactive where Base: SessionManager {
     */
     public func responseJSON(_ method: Alamofire.HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: AnyObject]? = nil,
+        parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
         headers: [String: String]? = nil
     )
