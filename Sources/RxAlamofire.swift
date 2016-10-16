@@ -898,34 +898,6 @@ extension Reactive where Base: DownloadRequest {
     }
 }
 
-extension Reactive where Base: UploadRequest {
-    /**
-     Returns an `Observable` for the current progress status.
-
-     Parameters on observed tuple:
-
-     1. bytes written so far.
-     1. total bytes to write.
-
-     - returns: An instance of `Observable<RxProgress>`
-     */
-    public func progress() -> Observable<RxProgress> {
-        return Observable.create { observer in
-            self.base.uploadProgress { progress in
-                let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
-                                            totalBytes: progress.totalUnitCount)
-                observer.onNext(rxProgress)
-                if rxProgress.bytesWritten >= rxProgress.totalBytes {
-                    observer.onCompleted()
-                }
-            }
-            return Disposables.create()
-            }
-            // warm up a bit :)
-            .startWith(RxProgress(bytesWritten: 0, totalBytes: 0))
-    }
-}
-
 // MARK: RxProgress
 public struct RxProgress {
     public let bytesWritten: Int64
