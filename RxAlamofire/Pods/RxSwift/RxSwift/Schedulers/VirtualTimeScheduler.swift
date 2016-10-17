@@ -1,6 +1,6 @@
 //
 //  VirtualTimeScheduler.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 2/14/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -59,9 +59,9 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
             case .greaterThan:
                 return false
             }
-        })
+        }, isEqual: { $0 === $1 })
         #if TRACE_RESOURCES
-            let _ = AtomicIncrement(&resourceCount)
+            let _ = Resources.incrementTotal()
         #endif
     }
 
@@ -239,7 +239,7 @@ open class VirtualTimeScheduler<Converter: VirtualTimeConverterType>
 
     #if TRACE_RESOURCES
         deinit {
-            _ = AtomicDecrement(&resourceCount)
+            _ = Resources.decrementTotal()
         }
     #endif
 }

@@ -1,6 +1,6 @@
 //
 //  Queue.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 3/21/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -27,7 +27,7 @@ public struct Queue<T>: Sequence {
     private var _storage: ContiguousArray<T?>
     private var _count = 0
     private var _pushNextIndex = 0
-    private var _initialCapacity: Int
+    private let _initialCapacity: Int
 
     /**
     Creates new queue.

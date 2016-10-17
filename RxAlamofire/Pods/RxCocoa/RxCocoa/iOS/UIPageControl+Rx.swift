@@ -1,6 +1,6 @@
 //
 //  UIPageControl+Rx.swift
-//  Rx
+//  RxCocoa
 //
 //  Created by Francesco Puntillo on 14/04/2016.
 //  Copyright © 2016 Krunoslav Zaher. All rights reserved.
@@ -19,10 +19,10 @@ extension Reactive where Base: UIPageControl {
     /**
     Bindable sink for `currentPage` property.
     */
-    public var currentPage: AnyObserver<Int> {
+    public var currentPage: UIBindingObserver<Base, Int> {
         return UIBindingObserver(UIElement: self.base) { controller, page in
             controller.currentPage = page
-        }.asObserver()
+        }
     }
 }
     

@@ -1,6 +1,6 @@
 //
 //  UIProgressView+Rx.swift
-//  Rx
+//  RxCocoa
 //
 //  Created by Samuel Bae on 2/27/16.
 //  Copyright © 2016 Krunoslav Zaher. All rights reserved.
@@ -19,10 +19,10 @@ extension Reactive where Base: UIProgressView {
     /**
     Bindable sink for `progress` property
     */
-    public var progress: AnyObserver<Float> {
+    public var progress: UIBindingObserver<Base, Float> {
         return UIBindingObserver(UIElement: self.base) { progressView, progress in
             progressView.progress = progress
-        }.asObserver()
+        }
     }
 
 }

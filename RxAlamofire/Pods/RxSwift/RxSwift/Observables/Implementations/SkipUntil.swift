@@ -1,6 +1,6 @@
 //
 //  SkipUntil.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Yury Korolev on 10/3/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -26,7 +26,7 @@ class SkipUntilSinkOther<ElementType, Other, O: ObserverType>
     init(parent: Parent) {
         _parent = parent
         #if TRACE_RESOURCES
-            let _ = AtomicIncrement(&resourceCount)
+            let _ = Resources.incrementTotal()
         #endif
     }
 
@@ -49,7 +49,7 @@ class SkipUntilSinkOther<ElementType, Other, O: ObserverType>
     
     #if TRACE_RESOURCES
     deinit {
-        let _ = AtomicDecrement(&resourceCount)
+        let _ = Resources.decrementTotal()
     }
     #endif
 

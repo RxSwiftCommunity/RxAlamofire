@@ -1,6 +1,6 @@
 //
 //  UIViewController+Rx.swift
-//  Rx
+//  RxCocoa
 //
 //  Created by Kyle Fuller on 27/05/2016.
 //  Copyright © 2016 Krunoslav Zaher. All rights reserved.
@@ -20,10 +20,10 @@ import Foundation
     /**
      Bindable sink for `title`.
      */
-    public var title: AnyObserver<String> {
+    public var title: UIBindingObserver<Base, String> {
       return UIBindingObserver(UIElement: self.base) { viewController, title in
         viewController.title = title
-      }.asObserver()
+      }
     }
   }
 #endif

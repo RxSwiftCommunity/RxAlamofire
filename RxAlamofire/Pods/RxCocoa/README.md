@@ -1,7 +1,7 @@
 <img src="assets/Rx_Logo_M.png" alt="Miss Electric Eel 2016" width="36" height="36"> RxSwift: ReactiveX for Swift
 ======================================
 
-[![Travis CI](https://travis-ci.org/ReactiveX/RxSwift.svg?branch=master)](https://travis-ci.org/ReactiveX/RxSwift) ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20OSX%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux%28experimental%29-333333.svg) ![pod](https://img.shields.io/cocoapods/v/RxSwift.svg) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Travis CI](https://travis-ci.org/ReactiveX/RxSwift.svg?branch=master)](https://travis-ci.org/ReactiveX/RxSwift) ![platforms](https://img.shields.io/badge/platforms-iOS%20%7C%20macOS%20%7C%20tvOS%20%7C%20watchOS%20%7C%20Linux-333333.svg) ![pod](https://img.shields.io/cocoapods/v/RxSwift.svg) [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage) [![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 
 ## About Rx
 
@@ -13,7 +13,7 @@ Rx is a [generic abstraction of computation](https://youtu.be/looJcaeboBY) expre
 
 This is a Swift version of [Rx](https://github.com/Reactive-Extensions/Rx.NET).
 
-It tries to port as many concepts from the original version as possible, but some concepts were adapted for more pleasant and performant integration with iOS/OSX environment.
+It tries to port as many concepts from the original version as possible, but some concepts were adapted for more pleasant and performant integration with iOS/macOS environment.
 
 Cross platform documentation can be found on [ReactiveX.io](http://reactivex.io/).
 
@@ -131,20 +131,20 @@ Open Rx.xcworkspace, choose `RxExample` and hit run. This method will build ever
 use_frameworks!
 
 target 'YOUR_TARGET_NAME' do
-    pod 'RxSwift',    '~> 3.0.0-beta.2'
-    pod 'RxCocoa',    '~> 3.0.0-beta.2'
+    pod 'RxSwift',    '3.0.0-rc.1'
+    pod 'RxCocoa',    '3.0.0-rc.1'
 end
 
 # RxTests and RxBlocking make the most sense in the context of unit/integration tests
 target 'YOUR_TESTING_TARGET' do
-    pod 'RxBlocking', '~> 3.0.0-beta.2'
-    pod 'RxTests',    '~> 3.0.0-beta.2'
+    pod 'RxBlocking', '3.0.0-rc.1'
+    pod 'RxTest',     '3.0.0-rc.1'
 end
 ```
 
 Replace `YOUR_TARGET_NAME` and then, in the `Podfile` directory, type:
 
-**:warning: If you want to use CocoaPods with Xcode 8.0 beta and Swift 3.0, you might need to add the following
+**:warning: If you want to use CocoaPods with Xcode 8.0 and Swift 3.0, you might need to add the following
 lines to your podfile: :warning:**
 
 ```
@@ -167,7 +167,7 @@ $ pod install
 Add this to `Cartfile`
 
 ```
-github "ReactiveX/RxSwift" "3.0.0-beta.2"
+github "ReactiveX/RxSwift" "3.0.0-rc.1"
 ```
 
 ```

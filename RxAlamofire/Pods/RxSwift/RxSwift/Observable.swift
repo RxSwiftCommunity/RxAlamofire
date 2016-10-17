@@ -1,6 +1,6 @@
 //
 //  Observable.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 2/8/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -21,7 +21,7 @@ public class Observable<Element> : ObservableType {
     
     init() {
 #if TRACE_RESOURCES
-        OSAtomicIncrement32(&resourceCount)
+        let _ = Resources.incrementTotal()
 #endif
     }
     
@@ -35,7 +35,7 @@ public class Observable<Element> : ObservableType {
     
     deinit {
 #if TRACE_RESOURCES
-        let _ = AtomicDecrement(&resourceCount)
+        let _ = Resources.decrementTotal()
 #endif
     }
 
@@ -46,7 +46,7 @@ public class Observable<Element> : ObservableType {
     Optimizations for map operator
     */
     internal func composeMap<R>(_ selector: @escaping (Element) throws -> R) -> Observable<R> {
-        return Map(source: self, selector: selector)
+        return Map(source: self, transform: selector)
     }
 }
 

@@ -6,6 +6,8 @@
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
+#if !os(Linux)
+
 import Foundation
 #if !RX_NO_MODULE
 import RxSwift
@@ -278,3 +280,5 @@ extension ObservableType {
         return Disposables.create(subscription, disposable)
     }
 }
+
+#endif

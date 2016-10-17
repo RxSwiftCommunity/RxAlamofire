@@ -1,6 +1,6 @@
 //
 //  HistoricalScheduler.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 12/27/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 
 /**
-  Provides a virtual time scheduler that uses `NSDate` for absolute time and `NSTimeInterval` for relative time.
+  Provides a virtual time scheduler that uses `Date` for absolute time and `NSTimeInterval` for relative time.
 */
 public class HistoricalScheduler : VirtualTimeScheduler<HistoricalSchedulerTimeConverter> {
 

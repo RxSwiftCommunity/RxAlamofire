@@ -1,6 +1,6 @@
 //
 //  PriorityQueue.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 12/27/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -8,12 +8,15 @@
 
 import Foundation
 
-struct PriorityQueue<Element: AnyObject> {
+struct PriorityQueue<Element> {
     private let _hasHigherPriority: (Element, Element) -> Bool
+    private let _isEqual: (Element, Element) -> Bool
+
     fileprivate var _elements = [Element]()
 
-    init(hasHigherPriority: @escaping (Element, Element) -> Bool) {
+    init(hasHigherPriority: @escaping (Element, Element) -> Bool, isEqual: @escaping (Element, Element) -> Bool) {
         _hasHigherPriority = hasHigherPriority
+        _isEqual = isEqual
     }
 
     mutating func enqueue(_ element: Element) {
@@ -41,7 +44,7 @@ struct PriorityQueue<Element: AnyObject> {
 
     mutating func remove(_ element: Element) {
         for i in 0 ..< _elements.count {
-            if _elements[i] === element {
+            if _isEqual(_elements[i], element) {
                 removeAt(i)
                 return
             }
@@ -70,15 +73,10 @@ struct PriorityQueue<Element: AnyObject> {
 
         while unbalancedIndex > 0 {
             let parentIndex = (unbalancedIndex - 1) / 2
-
-            if _hasHigherPriority(_elements[unbalancedIndex], _elements[parentIndex]) {
-                swap(&_elements[unbalancedIndex], &_elements[parentIndex])
-
-                unbalancedIndex = parentIndex
-            }
-            else {
-                break
-            }
+            guard _hasHigherPriority(_elements[unbalancedIndex], _elements[parentIndex]) else { break }
+            
+            swap(&_elements[unbalancedIndex], &_elements[parentIndex])
+            unbalancedIndex = parentIndex
         }
     }
 
@@ -87,7 +85,7 @@ struct PriorityQueue<Element: AnyObject> {
         precondition(initialUnbalancedIndex < _elements.count)
 
         var unbalancedIndex = initialUnbalancedIndex
-        repeat {
+        while true {
             let leftChildIndex = unbalancedIndex * 2 + 1
             let rightChildIndex = unbalancedIndex * 2 + 2
 
@@ -101,15 +99,11 @@ struct PriorityQueue<Element: AnyObject> {
                 highestPriorityIndex = rightChildIndex
             }
 
-            if highestPriorityIndex != unbalancedIndex {
-                swap(&_elements[highestPriorityIndex], &_elements[unbalancedIndex])
+            guard highestPriorityIndex != unbalancedIndex else { break }
 
-                unbalancedIndex = highestPriorityIndex
-            }
-            else {
-                break
-            }
-        } while true
+            swap(&_elements[highestPriorityIndex], &_elements[unbalancedIndex])
+            unbalancedIndex = highestPriorityIndex
+        }
     }
 }
 

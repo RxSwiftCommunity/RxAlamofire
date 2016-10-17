@@ -6,9 +6,14 @@
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
+#if !os(Linux)
+
 import Foundation
 #if !RX_NO_MODULE
-import RxSwift
+    import RxSwift
+    #if SWIFT_PACKAGE && !os(Linux)
+        import RxCocoaRuntime
+    #endif
 #endif
 
 var delegateAssociatedTag: UInt8 = 0
@@ -39,7 +44,7 @@ open class DelegateProxy : _RXDelegateProxy {
         
         MainScheduler.ensureExecutingOnScheduler()
 #if TRACE_RESOURCES
-        OSAtomicIncrement32(&resourceCount)
+        _ = Resources.incrementTotal()
 #endif
         super.init()
     }
@@ -261,7 +266,7 @@ open class DelegateProxy : _RXDelegateProxy {
             v.on(.completed)
         }
 #if TRACE_RESOURCES
-        OSAtomicDecrement32(&resourceCount)
+        _ = Resources.decrementTotal()
 #endif
     }
 
@@ -271,3 +276,6 @@ open class DelegateProxy : _RXDelegateProxy {
         return p
     }
 }
+
+#endif
+

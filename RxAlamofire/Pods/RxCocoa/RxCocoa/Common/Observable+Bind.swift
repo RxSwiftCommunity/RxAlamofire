@@ -1,6 +1,6 @@
 //
 //  Observable+Bind.swift
-//  Rx
+//  RxCocoa
 //
 //  Created by Krunoslav Zaher on 8/29/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -25,6 +25,20 @@ extension ObservableType {
     // @warn_unused_result(message: "http://git.io/rxs.ud")
     public func bindTo<O: ObserverType>(_ observer: O) -> Disposable where O.E == E {
         return self.subscribe(observer)
+    }
+
+    /**
+     Creates new subscription and sends elements to observer.
+
+     In this form it's equivalent to `subscribe` method, but it communicates intent better, and enables
+     writing more consistent binding code.
+
+     - parameter observer: Observer that receives events.
+     - returns: Disposable object that can be used to unsubscribe the observer.
+     */
+    // @warn_unused_result(message: "http://git.io/rxs.ud")
+    public func bindTo<O: ObserverType>(_ observer: O) -> Disposable where O.E == E? {
+        return self.map { $0 }.subscribe(observer)
     }
 
     /**
@@ -53,6 +67,20 @@ extension ObservableType {
                 break
             }
         }
+    }
+
+    /**
+     Creates new subscription and sends elements to variable.
+
+     In case error occurs in debug mode, `fatalError` will be raised.
+     In case error occurs in release mode, `error` will be logged.
+
+     - parameter variable: Target variable for sequence elements.
+     - returns: Disposable object that can be used to unsubscribe the observer.
+     */
+    // @warn_unused_result(message: "http://git.io/rxs.ud")
+    public func bindTo(_ variable: Variable<E?>) -> Disposable {
+        return self.map { $0 as E? }.bindTo(variable)
     }
     
     /**

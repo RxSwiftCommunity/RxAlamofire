@@ -1,6 +1,6 @@
 //
 //  Sink.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 2/19/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -15,7 +15,7 @@ class Sink<O : ObserverType> : Disposable {
 
     init(observer: O, cancel: Cancelable) {
 #if TRACE_RESOURCES
-        let _ = AtomicIncrement(&resourceCount)
+        let _ = Resources.incrementTotal()
 #endif
         _observer = observer
         _cancel = cancel
@@ -33,6 +33,10 @@ class Sink<O : ObserverType> : Disposable {
         return SinkForward(forward: self)
     }
 
+    var disposed: Bool {
+        return _disposed
+    }
+
     func dispose() {
         _disposed = true
         _cancel.dispose()
@@ -40,7 +44,7 @@ class Sink<O : ObserverType> : Disposable {
 
     deinit {
 #if TRACE_RESOURCES
-       let _ =  AtomicDecrement(&resourceCount)
+       let _ =  Resources.decrementTotal()
 #endif
     }
 }

@@ -1,6 +1,6 @@
 //
 //  AnyObserver.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 2/28/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -71,5 +71,17 @@ extension ObserverType {
     */
     public func asObserver() -> AnyObserver<E> {
         return AnyObserver(self)
+    }
+
+    /**
+     Transforms observer of type R to type E using custom transform method.
+     Each event sent to result observer is transformed and sent to `self`.
+     
+     - returns: observer that transforms events.
+    */
+    public func map<R>(_ transform: @escaping (R) throws -> E) -> AnyObserver<R> {
+        return AnyObserver { e in
+            self.on(e.map(transform))
+        }
     }
 }

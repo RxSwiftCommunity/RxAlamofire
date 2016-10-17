@@ -1,6 +1,6 @@
 //
 //  Event.swift
-//  Rx
+//  RxSwift
 //
 //  Created by Krunoslav Zaher on 2/8/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -62,5 +62,25 @@ extension Event {
             return error
         }
         return nil
+    }
+}
+
+extension Event {
+    /// Maps sequence elements using transform. If error happens during the transform .error
+    /// will be returned as value
+    public func map<Result>(_ transform: (Element) throws -> Result) -> Event<Result> {
+        do {
+            switch self {
+            case let .next(element):
+                return .next(try transform(element))
+            case let .error(error):
+                return .error(error)
+            case .completed:
+                return .completed
+            }
+        }
+        catch let e {
+            return .error(e)
+        }
     }
 }
