@@ -33,8 +33,8 @@
 		C87D2C971D8F3585003F5936 /* RxAlamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C89A0D2B1BE0D50E00744695 /* RxAlamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		C87D2C9B1D8F358C003F5936 /* RxAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 637D95711C4E370C00F1FA67 /* RxAlamofire.framework */; };
 		C87D2C9C1D8F358C003F5936 /* RxAlamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 637D95711C4E370C00F1FA67 /* RxAlamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		C87D2CA51D8F35F8003F5936 /* NSURLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CA21D8F35F8003F5936 /* NSURLSession+RxAlamofire.swift */; };
-		C87D2CA61D8F35F8003F5936 /* NSURLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CA21D8F35F8003F5936 /* NSURLSession+RxAlamofire.swift */; };
+		C87D2CA51D8F35F8003F5936 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CA21D8F35F8003F5936 /* URLSession+RxAlamofire.swift */; };
+		C87D2CA61D8F35F8003F5936 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CA21D8F35F8003F5936 /* URLSession+RxAlamofire.swift */; };
 		C87D2CA71D8F35F8003F5936 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C87D2CA31D8F35F8003F5936 /* RxAlamofire.h */; };
 		C87D2CA81D8F35F8003F5936 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C87D2CA31D8F35F8003F5936 /* RxAlamofire.h */; };
 		C87D2CA91D8F35F8003F5936 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CA41D8F35F8003F5936 /* RxAlamofire.swift */; };
@@ -135,7 +135,7 @@
 		C87D2C8D1D8F34CF003F5936 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C87D2C8E1D8F34CF003F5936 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C87D2C8F1D8F34CF003F5936 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		C87D2CA21D8F35F8003F5936 /* NSURLSession+RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+RxAlamofire.swift"; sourceTree = "<group>"; };
+		C87D2CA21D8F35F8003F5936 /* URLSession+RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+RxAlamofire.swift"; sourceTree = "<group>"; };
 		C87D2CA31D8F35F8003F5936 /* RxAlamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		C87D2CA41D8F35F8003F5936 /* RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxAlamofire.swift; sourceTree = "<group>"; };
 		C88D89A01BE0DC8E0065150F /* Pods.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pods.framework; path = "Pods/../build/Debug-iphoneos/Pods.framework"; sourceTree = "<group>"; };
@@ -340,7 +340,7 @@
 		C87D2CA11D8F35F8003F5936 /* Cocoa */ = {
 			isa = PBXGroup;
 			children = (
-				C87D2CA21D8F35F8003F5936 /* NSURLSession+RxAlamofire.swift */,
+				C87D2CA21D8F35F8003F5936 /* URLSession+RxAlamofire.swift */,
 			);
 			path = Cocoa;
 			sourceTree = "<group>";
@@ -809,7 +809,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C87D2CAA1D8F35F8003F5936 /* RxAlamofire.swift in Sources */,
-				C87D2CA61D8F35F8003F5936 /* NSURLSession+RxAlamofire.swift in Sources */,
+				C87D2CA61D8F35F8003F5936 /* URLSession+RxAlamofire.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -834,7 +834,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C87D2CA91D8F35F8003F5936 /* RxAlamofire.swift in Sources */,
-				C87D2CA51D8F35F8003F5936 /* NSURLSession+RxAlamofire.swift in Sources */,
+				C87D2CA51D8F35F8003F5936 /* URLSession+RxAlamofire.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

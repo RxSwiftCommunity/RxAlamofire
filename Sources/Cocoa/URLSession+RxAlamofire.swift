@@ -1,5 +1,5 @@
 //
-//  NSURLSession+RxAlamofire.swift
+//  URLSession+RxAlamofire.swift
 //  RxAlamofire
 //
 //  Created by Junior B. on 04/11/15.
