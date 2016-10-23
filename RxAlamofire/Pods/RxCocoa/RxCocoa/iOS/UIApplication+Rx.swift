@@ -17,10 +17,8 @@ import Foundation
 
     extension Reactive where Base: UIApplication {
         
-        /**
-         Bindable sink for `networkActivityIndicatorVisible`.
-         */
-        public var networkActivityIndicatorVisible: UIBindingObserver<Base, Bool> {
+        /// Bindable sink for `networkActivityIndicatorVisible`.
+        public var isNetworkActivityIndicatorVisible: UIBindingObserver<Base, Bool> {
             return UIBindingObserver(UIElement: self.base) { application, active in
                 application.isNetworkActivityIndicatorVisible = active
             }

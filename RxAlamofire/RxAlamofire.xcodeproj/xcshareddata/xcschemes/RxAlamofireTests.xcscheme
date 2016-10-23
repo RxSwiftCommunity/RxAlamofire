@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C89A0D2A1BE0D50E00744695"
-               BuildableName = "RxAlamofire.framework"
-               BlueprintName = "RxAlamofire-iOS"
+               BlueprintIdentifier = "A57A28CA1D78E8EB000D88BA"
+               BuildableName = "RxAlamofireTests.xctest"
+               BlueprintName = "RxAlamofireTests"
                ReferencedContainer = "container:RxAlamofire.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -39,15 +39,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C89A0D2A1BE0D50E00744695"
-            BuildableName = "RxAlamofire.framework"
-            BlueprintName = "RxAlamofire-iOS"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +55,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C89A0D2A1BE0D50E00744695"
-            BuildableName = "RxAlamofire.framework"
-            BlueprintName = "RxAlamofire-iOS"
+            BlueprintIdentifier = "A57A28CA1D78E8EB000D88BA"
+            BuildableName = "RxAlamofireTests.xctest"
+            BlueprintName = "RxAlamofireTests"
             ReferencedContainer = "container:RxAlamofire.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +73,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "C89A0D2A1BE0D50E00744695"
-            BuildableName = "RxAlamofire.framework"
-            BlueprintName = "RxAlamofire-iOS"
+            BlueprintIdentifier = "A57A28CA1D78E8EB000D88BA"
+            BuildableName = "RxAlamofireTests.xctest"
+            BlueprintName = "RxAlamofireTests"
             ReferencedContainer = "container:RxAlamofire.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

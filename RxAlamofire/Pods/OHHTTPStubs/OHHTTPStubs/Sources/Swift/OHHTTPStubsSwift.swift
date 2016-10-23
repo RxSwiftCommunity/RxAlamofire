@@ -28,6 +28,13 @@
 
 
 #if swift(>=3.0)
+  #if OHHTTPSTUBS_NSURLSESSION_HTTPBODY
+    extension URLRequest {
+        public var ohhttpStubs_httpBody: Data? {
+            return (self as NSURLRequest).ohhttpStubs_HTTPBody()
+        }
+    }
+  #endif
 #else
 #if swift(>=2.2)
     extension OHHTTPStubs {
@@ -84,6 +91,7 @@ public func fixture(filePath: String, status: Int32 = 200, headers: [NSObject: A
  *            and can be later used to remove it with `removeStub:`
  */
 #if swift(>=3.0)
+@discardableResult
 public func stub(condition: @escaping OHHTTPStubsTestBlock, response: @escaping OHHTTPStubsResponseBlock) -> OHHTTPStubsDescriptor {
     return OHHTTPStubs.stubRequests(passingTest: condition, withStubResponse: response)
 }

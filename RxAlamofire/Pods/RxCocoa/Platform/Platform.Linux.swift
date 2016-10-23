@@ -1,6 +1,6 @@
 //
 //  Platform.Linux.swift
-//  RxSwift
+//  Platform
 //
 //  Created by Krunoslav Zaher on 12/29/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
@@ -71,11 +71,6 @@
     }
 
     extension Thread {
-
-        // This is kind of dodgy, as it only works in cases where there is a run loop
-        var isMainThread: Bool {
-            return RunLoop.current == RunLoop.main
-        }
 
         static func setThreadLocalStorageValue<T: AnyObject>(_ value: T?, forKey key: String) {
             let currentThread = Thread.current

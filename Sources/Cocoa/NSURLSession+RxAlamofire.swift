@@ -39,7 +39,7 @@ extension Reactive where Base: URLSession {
                         parameters: parameters,
                         encoding: encoding,
                         headers: headers)
-                return JSON(request)
+                return json(request: request)
             }
             catch let error {
                 return Observable.error(error)
@@ -61,14 +61,14 @@ extension Reactive where Base: URLSession {
         _ url: URLConvertible,
         parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil) -> Observable<(Data, HTTPURLResponse)> {
+        headers: [String: String]? = nil) -> Observable<(HTTPURLResponse, Data)> {
             do {
                 let request = try RxAlamofire.urlRequest(method,
                                                          url,
                                                          parameters: parameters,
                                                          encoding: encoding,
                                                          headers: headers)
-                return response(request)
+                return response(request: request)
             }
             catch let error {
                 return Observable.error(error)
@@ -97,7 +97,7 @@ extension Reactive where Base: URLSession {
                                                          parameters: parameters,
                                                          encoding: encoding,
                                                          headers: headers)
-                return data(request)
+                return data(request: request)
             }
             catch let error {
                 return Observable.error(error)

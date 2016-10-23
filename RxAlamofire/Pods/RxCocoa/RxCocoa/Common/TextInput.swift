@@ -15,26 +15,18 @@ import Foundation
 #if os(iOS) || os(tvOS)
     import UIKit
 
-    /**
-    Represents text input with reactive extensions.
-    */
+    /// Represents text input with reactive extensions.
     public struct TextInput<Base: UITextInput> {
-        /**
-         Base text input to extend.
-        */
+        /// Base text input to extend.
         public let base: Base
 
-        /**
-         Reactive wrapper for `text` property.
-        */
+        /// Reactive wrapper for `text` property.
         public let text: ControlProperty<String?>
 
-        /**
-         Initializes new text input.
-         
-         - parameter base: Base object.
-         - parameter text: Textual control property.
-        */
+        /// Initializes new text input.
+        ///
+        /// - parameter base: Base object.
+        /// - parameter text: Textual control property.
         public init(base: Base, text: ControlProperty<String?>) {
             self.base = base
             self.text = text
@@ -42,109 +34,51 @@ import Foundation
     }
 
     extension Reactive where Base: UITextField {
-        /**
-         Reactive text input.
-        */
+        /// Reactive text input.
         public var textInput: TextInput<UITextField> {
             return TextInput(base: base, text: self.text)
         }
     }
 
     extension Reactive where Base: UITextView {
-        /**
-         Reactive text input.
-         */
+        /// Reactive text input.
         public var textInput: TextInput<UITextView> {
             return TextInput(base: base, text: self.text)
         }
     }
 
-    /**
-     Represents text input with reactive extensions.
-     */
-    @available(*, deprecated, renamed: "TextInput")
-    public protocol RxTextInput : UITextInput {
-        @available(*, deprecated, renamed: "rx.textInput.text")
-        var rx_text: ControlProperty<String?> { get }
-    }
-
-    extension UITextField : RxTextInput {
-        @available(*, deprecated, renamed: "rx.textInput.text")
-        public var rx_text: ControlProperty<String?> {
-            return self.rx.text
-        }
-    }
-
-    extension UITextView : RxTextInput {
-        @available(*, deprecated, renamed: "rx.textInput.text")
-        public var rx_text: ControlProperty<String?> {
-            return self.rx.text
-        }
-    }
-
-
 #endif
 
-#if os(OSX)
+#if os(macOS)
     import Cocoa
 
-    /**
-     Represents text input with reactive extensions.
-     */
+    /// Represents text input with reactive extensions.
     public struct TextInput<Base: NSTextInput> {
-        /**
-         Base text input to extend.
-         */
+        /// Base text input to extend.
         public let base: Base
 
-        /**
-         Reactive wrapper for `text` property.
-         */
-        public let text: ControlProperty<String>
+        /// Reactive wrapper for `text` property.
+        public let text: ControlProperty<String?>
 
-        /**
-         Initializes new text input.
-
-         - parameter base: Base object.
-         - parameter text: Textual control property.
-         */
-        public init(base: Base, text: ControlProperty<String>) {
+        /// Initializes new text input.
+        ///
+        /// - parameter base: Base object.
+        /// - parameter text: Textual control property.
+        public init(base: Base, text: ControlProperty<String?>) {
             self.base = base
             self.text = text
         }
     }
 
     extension Reactive where Base: NSTextField {
-        /**
-         Reactive text input.
-         */
+        /// Reactive text input.
         public var textInput: TextInput<NSTextField> {
             return TextInput(base: base, text: self.text)
         }
     }
 
-    /**
-    Represents text input with reactive extensions.
-    */
-    @available(*, deprecated, renamed: "TextInput")
-    public protocol RxTextInput : NSTextInput {
+    extension NSTextField : NSTextInput {
         
-        /**
-         Reactive wrapper for `text` property.
-        */
-        @available(*, deprecated, renamed: "rx.textInput.text")
-        var rx_text: ControlProperty<String> { get }
-    }
-
-    @available(*, deprecated)
-    extension NSTextField : RxTextInput {
-        /**
-         Reactive wrapper for `text` property.
-         */
-        @available(*, deprecated, renamed: "rx.textInput.text")
-        public var rx_text: ControlProperty<String> {
-            return self.rx.text
-        }
     }
 
 #endif
