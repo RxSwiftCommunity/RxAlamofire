@@ -7,8 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C87D2CB01D8F382C003F5936 /* NSURLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CAD1D8F382C003F5936 /* NSURLSession+RxAlamofire.swift */; };
-		C87D2CB11D8F382C003F5936 /* NSURLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CAD1D8F382C003F5936 /* NSURLSession+RxAlamofire.swift */; };
+		30E955251DBF9E0F00035075 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30E955241DBF9E0F00035075 /* URLSession+RxAlamofire.swift */; };
 		C87D2CB21D8F382C003F5936 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C87D2CAE1D8F382C003F5936 /* RxAlamofire.h */; };
 		C87D2CB31D8F382C003F5936 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C87D2CAE1D8F382C003F5936 /* RxAlamofire.h */; };
 		C87D2CB41D8F382C003F5936 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CAF1D8F382C003F5936 /* RxAlamofire.swift */; };
@@ -24,7 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C87D2CAD1D8F382C003F5936 /* NSURLSession+RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURLSession+RxAlamofire.swift"; sourceTree = "<group>"; };
+		30E955241DBF9E0F00035075 /* URLSession+RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+RxAlamofire.swift"; sourceTree = "<group>"; };
 		C87D2CAE1D8F382C003F5936 /* RxAlamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		C87D2CAF1D8F382C003F5936 /* RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxAlamofire.swift; sourceTree = "<group>"; };
 		C87D2CB71D8F3850003F5936 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
@@ -78,7 +77,7 @@
 		C87D2CAC1D8F382C003F5936 /* Cocoa */ = {
 			isa = PBXGroup;
 			children = (
-				C87D2CAD1D8F382C003F5936 /* NSURLSession+RxAlamofire.swift */,
+				30E955241DBF9E0F00035075 /* URLSession+RxAlamofire.swift */,
 			);
 			path = Cocoa;
 			sourceTree = "<group>";
@@ -272,7 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C87D2CB41D8F382C003F5936 /* RxAlamofire.swift in Sources */,
-				C87D2CB01D8F382C003F5936 /* NSURLSession+RxAlamofire.swift in Sources */,
+				30E955251DBF9E0F00035075 /* URLSession+RxAlamofire.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,7 +280,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C87D2CB51D8F382C003F5936 /* RxAlamofire.swift in Sources */,
-				C87D2CB11D8F382C003F5936 /* NSURLSession+RxAlamofire.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
