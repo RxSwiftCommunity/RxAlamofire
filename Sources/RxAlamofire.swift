@@ -28,7 +28,7 @@ public let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: 
     - parameter url: An object adopting `URLConvertible`
     - parameter parameters: A dictionary containing all necessary options
     - parameter encoding: The kind of encoding used to process parameters
-    - parameter header: A dictionary containing all the addional headers
+    - parameter header: A dictionary containing all the additional headers
     - returns: An instance of `NSMutableURLRequest`
 */
 
@@ -64,7 +64,7 @@ Creates an observable of the generated `Request`.
 - parameter url: An object adopting `URLConvertible`
 - parameter parameters: A dictionary containing all necessary options
 - parameter encoding: The kind of encoding used to process parameters
-- parameter header: A dictionary containing all the addional headers
+- parameter header: A dictionary containing all the additional headers
 
 - returns: An observable of a the `Request`
 */
@@ -93,7 +93,7 @@ Creates an observable of the `(NSHTTPURLResponse, NSData)` instance.
 - parameter url: An object adopting `URLConvertible`
 - parameter parameters: A dictionary containing all necessary options
 - parameter encoding: The kind of encoding used to process parameters
-- parameter header: A dictionary containing all the addional headers
+- parameter header: A dictionary containing all the additional headers
 
 - returns: An observable of a tuple containing `(NSHTTPURLResponse, NSData)`
 */
@@ -120,7 +120,7 @@ public func requestData(_ method: Alamofire.HTTPMethod,
  - parameter url: An object adopting `URLConvertible`
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
- - parameter header: A dictionary containing all the addional headers
+ - parameter header: A dictionary containing all the additional headers
 
  - returns: An observable of `NSData`
  */
@@ -149,7 +149,7 @@ Creates an observable of the returned decoded string and response.
 - parameter url: An object adopting `URLConvertible`
 - parameter parameters: A dictionary containing all necessary options
 - parameter encoding: The kind of encoding used to process parameters
-- parameter header: A dictionary containing all the addional headers
+- parameter header: A dictionary containing all the additional headers
 
 - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
 */
@@ -176,7 +176,7 @@ public func requestString(_ method: Alamofire.HTTPMethod,
  - parameter url: An object adopting `URLConvertible`
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
- - parameter header: A dictionary containing all the addional headers
+ - parameter header: A dictionary containing all the additional headers
 
  - returns: An observable of `String`
  */
@@ -205,7 +205,7 @@ Creates an observable of the returned decoded JSON as `AnyObject` and the respon
 - parameter url: An object adopting `URLConvertible`
 - parameter parameters: A dictionary containing all necessary options
 - parameter encoding: The kind of encoding used to process parameters
-- parameter header: A dictionary containing all the addional headers
+- parameter header: A dictionary containing all the additional headers
 
 - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
 */
@@ -232,7 +232,7 @@ public func requestJSON(_ method: Alamofire.HTTPMethod,
  - parameter url: An object adopting `URLConvertible`
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
- - parameter header: A dictionary containing all the addional headers
+ - parameter header: A dictionary containing all the additional headers
 
  - returns: An observable of the decoded JSON as `Any`
  */
@@ -405,7 +405,7 @@ extension Reactive where Base: SessionManager {
      - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
-     - parameter header: A dictionary containing all the addional headers
+     - parameter header: A dictionary containing all the additional headers
 
      - returns: An observable of the `Request`
      */
@@ -432,7 +432,7 @@ extension Reactive where Base: SessionManager {
      - parameter URLRequest: An object adopting `URLRequestConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
-     - parameter header: A dictionary containing all the addional headers
+     - parameter header: A dictionary containing all the additional headers
 
      - returns: An observable of the `Request`
      */
@@ -452,7 +452,7 @@ extension Reactive where Base: SessionManager {
     - parameter url: An object adopting `URLConvertible`
     - parameter parameters: A dictionary containing all necessary options
     - parameter encoding: The kind of encoding used to process parameters
-    - parameter header: A dictionary containing all the addional headers
+    - parameter header: A dictionary containing all the additional headers
 
     - returns: An observable of the tuple `(NSHTTPURLResponse, NSData)`
     */
@@ -479,7 +479,7 @@ extension Reactive where Base: SessionManager {
      - parameter URLRequest: An object adopting `URLRequestConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
-     - parameter header: A dictionary containing all the addional headers
+     - parameter header: A dictionary containing all the additional headers
 
      - returns: An observable of `NSData`
      */
@@ -508,7 +508,7 @@ extension Reactive where Base: SessionManager {
     - parameter url: An object adopting `URLRequestConvertible`
     - parameter parameters: A dictionary containing all necessary options
     - parameter encoding: The kind of encoding used to process parameters
-    - parameter header: A dictionary containing all the addional headers
+    - parameter header: A dictionary containing all the additional headers
 
     - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
     */
@@ -535,7 +535,7 @@ extension Reactive where Base: SessionManager {
      - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
-     - parameter header: A dictionary containing all the addional headers
+     - parameter header: A dictionary containing all the additional headers
 
      - returns: An observable of `String`
      */
@@ -567,7 +567,7 @@ extension Reactive where Base: SessionManager {
     - parameter url: An object adopting `URLRequestConvertible`
     - parameter parameters: A dictionary containing all necessary options
     - parameter encoding: The kind of encoding used to process parameters
-    - parameter header: A dictionary containing all the addional headers
+    - parameter header: A dictionary containing all the additional headers
 
     - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
     */
@@ -593,7 +593,7 @@ extension Reactive where Base: SessionManager {
      - parameter URLRequest: An object adopting `URLRequestConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
-     - parameter header: A dictionary containing all the addional headers
+     - parameter header: A dictionary containing all the additional headers
 
      - returns: An observable of `AnyObject`
      */

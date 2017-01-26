@@ -23,7 +23,7 @@ extension Reactive where Base: URLSession {
      - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
-     - parameter header: A dictionary containing all the addional headers
+     - parameter header: A dictionary containing all the additional headers
      
      - returns: An observable of a decoded JSON object as `AnyObject`
      */
@@ -53,7 +53,7 @@ extension Reactive where Base: URLSession {
      - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
-     - parameter header: A dictionary containing all the addional headers
+     - parameter header: A dictionary containing all the additional headers
      
      - returns: An observable of a tuple containing data and the request
      */
@@ -82,7 +82,7 @@ extension Reactive where Base: URLSession {
      - parameter url: An object adopting `URLConvertible`
      - parameter parameters: A dictionary containing all necessary options
      - parameter encoding: The kind of encoding used to process parameters
-     - parameter header: A dictionary containing all the addional headers
+     - parameter header: A dictionary containing all the additional headers
      
      - returns: An observable of a data
      */
