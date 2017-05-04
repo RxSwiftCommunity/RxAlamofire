@@ -84,6 +84,17 @@ public func request(_ method: Alamofire.HTTPMethod,
     )
 }
 
+/**
+ Creates an observable of the generated `Request`.
+
+ - parameter urlRequest: An object adopting `URLRequestConvertible`
+
+ - returns: An observable of a the `Request`
+ */
+public func request(_ urlRequest: URLRequestConvertible) -> Observable<DataRequest> {
+  return SessionManager.default.rx.request(urlRequest: urlRequest)
+}
+
 // MARK: data
 
 /**
@@ -111,6 +122,17 @@ public func requestData(_ method: Alamofire.HTTPMethod,
         encoding: encoding,
         headers: headers
     )
+}
+
+/**
+ Creates an observable of the `(NSHTTPURLResponse, NSData)` instance.
+
+ - parameter urlRequest: An object adopting `URLRequestConvertible`
+
+ - returns: An observable of a tuple containing `(NSHTTPURLResponse, NSData)`
+ */
+public func requestData(_ urlRequest: URLRequestConvertible) -> Observable<(HTTPURLResponse, Data)> {
+    return request(urlRequest).flatMap { $0.rx.responseData() }
 }
 
 /**
@@ -170,6 +192,17 @@ public func requestString(_ method: Alamofire.HTTPMethod,
 }
 
 /**
+ Creates an observable of the returned decoded string and response.
+
+ - parameter urlRequest: An object adopting `URLRequestConvertible`
+
+ - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
+ */
+public func requestString(_ urlRequest: URLRequestConvertible) -> Observable<(HTTPURLResponse, String)> {
+    return request(urlRequest).flatMap { $0.rx.responseString() }
+}
+
+/**
  Creates an observable of the returned decoded string.
 
  - parameter method: Alamofire method object
@@ -223,6 +256,17 @@ public func requestJSON(_ method: Alamofire.HTTPMethod,
         encoding: encoding,
         headers: headers
     )
+}
+
+/**
+ Creates an observable of the returned decoded JSON as `AnyObject` and the response.
+
+ - parameter urlRequest: An object adopting `URLRequestConvertible`
+
+ - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
+ */
+public func requestJSON(_ urlRequest: URLRequestConvertible) -> Observable<(HTTPURLResponse, Any)> {
+    return request(urlRequest).flatMap { $0.rx.responseJSON() }
 }
 
 /**
