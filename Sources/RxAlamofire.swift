@@ -739,6 +739,12 @@ extension Reactive where Base: SessionManager {
 
 // MARK: Request - Common Response Handlers
 
+extension ObservableType where E == DataRequest {
+    public func responseJSON() -> Observable<DataResponse<Any>> {
+        return self.flatMap { $0.rx.responseJSON() }
+    }
+}
+
 extension Request: ReactiveCompatible {
 }
 
@@ -780,6 +786,25 @@ extension Reactive where Base: DataRequest {
             }
             return Disposables.create {
                 dataRequest.cancel()
+            }
+        }
+    }
+
+    public func responseJSON() -> Observable<DataResponse<Any>> {
+        return Observable.create { observer in
+            let request = self.base
+
+            request.responseJSON { response in
+                if let error = response.result.error {
+                    observer.onError(error)
+                } else {
+                    observer.onNext(response)
+                    observer.onCompleted()
+                }
+            }
+
+            return Disposables.create {
+                request.cancel()
             }
         }
     }
