@@ -420,7 +420,7 @@ extension Reactive where Base: SessionManager {
                 observer.on(.next(request))
                 request.responseWith(completionHandler: { (response) in
                     if let error = response.error {
-                        observer.onError(error)
+                        observer.on(.error(error))
                     } else {
                         observer.on(.completed)
                     }
@@ -775,11 +775,11 @@ extension Reactive where Base: DataRequest {
                 case .success(let result):
                     if let httpResponse = packedResponse.response {
                         observer.on(.next(httpResponse, result))
+                        observer.on(.completed)
                     }
                     else {
                         observer.on(.error(RxAlamofireUnknownError))
                     }
-                    observer.on(.completed)
                 case .failure(let error):
                     observer.on(.error(error as Error))
                 }
@@ -796,10 +796,10 @@ extension Reactive where Base: DataRequest {
 
             request.responseJSON { response in
                 if let error = response.result.error {
-                    observer.onError(error)
+                    observer.on(.error(error))
                 } else {
-                    observer.onNext(response)
-                    observer.onCompleted()
+                    observer.on(.next(response))
+                    observer.on(.completed)
                 }
             }
 
@@ -828,11 +828,11 @@ extension Reactive where Base: DataRequest {
                     case .success(let result):
                         if let _ = packedResponse.response {
                             observer.on(.next(result))
+                            observer.on(.completed)
                         }
                         else {
                             observer.on(.error(RxAlamofireUnknownError))
                         }
-                        observer.on(.completed)
                     case .failure(let error):
                         observer.on(.error(error as Error))
                     }
@@ -927,9 +927,9 @@ extension Reactive where Base: DataRequest {
             self.base.downloadProgress { progress in
                 let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
                                             totalBytes: progress.totalUnitCount)
-                observer.onNext(rxProgress)
+                observer.on(.next(rxProgress))
                 if rxProgress.bytesWritten >= rxProgress.totalBytes {
-                    observer.onCompleted()
+                    observer.on(.completed)
                 }
             }
             return Disposables.create()
@@ -955,9 +955,9 @@ extension Reactive where Base: DownloadRequest {
             self.base.downloadProgress { progress in
                 let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
                                             totalBytes: progress.totalUnitCount)
-                observer.onNext(rxProgress)
+                observer.on(.next(rxProgress))
                 if rxProgress.bytesWritten >= rxProgress.totalBytes {
-                    observer.onCompleted()
+                    observer.on(.completed)
                 }
             }
             return Disposables.create()
