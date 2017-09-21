@@ -8,7 +8,6 @@
 
 #if os(iOS) || os(tvOS)
 
-import Foundation
 import UIKit
 #if !RX_NO_MODULE
 import RxSwift
@@ -16,7 +15,7 @@ import RxSwift
 
 let collectionViewDataSourceNotSet = CollectionViewDataSourceNotSet()
 
-class CollectionViewDataSourceNotSet
+final class CollectionViewDataSourceNotSet
     : NSObject
     , UICollectionViewDataSource {
 
@@ -27,7 +26,7 @@ class CollectionViewDataSourceNotSet
     
     // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        rxAbstractMethodWithMessage(dataSourceNotSet)
+        rxAbstractMethod(message: dataSourceNotSet)
     }
     
 }
@@ -37,6 +36,10 @@ public class RxCollectionViewDataSourceProxy
     : DelegateProxy
     , UICollectionViewDataSource
     , DelegateProxyType {
+    
+    public static var factory = DelegateProxyFactory { (parentObject: UICollectionView) in
+        RxCollectionViewDataSourceProxy(parentObject: parentObject)
+    }
 
     /// Typed parent object.
     public weak private(set) var collectionView: UICollectionView?
@@ -47,7 +50,7 @@ public class RxCollectionViewDataSourceProxy
     ///
     /// - parameter parentObject: Parent object for delegate proxy.
     public required init(parentObject: AnyObject) {
-        self.collectionView = (parentObject as! UICollectionView)
+        self.collectionView = castOrFatalError(parentObject)
         super.init(parentObject: parentObject)
     }
     
@@ -66,15 +69,8 @@ public class RxCollectionViewDataSourceProxy
     // MARK: proxy
 
     /// For more information take a look at `DelegateProxyType`.
-    public override class func createProxyForObject(_ object: AnyObject) -> AnyObject {
-        let collectionView = (object as! UICollectionView)
-
-        return castOrFatalError(collectionView.createRxDataSourceProxy())
-    }
-
-    /// For more information take a look at `DelegateProxyType`.
     public override class func delegateAssociatedObjectTag() -> UnsafeRawPointer {
-        return _pointer(&dataSourceAssociatedTag)
+        return dataSourceAssociatedTag
     }
 
     /// For more information take a look at `DelegateProxyType`.

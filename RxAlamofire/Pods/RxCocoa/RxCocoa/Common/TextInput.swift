@@ -6,8 +6,6 @@
 //  Copyright © 2016 Krunoslav Zaher. All rights reserved.
 //
 
-import Foundation
-
 #if !RX_NO_MODULE
     import RxSwift
 #endif
@@ -35,14 +33,14 @@ import Foundation
 
     extension Reactive where Base: UITextField {
         /// Reactive text input.
-        public var textInput: TextInput<UITextField> {
+        public var textInput: TextInput<Base> {
             return TextInput(base: base, text: self.text)
         }
     }
 
     extension Reactive where Base: UITextView {
         /// Reactive text input.
-        public var textInput: TextInput<UITextView> {
+        public var textInput: TextInput<Base> {
             return TextInput(base: base, text: self.text)
         }
     }
@@ -53,7 +51,7 @@ import Foundation
     import Cocoa
 
     /// Represents text input with reactive extensions.
-    public struct TextInput<Base: NSTextInput> {
+    public struct TextInput<Base: NSTextInputClient> {
         /// Base text input to extend.
         public let base: Base
 
@@ -70,15 +68,11 @@ import Foundation
         }
     }
 
-    extension Reactive where Base: NSTextField {
+    extension Reactive where Base: NSTextField, Base: NSTextInputClient {
         /// Reactive text input.
-        public var textInput: TextInput<NSTextField> {
+        public var textInput: TextInput<Base> {
             return TextInput(base: base, text: self.text)
         }
-    }
-
-    extension NSTextField : NSTextInput {
-        
     }
 
 #endif

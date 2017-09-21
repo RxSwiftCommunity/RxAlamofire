@@ -1,6 +1,6 @@
 {
   "name": "RxBlocking",
-  "version": "3.0.0",
+  "version": "4.0.0-beta.0",
   "summary": "RxSwift Blocking operatos",
   "description": "Set of blocking operators for RxSwift. These operators are mostly intended for unit/integration tests\nwith a couple of other special scenarios where they could be useful.\n\nE.g.\n\nWaiting for observable sequence to complete before exiting command line application.",
   "homepage": "https://github.com/ReactiveX/RxSwift",
@@ -10,7 +10,7 @@
   },
   "source": {
     "git": "https://github.com/ReactiveX/RxSwift.git",
-    "tag": "3.0.0"
+    "tag": "4.0.0-beta.0"
   },
   "requires_arc": true,
   "platforms": {
@@ -26,7 +26,7 @@
   "exclude_files": "RxBlocking/Platform/**/*.swift",
   "dependencies": {
     "RxSwift": [
-      "~> 3.0"
+      "~> 4.0.0-beta.0"
     ]
   }
 }
