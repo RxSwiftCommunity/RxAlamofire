@@ -8,30 +8,30 @@
 
 #if os(iOS) || os(tvOS)
     
-    import Foundation
-#if !RX_NO_MODULE
-    import RxSwift
-#endif
+    #if !RX_NO_MODULE
+        import RxSwift
+    #endif
     import UIKit
     
-public class RxTextStorageDelegateProxy
-    : DelegateProxy
-    , DelegateProxyType
-    , NSTextStorageDelegate {
-    
-    
-    /// For more information take a look at `DelegateProxyType`.
-    public class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
-        let textStorage: NSTextStorage = castOrFatalError(object)
-        textStorage.delegate = castOptionalOrFatalError(delegate)
+    public class RxTextStorageDelegateProxy
+        : DelegateProxy
+        , DelegateProxyType
+        , NSTextStorageDelegate {
+        
+        public static var factory = DelegateProxyFactory { (parentObject: NSTextStorage) in
+            RxTextStorageDelegateProxy(parentObject: parentObject)
+        }
+        
+        /// For more information take a look at `DelegateProxyType`.
+        public class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
+            let textStorage: NSTextStorage = castOrFatalError(object)
+            textStorage.delegate = castOptionalOrFatalError(delegate)
+        }
+        
+        /// For more information take a look at `DelegateProxyType`.
+        public class func currentDelegateFor(_ object: AnyObject) -> AnyObject? {
+            let textStorage: NSTextStorage = castOrFatalError(object)
+            return textStorage.delegate
+        }
     }
-    
-    /// For more information take a look at `DelegateProxyType`.
-    public class func currentDelegateFor(_ object: AnyObject) -> AnyObject? {
-        let textStorage: NSTextStorage = castOrFatalError(object)
-        return textStorage.delegate
-    }
-
-
-}
 #endif

@@ -8,7 +8,6 @@
 
 #if os(iOS)
    
-   import Foundation
 #if !RX_NO_MODULE
    import RxSwift
 #endif
@@ -20,6 +19,10 @@ public class RxSearchControllerDelegateProxy
     : DelegateProxy
     , DelegateProxyType
     , UISearchControllerDelegate {
+    
+    public static var factory = DelegateProxyFactory { (parentObject: UISearchController) in
+        RxSearchControllerDelegateProxy(parentObject: parentObject)
+    }
     
     /// For more information take a look at `DelegateProxyType`.
     public class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {

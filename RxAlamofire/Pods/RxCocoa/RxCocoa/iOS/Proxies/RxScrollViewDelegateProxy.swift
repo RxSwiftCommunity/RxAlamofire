@@ -8,7 +8,6 @@
 
 #if os(iOS) || os(tvOS)
 
-import Foundation
 #if !RX_NO_MODULE
 import RxSwift
 #endif
@@ -19,28 +18,56 @@ public class RxScrollViewDelegateProxy
     : DelegateProxy
     , UIScrollViewDelegate
     , DelegateProxyType {
+    
+    public static var factory = DelegateProxyFactory { (parentObject: UIScrollView) in
+            RxScrollViewDelegateProxy(parentObject: parentObject)
+        }
+        .extended { (parentObject: UITableView) in
+            RxTableViewDelegateProxy(parentObject: parentObject)
+        }
+        .extended { (parentObject: UICollectionView) in
+            RxCollectionViewDelegateProxy(parentObject: parentObject)
+        }
+        .extended { (parentObject: UITextView) in
+            RxTextViewDelegateProxy(parentObject: parentObject)
+        }
 
-    fileprivate var _contentOffsetSubject: ReplaySubject<CGPoint>?
+
+    fileprivate var _contentOffsetBehaviorSubject: BehaviorSubject<CGPoint>?
+    fileprivate var _contentOffsetPublishSubject: PublishSubject<()>?
 
     /// Typed parent object.
     public weak fileprivate(set) var scrollView: UIScrollView?
 
     /// Optimized version used for observing content offset changes.
-    internal var contentOffsetSubject: Observable<CGPoint> {
-        if _contentOffsetSubject == nil {
-            let replaySubject = ReplaySubject<CGPoint>.create(bufferSize:1)
-            _contentOffsetSubject = replaySubject
-            replaySubject.on(.next(self.scrollView?.contentOffset ?? CGPoint.zero))
+    internal var contentOffsetBehaviorSubject: BehaviorSubject<CGPoint> {
+        if let subject = _contentOffsetBehaviorSubject {
+            return subject
         }
-        
-        return _contentOffsetSubject!
+
+        let subject = BehaviorSubject<CGPoint>(value: self.scrollView?.contentOffset ?? CGPoint.zero)
+        _contentOffsetBehaviorSubject = subject
+
+        return subject
+    }
+
+    /// Optimized version used for observing content offset changes.
+    internal var contentOffsetPublishSubject: PublishSubject<()> {
+        if let subject = _contentOffsetPublishSubject {
+            return subject
+        }
+
+        let subject = PublishSubject<()>()
+        _contentOffsetPublishSubject = subject
+
+        return subject
     }
 
     /// Initializes `RxScrollViewDelegateProxy`
     ///
     /// - parameter parentObject: Parent object for delegate proxy.
     public required init(parentObject: AnyObject) {
-        self.scrollView = (parentObject as! UIScrollView)
+        self.scrollView = castOrFatalError(parentObject)
         super.init(parentObject: parentObject)
     }
     
@@ -48,20 +75,16 @@ public class RxScrollViewDelegateProxy
 
     /// For more information take a look at `DelegateProxyType`.
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if let contentOffset = _contentOffsetSubject {
-            contentOffset.on(.next(scrollView.contentOffset))
+        if let subject = _contentOffsetBehaviorSubject {
+            subject.on(.next(scrollView.contentOffset))
+        }
+        if let subject = _contentOffsetPublishSubject {
+            subject.on(.next(()))
         }
         self._forwardToDelegate?.scrollViewDidScroll?(scrollView)
     }
     
     // MARK: delegate proxy
-
-    /// For more information take a look at `DelegateProxyType`.
-    public override class func createProxyForObject(_ object: AnyObject) -> AnyObject {
-        let scrollView = (object as! UIScrollView)
-        
-        return castOrFatalError(scrollView.createRxDelegateProxy())
-    }
 
     /// For more information take a look at `DelegateProxyType`.
     public class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
@@ -76,8 +99,12 @@ public class RxScrollViewDelegateProxy
     }
     
     deinit {
-        if let contentOffset = _contentOffsetSubject {
-            contentOffset.on(.completed)
+        if let subject = _contentOffsetBehaviorSubject {
+            subject.on(.completed)
+        }
+
+        if let subject = _contentOffsetPublishSubject {
+            subject.on(.completed)
         }
     }
 }

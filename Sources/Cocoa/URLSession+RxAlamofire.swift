@@ -61,7 +61,7 @@ extension Reactive where Base: URLSession {
         _ url: URLConvertible,
         parameters: [String: Any]? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil) -> Observable<(HTTPURLResponse, Data)> {
+        headers: [String: String]? = nil) -> Observable<(response: HTTPURLResponse, data: Data)> {
             do {
                 let request = try RxAlamofire.urlRequest(method,
                                                          url,

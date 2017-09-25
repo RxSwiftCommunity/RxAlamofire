@@ -6,23 +6,25 @@
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
 
-import Foundation
-
 /// Variable is a wrapper for `BehaviorSubject`.
 ///
 /// Unlike `BehaviorSubject` it can't terminate with error, and when variable is deallocated
-/// it will complete it's observable sequence (`asObservable`).
-public class Variable<Element> {
+/// it will complete its observable sequence (`asObservable`).
+public final class Variable<Element> {
 
     public typealias E = Element
     
     private let _subject: BehaviorSubject<Element>
     
     private var _lock = SpinLock()
- 
+
     // state
     private var _value: E
-    
+
+    #if DEBUG
+        fileprivate let _synchronizationTracker = SynchronizationTracker()
+    #endif
+
     /// Gets or sets current value of variable.
     ///
     /// Whenever a new value is set, all the observers are notified of the change.
@@ -34,6 +36,10 @@ public class Variable<Element> {
             return _value
         }
         set(newValue) {
+            #if DEBUG
+                _synchronizationTracker.register(synchronizationErrorMessage: .variable)
+                defer { _synchronizationTracker.unregister() }
+            #endif
             _lock.lock()
             _value = newValue
             _lock.unlock()
