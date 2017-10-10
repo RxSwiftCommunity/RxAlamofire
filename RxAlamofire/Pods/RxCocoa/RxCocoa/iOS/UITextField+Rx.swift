@@ -36,6 +36,23 @@ extension Reactive where Base: UITextField {
         )
     }
     
+    /// Bindable sink for `attributedText` property.
+    public var attributedText: ControlProperty<NSAttributedString?> {
+        return UIControl.rx.value(
+            base,
+            getter: { textField in
+                textField.attributedText
+            }, setter: { textField, value in
+                // This check is important because setting text value always clears control state
+                // including marked text selection which is imporant for proper input
+                // when IME input method is used.
+                if textField.attributedText != value {
+                    textField.attributedText = value
+                }
+            }
+        )
+    }
+    
 }
 
 #endif

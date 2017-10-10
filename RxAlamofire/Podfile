@@ -4,8 +4,8 @@ use_frameworks!
 
 def common
     pod 'Alamofire', '~> 4.5.1'
-    pod 'RxSwift', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '4.0.0-beta.0'
-    pod 'RxCocoa', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '4.0.0-alpha.1'
+    pod 'RxSwift', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '4.0.0-rc.0'
+    pod 'RxCocoa', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '4.0.0-rc.0'
 end
 
 target 'RxAlamofire-iOS-Example' do
@@ -26,7 +26,7 @@ target 'RxAlamofireTests' do
     common
     pod 'OHHTTPStubs', '~> 5.0'
     pod 'OHHTTPStubs/Swift', '~> 5.0'
-    pod 'RxBlocking', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '4.0.0-beta.0'
+    pod 'RxBlocking', :git => 'https://github.com/ReactiveX/RxSwift.git', :tag => '4.0.0-rc.0'
 end
 
 target 'RxAlamofire-tvOS' do

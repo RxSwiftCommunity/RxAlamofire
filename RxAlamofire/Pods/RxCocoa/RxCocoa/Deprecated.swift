@@ -10,6 +10,8 @@
     import RxSwift
 #endif
 
+import Dispatch
+
 extension ObservableType {
 
     /**
@@ -238,3 +240,211 @@ extension ObservableType {
         }
     }
 #endif
+
+/**
+ This method can be used in unit tests to ensure that driver is using mock schedulers instead of
+ main schedulers.
+
+ **This shouldn't be used in normal release builds.**
+ */
+@available(*, deprecated, renamed: "SharingScheduler.mock(scheduler:action:)")
+public func driveOnScheduler(_ scheduler: SchedulerType, action: () -> ()) {
+    SharingScheduler.mock(scheduler: scheduler, action: action)
+}
+
+extension Variable {
+    /// Converts `Variable` to `SharedSequence` unit.
+    ///
+    /// - returns: Observable sequence.
+    @available(*, deprecated, renamed: "asDriver()")
+    public func asSharedSequence<SharingStrategy: SharingStrategyProtocol>(strategy: SharingStrategy.Type = SharingStrategy.self) -> SharedSequence<SharingStrategy, E> {
+        let source = self.asObservable()
+            .observeOn(SharingStrategy.scheduler)
+        return SharedSequence(source)
+    }
+}
+
+#if !os(Linux)
+
+extension DelegateProxy {
+    @available(*, unavailable, renamed: "assignedProxy(for:)")
+    public static func assignedProxyFor(_ object: ParentObject) -> Delegate? {
+        fatalError()
+    }
+    
+    @available(*, unavailable, renamed: "currentDelegate(for:)")
+    public static func currentDelegateFor(_ object: ParentObject) -> Delegate? {
+        fatalError()
+    }
+}
+
+#endif
+
+/**
+Observer that enforces interface binding rules:
+ * can't bind errors (in debug builds binding of errors causes `fatalError` in release builds errors are being logged)
+ * ensures binding is performed on main thread
+ 
+`UIBindingObserver` doesn't retain target interface and in case owned interface element is released, element isn't bound.
+ 
+ In case event binding is attempted from non main dispatch queue, event binding will be dispatched async to main dispatch
+ queue.
+*/
+@available(*, deprecated, renamed: "Binder")
+public final class UIBindingObserver<UIElementType, Value> : ObserverType where UIElementType: AnyObject {
+    public typealias E = Value
+
+    weak var UIElement: UIElementType?
+
+    let binding: (UIElementType, Value) -> Void
+
+    /// Initializes `ViewBindingObserver` using
+    @available(*, deprecated, renamed: "UIBinder.init(_:scheduler:binding:)")
+    public init(UIElement: UIElementType, binding: @escaping (UIElementType, Value) -> Void) {
+        self.UIElement = UIElement
+        self.binding = binding
+    }
+
+    /// Binds next element to owner view as described in `binding`.
+    public func on(_ event: Event<Value>) {
+        if !DispatchQueue.isMain {
+            DispatchQueue.main.async {
+                self.on(event)
+            }
+            return
+        }
+
+        switch event {
+        case .next(let element):
+            if let view = self.UIElement {
+                binding(view, element)
+            }
+        case .error(let error):
+            bindingError(error)
+        case .completed:
+            break
+        }
+    }
+
+    /// Erases type of observer.
+    ///
+    /// - returns: type erased observer.
+    public func asObserver() -> AnyObserver<Value> {
+        return AnyObserver(eventHandler: on)
+    }
+}
+
+
+#if os(iOS)
+    extension Reactive where Base: UIRefreshControl {
+
+        /// Bindable sink for `beginRefreshing()`, `endRefreshing()` methods.
+        @available(*, deprecated, renamed: "isRefreshing")
+        public var refreshing: Binder<Bool> {
+            return self.isRefreshing
+        }
+    }
+#endif
+
+#if os(iOS) || os(tvOS)
+extension Reactive where Base: UIImageView {
+
+    /// Bindable sink for `image` property.
+    /// - parameter transitionType: Optional transition type while setting the image (kCATransitionFade, kCATransitionMoveIn, ...)
+    @available(*, deprecated, renamed: "image")
+    public func image(transitionType: String? = nil) -> Binder<UIImage?> {
+        return Binder(base) { imageView, image in
+            if let transitionType = transitionType {
+                if image != nil {
+                    let transition = CATransition()
+                    transition.duration = 0.25
+                    transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                    transition.type = transitionType
+                    imageView.layer.add(transition, forKey: kCATransition)
+                }
+            }
+            else {
+                imageView.layer.removeAllAnimations()
+            }
+            imageView.image = image
+        }
+    }
+}
+#endif
+
+#if os(macOS)
+
+    extension Reactive where Base: NSImageView {
+
+        /// Bindable sink for `image` property.
+        ///
+        /// - parameter transitionType: Optional transition type while setting the image (kCATransitionFade, kCATransitionMoveIn, ...)
+        @available(*, deprecated, renamed: "image")
+        public func image(transitionType: String? = nil) -> Binder<NSImage?> {
+            return Binder(self.base) { control, value in
+                if let transitionType = transitionType {
+                    if value != nil {
+                        let transition = CATransition()
+                        transition.duration = 0.25
+                        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+                        transition.type = transitionType
+                        control.layer?.add(transition, forKey: kCATransition)
+                    }
+                }
+                else {
+                    control.layer?.removeAllAnimations()
+                }
+                control.image = value
+            }
+        }
+    }
+#endif
+
+#if !RX_NO_MODULE
+    import RxSwift
+#endif
+
+extension Variable {
+    /// Converts `Variable` to `Driver` trait.
+    ///
+    /// - returns: Driving observable sequence.
+    public func asDriver() -> Driver<E> {
+        let source = self.asObservable()
+            .observeOn(DriverSharingStrategy.scheduler)
+        return Driver(source)
+    }
+}
+
+
+private let errorMessage = "`drive*` family of methods can be only called from `MainThread`.\n" +
+"This is required to ensure that the last replayed `Driver` element is delivered on `MainThread`.\n"
+
+extension SharedSequenceConvertibleType where SharingStrategy == DriverSharingStrategy {
+    /**
+     Creates new subscription and sends elements to variable.
+     This method can be only called from `MainThread`.
+
+     - parameter variable: Target variable for sequence elements.
+     - returns: Disposable object that can be used to unsubscribe the observer from the variable.
+     */
+    public func drive(_ variable: Variable<E>) -> Disposable {
+        MainScheduler.ensureExecutingOnScheduler(errorMessage: errorMessage)
+        return drive(onNext: { e in
+            variable.value = e
+        })
+    }
+
+    /**
+     Creates new subscription and sends elements to variable.
+     This method can be only called from `MainThread`.
+
+     - parameter variable: Target variable for sequence elements.
+     - returns: Disposable object that can be used to unsubscribe the observer from the variable.
+     */
+    public func drive(_ variable: Variable<E?>) -> Disposable {
+        MainScheduler.ensureExecutingOnScheduler(errorMessage: errorMessage)
+        return drive(onNext: { e in
+            variable.value = e
+        })
+    }
+}

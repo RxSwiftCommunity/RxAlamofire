@@ -13,33 +13,28 @@
         import RxSwift
     #endif
 
-    /// For more information take a look at `DelegateProxyType`.
-    open class RxNavigationControllerDelegateProxy
-        : DelegateProxy
-        , UINavigationControllerDelegate
-        , DelegateProxyType {
-        
-        public static var factory = DelegateProxyFactory { (parentObject: UINavigationController) in
-            RxNavigationControllerDelegateProxy(parentObject: parentObject)
-        }
-        
-        /// For more information take a look at `DelegateProxyType`.
-        public class func currentDelegateFor(_ object: AnyObject) -> AnyObject? {
-            let navigationController: UINavigationController = castOrFatalError(object)
-            return navigationController.delegate
-        }
-
-        /// For more information take a look at `DelegateProxyType`.
-        public class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
-            let navigationController: UINavigationController = castOrFatalError(object)
-            navigationController.delegate = castOptionalOrFatalError(delegate)
-        }
+    extension UINavigationController: HasDelegate {
+        public typealias Delegate = UINavigationControllerDelegate
     }
 
-    #if os(iOS)
-        extension RxNavigationControllerDelegateProxy: UIImagePickerControllerDelegate {
+    /// For more information take a look at `DelegateProxyType`.
+    open class RxNavigationControllerDelegateProxy
+        : DelegateProxy<UINavigationController, UINavigationControllerDelegate>
+        , DelegateProxyType 
+        , UINavigationControllerDelegate {
 
+        /// Typed parent object.
+        public weak private(set) var navigationController: UINavigationController?
+
+        /// - parameter navigationController: Parent object for delegate proxy.
+        public init(navigationController: ParentObject) {
+            self.navigationController = navigationController
+            super.init(parentObject: navigationController, delegateProxy: RxNavigationControllerDelegateProxy.self)
         }
-    #endif
 
+        // Register known implementations
+        public static func registerKnownImplementations() {
+            self.register { RxNavigationControllerDelegateProxy(navigationController: $0) }
+        }
+    }
 #endif

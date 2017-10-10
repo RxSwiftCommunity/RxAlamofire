@@ -13,25 +13,27 @@
 #endif
     import UIKit
 
-    public class RxPickerViewDelegateProxy
-        : DelegateProxy
-        , DelegateProxyType
+    extension UIPickerView: HasDelegate {
+        public typealias Delegate = UIPickerViewDelegate
+    }
+
+    open class RxPickerViewDelegateProxy
+        : DelegateProxy<UIPickerView, UIPickerViewDelegate>
+        , DelegateProxyType 
         , UIPickerViewDelegate {
-        
-        public static var factory = DelegateProxyFactory { (parentObject: UIPickerView) in
-            RxPickerViewDelegateProxy(parentObject: parentObject)
+
+        /// Typed parent object.
+        public weak private(set) var pickerView: UIPickerView?
+
+        /// - parameter pickerView: Parent object for delegate proxy.
+        public init(pickerView: ParentObject) {
+            self.pickerView = pickerView
+            super.init(parentObject: pickerView, delegateProxy: RxPickerViewDelegateProxy.self)
         }
-        
-        /// For more information take a look at `DelegateProxyType`.
-        public class func setCurrentDelegate(_ delegate: AnyObject?, toObject object: AnyObject) {
-            let pickerView: UIPickerView = castOrFatalError(object)
-            pickerView.delegate = castOptionalOrFatalError(delegate)
-        }
-        
-        /// For more information take a look at `DelegateProxyType`.
-        public class func currentDelegateFor(_ object: AnyObject) -> AnyObject? {
-            let pickerView: UIPickerView = castOrFatalError(object)
-            return pickerView.delegate
+
+        // Register known implementationss
+        public static func registerKnownImplementations() {
+            self.register { RxPickerViewDelegateProxy(pickerView: $0) }
         }
     }
 #endif

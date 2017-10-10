@@ -21,15 +21,15 @@
         /// Reactive wrapper for `delegate`.
         ///
         /// For more information take a look at `DelegateProxyType` protocol documentation.
-        public var delegate: DelegateProxy {
-            return RxScrollViewDelegateProxy.proxyForObject(base)
+        public var delegate: DelegateProxy<UIScrollView, UIScrollViewDelegate> {
+            return RxScrollViewDelegateProxy.proxy(for: base)
         }
         
         /// Reactive wrapper for `contentOffset`.
         public var contentOffset: ControlProperty<CGPoint> {
-            let proxy = RxScrollViewDelegateProxy.proxyForObject(base)
+            let proxy = RxScrollViewDelegateProxy.proxy(for: base)
 
-            let bindingObserver = UIBindingObserver(UIElement: self.base) { scrollView, contentOffset in
+            let bindingObserver = Binder(self.base) { scrollView, contentOffset in
                 scrollView.contentOffset = contentOffset
             }
 
@@ -37,15 +37,15 @@
         }
 
         /// Bindable sink for `scrollEnabled` property.
-        public var isScrollEnabled: UIBindingObserver<Base, Bool> {
-            return UIBindingObserver(UIElement: self.base) { scrollView, scrollEnabled in
+        public var isScrollEnabled: Binder<Bool> {
+            return Binder(self.base) { scrollView, scrollEnabled in
                 scrollView.isScrollEnabled = scrollEnabled
             }
         }
 
         /// Reactive wrapper for delegate method `scrollViewDidScroll`
         public var didScroll: ControlEvent<Void> {
-            let source = RxScrollViewDelegateProxy.proxyForObject(base).contentOffsetPublishSubject
+            let source = RxScrollViewDelegateProxy.proxy(for: base).contentOffsetPublishSubject
             return ControlEvent(events: source)
         }
         
