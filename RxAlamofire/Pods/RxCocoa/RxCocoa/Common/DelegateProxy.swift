@@ -18,7 +18,7 @@
     /// Base class for `DelegateProxyType` protocol.
     ///
     /// This implementation is not thread safe and can be used only from one thread (Main thread).
-    open class DelegateProxy<P: AnyObject, D: NSObjectProtocol>: _RXDelegateProxy {
+    open class DelegateProxy<P: AnyObject, D: AnyObject>: _RXDelegateProxy {
         public typealias ParentObject = P
         public typealias Delegate = D
 
@@ -171,7 +171,7 @@
                 return
             }
 
-            guard (self.forwardToDelegate()?.responds(to: selector) ?? false) || voidDelegateMethodsContain(selector) else {
+            guard ((self.forwardToDelegate() as? NSObject)?.responds(to: selector) ?? false) || voidDelegateMethodsContain(selector) else {
                 rxFatalError("This class doesn't respond to selector \(selector)")
             }
         }
@@ -190,7 +190,7 @@
         /// through `self`.
         ///
         /// - returns: Value of reference if set or nil.
-        public func forwardToDelegate() -> Delegate? {
+        open func forwardToDelegate() -> Delegate? {
             return castOptionalOrFatalError(self._forwardToDelegate)
         }
 
@@ -199,7 +199,7 @@
         ///
         /// - parameter forwardToDelegate: Reference of delegate that receives all messages through `self`.
         /// - parameter retainDelegate: Should `self` retain `forwardToDelegate`.
-        public func setForwardToDelegate(_ delegate: Delegate?, retainDelegate: Bool) {
+        open func setForwardToDelegate(_ delegate: Delegate?, retainDelegate: Bool) {
             #if DEBUG // 4.0 all configurations
                 MainScheduler.ensureExecutingOnScheduler()
             #endif
