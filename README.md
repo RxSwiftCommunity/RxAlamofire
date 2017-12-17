@@ -3,6 +3,11 @@ RxAlamofire
 
 RxAlamofire is a [RxSwift](https://github.com/ReactiveX/RxSwift) wrapper around the elegant HTTP networking in Swift [Alamofire](https://github.com/Alamofire/Alamofire).
 
+[![CircleCI](https://circleci.com/gh/RxSwiftCommunity/RxAlamofire.svg?style=svg)](https://circleci.com/gh/RxSwiftCommunity/RxAlamofire)
+[![Version](https://img.shields.io/cocoapods/v/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)
+[![License](https://img.shields.io/cocoapods/l/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)
+[![Platform](https://img.shields.io/cocoapods/p/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)
+
 ## Getting Started
 
 Wrapping RxSwift around Alamofire makes working with network requests a smoother and nicer task. Alamofire is a very powerful framework and RxSwift add the ability to compose responses in a simple and effective way.
