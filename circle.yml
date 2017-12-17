@@ -1,0 +1,14 @@
+machine:
+  xcode:
+    version: 9.1
+  environment:
+    LANG: en_US.UTF-8
+
+dependencies:
+  override:
+    - echo "Skipping CocoaPods Specs install."
+
+test:
+  override:
+    - set -o pipefail
+    - xcodebuild test -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c
