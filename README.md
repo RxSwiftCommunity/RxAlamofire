@@ -44,11 +44,11 @@ RxAlamofire.requestJSON(.get, sourceStringURL)
 
 Currently, the library features the following extensions:
 
-```swift 
+```swift
 let stringURL = ""
 
-// MARK: NSURLSession simple and fast
-let session = NSURLSession.sharedSession()
+// MARK: URLSession simple and fast
+let session = URLSession.shared()
 
 _ = session.rx
         .json(.get, stringURL)
@@ -105,7 +105,7 @@ _ = request(.get, stringURL)
         let validatedRequest = request
             .validate(statusCode: 200 ..< 300)
             .validate(contentType: ["text/json"])
-        
+
         let dataPart = validatedRequest
             .rx.data()
             .map { d -> Data? in d }
@@ -120,7 +120,7 @@ _ = request(.get, stringURL)
 // MARK: Alamofire manager
 // same methods with any alamofire manager
 
-let manager = Manager.sharedInstance
+let manager = SessionManager.default
 
 // simple case
 _ = manager.rx.json(.get, stringURL)
@@ -166,7 +166,7 @@ _ = manager.rx.request(.get, stringURL)
         let validatedRequest = request
             .validate(statusCode: 200 ..< 300)
             .validate(contentType: ["text/something"])
-            
+
         let stringPart = validatedRequest
             .rx.string()
             .map { d -> String? in d }
