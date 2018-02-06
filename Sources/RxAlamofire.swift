@@ -924,46 +924,26 @@ extension Reactive where Base: DataRequest {
     */
     public func progress() -> Observable<RxProgress> {
         return Observable.create { observer in
-            self.base.downloadProgress { progress in
+            let handler: Request.ProgressHandler = { progress in
                 let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
                                             totalBytes: progress.totalUnitCount)
                 observer.on(.next(rxProgress))
+
                 if rxProgress.bytesWritten >= rxProgress.totalBytes {
                     observer.on(.completed)
                 }
             }
+            
+            if let upload = self.base as? UploadRequest {
+                upload.uploadProgress(closure: handler)
+            } else {
+                self.base.downloadProgress(closure: handler)
+            }
+
             return Disposables.create()
-            }
-            // warm up a bit :)
-            .startWith(RxProgress(bytesWritten: 0, totalBytes: 0))
-    }
-}
-
-extension Reactive where Base: DownloadRequest {
-    /**
-     Returns an `Observable` for the current progress status.
-
-     Parameters on observed tuple:
-
-     1. bytes written so far.
-     1. total bytes to write.
-
-     - returns: An instance of `Observable<RxProgress>`
-     */
-    public func progress() -> Observable<RxProgress> {
-        return Observable.create { observer in
-            self.base.downloadProgress { progress in
-                let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
-                                            totalBytes: progress.totalUnitCount)
-                observer.on(.next(rxProgress))
-                if rxProgress.bytesWritten >= rxProgress.totalBytes {
-                    observer.on(.completed)
-                }
-            }
-            return Disposables.create()
-            }
-            // warm up a bit :)
-            .startWith(RxProgress(bytesWritten: 0, totalBytes: 0))
+        }
+        // warm up a bit :)
+        .startWith(RxProgress(bytesWritten: 0, totalBytes: 0))
     }
 }
 
