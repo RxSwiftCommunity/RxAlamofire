@@ -15,4 +15,5 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+* Unify download and upload progress handling.
 * Fix `Reactive<DataRequest>.progress` logic so it actually completes.
