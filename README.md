@@ -210,15 +210,16 @@ import PackageDescription
 let package = Package(
 name: "TestRxAlamofire",
 
-dependencies: [
-    .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git", from: "4.0.0"),
-],
+        dependencies: [
+            .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git",
+                     from: "4.0.0"),
+        ],
 
-targets: [
-.target(
-    name: "TestRxAlamofire",
-    dependencies: ["RxAlamofire"])
-]
+        targets: [
+            .target(
+                    name: "TestRxAlamofire",
+                    dependencies: ["RxAlamofire"])
+        ]
 )
 
 ```
