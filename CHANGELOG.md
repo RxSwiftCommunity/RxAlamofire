@@ -12,6 +12,7 @@ All notable changes to this project will be documented in this file.
 * Convert `RxProgress.bytesRemaining` from a stored- to a computed-property.
 * Convert `RxProgress.floatValue` from a function to a computed-property.
 * Add `Equatable` conformation to `RxProgress`.
+* Add Swift Package Manager support
 
 #### Fixed
 
