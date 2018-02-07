@@ -208,7 +208,7 @@ Create a `Package.swift`  file
 import PackageDescription
 
 let package = Package(
-name: "TestRxAlamofire",
+        name: "TestRxAlamofire",
 
         dependencies: [
             .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git",
