@@ -180,7 +180,7 @@ _ = manager.rx.request(.get, stringURL)
 
 ## Installation
 
-There are two ways to install RxAlamofire
+There are three ways to install RxAlamofire
 
 ### CocoaPods
 
@@ -196,6 +196,32 @@ Add following to `Cartfile`:
 
 ```
 github "RxSwiftCommunity/RxAlamofire" "master"
+```
+
+### Swift Package manager
+
+Create a `Package.swift`  file
+
+```
+// swift-tools-version:4.0
+
+import PackageDescription
+
+let package = Package(
+        name: "TestRxAlamofire",
+
+        dependencies: [
+            .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git",
+                     from: "4.0.0"),
+        ],
+
+        targets: [
+            .target(
+                    name: "TestRxAlamofire",
+                    dependencies: ["RxAlamofire"])
+        ]
+)
+
 ```
 
 ### Manually
