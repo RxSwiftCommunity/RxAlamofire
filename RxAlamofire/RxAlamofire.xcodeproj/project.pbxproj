@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03A270B6202B5DF100C3BE0C /* ValidateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03A270B5202B5DF100C3BE0C /* ValidateTests.swift */; };
 		3BBE9600C2797D13027DDAD9 /* Pods_RxAlamofireTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B537E5740797F3F40C8B8C6 /* Pods_RxAlamofireTests.framework */; };
 		637D95951C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		637D95961C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -100,6 +101,7 @@
 
 /* Begin PBXFileReference section */
 		00567E9EC306810E213E955E /* Pods-RxAlamofireTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxAlamofireTests/Pods-RxAlamofireTests.release.xcconfig"; sourceTree = "<group>"; };
+		03A270B5202B5DF100C3BE0C /* ValidateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateTests.swift; sourceTree = "<group>"; };
 		0ACC0B307237D8BCEA10BB35 /* Pods-RxAlamofireExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-RxAlamofireExample/Pods-RxAlamofireExample.release.xcconfig"; sourceTree = "<group>"; };
 		1A68A976262D78C5745424C3 /* Pods_RxAlamofire_iOS_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlamofire_iOS_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4B537E5740797F3F40C8B8C6 /* Pods_RxAlamofireTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlamofireTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				A57A28CD1D78E8EB000D88BA /* RxAlamofireTests.swift */,
+				03A270B5202B5DF100C3BE0C /* ValidateTests.swift */,
 				A57A28CF1D78E8EB000D88BA /* Info.plist */,
 			);
 			path = RxAlamofireTests;
@@ -866,6 +869,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A57A28CE1D78E8EB000D88BA /* RxAlamofireTests.swift in Sources */,
+				03A270B6202B5DF100C3BE0C /* ValidateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
