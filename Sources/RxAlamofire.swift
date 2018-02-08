@@ -744,19 +744,19 @@ extension ObservableType where E == DataRequest {
         return self.flatMap { $0.rx.responseJSON() }
     }
     
-    public func validate<S: Sequence>(statusCode: S) -> Observable<DataRequest> where S.Element == Int {
+    public func validate<S: Sequence>(statusCode: S) -> Observable<E> where S.Element == Int {
         return self.map { $0.validate(statusCode: statusCode) }
     }
     
-    public func validate() -> Observable<DataRequest> {
+    public func validate() -> Observable<E> {
         return self.map { $0.validate() }
     }
     
-    public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Observable<DataRequest> where S.Iterator.Element == String {
+    public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Observable<E> where S.Iterator.Element == String {
         return self.map { $0.validate(contentType: acceptableContentTypes) }
     }
     
-    public func validate(_ validation: @escaping DataRequest.Validation) -> Observable<DataRequest> {
+    public func validate(_ validation: @escaping DataRequest.Validation) -> Observable<E> {
         return self.map { $0.validate(validation) }
     }
 }
