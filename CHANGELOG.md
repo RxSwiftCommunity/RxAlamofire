@@ -12,7 +12,9 @@ All notable changes to this project will be documented in this file.
 * Convert `RxProgress.bytesRemaining` from a stored- to a computed-property.
 * Convert `RxProgress.floatValue` from a function to a computed-property.
 * Add `Equatable` conformation to `RxProgress`.
-* Add Swift Package Manager support
+* Add Swift Package Manager support.
+* Add helper methods for validation to `Observable<DataRequest>`.
+* Add helper methods for common responses to `Observable<DataRequest>`.
 
 #### Fixed
 
