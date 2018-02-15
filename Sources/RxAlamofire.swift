@@ -744,6 +744,42 @@ extension ObservableType where E == DataRequest {
         return self.flatMap { $0.rx.responseJSON() }
     }
     
+    public func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
+        return self.flatMap { $0.rx.json(options: options) }
+    }
+    
+    public func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
+        return self.flatMap { $0.rx.responseString(encoding: encoding) }
+    }
+    
+    public func string(encoding: String.Encoding? = nil) -> Observable<String> {
+        return self.flatMap { $0.rx.string(encoding: encoding) }
+    }
+    
+    public func responseData() -> Observable<(HTTPURLResponse, Data)> {
+        return self.flatMap { $0.rx.responseData() }
+    }
+    
+    public func data() -> Observable<Data> {
+        return self.flatMap { $0.rx.data() }
+    }
+    
+    public func responsePropertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<(HTTPURLResponse, Any)> {
+        return self.flatMap { $0.rx.responsePropertyList(options: options) }
+    }
+    
+    public func propertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<Any> {
+        return self.flatMap { $0.rx.propertyList(options: options) }
+    }
+    
+    public func progress() -> Observable<RxProgress> {
+        return self.flatMap { $0.rx.progress() }
+    }
+}
+
+// MARK: Request - Validation
+
+extension ObservableType where E == DataRequest {
     public func validate<S: Sequence>(statusCode: S) -> Observable<E> where S.Element == Int {
         return self.map { $0.validate(statusCode: statusCode) }
     }

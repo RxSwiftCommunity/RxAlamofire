@@ -76,17 +76,13 @@ _ = request(.get, stringURL)
 
 // progress
 _ = request(.get, stringURL)
-    .flatMap {
-        $0.rx.progress()
-    }
+    .progress()
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // just fire upload and display progress
 _ = upload(Data(), urlRequest: try! RxAlamofire.urlRequest(.get, stringURL))
-    .flatMap {
-        $0.rx.progress()
-    }
+    .progress()
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
@@ -130,9 +126,7 @@ _ = manager.rx.responseString(.get, stringURL)
 _ = manager.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/json"])
-    .flatMap {
-        $0.rx.string()
-    }
+    .string()
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
@@ -140,9 +134,7 @@ _ = manager.rx.request(.get, stringURL)
 _ = manager.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/json"])
-    .flatMap {
-        $0.rx.responseString()
-    }
+    .responseString()
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
