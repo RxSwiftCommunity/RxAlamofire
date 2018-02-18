@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file.
 * Add `Equatable` conformation to `RxProgress`.
 * Add Swift Package Manager support.
 * Add helper methods for validation to `Observable<DataRequest>`.
-* Add helper methods for common responses to `Observable<DataRequest>`.
+* Add helper methods for common response types to `Observable<DataRequest>`.
 
 #### Fixed
 

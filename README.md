@@ -122,19 +122,19 @@ _ = manager.rx.responseString(.get, stringURL)
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
-// URLHTTPResponse + Validation + String
+// URLHTTPResponse + Validation + JSON
 _ = manager.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/json"])
-    .string()
+    .json()
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
-// URLHTTPResponse + Validation + URLHTTPResponse + String
+// URLHTTPResponse + Validation + URLHTTPResponse + JSON
 _ = manager.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/json"])
-    .responseString()
+    .responseJSON()
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 

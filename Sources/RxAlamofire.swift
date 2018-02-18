@@ -741,39 +741,39 @@ extension Reactive where Base: SessionManager {
 
 extension ObservableType where E == DataRequest {
     public func responseJSON() -> Observable<DataResponse<Any>> {
-        return self.flatMap { $0.rx.responseJSON() }
+        return flatMap { $0.rx.responseJSON() }
     }
     
     public func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
-        return self.flatMap { $0.rx.json(options: options) }
+        return flatMap { $0.rx.json(options: options) }
     }
     
     public func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
-        return self.flatMap { $0.rx.responseString(encoding: encoding) }
+        return flatMap { $0.rx.responseString(encoding: encoding) }
     }
     
     public func string(encoding: String.Encoding? = nil) -> Observable<String> {
-        return self.flatMap { $0.rx.string(encoding: encoding) }
+        return flatMap { $0.rx.string(encoding: encoding) }
     }
     
     public func responseData() -> Observable<(HTTPURLResponse, Data)> {
-        return self.flatMap { $0.rx.responseData() }
+        return flatMap { $0.rx.responseData() }
     }
     
     public func data() -> Observable<Data> {
-        return self.flatMap { $0.rx.data() }
+        return flatMap { $0.rx.data() }
     }
     
     public func responsePropertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<(HTTPURLResponse, Any)> {
-        return self.flatMap { $0.rx.responsePropertyList(options: options) }
+        return flatMap { $0.rx.responsePropertyList(options: options) }
     }
     
     public func propertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<Any> {
-        return self.flatMap { $0.rx.propertyList(options: options) }
+        return flatMap { $0.rx.propertyList(options: options) }
     }
     
     public func progress() -> Observable<RxProgress> {
-        return self.flatMap { $0.rx.progress() }
+        return flatMap { $0.rx.progress() }
     }
 }
 
@@ -781,19 +781,19 @@ extension ObservableType where E == DataRequest {
 
 extension ObservableType where E == DataRequest {
     public func validate<S: Sequence>(statusCode: S) -> Observable<E> where S.Element == Int {
-        return self.map { $0.validate(statusCode: statusCode) }
+        return map { $0.validate(statusCode: statusCode) }
     }
     
     public func validate() -> Observable<E> {
-        return self.map { $0.validate() }
+        return map { $0.validate() }
     }
     
     public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Observable<E> where S.Iterator.Element == String {
-        return self.map { $0.validate(contentType: acceptableContentTypes) }
+        return map { $0.validate(contentType: acceptableContentTypes) }
     }
     
     public func validate(_ validation: @escaping DataRequest.Validation) -> Observable<E> {
-        return self.map { $0.validate(validation) }
+        return map { $0.validate(validation) }
     }
 }
 
