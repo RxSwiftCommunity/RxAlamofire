@@ -741,7 +741,59 @@ extension Reactive where Base: SessionManager {
 
 extension ObservableType where E == DataRequest {
     public func responseJSON() -> Observable<DataResponse<Any>> {
-        return self.flatMap { $0.rx.responseJSON() }
+        return flatMap { $0.rx.responseJSON() }
+    }
+    
+    public func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
+        return flatMap { $0.rx.json(options: options) }
+    }
+    
+    public func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
+        return flatMap { $0.rx.responseString(encoding: encoding) }
+    }
+    
+    public func string(encoding: String.Encoding? = nil) -> Observable<String> {
+        return flatMap { $0.rx.string(encoding: encoding) }
+    }
+    
+    public func responseData() -> Observable<(HTTPURLResponse, Data)> {
+        return flatMap { $0.rx.responseData() }
+    }
+    
+    public func data() -> Observable<Data> {
+        return flatMap { $0.rx.data() }
+    }
+    
+    public func responsePropertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<(HTTPURLResponse, Any)> {
+        return flatMap { $0.rx.responsePropertyList(options: options) }
+    }
+    
+    public func propertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<Any> {
+        return flatMap { $0.rx.propertyList(options: options) }
+    }
+    
+    public func progress() -> Observable<RxProgress> {
+        return flatMap { $0.rx.progress() }
+    }
+}
+
+// MARK: Request - Validation
+
+extension ObservableType where E == DataRequest {
+    public func validate<S: Sequence>(statusCode: S) -> Observable<E> where S.Element == Int {
+        return map { $0.validate(statusCode: statusCode) }
+    }
+    
+    public func validate() -> Observable<E> {
+        return map { $0.validate() }
+    }
+    
+    public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Observable<E> where S.Iterator.Element == String {
+        return map { $0.validate(contentType: acceptableContentTypes) }
+    }
+    
+    public func validate(_ validation: @escaping DataRequest.Validation) -> Observable<E> {
+        return map { $0.validate(validation) }
     }
 }
 
