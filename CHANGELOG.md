@@ -7,6 +7,12 @@ All notable changes to this project will be documented in this file.
 
 #### Updated
 
+#### Fixed
+
+## 4.1.0
+
+#### Updated
+
 * Rename `RxProgress.totalBytesWritten` to `RxProgress.bytesRemaining`.
 * Rename `RxProgress.totalBytesExpectedToWrite` to `RxProgress.totalBytes`.
 * Convert `RxProgress.bytesRemaining` from a stored- to a computed-property.
