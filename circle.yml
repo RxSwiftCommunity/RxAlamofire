@@ -12,3 +12,11 @@ test:
   override:
     - set -o pipefail
     - xcodebuild test -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c
+    
+deployment:
+  release:
+    tag: /[0-9]+(\.[0-9]+)*/
+    commands:
+      - pod setup
+      - rm ~/.cocoapods/config.yaml # This hack is needed since CircleCI forces --verbose
+      - pod trunk push --skip-tests --allow-warnings
