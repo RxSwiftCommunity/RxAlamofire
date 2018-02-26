@@ -26,10 +26,6 @@ let package = Package(
             name: "RxAlamofire",
             dependencies: ["RxSwift", "Alamofire"],
             path: "Sources",
-            exclude: ["Cocoa"]),
-        .testTarget(
-            name: "RxAlamofireTests",
-            dependencies: ["RxAlamofire", "RxSwift", "Alamofire"],
-            path: "RxAlamofire/RxAlamofireTests"),
+            exclude: ["Cocoa"])
     ]
 )
