@@ -18,5 +18,6 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+* Fix SPM Support
 * Unify download and upload progress handling.
 * Fix `Reactive<DataRequest>.progress` logic so it actually completes.
