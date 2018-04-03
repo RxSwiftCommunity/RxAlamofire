@@ -9,9 +9,7 @@
 #if os(iOS)
 
 import UIKit
-#if !RX_NO_MODULE
 import RxSwift
-#endif
 
 extension Reactive where Base: UIStepper {
     
@@ -24,6 +22,13 @@ extension Reactive where Base: UIStepper {
                 stepper.value = value
             }
         )
+    }
+
+    /// Reactive wrapper for `stepValue` property.
+    public var stepValue: Binder<Double> {
+        return Binder(self.base) { stepper, value in
+            stepper.stepValue = value
+        }
     }
     
 }

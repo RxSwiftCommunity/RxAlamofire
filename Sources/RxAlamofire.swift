@@ -961,7 +961,9 @@ extension Reactive where Base: DataRequest {
     public func propertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<Any> {
         return result(responseSerializer: Base.propertyListResponseSerializer(options: options))
     }
+}
 
+extension Reactive where Base: Request {
     // MARK: Request - Upload and download progress
 
     /**
@@ -985,11 +987,17 @@ extension Reactive where Base: DataRequest {
                     observer.on(.completed)
                 }
             }
-            
-            if let upload = self.base as? UploadRequest {
-                upload.uploadProgress(closure: handler)
-            } else {
-                self.base.downloadProgress(closure: handler)
+
+            // Try in following order:
+            //  - UploadRequest (Inherits from DataRequest, so we test the discrete case first)
+            //  - DownloadRequest
+            //  - DataRequest
+            if let uploadReq = self.base as? UploadRequest {
+                uploadReq.uploadProgress(closure: handler)
+            } else if let downloadReq = self.base as? DownloadRequest {
+                downloadReq.downloadProgress(closure: handler)
+            } else if let dataReq = self.base as? DataRequest {
+                dataReq.downloadProgress(closure: handler)
             }
 
             return Disposables.create()
