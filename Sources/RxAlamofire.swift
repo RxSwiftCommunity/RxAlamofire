@@ -988,6 +988,10 @@ extension Reactive where Base: Request {
                 }
             }
 
+            // Try in following order:
+            //  - UploadRequest (Inherits from DataRequest, so we test the discrete case first)
+            //  - DownloadRequest
+            //  - DataRequest
             if let uploadReq = self.base as? UploadRequest {
                 uploadReq.uploadProgress(closure: handler)
             } else if let downloadReq = self.base as? DownloadRequest {
