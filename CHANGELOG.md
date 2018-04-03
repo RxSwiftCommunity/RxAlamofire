@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 #### Updated
 
 #### Fixed
+* Fix progress() to correctly support all request types.
 
 ## 4.1.0
 
