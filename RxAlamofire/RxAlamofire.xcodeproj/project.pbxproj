@@ -11,12 +11,12 @@
 		1EEFB4A3D3253FC4CB9ECC0F /* Pods_RxAlamofire_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE972DF6B1850132F1BD0B8C /* Pods_RxAlamofire_iOS.framework */; };
 		332C4F1C654C8602E243B78F /* Pods_RxAlamofireTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6043394A049C78569836741A /* Pods_RxAlamofireTests.framework */; };
 		37A979DF3BF4A29099704486 /* Pods_RxAlamofire_iOS_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7E6AC90F7BF192394816F6 /* Pods_RxAlamofire_iOS_Example.framework */; };
-		637D95951C4E37CE00F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D95961C4E37CE00F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D95991C4E37F200F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D959A1C4E37F200F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D959D1C4E380300F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D959E1C4E380300F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		637D95951C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D95961C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D95991C4E37F200F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D959A1C4E37F200F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D959D1C4E380300F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D959E1C4E380300F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		A57A28CE1D78E8EB000D88BA /* RxAlamofireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A57A28CD1D78E8EB000D88BA /* RxAlamofireTests.swift */; };
 		A57A28D01D78E8EB000D88BA /* RxAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C89A0D2B1BE0D50E00744695 /* RxAlamofire.framework */; };
 		A86DAA4B947F836CEC68BE72 /* Pods_RxAlamofire_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 077D058E0546371B41AD5EB3 /* Pods_RxAlamofire_tvOS.framework */; };
@@ -485,7 +485,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Bonto.ch;
 				TargetAttributes = {
 					637D95701C4E370C00F1FA67 = {
@@ -568,15 +568,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				637D95991C4E37F200F1FA67 /* BuildFile in Resources */,
+				637D95991C4E37F200F1FA67 /* (null) in Resources */,
 				C87D2C921D8F34CF003F5936 /* LaunchScreen.storyboard in Resources */,
-				637D959E1C4E380300F1FA67 /* BuildFile in Resources */,
-				637D959D1C4E380300F1FA67 /* BuildFile in Resources */,
-				637D95951C4E37CE00F1FA67 /* BuildFile in Resources */,
+				637D959E1C4E380300F1FA67 /* (null) in Resources */,
+				637D959D1C4E380300F1FA67 /* (null) in Resources */,
+				637D95951C4E37CE00F1FA67 /* (null) in Resources */,
 				C87D2C911D8F34CF003F5936 /* Assets.xcassets in Resources */,
 				C87D2C931D8F34CF003F5936 /* Main.storyboard in Resources */,
-				637D95961C4E37CE00F1FA67 /* BuildFile in Resources */,
-				637D959A1C4E37F200F1FA67 /* BuildFile in Resources */,
+				637D95961C4E37CE00F1FA67 /* (null) in Resources */,
+				637D959A1C4E37F200F1FA67 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -926,7 +926,7 @@
 				INFOPLIST_FILE = "../RxAlamofire-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.bonto.RxAlamofire.RxAlamofire-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.rxswift.RxAlamofire.RxAlamofire-tvOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -949,7 +949,7 @@
 				INFOPLIST_FILE = "../RxAlamofire-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.bonto.RxAlamofire.RxAlamofire-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.rxswift.RxAlamofire.RxAlamofire-tvOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = appletvos;
 				SKIP_INSTALL = YES;
@@ -968,7 +968,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "RxAlamofire-tvOS-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.bonto.RxAlamofire.RxAlamofiretvOSExample;
+				PRODUCT_BUNDLE_IDENTIFIER = org.rxswift.RxAlamofire.RxAlamofiretvOSExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -984,7 +984,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = "RxAlamofire-tvOS-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.bonto.RxAlamofire.RxAlamofiretvOSExample;
+				PRODUCT_BUNDLE_IDENTIFIER = org.rxswift.RxAlamofire.RxAlamofiretvOSExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -1039,7 +1039,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "../RxAlamofire-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.bonto.RxAlamofire.RxAlamofire-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.rxswift.RxAlamofire.RxAlamofire-iOS";
 				PRODUCT_NAME = RxAlamofire;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1060,7 +1060,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = "../RxAlamofire-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "ch.bonto.RxAlamofire.RxAlamofire-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.rxswift.RxAlamofire.RxAlamofire-iOS";
 				PRODUCT_NAME = RxAlamofire;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1081,12 +1081,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1135,12 +1137,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -1179,7 +1183,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "RxAlamofire-iOS-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.bonto.RxAlamofire.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = org.rxswift.RxAlamofire.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1192,7 +1196,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = "RxAlamofire-iOS-Example/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = ch.bonto.RxAlamofire.Example;
+				PRODUCT_BUNDLE_IDENTIFIER = org.rxswift.RxAlamofire.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

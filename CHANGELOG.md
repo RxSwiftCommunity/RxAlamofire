@@ -8,6 +8,13 @@ All notable changes to this project will be documented in this file.
 #### Updated
 
 #### Fixed
+
+## 4.2.0
+
+#### Updated
+* Project updated to Xcode 9.3.
+
+#### Fixed
 * Fix progress() to correctly support all request types.
 
 ## 4.1.0

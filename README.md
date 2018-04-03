@@ -33,7 +33,7 @@ RxAlamofire.requestJSON(.get, sourceStringURL)
                     }, onError: { [weak self] (error) in
                         self?.displayError(error as NSError)
                 })
-                .addDisposableTo(disposeBag)
+                .disposed(by: disposeBag)
 
 } else {
     self.toTextField.text = "Invalid Input!"
