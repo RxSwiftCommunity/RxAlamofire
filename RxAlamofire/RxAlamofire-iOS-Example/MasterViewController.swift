@@ -58,7 +58,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
                     }, onError: { [weak self] (error) in
                         self?.displayError(error as NSError)
                 })
-                .addDisposableTo(disposeBag)
+                .disposed(by: disposeBag)
 
         } else {
             self.toTextField.text = "Invalid Input!"
@@ -239,7 +239,7 @@ func exampleUsages() {
             }, onError:{ e in
                 self.dummyDataTextView.text = "An Error Occurred"
                 self.displayError(e as NSError)
-            }).addDisposableTo(disposeBag)
+            }).disposed(by: disposeBag)
 
     }
     
