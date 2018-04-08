@@ -72,6 +72,20 @@ class RxAlamofireSpec: XCTestCase {
         }
 	}
 
+    func testMultipartFormDataEncoding() {
+        do {
+            let request = try manager.rx.upload(multipartFormData: { mfd in
+                mfd.append("bar".data(using: .utf8)!, withName: "foo")
+                mfd.append("qux".data(using: .utf8)!, withName: "baz")
+            }, to: "http://myjsondata.com").toBlocking().single()
+
+            XCTAssertEqual("http://myjsondata.com", request.request?.url?.absoluteString)
+            XCTAssertEqual(HTTPMethod.post.rawValue, request.request?.httpMethod)
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+
     func testProgress() {
         do {
             let dataRequest = try request(HTTPMethod.get, "http://myjsondata.com").toBlocking().first()!
