@@ -19,6 +19,9 @@ import RxSwift
 /// Default instance of unknown error
 public let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: -1, userInfo: nil)
 
+/// Configurable Session Manager
+public var sessionManager: Alamofire.SessionManager = Alamofire.SessionManager.default
+
 // MARK: Convenience functions
 
 /**
@@ -75,7 +78,7 @@ public func request(_ method: Alamofire.HTTPMethod,
     headers: [String: String]? = nil)
     -> Observable<DataRequest>
 {
-    return SessionManager.default.rx.request(
+    return sessionManager.rx.request(
         method,
         url,
         parameters: parameters,
@@ -92,7 +95,7 @@ public func request(_ method: Alamofire.HTTPMethod,
  - returns: An observable of a the `Request`
  */
 public func request(_ urlRequest: URLRequestConvertible) -> Observable<DataRequest> {
-  return SessionManager.default.rx.request(urlRequest: urlRequest)
+  return sessionManager.rx.request(urlRequest: urlRequest)
 }
 
 // MARK: data
@@ -115,7 +118,7 @@ public func requestData(_ method: Alamofire.HTTPMethod,
     headers: [String: String]? = nil)
     -> Observable<(HTTPURLResponse, Data)>
 {
-    return SessionManager.default.rx.responseData(
+    return sessionManager.rx.responseData(
         method,
         url,
         parameters: parameters,
@@ -153,7 +156,7 @@ public func data(_ method: Alamofire.HTTPMethod,
     headers: [String: String]? = nil)
     -> Observable<Data>
 {
-    return SessionManager.default.rx.data(
+    return sessionManager.rx.data(
         method,
         url,
         parameters: parameters,
@@ -182,7 +185,7 @@ public func requestString(_ method: Alamofire.HTTPMethod,
     headers: [String: String]? = nil)
     -> Observable<(HTTPURLResponse, String)>
 {
-    return SessionManager.default.rx.responseString(
+    return sessionManager.rx.responseString(
         method,
         url,
         parameters: parameters,
@@ -220,7 +223,7 @@ public func string(_ method: Alamofire.HTTPMethod,
     headers: [String: String]? = nil)
     -> Observable<String>
 {
-    return SessionManager.default.rx.string(
+    return sessionManager.rx.string(
         method,
         url,
         parameters: parameters,
@@ -249,7 +252,7 @@ public func requestJSON(_ method: Alamofire.HTTPMethod,
     headers: [String: String]? = nil)
     -> Observable<(HTTPURLResponse, Any)>
 {
-    return SessionManager.default.rx.responseJSON(
+    return sessionManager.rx.responseJSON(
         method,
         url,
         parameters: parameters,
@@ -287,7 +290,7 @@ public func json(_ method: Alamofire.HTTPMethod,
     headers: [String: String]? = nil)
     -> Observable<Any>
 {
-    return SessionManager.default.rx.json(
+    return sessionManager.rx.json(
         method,
         url,
         parameters: parameters,
@@ -307,7 +310,7 @@ public func json(_ method: Alamofire.HTTPMethod,
     - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-    return SessionManager.default.rx.upload(file, urlRequest: urlRequest)
+    return sessionManager.rx.upload(file, urlRequest: urlRequest)
 }
 
 /**
@@ -319,7 +322,7 @@ public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable
     - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-    return SessionManager.default.rx.upload(data , urlRequest: urlRequest)
+    return sessionManager.rx.upload(data , urlRequest: urlRequest)
 }
 
 /**
@@ -331,7 +334,7 @@ public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observabl
     - returns: The observable of `Request` for the created upload request.
  */
 public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-    return SessionManager.default.rx.upload(stream, urlRequest: urlRequest)
+    return sessionManager.rx.upload(stream, urlRequest: urlRequest)
 }
 
 // MARK: Download
@@ -344,7 +347,7 @@ public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> 
  */
 public func download(_ urlRequest: URLRequestConvertible,
                      to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
-    return SessionManager.default.rx.download(urlRequest, to: destination)
+    return sessionManager.rx.download(urlRequest, to: destination)
 }
 
 // MARK: Resume Data
@@ -361,7 +364,7 @@ public func download(_ urlRequest: URLRequestConvertible,
 */
 public func download(resumeData: Data,
                      to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
-    return SessionManager.default.rx.download(resumeData: resumeData, to: destination)
+    return sessionManager.rx.download(resumeData: resumeData, to: destination)
 }
 
 // MARK: Manager - Extension of Manager
