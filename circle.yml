@@ -1,6 +1,6 @@
 machine:
   xcode:
-    version: 9.1
+    version: 9.3
   environment:
     LANG: en_US.UTF-8
 
@@ -12,7 +12,7 @@ test:
   override:
     - set -o pipefail
     - xcodebuild test -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c
-    
+
 deployment:
   release:
     tag: /[0-9]+(\.[0-9]+)*/
