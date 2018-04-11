@@ -9,6 +9,15 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+## 4.2.1
+
+#### Updated
+* Update swift version to 4.1
+* Update CI to use Xcode 9.3
+* Add ruby environment version 2.5.1
+* Add bundler to project
+* Lock cocoapods to 1.5
+
 ## 4.2.0
 
 #### Updated
