@@ -412,32 +412,35 @@ extension Reactive where Base: SessionManager {
 
     - returns: A generic observable of created data request
     */
-    func request<R: RxAlamofireRequest>(_ createRequest: @escaping (SessionManager) throws -> R) -> Observable<R> {
+    func request<R: RxAlamofireRequest>(_ createRequest: @escaping (SessionManager, @escaping (R) -> Void) -> Void) -> Observable<R> {
         return Observable.create { observer -> Disposable in
-            let request: R
+            var request: R?
             do {
-                request = try createRequest(self.base)
-                observer.on(.next(request))
-                request.responseWith(completionHandler: { (response) in
-                    if let error = response.error {
-                        observer.on(.error(error))
-                    } else {
-                        observer.on(.completed)
-                    }
-                })
+                createRequest(self.base) { newRequest in
+                    request = newRequest
 
-                if !self.base.startRequestsImmediately {
-                    request.resume()
+                    observer.on(.next(newRequest))
+                    newRequest.responseWith(completionHandler: { (response) in
+                        if let error = response.error {
+                            observer.on(.error(error))
+                        } else {
+                            observer.on(.completed)
+                        }
+                    })
+
+                    if !self.base.startRequestsImmediately {
+                        newRequest.resume()
+                    }
                 }
 
                 return Disposables.create {
-                    request.cancel()
+                    request?.cancel()
                 }
             }
-            catch let error {
-                observer.on(.error(error))
-                return Disposables.create()
-            }
+//            catch let error {
+//                observer.on(.error(error))
+//                return Disposables.create()
+//            }
         }
     }
 
@@ -736,6 +739,22 @@ extension Reactive where Base: SessionManager {
                        to url: URLConvertible,
                        method: HTTPMethod = .post,
                        headers: HTTPHeaders = [:]) -> Observable<UploadRequest> {
+        return request { manager, requestClosure in
+            manager.upload(multipartFormData: data,
+                           usingThreshold: encodingMemoryThreshold,
+                           to: url,
+                           method: method,
+                           headers: headers) {
+                            switch $0 {
+                            case let .success(request, _, _):
+                                requestClosure(request)
+                            case .failure:
+                                () // probably need to handle the error with a result type or something
+                            }
+            }
+            fatalError()
+        }
+
         let manager = base
         return Observable.create { observer in
             manager.upload(multipartFormData: data,
