@@ -693,6 +693,10 @@ extension ObservableType where Element == DataRequest {
     return flatMap { $0.rx.json(options: options) }
   }
 
+  public func dataResponseString(encoding: String.Encoding? = nil) -> Observable<DataResponse<String>> {
+      return flatMap { $0.rx.dataResponseString(encoding: encoding) }
+  }
+    
   public func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
     return flatMap { $0.rx.responseString(encoding: encoding) }
   }
@@ -848,6 +852,34 @@ extension Reactive where Base: DataRequest {
     return result(responseSerializer: DataRequest.dataResponseSerializer())
   }
 
+    /**
+     Returns an `Observable` of a `DataResponse<String>` for the current request.
+     `DataResponse` allows access to the unprocessed server response, including **metrics**.
+     
+     - parameter encoding: Type of the string encoding, **default:** `nil`
+     
+     - returns: An instance of `Observable<DataResponse<String>`
+     */
+    public func dataResponseString(encoding: String.Encoding? = nil) -> Observable<DataResponse<String>> {
+        return Observable.create { observer in
+            let request = self.base
+            
+            request.responseString(encoding: encoding) { response in
+                if let error = response.result.error {
+                    observer.on(.error(error))
+                } else {
+                    observer.on(.next(response))
+                    observer.on(.completed)
+                }
+            }
+            
+            return Disposables.create {
+                request.cancel()
+            }
+        }
+        
+    }
+    
   /**
    Returns an `Observable` of a String for the current request
 
