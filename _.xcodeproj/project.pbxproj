@@ -12,12 +12,6 @@
 		C87D2CB31D8F382C003F5936 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C87D2CAE1D8F382C003F5936 /* RxAlamofire.h */; };
 		C87D2CB41D8F382C003F5936 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CAF1D8F382C003F5936 /* RxAlamofire.swift */; };
 		C87D2CB51D8F382C003F5936 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CAF1D8F382C003F5936 /* RxAlamofire.swift */; };
-		C87D2CBA1D8F3850003F5936 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87D2CB71D8F3850003F5936 /* Alamofire.framework */; };
-		C87D2CBB1D8F3850003F5936 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87D2CB81D8F3850003F5936 /* RxCocoa.framework */; };
-		C87D2CBC1D8F3850003F5936 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87D2CB91D8F3850003F5936 /* RxSwift.framework */; };
-		C87D2CC11D8F3872003F5936 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87D2CBE1D8F3872003F5936 /* Alamofire.framework */; };
-		C87D2CC21D8F3872003F5936 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87D2CBF1D8F3872003F5936 /* RxCocoa.framework */; };
-		C87D2CC31D8F3872003F5936 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C87D2CC01D8F3872003F5936 /* RxSwift.framework */; };
 		C88CB75D1D8F300C0021D83F /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C88CB75B1D8F300C0021D83F /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C88CB76A1D8F30330021D83F /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C88CB7681D8F30330021D83F /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -26,12 +20,6 @@
 		30E955241DBF9E0F00035075 /* URLSession+RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+RxAlamofire.swift"; sourceTree = "<group>"; };
 		C87D2CAE1D8F382C003F5936 /* RxAlamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		C87D2CAF1D8F382C003F5936 /* RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxAlamofire.swift; sourceTree = "<group>"; };
-		C87D2CB71D8F3850003F5936 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		C87D2CB81D8F3850003F5936 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
-		C87D2CB91D8F3850003F5936 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
-		C87D2CBE1D8F3872003F5936 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
-		C87D2CBF1D8F3872003F5936 /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/tvOS/RxCocoa.framework; sourceTree = "<group>"; };
-		C87D2CC01D8F3872003F5936 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
 		C88CB7591D8F300C0021D83F /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88CB75B1D8F300C0021D83F /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		C88CB75C1D8F300C0021D83F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,9 +33,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C87D2CBA1D8F3850003F5936 /* Alamofire.framework in Frameworks */,
-				C87D2CBB1D8F3850003F5936 /* RxCocoa.framework in Frameworks */,
-				C87D2CBC1D8F3850003F5936 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,9 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C87D2CC11D8F3872003F5936 /* Alamofire.framework in Frameworks */,
-				C87D2CC21D8F3872003F5936 /* RxCocoa.framework in Frameworks */,
-				C87D2CC31D8F3872003F5936 /* RxSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,35 +64,6 @@
 			path = Cocoa;
 			sourceTree = "<group>";
 		};
-		C87D2CB61D8F3850003F5936 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				C87D2CC41D8F3875003F5936 /* tvOS */,
-				C87D2CBD1D8F385A003F5936 /* iOS */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		C87D2CBD1D8F385A003F5936 /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				C87D2CB71D8F3850003F5936 /* Alamofire.framework */,
-				C87D2CB81D8F3850003F5936 /* RxCocoa.framework */,
-				C87D2CB91D8F3850003F5936 /* RxSwift.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		C87D2CC41D8F3875003F5936 /* tvOS */ = {
-			isa = PBXGroup;
-			children = (
-				C87D2CBE1D8F3872003F5936 /* Alamofire.framework */,
-				C87D2CBF1D8F3872003F5936 /* RxCocoa.framework */,
-				C87D2CC01D8F3872003F5936 /* RxSwift.framework */,
-			);
-			name = tvOS;
-			sourceTree = "<group>";
-		};
 		C88CB73F1D8F2F770021D83F = {
 			isa = PBXGroup;
 			children = (
@@ -118,7 +71,6 @@
 				C88CB75A1D8F300C0021D83F /* RxAlamofire-iOS */,
 				C88CB7671D8F30330021D83F /* RxAlamofire-tvOS */,
 				C88CB74A1D8F2F770021D83F /* Products */,
-				C87D2CB61D8F3850003F5936 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -421,7 +373,7 @@
 				);
 				INFOPLIST_FILE = "RxAlamofire-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS";
 				PRODUCT_NAME = RxAlamofire;
 				SKIP_INSTALL = YES;
@@ -446,7 +398,7 @@
 				);
 				INFOPLIST_FILE = "RxAlamofire-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS";
 				PRODUCT_NAME = RxAlamofire;
 				SKIP_INSTALL = YES;
@@ -465,13 +417,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "RxAlamofire-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/tvOS";
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = appletvos;
@@ -493,13 +442,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "RxAlamofire-tvOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/tvOS";
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = appletvos;
