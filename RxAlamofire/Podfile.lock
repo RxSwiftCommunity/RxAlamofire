@@ -29,6 +29,14 @@ DEPENDENCIES:
   - RxCocoa (~> 4)
   - RxSwift (~> 4)
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - OHHTTPStubs
+    - RxBlocking
+    - RxCocoa
+    - RxSwift
+
 SPEC CHECKSUMS:
   Alamofire: 68d7d521118d49c615a8d2214d87cdf525599d30
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
@@ -38,4 +46,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 26c16059d25485386e9c33997cc4608f520f0a86
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
