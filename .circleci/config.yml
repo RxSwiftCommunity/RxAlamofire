@@ -1,0 +1,69 @@
+version: 2
+jobs:
+  "RxAlamofire Tests":
+    working_directory: ~/RxSwiftCommunity/RxAlamofire
+    parallelism: 1
+    shell: /bin/bash --login
+    environment:
+      XCODE_TEST_REPORTS: /tmp/xcode-test-results
+      LANG: en_US.UTF-8
+    macos:
+      xcode: '10.0.0'
+    steps:
+      - checkout
+      - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $XCODE_TEST_REPORTS
+      - restore_cache:
+          keys:
+            - v1-dep-{{ .Branch }}-
+            - v1-dep-master-
+            - v1-dep-
+      - run: 
+          name: Bootstrap Carthage
+          command: scripts/bootstrap-if-needed.sh
+      - save_cache:
+          key: v1-dep-{{ .Branch }}-{{ epoch }}
+          paths:
+            - Carthage
+      - run:
+          name: Run Tests (Swift 4)
+          command: set -o pipefail && xcodebuild test SWIFT_VERSION=4.0 -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift4.html
+      - run:
+          name: Run Tests (Swift 4.2)
+          command: set -o pipefail && xcodebuild test SWIFT_VERSION=4.2 -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift4_2.html
+      - store_artifacts:
+          path: /tmp/xcode-test-results
+  "RxAlamofire Release":
+    working_directory: ~/RxSwiftCommunity/RxAlamofire
+    parallelism: 1
+    shell: /bin/bash --login
+    environment:
+      LANG: en_US.UTF-8
+    macos:
+      xcode: '10.0.0'
+    steps:
+      - checkout
+      - run:
+          name: Setup CocoaPods
+          command: pod setup
+      - run:
+          name: Override Circle CI Config
+          command: rm ~/.cocoapods/config.yaml # This hack is needed since CircleCI forces --verbose
+      - run:
+          name: Push Podspec to Trunk
+          command: pod trunk push --skip-tests --allow-warnings
+workflows:
+  version: 2
+  build:
+    jobs:
+      - "RxAlamofire Tests":
+          filters:
+            tags:
+              ignore: /[0-9]+(\.[0-9]+)*/
+  release:
+    jobs:
+      - "RxAlamofire Release":
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /[0-9]+(\.[0-9]+)*/
