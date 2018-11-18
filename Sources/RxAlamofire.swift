@@ -393,6 +393,40 @@ public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> 
 
 // MARK: Download
 
+/// Creates a `DownloadRequest` using the default `SessionManager` to retrieve the contents of the specified `url`,
+/// `method`, `parameters`, `encoding`, `headers` and save them to the `destination`.
+///
+/// If `destination` is not specified, the contents will remain in the temporary location determined by the
+/// underlying URL session.
+///
+///
+/// - parameter url:         The URL.
+/// - parameter method:      The HTTP method. `.get` by default.
+/// - parameter parameters:  The parameters. `nil` by default.
+/// - parameter encoding:    The parameter encoding. `URLEncoding.default` by default.
+/// - parameter headers:     The HTTP headers. `nil` by default.
+/// - parameter destination: The closure used to determine the destination of the downloaded file. `nil` by default.
+///
+/// - returns: The observable of `DownloadRequest` for the created download request.
+public func download(
+    _ url: URLConvertible,
+    method: HTTPMethod = .get,
+    parameters: Parameters? = nil,
+    encoding: ParameterEncoding = URLEncoding.default,
+    headers: HTTPHeaders? = nil,
+    to destination: DownloadRequest.DownloadFileDestination? = nil)
+    -> Observable<DownloadRequest>
+{
+    return SessionManager.default.rx.download(
+        url,
+        method: method,
+        parameters: parameters,
+        encoding: encoding,
+        headers: headers,
+        to: destination
+    )
+}
+
 /**
     Creates a download request using the shared manager instance for the specified URL request.
     - parameter urlRequest:  The URL request.
@@ -825,6 +859,35 @@ extension Reactive where Base: SessionManager {
     }
 
     // MARK: Download
+    
+    /// Creates a `DownloadRequest` using the default `SessionManager` to retrieve the contents of the specified `url`,
+    /// `method`, `parameters`, `encoding`, `headers` and save them to the `destination`.
+    ///
+    /// If `destination` is not specified, the contents will remain in the temporary location determined by the
+    /// underlying URL session.
+    ///
+    ///
+    /// - parameter url:         The URL.
+    /// - parameter method:      The HTTP method. `.get` by default.
+    /// - parameter parameters:  The parameters. `nil` by default.
+    /// - parameter encoding:    The parameter encoding. `URLEncoding.default` by default.
+    /// - parameter headers:     The HTTP headers. `nil` by default.
+    /// - parameter destination: The closure used to determine the destination of the downloaded file. `nil` by default.
+    ///
+    /// - returns: The observable of `DownloadRequest` for the created download request.
+    public func download(
+        _ url: URLConvertible,
+        method: HTTPMethod = .get,
+        parameters: Parameters? = nil,
+        encoding: ParameterEncoding = URLEncoding.default,
+        headers: HTTPHeaders? = nil,
+        to destination: DownloadRequest.DownloadFileDestination? = nil
+        )
+        -> Observable<DownloadRequest> {
+            return request { manager in
+                manager.download(url, method: method, parameters: parameters, encoding: encoding, headers: headers, to: destination)
+            }
+    }
 
     /**
      Creates a download request using the shared manager instance for the specified URL request.
