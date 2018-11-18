@@ -303,7 +303,7 @@ public func json(_ method: Alamofire.HTTPMethod,
     The request is started immediately.
 
     - parameter urlRequest: The request object to start the upload.
-    - paramenter file: An instance of NSURL holding the information of the local file.
+    - parameter file: An instance of NSURL holding the information of the local file.
     - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
@@ -315,7 +315,7 @@ public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable
     The request is started immediately.
 
     - parameter urlRequest: The request object to start the upload.
-    - paramenter data: An instance of NSData holdint the data to upload.
+    - parameter data: An instance of NSData holdint the data to upload.
     - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
@@ -327,7 +327,7 @@ public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observabl
     The request is started immediately.
 
     - parameter urlRequest: The request object to start the upload.
-    - paramenter stream: The stream to upload.
+    - parameter stream: The stream to upload.
     - returns: The observable of `Request` for the created upload request.
  */
 public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
@@ -665,7 +665,7 @@ extension Reactive where Base: SessionManager {
      The request is started immediately.
 
      - parameter urlRequest: The request object to start the upload.
-     - paramenter file: An instance of NSURL holding the information of the local file.
+     - parameter file: An instance of NSURL holding the information of the local file.
      - returns: The observable of `AnyObject` for the created request.
      */
     public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
@@ -680,7 +680,7 @@ extension Reactive where Base: SessionManager {
      The request is started immediately.
 
      - parameter urlRequest: The request object to start the upload.
-     - paramenter data: An instance of Data holdint the data to upload.
+     - parameter data: An instance of Data holdint the data to upload.
      - returns: The observable of `UploadRequest` for the created request.
      */
     public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
@@ -694,7 +694,7 @@ extension Reactive where Base: SessionManager {
      The request is started immediately.
 
      - parameter urlRequest: The request object to start the upload.
-     - paramenter stream: The stream to upload.
+     - parameter stream: The stream to upload.
      - returns: The observable of `(NSData?, RxProgress)` for the created upload request.
      */
     public func upload(_ stream: InputStream,
