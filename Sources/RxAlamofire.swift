@@ -329,6 +329,25 @@ public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable
     return SessionManager.default.rx.upload(file, urlRequest: urlRequest)
 }
 
+/// Returns an observable of an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers`
+/// for uploading the `data`.
+///
+/// - parameter data:    The data to upload.
+/// - parameter url:     The URL.
+/// - parameter method:  The HTTP method. `.post` by default.
+/// - parameter headers: The HTTP headers. `nil` by default.
+///
+/// - Returns: The observable of `UploadRequest` for the created request.
+public func upload(
+    _ data: Data,
+    to url: URLConvertible,
+    method: HTTPMethod = .post,
+    headers: HTTPHeaders? = nil)
+    -> Observable<UploadRequest>
+{
+    return SessionManager.default.rx.upload(data, to: url, method: method, headers: headers)
+}
+
 /**
     Returns an observable of a request using the shared manager instance to upload any data to a specified URL.
     The request is started immediately.
@@ -713,6 +732,26 @@ extension Reactive where Base: SessionManager {
 
         return request { manager in
             return manager.upload(file, with: urlRequest)
+        }
+    }
+    
+    /// Returns an observable of an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers`
+    /// for uploading the `data`.
+    ///
+    /// - parameter data:    The data to upload.
+    /// - parameter url:     The URL.
+    /// - parameter method:  The HTTP method. `.post` by default.
+    /// - parameter headers: The HTTP headers. `nil` by default.
+    /// - Returns: The observable of `UploadRequest` for the created request.
+    public func upload(
+        _ data: Data,
+        to url: URLConvertible,
+        method: HTTPMethod = .post,
+        headers: HTTPHeaders? = nil)
+        -> Observable<UploadRequest>
+    {
+        return request { manager in
+            return manager.upload(data, to: url, method: method, headers: headers)
         }
     }
 
