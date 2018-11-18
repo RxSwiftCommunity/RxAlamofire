@@ -360,6 +360,25 @@ public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observabl
     return SessionManager.default.rx.upload(data , urlRequest: urlRequest)
 }
 
+/// Returns an observable of an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers`
+/// for uploading the `stream`.
+///
+/// - parameter stream:  The stream to upload.
+/// - parameter url:     The URL.
+/// - parameter method:  The HTTP method. `.post` by default.
+/// - parameter headers: The HTTP headers. `nil` by default.
+///
+/// - Returns: The observable of `Request` for the created upload request.
+public func upload(
+    _ stream: InputStream,
+    to url: URLConvertible,
+    method: HTTPMethod = .post,
+    headers: HTTPHeaders? = nil)
+    -> Observable<UploadRequest>
+{
+    return SessionManager.default.rx.upload(stream, to: url, method: method, headers: headers)
+}
+
 /**
     Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
     The request is started immediately.
@@ -766,6 +785,27 @@ extension Reactive where Base: SessionManager {
     public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
         return request { manager in
             return manager.upload(data, with: urlRequest)
+        }
+    }
+    
+    /// Returns an observable of an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers`
+    /// for uploading the `stream`.
+    ///
+    /// - parameter stream:  The stream to upload.
+    /// - parameter url:     The URL.
+    /// - parameter method:  The HTTP method. `.post` by default.
+    /// - parameter headers: The HTTP headers. `nil` by default.
+    ///
+    /// - Returns: The observable of `Request` for the created upload request.
+    public func upload(
+        _ stream: InputStream,
+        to url: URLConvertible,
+        method: HTTPMethod = .post,
+        headers: HTTPHeaders? = nil)
+        -> Observable<UploadRequest>
+    {
+        return request { manager in
+            return manager.upload(stream, to: url, method: method, headers: headers)
         }
     }
 
