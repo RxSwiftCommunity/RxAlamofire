@@ -6,7 +6,7 @@
 //  Copyright © 2016 Bonto.ch. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for RxAlamofire.
 FOUNDATION_EXPORT double RxAlamofireVersionNumber;

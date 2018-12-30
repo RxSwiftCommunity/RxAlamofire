@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3BEFE5A21D9303D00B4AC80 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
+		B3BEFE6621D9314000B4AC80 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = B3BEFE6421D9313D00B4AC80 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B3BEFE6721D937A900B4AC80 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
 		FC5686FE2150CD45009DE8D6 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FC5687092150CDC8009DE8D6 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
 		FC56870A2150CDC8009DE8D6 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
@@ -16,6 +19,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B3BEFE6121D9303D00B4AC80 /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3BEFE6421D9313D00B4AC80 /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
+		B3BEFE6521D9313D00B4AC80 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		FC5686FD2150CD45009DE8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -28,6 +34,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B3BEFE5C21D9303D00B4AC80 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F62150CD45009DE8D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,12 +58,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B3BEFE6321D9313D00B4AC80 /* RxAlamofire-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				B3BEFE6421D9313D00B4AC80 /* RxAlamofire.h */,
+				B3BEFE6521D9313D00B4AC80 /* Info.plist */,
+			);
+			path = "RxAlamofire-macOS";
+			sourceTree = "<group>";
+		};
 		FC5686EF2150CD45009DE8D6 = {
 			isa = PBXGroup;
 			children = (
 				FC5687042150CDC8009DE8D6 /* Sources */,
 				FC5686FB2150CD45009DE8D6 /* RxAlamofire-iOS */,
 				FC5687122150D090009DE8D6 /* RxAlamofire-tvOS */,
+				B3BEFE6321D9313D00B4AC80 /* RxAlamofire-macOS */,
 				FC5686FA2150CD45009DE8D6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,6 +83,7 @@
 			children = (
 				FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */,
 				FC5687112150D090009DE8D6 /* RxAlamofire.framework */,
+				B3BEFE6121D9303D00B4AC80 /* RxAlamofire.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +127,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		B3BEFE5721D9303D00B4AC80 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3BEFE6621D9314000B4AC80 /* RxAlamofire.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F42150CD45009DE8D6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -122,6 +154,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		B3BEFE5621D9303D00B4AC80 /* RxAlamofire-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3BEFE5E21D9303D00B4AC80 /* Build configuration list for PBXNativeTarget "RxAlamofire-macOS" */;
+			buildPhases = (
+				B3BEFE5721D9303D00B4AC80 /* Headers */,
+				B3BEFE5921D9303D00B4AC80 /* Sources */,
+				B3BEFE5C21D9303D00B4AC80 /* Frameworks */,
+				B3BEFE5D21D9303D00B4AC80 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxAlamofire-macOS";
+			productName = "RxAlamofire-iOS";
+			productReference = B3BEFE6121D9303D00B4AC80 /* RxAlamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		FC5686F82150CD45009DE8D6 /* RxAlamofire-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC5687012150CD45009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire-iOS" */;
@@ -189,11 +239,19 @@
 			targets = (
 				FC5686F82150CD45009DE8D6 /* RxAlamofire-iOS */,
 				FC5687102150D090009DE8D6 /* RxAlamofire-tvOS */,
+				B3BEFE5621D9303D00B4AC80 /* RxAlamofire-macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B3BEFE5D21D9303D00B4AC80 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F72150CD45009DE8D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -211,6 +269,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B3BEFE5921D9303D00B4AC80 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3BEFE5A21D9303D00B4AC80 /* RxAlamofire.swift in Sources */,
+				B3BEFE6721D937A900B4AC80 /* URLSession+RxAlamofire.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F52150CD45009DE8D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +299,64 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		B3BEFE5F21D9303D00B4AC80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/Mac";
+				INFOPLIST_FILE = "RxAlamofire-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS";
+				PRODUCT_NAME = RxAlamofire;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B3BEFE6021D9303D00B4AC80 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/Mac";
+				INFOPLIST_FILE = "RxAlamofire-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS";
+				PRODUCT_NAME = RxAlamofire;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		FC5686FF2150CD45009DE8D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -467,6 +592,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B3BEFE5E21D9303D00B4AC80 /* Build configuration list for PBXNativeTarget "RxAlamofire-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3BEFE5F21D9303D00B4AC80 /* Debug */,
+				B3BEFE6021D9303D00B4AC80 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FC5686F32150CD45009DE8D6 /* Build configuration list for PBXProject "_" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
