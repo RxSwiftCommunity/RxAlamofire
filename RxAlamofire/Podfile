@@ -3,32 +3,34 @@ source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
 def common
-    pod 'Alamofire'
+    pod 'Alamofire', '5.0.0.beta.1'
     pod 'RxSwift', '~> 4'
     pod 'RxCocoa', '~> 4'
 end
 
 target 'RxAlamofire-iOS-Example' do
-    #platform :ios, '9.0'
+    platform :ios, '10.0'
     common
 end
 
 target 'RxAlamofire-tvOS-Example' do
-    #platform :tvos, '9.0'
+    platform :tvos, '10.0'
     common
 end
 
 target 'RxAlamofire-iOS' do
+    platform :ios, '10.0'
    common
 end
 
 target 'RxAlamofireTests' do
+    platform :ios, '10.0'
     common
-    pod 'OHHTTPStubs', '~> 6.0'
     pod 'OHHTTPStubs/Swift', '~> 6.0'
     pod 'RxBlocking', '~> 4.0'
 end
 
 target 'RxAlamofire-tvOS' do
+    platform :tvos, '10.0'
     common
 end

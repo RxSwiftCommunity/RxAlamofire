@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.7.3)
+  - Alamofire (5.0.0.beta.1)
   - OHHTTPStubs (6.1.0):
     - OHHTTPStubs/Default (= 6.1.0)
   - OHHTTPStubs/Core (6.1.0)
@@ -22,7 +22,7 @@ PODS:
   - RxSwift (4.3.1)
 
 DEPENDENCIES:
-  - Alamofire
+  - Alamofire (= 5.0.0.beta.1)
   - OHHTTPStubs (~> 6.0)
   - OHHTTPStubs/Swift (~> 6.0)
   - RxBlocking (~> 4.0)
@@ -38,12 +38,12 @@ SPEC REPOS:
     - RxSwift
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Alamofire: 2ef6d6c984c5d21c366e9b41a9ae7dfee2b67a44
   OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
   RxBlocking: 64c051285261ca2339481e91b5f70eb06b03660a
   RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
   RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
 
-PODFILE CHECKSUM: 26c16059d25485386e9c33997cc4608f520f0a86
+PODFILE CHECKSUM: f51b85db4dd6d452aa786bc7f21b0f6d4f4a3397
 
 COCOAPODS: 1.5.3

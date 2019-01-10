@@ -23,12 +23,12 @@ class ValidateSpec: XCTestCase {
         static let DataJSON = DataJSONContent.data(using: String.Encoding.utf8)!
     }
     
-    var manager: SessionManager!
+    var manager: Session!
     let disposeBag = DisposeBag()
     
     override func setUp() {
         super.setUp()
-        manager = SessionManager()
+        manager = Session()
         
         _ = stub(condition: isHost("200.xyz")) { _ in
             return OHHTTPStubsResponse(data: Dummy.DataJSON, statusCode: 200, headers: ["Content-Type":"application/json"])
@@ -91,7 +91,7 @@ class ValidateSpec: XCTestCase {
             XCTFail("Should not throw when content type is valid, but did with \(error)")
         }
     }
-    
+
     func testShouldThrowWhenValidateWithCustomValidationFails() {
         do {
             _ = try request(.get, "http://401.xyz").validate({ (_, res, _) in
@@ -111,10 +111,10 @@ class ValidateSpec: XCTestCase {
             XCTFail("Should not throw when validation succeeds, but did with \(error)")
         }
     }
-    
+
     private func validateResponseIs200(_ response: HTTPURLResponse) -> Request.ValidationResult {
         if response.statusCode == 200 {
-            return .success
+            return .success(())
         }
         
         return .failure(AFError.responseValidationFailed(reason: .unacceptableStatusCode(code: response.statusCode)))

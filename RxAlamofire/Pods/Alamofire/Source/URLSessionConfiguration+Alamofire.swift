@@ -1,5 +1,5 @@
 //
-//  DispatchQueue+Alamofire.swift
+//  URLSessionConfiguration+Alamofire.swift
 //
 //  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -22,11 +22,13 @@
 //  THE SOFTWARE.
 //
 
-import Dispatch
 import Foundation
 
-extension DispatchQueue {
-    func after(_ delay: TimeInterval, execute closure: @escaping () -> Void) {
-        asyncAfter(deadline: .now() + delay, execute: closure)
+extension URLSessionConfiguration {
+    public static var alamofireDefault: URLSessionConfiguration {
+        let configuration = URLSessionConfiguration.default
+        configuration.httpHeaders = .default
+
+        return configuration
     }
 }

@@ -1,5 +1,5 @@
 //
-//  DispatchQueue+Alamofire.swift
+//  RequestAdapter.swift
 //
 //  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -22,11 +22,14 @@
 //  THE SOFTWARE.
 //
 
-import Dispatch
 import Foundation
 
-extension DispatchQueue {
-    func after(_ delay: TimeInterval, execute closure: @escaping () -> Void) {
-        asyncAfter(deadline: .now() + delay, execute: closure)
-    }
+/// A type that can inspect and optionally adapt a `URLRequest` in some manner if necessary.
+public protocol RequestAdapter {
+    /// Inspects and adapts the specified `URLRequest` in some manner and calls the completion handler with the Result.
+    ///
+    /// - Parameters:
+    ///   - urlRequest: The `URLRequest` to adapt.
+    ///   - completion: The completion handler that must be called when adaptation is complete.
+    func adapt(_ urlRequest: URLRequest, completion: @escaping (_ result: Result<URLRequest>) -> Void)
 }

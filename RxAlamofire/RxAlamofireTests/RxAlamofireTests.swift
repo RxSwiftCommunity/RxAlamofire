@@ -26,7 +26,7 @@ private struct Dummy {
 
 class RxAlamofireSpec: XCTestCase {
 	
-	var manager: SessionManager!
+	var manager: Session!
 	
 	let testError = NSError(domain: "RxAlamofire Test Error", code: -1, userInfo: nil)
 	let disposeBag = DisposeBag()
@@ -34,7 +34,7 @@ class RxAlamofireSpec: XCTestCase {
 	//MARK: Configuration
 	override func setUp() {
 		super.setUp()
-		manager = SessionManager()
+		manager = Session()
 		
 		_ = stub(condition: isHost("mywebservice.com")) { _ in
 			return OHHTTPStubsResponse(data: Dummy.DataStringData, statusCode:200, headers:nil)
@@ -71,26 +71,42 @@ class RxAlamofireSpec: XCTestCase {
             XCTFail("\(error)")
         }
 	}
-
+    
+    var session: Session?
     func testProgress() {
+        OHHTTPStubs.setEnabled(true)
+        let stubPath = OHPathForFile("Rx_Logo_M.png", type(of: self))
+        let imageStub: OHHTTPStubsDescriptor = stub(condition: isExtension("png")) { _ in
+            return fixture(filePath: stubPath!, headers: ["Content-Type":"image/png"])
+                .requestTime(0.0, responseTime: OHHTTPStubsDownloadSpeedEDGE)
+        }
+        imageStub.name = "Image stub"
         do {
-            let dataRequest = try request(HTTPMethod.get, "http://myjsondata.com").toBlocking().first()!
-            let progressObservable = dataRequest.rx.progress().share(replay: 100, scope: .forever)
+            let progressObservable = AF
+                .request("https://demo.com/Rx_Logo_M.png")
+                .rx.progress().share(replay: 100, scope: .forever)
+            
+            let requestCompleted = expectation(description: "Wait for request to complete")
+            requestCompleted.isInverted = true
             let _ = progressObservable.subscribe { }
-            let delegate = dataRequest.delegate as! DataTaskDelegate
-            let progressHandler = delegate.progressHandler!
-            [(1000, 4000), (4000, 4000)].forEach { completed, total in
-                let progress = Alamofire.Progress()
-                progress.completedUnitCount = Int64(completed)
-                progress.totalUnitCount = Int64(total)
-                progressHandler.closure(progress)
-            }
+            waitForExpectations(timeout: 2.0, handler: nil)
+            
+            
             let actualEvents = try progressObservable.toBlocking().toArray()
             let expectedEvents = [
                 RxProgress(bytesWritten: 0, totalBytes: 0),
-                RxProgress(bytesWritten: 1000, totalBytes: 4000),
-                RxProgress(bytesWritten: 4000, totalBytes: 4000),
+                RxProgress(bytesWritten: 4000, totalBytes: 39044),
+                RxProgress(bytesWritten: 8000, totalBytes: 39044),
+                RxProgress(bytesWritten: 12000, totalBytes: 39044),
+                RxProgress(bytesWritten: 16000, totalBytes: 39044),
+                RxProgress(bytesWritten: 20000, totalBytes: 39044),
+                RxProgress(bytesWritten: 24000, totalBytes: 39044),
+                RxProgress(bytesWritten: 28000, totalBytes: 39044),
+                RxProgress(bytesWritten: 32000, totalBytes: 39044),
+                RxProgress(bytesWritten: 36000, totalBytes: 39044),
+                RxProgress(bytesWritten: 39044, totalBytes: 39044)
             ]
+            
             XCTAssertEqual(actualEvents.count, expectedEvents.count)
             for i in 0..<actualEvents.count {
                 XCTAssertEqual(actualEvents[i], expectedEvents[i])
@@ -98,6 +114,8 @@ class RxAlamofireSpec: XCTestCase {
         } catch {
             XCTFail("\(error)")
         }
+        
+        OHHTTPStubs.setEnabled(false)
     }
 
     func testRxProgress() {

@@ -32,19 +32,19 @@ public let RxAlamofireUnknownError = NSError(domain: "RxAlamofireDomain", code: 
     - returns: An instance of `NSMutableURLRequest`
 */
 
-public func urlRequest(_ method: Alamofire.HTTPMethod,
+public func urlRequest(_ method: HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: Any]? = nil,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    headers: [String: String]? = nil)
+    headers: HTTPHeaders? = nil)
     throws -> Foundation.URLRequest
 {
     var mutableURLRequest = Foundation.URLRequest(url: try url.asURL())
     mutableURLRequest.httpMethod = method.rawValue
 
     if let headers = headers {
-        for (headerField, headerValue) in headers {
-            mutableURLRequest.setValue(headerValue, forHTTPHeaderField: headerField)
+        for header in headers {
+            mutableURLRequest.setValue(header.value, forHTTPHeaderField: header.name)
         }
     }
 
@@ -68,14 +68,14 @@ Creates an observable of the generated `Request`.
 
 - returns: An observable of a the `Request`
 */
-public func request(_ method: Alamofire.HTTPMethod,
+public func request(_ method: HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: Any]? = nil,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    headers: [String: String]? = nil)
+    headers: HTTPHeaders? = nil)
     -> Observable<DataRequest>
 {
-    return SessionManager.default.rx.request(
+    return Alamofire.Session.default.rx.request(
         method,
         url,
         parameters: parameters,
@@ -92,7 +92,7 @@ public func request(_ method: Alamofire.HTTPMethod,
  - returns: An observable of a the `Request`
  */
 public func request(_ urlRequest: URLRequestConvertible) -> Observable<DataRequest> {
-  return SessionManager.default.rx.request(urlRequest: urlRequest)
+  return Alamofire.Session.default.rx.request(urlRequest: urlRequest)
 }
 
 // MARK: data
@@ -108,14 +108,14 @@ Creates an observable of the `(NSHTTPURLResponse, NSData)` instance.
 
 - returns: An observable of a tuple containing `(NSHTTPURLResponse, NSData)`
 */
-public func requestData(_ method: Alamofire.HTTPMethod,
+public func requestData(_ method: HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: Any]? = nil,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    headers: [String: String]? = nil)
+    headers: HTTPHeaders? = nil)
     -> Observable<(HTTPURLResponse, Data)>
 {
-    return SessionManager.default.rx.responseData(
+    return Alamofire.Session.default.rx.responseData(
         method,
         url,
         parameters: parameters,
@@ -146,14 +146,14 @@ public func requestData(_ urlRequest: URLRequestConvertible) -> Observable<(HTTP
 
  - returns: An observable of `NSData`
  */
-public func data(_ method: Alamofire.HTTPMethod,
+public func data(_ method: HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: Any]? = nil,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    headers: [String: String]? = nil)
+    headers: HTTPHeaders? = nil)
     -> Observable<Data>
 {
-    return SessionManager.default.rx.data(
+    return Alamofire.Session.default.rx.data(
         method,
         url,
         parameters: parameters,
@@ -175,14 +175,14 @@ Creates an observable of the returned decoded string and response.
 
 - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
 */
-public func requestString(_ method: Alamofire.HTTPMethod,
+public func requestString(_ method: HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: Any]? = nil,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    headers: [String: String]? = nil)
+    headers: HTTPHeaders? = nil)
     -> Observable<(HTTPURLResponse, String)>
 {
-    return SessionManager.default.rx.responseString(
+    return Alamofire.Session.default.rx.responseString(
         method,
         url,
         parameters: parameters,
@@ -213,14 +213,14 @@ public func requestString(_ urlRequest: URLRequestConvertible) -> Observable<(HT
 
  - returns: An observable of `String`
  */
-public func string(_ method: Alamofire.HTTPMethod,
+public func string(_ method: HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: Any]? = nil,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    headers: [String: String]? = nil)
+    headers: HTTPHeaders? = nil)
     -> Observable<String>
 {
-    return SessionManager.default.rx.string(
+    return Alamofire.Session.default.rx.string(
         method,
         url,
         parameters: parameters,
@@ -242,14 +242,14 @@ Creates an observable of the returned decoded JSON as `AnyObject` and the respon
 
 - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
 */
-public func requestJSON(_ method: Alamofire.HTTPMethod,
+public func requestJSON(_ method: HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: Any]? = nil,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    headers: [String: String]? = nil)
+    headers: HTTPHeaders? = nil)
     -> Observable<(HTTPURLResponse, Any)>
 {
-    return SessionManager.default.rx.responseJSON(
+    return Alamofire.Session.default.rx.responseJSON(
         method,
         url,
         parameters: parameters,
@@ -280,14 +280,14 @@ public func requestJSON(_ urlRequest: URLRequestConvertible) -> Observable<(HTTP
 
  - returns: An observable of the decoded JSON as `Any`
  */
-public func json(_ method: Alamofire.HTTPMethod,
+public func json(_ method: HTTPMethod,
     _ url: URLConvertible,
-    parameters: [String: Any]? = nil,
+    parameters: Parameters? = nil,
     encoding: ParameterEncoding = URLEncoding.default,
-    headers: [String: String]? = nil)
+    headers: HTTPHeaders? = nil)
     -> Observable<Any>
 {
-    return SessionManager.default.rx.json(
+    return Alamofire.Session.default.rx.json(
         method,
         url,
         parameters: parameters,
@@ -307,7 +307,7 @@ public func json(_ method: Alamofire.HTTPMethod,
     - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-    return SessionManager.default.rx.upload(file, urlRequest: urlRequest)
+    return Alamofire.Session.default.rx.upload(file, urlRequest: urlRequest)
 }
 
 /**
@@ -319,7 +319,7 @@ public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable
     - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-    return SessionManager.default.rx.upload(data , urlRequest: urlRequest)
+    return Alamofire.Session.default.rx.upload(data , urlRequest: urlRequest)
 }
 
 /**
@@ -331,7 +331,7 @@ public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observabl
     - returns: The observable of `Request` for the created upload request.
  */
 public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-    return SessionManager.default.rx.upload(stream, urlRequest: urlRequest)
+    return Alamofire.Session.default.rx.upload(stream, urlRequest: urlRequest)
 }
 
 // MARK: Download
@@ -343,8 +343,8 @@ public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> 
     - returns: The observable of `DownloadRequest` for the created download request.
  */
 public func download(_ urlRequest: URLRequestConvertible,
-                     to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
-    return SessionManager.default.rx.download(urlRequest, to: destination)
+                     to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
+    return Alamofire.Session.default.rx.download(urlRequest, to: destination)
 }
 
 // MARK: Resume Data
@@ -360,29 +360,29 @@ public func download(_ urlRequest: URLRequestConvertible,
     - returns: The observable of `Request` for the created download request.
 */
 public func download(resumeData: Data,
-                     to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
-    return SessionManager.default.rx.download(resumeData: resumeData, to: destination)
+                     to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
+    return Alamofire.Session.default.rx.download(resumeData: resumeData, to: destination)
 }
 
 // MARK: Manager - Extension of Manager
 
-extension SessionManager: ReactiveCompatible {
+extension Alamofire.Session: ReactiveCompatible {
 }
 
 protocol RxAlamofireRequest {
-
     func responseWith(completionHandler: @escaping (RxAlamofireResponse) -> Void)
-    func resume()
-    func cancel()
+    func resume() -> Self
+    func cancel() -> Self
 }
 
 protocol RxAlamofireResponse {
     var error: Error? {get}
 }
 
-extension DefaultDataResponse: RxAlamofireResponse {}
 
-extension DefaultDownloadResponse: RxAlamofireResponse {}
+extension DataResponse: RxAlamofireResponse {}
+
+extension DownloadResponse: RxAlamofireResponse {}
 
 extension DataRequest: RxAlamofireRequest {
     func responseWith(completionHandler: @escaping (RxAlamofireResponse) -> Void) {
@@ -401,7 +401,8 @@ extension DownloadRequest: RxAlamofireRequest {
 }
 
 
-extension Reactive where Base: SessionManager {
+
+extension Reactive where Base: Alamofire.Session {
 
     // MARK: Generic request convenience
 
@@ -412,7 +413,7 @@ extension Reactive where Base: SessionManager {
 
     - returns: A generic observable of created data request
     */
-    func request<R: RxAlamofireRequest>(_ createRequest: @escaping (SessionManager) throws -> R) -> Observable<R> {
+    func request<R: RxAlamofireRequest>(_ createRequest: @escaping (Alamofire.Session) throws -> R) -> Observable<R> {
         return Observable.create { observer -> Disposable in
             let request: R
             do {
@@ -427,11 +428,11 @@ extension Reactive where Base: SessionManager {
                 })
 
                 if !self.base.startRequestsImmediately {
-                    request.resume()
+                    _ = request.resume()
                 }
 
                 return Disposables.create {
-                    request.cancel()
+                    _ = request.cancel()
                 }
             }
             catch let error {
@@ -453,11 +454,11 @@ extension Reactive where Base: SessionManager {
 
      - returns: An observable of the `Request`
      */
-    public func request(_ method: Alamofire.HTTPMethod,
+    public func request(_ method: HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: Any]? = nil,
+        parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil
+        headers: HTTPHeaders? = nil
     )
         -> Observable<DataRequest>
     {
@@ -500,11 +501,11 @@ extension Reactive where Base: SessionManager {
 
     - returns: An observable of the tuple `(NSHTTPURLResponse, NSData)`
     */
-    public func responseData(_ method: Alamofire.HTTPMethod,
+    public func responseData(_ method: HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: Any]? = nil,
+        parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil
+        headers: HTTPHeaders? = nil
     )
         -> Observable<(HTTPURLResponse, Data)>
     {
@@ -527,11 +528,11 @@ extension Reactive where Base: SessionManager {
 
      - returns: An observable of `NSData`
      */
-    public func data(_ method: Alamofire.HTTPMethod,
+    public func data(_ method: HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: Any]? = nil,
+        parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil
+        headers: HTTPHeaders? = nil
         )
         -> Observable<Data>
     {
@@ -556,11 +557,11 @@ extension Reactive where Base: SessionManager {
 
     - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
     */
-    public func responseString(_ method: Alamofire.HTTPMethod,
+    public func responseString(_ method: HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: Any]? = nil,
+        parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil
+        headers: HTTPHeaders? = nil
     )
         -> Observable<(HTTPURLResponse, String)>
     {
@@ -583,11 +584,11 @@ extension Reactive where Base: SessionManager {
 
      - returns: An observable of `String`
      */
-    public func string(_ method: Alamofire.HTTPMethod,
+    public func string(_ method: HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: Any]? = nil,
+        parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil
+        headers: HTTPHeaders? = nil
         )
         -> Observable<String>
     {
@@ -615,11 +616,11 @@ extension Reactive where Base: SessionManager {
 
     - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
     */
-    public func responseJSON(_ method: Alamofire.HTTPMethod,
+    public func responseJSON(_ method: HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: Any]? = nil,
+        parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil
+        headers: HTTPHeaders? = nil
     )
         -> Observable<(HTTPURLResponse, Any)>
     {
@@ -641,11 +642,11 @@ extension Reactive where Base: SessionManager {
 
      - returns: An observable of `AnyObject`
      */
-    public func json(_ method: Alamofire.HTTPMethod,
+    public func json(_ method: HTTPMethod,
         _ url: URLConvertible,
-        parameters: [String: Any]? = nil,
+        parameters: Parameters? = nil,
         encoding: ParameterEncoding = URLEncoding.default,
-        headers: [String: String]? = nil
+        headers: HTTPHeaders? = nil
         )
         -> Observable<Any>
     {
@@ -713,7 +714,7 @@ extension Reactive where Base: SessionManager {
      - returns: The observable of `(NSData?, RxProgress)` for the created download request.
      */
     public func download(_ urlRequest: URLRequestConvertible,
-                         to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
+                         to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
         return request { manager in
             return manager.download(urlRequest, to: destination)
         }
@@ -730,12 +731,13 @@ extension Reactive where Base: SessionManager {
     - returns: The observable of `(NSData?, RxProgress)` for the created download request.
     */
     public func download(resumeData: Data,
-                         to destination: @escaping DownloadRequest.DownloadFileDestination) -> Observable<DownloadRequest> {
+                         to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
         return request { manager in
             return manager.download(resumingWith: resumeData, to: destination)
         }
     }
 }
+
 
 // MARK: Request - Common Response Handlers
 
@@ -763,18 +765,13 @@ extension ObservableType where E == DataRequest {
     public func data() -> Observable<Data> {
         return flatMap { $0.rx.data() }
     }
-    
-    public func responsePropertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<(HTTPURLResponse, Any)> {
-        return flatMap { $0.rx.responsePropertyList(options: options) }
-    }
-    
-    public func propertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<Any> {
-        return flatMap { $0.rx.propertyList(options: options) }
-    }
-    
+
+
+ // TODO: -
     public func progress() -> Observable<RxProgress> {
         return flatMap { $0.rx.progress() }
     }
+ 
 }
 
 // MARK: Request - Validation
@@ -903,11 +900,11 @@ extension Reactive where Base: DataRequest {
     - returns: An instance of `Observable<NSData>`
     */
     public func responseData() -> Observable<(HTTPURLResponse, Data)> {
-        return responseResult(responseSerializer: DataRequest.dataResponseSerializer())
+        return responseResult(responseSerializer: DataResponseSerializer())
     }
 
     public func data() -> Observable<Data> {
-        return result(responseSerializer: DataRequest.dataResponseSerializer())
+        return result(responseSerializer: DataResponseSerializer())
     }
 
     /**
@@ -918,11 +915,11 @@ extension Reactive where Base: DataRequest {
     - returns: An instance of `Observable<String>`
     */
     public func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
-        return responseResult(responseSerializer: Base.stringResponseSerializer(encoding: encoding))
+        return responseResult(responseSerializer: StringResponseSerializer(encoding: encoding))
     }
 
     public func string(encoding: String.Encoding? = nil) -> Observable<String> {
-        return result(responseSerializer: Base.stringResponseSerializer(encoding: encoding))
+        return result(responseSerializer: StringResponseSerializer(encoding: encoding))
     }
 
     /**
@@ -933,7 +930,7 @@ extension Reactive where Base: DataRequest {
     - returns: An instance of `Observable<AnyObject>`
     */
     public func responseJSON(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<(HTTPURLResponse, Any)> {
-        return responseResult(responseSerializer: Base.jsonResponseSerializer(options: options))
+        return responseResult(responseSerializer: JSONResponseSerializer(options: options))
     }
 
     /**
@@ -944,22 +941,7 @@ extension Reactive where Base: DataRequest {
      - returns: An instance of `Observable<AnyObject>`
      */
     public func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
-        return result(responseSerializer: Base.jsonResponseSerializer(options: options))
-    }
-
-    /**
-    Returns and `Observable` of a serialized property list for the current request.
-
-    - parameter options: Property list reading options, **default:** `NSPropertyListReadOptions()`
-
-    - returns: An instance of `Observable<AnyData>`
-    */
-    public func responsePropertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<(HTTPURLResponse, Any)> {
-        return responseResult(responseSerializer: Base.propertyListResponseSerializer(options: options))
-    }
-
-    public func propertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<Any> {
-        return result(responseSerializer: Base.propertyListResponseSerializer(options: options))
+        return result(responseSerializer: JSONResponseSerializer(options: options))
     }
 }
 
