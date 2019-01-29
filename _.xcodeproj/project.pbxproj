@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		785EE00E22008CB400985ED4 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = 785EE00C22008CB400985ED4 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FC5686FE2150CD45009DE8D6 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FC5687092150CDC8009DE8D6 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
 		FC56870A2150CDC8009DE8D6 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
@@ -16,6 +17,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		785EE00A22008CB400985ED4 /* RxAlamofire_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		785EE00C22008CB400985ED4 /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
+		785EE00D22008CB400985ED4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		FC5686FD2150CD45009DE8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -28,6 +32,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		785EE00722008CB400985ED4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F62150CD45009DE8D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,12 +56,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		785EE00B22008CB400985ED4 /* RxAlamofire-watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				785EE00C22008CB400985ED4 /* RxAlamofire.h */,
+				785EE00D22008CB400985ED4 /* Info.plist */,
+			);
+			path = "RxAlamofire-watchOS";
+			sourceTree = "<group>";
+		};
 		FC5686EF2150CD45009DE8D6 = {
 			isa = PBXGroup;
 			children = (
 				FC5687042150CDC8009DE8D6 /* Sources */,
 				FC5686FB2150CD45009DE8D6 /* RxAlamofire-iOS */,
 				FC5687122150D090009DE8D6 /* RxAlamofire-tvOS */,
+				785EE00B22008CB400985ED4 /* RxAlamofire-watchOS */,
 				FC5686FA2150CD45009DE8D6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,6 +81,7 @@
 			children = (
 				FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */,
 				FC5687112150D090009DE8D6 /* RxAlamofire.framework */,
+				785EE00A22008CB400985ED4 /* RxAlamofire_watchOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +125,14 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		785EE00522008CB400985ED4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				785EE00E22008CB400985ED4 /* RxAlamofire.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F42150CD45009DE8D6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -122,6 +152,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		785EE00922008CB400985ED4 /* RxAlamofire-watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 785EE01122008CB400985ED4 /* Build configuration list for PBXNativeTarget "RxAlamofire-watchOS" */;
+			buildPhases = (
+				785EE00522008CB400985ED4 /* Headers */,
+				785EE00622008CB400985ED4 /* Sources */,
+				785EE00722008CB400985ED4 /* Frameworks */,
+				785EE00822008CB400985ED4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxAlamofire-watchOS";
+			productName = "RxAlamofire-watchOS";
+			productReference = 785EE00A22008CB400985ED4 /* RxAlamofire_watchOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		FC5686F82150CD45009DE8D6 /* RxAlamofire-iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC5687012150CD45009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire-iOS" */;
@@ -167,6 +215,9 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = RxSwiftCommunity;
 				TargetAttributes = {
+					785EE00922008CB400985ED4 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					FC5686F82150CD45009DE8D6 = {
 						CreatedOnToolsVersion = 10.0;
 					};
@@ -189,11 +240,19 @@
 			targets = (
 				FC5686F82150CD45009DE8D6 /* RxAlamofire-iOS */,
 				FC5687102150D090009DE8D6 /* RxAlamofire-tvOS */,
+				785EE00922008CB400985ED4 /* RxAlamofire-watchOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		785EE00822008CB400985ED4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F72150CD45009DE8D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -211,6 +270,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		785EE00622008CB400985ED4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F52150CD45009DE8D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +298,60 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		785EE00F22008CB400985ED4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "RxAlamofire-watchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.rxswift.RxAlamofire.RxAlamofire-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+			};
+			name = Debug;
+		};
+		785EE01022008CB400985ED4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "RxAlamofire-watchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.rxswift.RxAlamofire.RxAlamofire-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+			};
+			name = Release;
+		};
 		FC5686FF2150CD45009DE8D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -467,6 +587,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		785EE01122008CB400985ED4 /* Build configuration list for PBXNativeTarget "RxAlamofire-watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				785EE00F22008CB400985ED4 /* Debug */,
+				785EE01022008CB400985ED4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FC5686F32150CD45009DE8D6 /* Build configuration list for PBXProject "_" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
