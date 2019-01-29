@@ -11,14 +11,13 @@
 		1EEFB4A3D3253FC4CB9ECC0F /* Pods_RxAlamofire_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE972DF6B1850132F1BD0B8C /* Pods_RxAlamofire_iOS.framework */; };
 		332C4F1C654C8602E243B78F /* Pods_RxAlamofireTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6043394A049C78569836741A /* Pods_RxAlamofireTests.framework */; };
 		37A979DF3BF4A29099704486 /* Pods_RxAlamofire_iOS_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB7E6AC90F7BF192394816F6 /* Pods_RxAlamofire_iOS_Example.framework */; };
-		637D95951C4E37CE00F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D95961C4E37CE00F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D95991C4E37F200F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D959A1C4E37F200F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D959D1C4E380300F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
-		637D959E1C4E380300F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		637D95951C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D95961C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D95991C4E37F200F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D959A1C4E37F200F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D959D1C4E380300F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D959E1C4E380300F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
 		785EE02222008D1200985ED4 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = 785EE02022008D1200985ED4 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		785EE02322008D1200985ED4 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 785EE02122008D1200985ED4 /* Info.plist */; };
 		785EE02422008D3400985ED4 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = C87D2CA31D8F35F8003F5936 /* RxAlamofire.h */; };
 		785EE02522008D3700985ED4 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CA41D8F35F8003F5936 /* RxAlamofire.swift */; };
 		785EE02622008D3A00985ED4 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87D2CA21D8F35F8003F5936 /* URLSession+RxAlamofire.swift */; };
@@ -610,7 +609,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				785EE02322008D1200985ED4 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -632,15 +630,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				637D95991C4E37F200F1FA67 /* BuildFile in Resources */,
+				637D95991C4E37F200F1FA67 /* (null) in Resources */,
 				C87D2C921D8F34CF003F5936 /* LaunchScreen.storyboard in Resources */,
-				637D959E1C4E380300F1FA67 /* BuildFile in Resources */,
-				637D959D1C4E380300F1FA67 /* BuildFile in Resources */,
-				637D95951C4E37CE00F1FA67 /* BuildFile in Resources */,
+				637D959E1C4E380300F1FA67 /* (null) in Resources */,
+				637D959D1C4E380300F1FA67 /* (null) in Resources */,
+				637D95951C4E37CE00F1FA67 /* (null) in Resources */,
 				C87D2C911D8F34CF003F5936 /* Assets.xcassets in Resources */,
 				C87D2C931D8F34CF003F5936 /* Main.storyboard in Resources */,
-				637D95961C4E37CE00F1FA67 /* BuildFile in Resources */,
-				637D959A1C4E37F200F1FA67 /* BuildFile in Resources */,
+				637D95961C4E37CE00F1FA67 /* (null) in Resources */,
+				637D959A1C4E37F200F1FA67 /* (null) in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
