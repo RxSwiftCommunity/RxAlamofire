@@ -10,13 +10,13 @@
 public class DisposeBase {
     init() {
 #if TRACE_RESOURCES
-    _ = Resources.incrementTotal()
+    let _ = Resources.incrementTotal()
 #endif
     }
     
     deinit {
 #if TRACE_RESOURCES
-    _ = Resources.decrementTotal()
+    let _ = Resources.decrementTotal()
 #endif
     }
 }

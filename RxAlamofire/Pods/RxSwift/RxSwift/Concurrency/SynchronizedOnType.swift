@@ -12,7 +12,7 @@ protocol SynchronizedOnType : class, ObserverType, Lock {
 
 extension SynchronizedOnType {
     func synchronizedOn(_ event: Event<E>) {
-        self.lock(); defer { self.unlock() }
-        self._synchronized_on(event)
+        lock(); defer { unlock() }
+        _synchronized_on(event)
     }
 }

@@ -29,7 +29,7 @@ extension ObservableType {
     }
 }
 
-final private class SubscribeOnSink<Ob: ObservableType, O: ObserverType>: Sink<O>, ObserverType where Ob.E == O.E {
+final fileprivate class SubscribeOnSink<Ob: ObservableType, O: ObserverType> : Sink<O>, ObserverType where Ob.E == O.E {
     typealias Element = O.E
     typealias Parent = SubscribeOn<Ob>
     
@@ -41,7 +41,7 @@ final private class SubscribeOnSink<Ob: ObservableType, O: ObserverType>: Sink<O
     }
     
     func on(_ event: Event<Element>) {
-        self.forwardOn(event)
+        forwardOn(event)
         
         if event.isStopEvent {
             self.dispose()
@@ -54,7 +54,7 @@ final private class SubscribeOnSink<Ob: ObservableType, O: ObserverType>: Sink<O
         
         disposeEverything.disposable = cancelSchedule
         
-        let disposeSchedule = self.parent.scheduler.schedule(()) { _ -> Disposable in
+        let disposeSchedule = parent.scheduler.schedule(()) { (_) -> Disposable in
             let subscription = self.parent.source.subscribe(self)
             disposeEverything.disposable = ScheduledDisposable(scheduler: self.parent.scheduler, disposable: subscription)
             return Disposables.create()
@@ -66,7 +66,7 @@ final private class SubscribeOnSink<Ob: ObservableType, O: ObserverType>: Sink<O
     }
 }
 
-final private class SubscribeOn<Ob: ObservableType>: Producer<Ob.E> {
+final fileprivate class SubscribeOn<Ob: ObservableType> : Producer<Ob.E> {
     let source: Ob
     let scheduler: ImmediateSchedulerType
     

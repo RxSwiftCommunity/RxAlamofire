@@ -1,7 +1,7 @@
 //
 //  NetworkReachabilityManager.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -128,9 +128,7 @@ open class NetworkReachabilityManager {
 
     private init(reachability: SCNetworkReachability) {
         self.reachability = reachability
-
-        // Set the previous flags to an unreserved value to represent unknown status
-        self.previousFlags = SCNetworkReachabilityFlags(rawValue: 1 << 30)
+        self.previousFlags = SCNetworkReachabilityFlags()
     }
 
     deinit {
@@ -159,8 +157,8 @@ open class NetworkReachabilityManager {
         let queueEnabled = SCNetworkReachabilitySetDispatchQueue(reachability, listenerQueue)
 
         listenerQueue.async {
-            guard let flags = self.flags else { return }
-            self.notifyListener(flags)
+            self.previousFlags = SCNetworkReachabilityFlags()
+            self.notifyListener(self.flags ?? SCNetworkReachabilityFlags())
         }
 
         return callbackEnabled && queueEnabled

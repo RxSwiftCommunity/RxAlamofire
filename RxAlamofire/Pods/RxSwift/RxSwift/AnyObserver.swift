@@ -49,7 +49,7 @@ public struct AnyObserver<Element> : ObserverType {
 
 extension AnyObserver {
     /// Collection of `AnyObserver`s
-    typealias s = Bag<(Event<Element>) -> Void>
+    typealias s = Bag<(Event<Element>) -> ()>
 }
 
 extension ObserverType {

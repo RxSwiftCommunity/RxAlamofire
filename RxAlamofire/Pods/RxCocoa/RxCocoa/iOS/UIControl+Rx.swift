@@ -36,14 +36,15 @@ extension Reactive where Base: UIControl {
     /// - parameter controlEvents: Filter for observed event types.
     public func controlEvent(_ controlEvents: UIControlEvents) -> ControlEvent<()> {
         let source: Observable<Void> = Observable.create { [weak control = self.base] observer in
-                MainScheduler.ensureRunningOnMainThread()
+                MainScheduler.ensureExecutingOnScheduler()
 
                 guard let control = control else {
                     observer.on(.completed)
                     return Disposables.create()
                 }
 
-                let controlTarget = ControlTarget(control: control, controlEvents: controlEvents) { _ in
+                let controlTarget = ControlTarget(control: control, controlEvents: controlEvents) {
+                    control in
                     observer.on(.next(()))
                 }
 
@@ -62,7 +63,7 @@ extension Reactive where Base: UIControl {
     public func controlProperty<T>(
         editingEvents: UIControlEvents,
         getter: @escaping (Base) -> T,
-        setter: @escaping (Base, T) -> Void
+        setter: @escaping (Base, T) -> ()
     ) -> ControlProperty<T> {
         let source: Observable<T> = Observable.create { [weak weakControl = base] observer in
                 guard let control = weakControl else {
@@ -92,7 +93,7 @@ extension Reactive where Base: UIControl {
     internal func controlPropertyWithDefaultEvents<T>(
         editingEvents: UIControlEvents = [.allEditingEvents, .valueChanged],
         getter: @escaping (Base) -> T,
-        setter: @escaping (Base, T) -> Void
+        setter: @escaping (Base, T) -> ()
         ) -> ControlProperty<T> {
         return controlProperty(
             editingEvents: editingEvents,

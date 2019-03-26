@@ -1,7 +1,7 @@
 //
 //  SessionManager.swift
 //
-//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -611,7 +611,6 @@ open class SessionManager {
         to url: URLConvertible,
         method: HTTPMethod = .post,
         headers: HTTPHeaders? = nil,
-        queue: DispatchQueue? = nil,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
     {
         do {
@@ -621,11 +620,10 @@ open class SessionManager {
                 multipartFormData: multipartFormData,
                 usingThreshold: encodingMemoryThreshold,
                 with: urlRequest,
-                queue: queue,
                 encodingCompletion: encodingCompletion
             )
         } catch {
-            (queue ?? DispatchQueue.main).async { encodingCompletion?(.failure(error)) }
+            DispatchQueue.main.async { encodingCompletion?(.failure(error)) }
         }
     }
 
@@ -656,7 +654,6 @@ open class SessionManager {
         multipartFormData: @escaping (MultipartFormData) -> Void,
         usingThreshold encodingMemoryThreshold: UInt64 = SessionManager.multipartFormDataEncodingMemoryThreshold,
         with urlRequest: URLRequestConvertible,
-        queue: DispatchQueue? = nil,
         encodingCompletion: ((MultipartFormDataEncodingResult) -> Void)?)
     {
         DispatchQueue.global(qos: .utility).async {
@@ -680,7 +677,7 @@ open class SessionManager {
                         streamFileURL: nil
                     )
 
-                    (queue ?? DispatchQueue.main).async { encodingCompletion?(encodingResult) }
+                    DispatchQueue.main.async { encodingCompletion?(encodingResult) }
                 } else {
                     let fileManager = FileManager.default
                     let tempDirectoryURL = URL(fileURLWithPath: NSTemporaryDirectory())
@@ -716,7 +713,7 @@ open class SessionManager {
                         }
                     }
 
-                    (queue ?? DispatchQueue.main).async {
+                    DispatchQueue.main.async {
                         let encodingResult = MultipartFormDataEncodingResult.success(
                             request: upload,
                             streamingFromDisk: true,
@@ -736,7 +733,7 @@ open class SessionManager {
                     }
                 }
 
-                (queue ?? DispatchQueue.main).async { encodingCompletion?(.failure(error)) }
+                DispatchQueue.main.async { encodingCompletion?(.failure(error)) }
             }
         }
     }

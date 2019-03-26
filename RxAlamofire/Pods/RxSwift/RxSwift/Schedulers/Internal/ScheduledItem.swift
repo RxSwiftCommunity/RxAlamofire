@@ -17,19 +17,19 @@ struct ScheduledItem<T>
     private let _disposable = SingleAssignmentDisposable()
 
     var isDisposed: Bool {
-        return self._disposable.isDisposed
+        return _disposable.isDisposed
     }
     
     init(action: @escaping Action, state: T) {
-        self._action = action
-        self._state = state
+        _action = action
+        _state = state
     }
     
     func invoke() {
-         self._disposable.setDisposable(self._action(self._state))
+         _disposable.setDisposable(_action(_state))
     }
     
     func dispose() {
-        self._disposable.dispose()
+        _disposable.dispose()
     }
 }

@@ -39,7 +39,7 @@ final class ControlTarget: RxTarget {
     var callback: Callback?
     #if os(iOS) || os(tvOS)
     init(control: Control, controlEvents: UIControlEvents, callback: @escaping Callback) {
-        MainScheduler.ensureRunningOnMainThread()
+        MainScheduler.ensureExecutingOnScheduler()
 
         self.control = control
         self.controlEvents = controlEvents
@@ -56,7 +56,7 @@ final class ControlTarget: RxTarget {
     }
 #elseif os(macOS)
     init(control: Control, callback: @escaping Callback) {
-        MainScheduler.ensureRunningOnMainThread()
+        MainScheduler.ensureExecutingOnScheduler()
 
         self.control = control
         self.callback = callback
@@ -64,9 +64,9 @@ final class ControlTarget: RxTarget {
         super.init()
 
         control.target = self
-        control.action = self.selector
+        control.action = selector
 
-        let method = self.method(for: self.selector)
+        let method = self.method(for: selector)
         if method == nil {
             rxFatalError("Can't find method")
         }

@@ -22,7 +22,7 @@ extension ObservableType {
             return Observable.empty()
         }
         else {
-            return TakeCount(source: self.asObservable(), count: count)
+            return TakeCount(source: asObservable(), count: count)
         }
     }
 }
@@ -46,7 +46,7 @@ extension ObservableType {
 
 // count version
 
-final private class TakeCountSink<O: ObserverType>: Sink<O>, ObserverType {
+final fileprivate class TakeCountSink<O: ObserverType> : Sink<O>, ObserverType {
     typealias E = O.E
     typealias Parent = TakeCount<E>
     
@@ -55,8 +55,8 @@ final private class TakeCountSink<O: ObserverType>: Sink<O>, ObserverType {
     private var _remaining: Int
     
     init(parent: Parent, observer: O, cancel: Cancelable) {
-        self._parent = parent
-        self._remaining = parent._count
+        _parent = parent
+        _remaining = parent._count
         super.init(observer: observer, cancel: cancel)
     }
     
@@ -64,28 +64,28 @@ final private class TakeCountSink<O: ObserverType>: Sink<O>, ObserverType {
         switch event {
         case .next(let value):
             
-            if self._remaining > 0 {
-                self._remaining -= 1
+            if _remaining > 0 {
+                _remaining -= 1
                 
-                self.forwardOn(.next(value))
+                forwardOn(.next(value))
             
-                if self._remaining == 0 {
-                    self.forwardOn(.completed)
-                    self.dispose()
+                if _remaining == 0 {
+                    forwardOn(.completed)
+                    dispose()
                 }
             }
         case .error:
-            self.forwardOn(event)
-            self.dispose()
+            forwardOn(event)
+            dispose()
         case .completed:
-            self.forwardOn(event)
-            self.dispose()
+            forwardOn(event)
+            dispose()
         }
     }
     
 }
 
-final private class TakeCount<Element>: Producer<Element> {
+final fileprivate class TakeCount<Element>: Producer<Element> {
     fileprivate let _source: Observable<Element>
     fileprivate let _count: Int
     
@@ -93,20 +93,20 @@ final private class TakeCount<Element>: Producer<Element> {
         if count < 0 {
             rxFatalError("count can't be negative")
         }
-        self._source = source
-        self._count = count
+        _source = source
+        _count = count
     }
     
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {
         let sink = TakeCountSink(parent: self, observer: observer, cancel: cancel)
-        let subscription = self._source.subscribe(sink)
+        let subscription = _source.subscribe(sink)
         return (sink: sink, subscription: subscription)
     }
 }
 
 // time version
 
-final private class TakeTimeSink<ElementType, O: ObserverType>
+final fileprivate class TakeTimeSink<ElementType, O: ObserverType>
     : Sink<O>
     , LockOwnerType
     , ObserverType
@@ -119,47 +119,47 @@ final private class TakeTimeSink<ElementType, O: ObserverType>
     let _lock = RecursiveLock()
     
     init(parent: Parent, observer: O, cancel: Cancelable) {
-        self._parent = parent
+        _parent = parent
         super.init(observer: observer, cancel: cancel)
     }
     
     func on(_ event: Event<E>) {
-        self.synchronizedOn(event)
+        synchronizedOn(event)
     }
 
     func _synchronized_on(_ event: Event<E>) {
         switch event {
         case .next(let value):
-            self.forwardOn(.next(value))
+            forwardOn(.next(value))
         case .error:
-            self.forwardOn(event)
-            self.dispose()
+            forwardOn(event)
+            dispose()
         case .completed:
-            self.forwardOn(event)
-            self.dispose()
+            forwardOn(event)
+            dispose()
         }
     }
     
     func tick() {
-        self._lock.lock(); defer { self._lock.unlock() }
+        _lock.lock(); defer { _lock.unlock() }
 
-        self.forwardOn(.completed)
-        self.dispose()
+        forwardOn(.completed)
+        dispose()
     }
     
     func run() -> Disposable {
-        let disposeTimer = self._parent._scheduler.scheduleRelative((), dueTime: self._parent._duration) { _ in
+        let disposeTimer = _parent._scheduler.scheduleRelative((), dueTime: _parent._duration) { _ in
             self.tick()
             return Disposables.create()
         }
         
-        let disposeSubscription = self._parent._source.subscribe(self)
+        let disposeSubscription = _parent._source.subscribe(self)
         
         return Disposables.create(disposeTimer, disposeSubscription)
     }
 }
 
-final private class TakeTime<Element>: Producer<Element> {
+final fileprivate class TakeTime<Element> : Producer<Element> {
     typealias TimeInterval = RxTimeInterval
     
     fileprivate let _source: Observable<Element>
@@ -167,9 +167,9 @@ final private class TakeTime<Element>: Producer<Element> {
     fileprivate let _scheduler: SchedulerType
     
     init(source: Observable<Element>, duration: TimeInterval, scheduler: SchedulerType) {
-        self._source = source
-        self._scheduler = scheduler
-        self._duration = duration
+        _source = source
+        _scheduler = scheduler
+        _duration = duration
     }
     
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == Element {

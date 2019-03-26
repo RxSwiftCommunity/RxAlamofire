@@ -12,11 +12,11 @@ struct InvocableScheduledItem<I: InvocableWithValueType> : InvocableType {
     let _state: I.Value
 
     init(invocable: I, state: I.Value) {
-        self._invocable = invocable
-        self._state = state
+        _invocable = invocable
+        _state = state
     }
 
     func invoke() {
-        self._invocable.invoke(self._state)
+        _invocable.invoke(_state)
     }
 }

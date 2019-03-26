@@ -13,18 +13,24 @@ If an underlying disposable resource has already been set, future attempts to se
 */
 public final class SingleAssignmentDisposable : DisposeBase, Cancelable {
 
-    fileprivate enum DisposeState: Int32 {
+    fileprivate enum DisposeState: UInt32 {
+        case disposed = 1
+        case disposableSet = 2
+    }
+
+    // Jeej, swift API consistency rules
+    fileprivate enum DisposeStateInt32: Int32 {
         case disposed = 1
         case disposableSet = 2
     }
 
     // state
-    private var _state = AtomicInt(0)
+    private var _state: AtomicInt = 0
     private var _disposable = nil as Disposable?
 
     /// - returns: A value that indicates whether the object is disposed.
     public var isDisposed: Bool {
-        return isFlagSet(&self._state, DisposeState.disposed.rawValue)
+        return AtomicFlagSet(DisposeState.disposed.rawValue, &_state)
     }
 
     /// Initializes a new instance of the `SingleAssignmentDisposable`.
@@ -36,34 +42,34 @@ public final class SingleAssignmentDisposable : DisposeBase, Cancelable {
     ///
     /// **Throws exception if the `SingleAssignmentDisposable` has already been assigned to.**
     public func setDisposable(_ disposable: Disposable) {
-        self._disposable = disposable
+        _disposable = disposable
 
-        let previousState = fetchOr(&self._state, DisposeState.disposableSet.rawValue)
-
-        if (previousState & DisposeState.disposableSet.rawValue) != 0 {
+        let previousState = AtomicOr(DisposeState.disposableSet.rawValue, &_state)
+        
+        if (previousState & DisposeStateInt32.disposableSet.rawValue) != 0 {
             rxFatalError("oldState.disposable != nil")
         }
 
-        if (previousState & DisposeState.disposed.rawValue) != 0 {
+        if (previousState & DisposeStateInt32.disposed.rawValue) != 0 {
             disposable.dispose()
-            self._disposable = nil
+            _disposable = nil
         }
     }
 
     /// Disposes the underlying disposable.
     public func dispose() {
-        let previousState = fetchOr(&self._state, DisposeState.disposed.rawValue)
+        let previousState = AtomicOr(DisposeState.disposed.rawValue, &_state)
 
-        if (previousState & DisposeState.disposed.rawValue) != 0 {
+        if (previousState & DisposeStateInt32.disposed.rawValue) != 0 {
             return
         }
 
-        if (previousState & DisposeState.disposableSet.rawValue) != 0 {
-            guard let disposable = self._disposable else {
+        if (previousState & DisposeStateInt32.disposableSet.rawValue) != 0 {
+            guard let disposable = _disposable else {
                 rxFatalError("Disposable not set")
             }
             disposable.dispose()
-            self._disposable = nil
+            _disposable = nil
         }
     }
 

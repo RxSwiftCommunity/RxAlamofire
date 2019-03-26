@@ -12,10 +12,10 @@ protocol LockOwnerType : class, Lock {
 
 extension LockOwnerType {
     func lock() {
-        self._lock.lock()
+        _lock.lock()
     }
 
     func unlock() {
-        self._lock.unlock()
+        _lock.unlock()
     }
 }

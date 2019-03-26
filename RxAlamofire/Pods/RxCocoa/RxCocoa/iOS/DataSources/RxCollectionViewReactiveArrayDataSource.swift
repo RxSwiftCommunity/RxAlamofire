@@ -63,7 +63,7 @@ class RxCollectionViewReactiveArrayDataSource<Element>
     
     typealias CellFactory = (UICollectionView, Int, Element) -> UICollectionViewCell
     
-    var itemModels: [Element]?
+    var itemModels: [Element]? = nil
     
     func modelAtIndex(_ index: Int) -> Element? {
         return itemModels?[index]

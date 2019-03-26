@@ -22,23 +22,23 @@ extension ObservableType where E : RxAbstractInteger {
     }
 }
 
-final private class RangeProducer<E: RxAbstractInteger>: Producer<E> {
+final fileprivate class RangeProducer<E: RxAbstractInteger> : Producer<E> {
     fileprivate let _start: E
     fileprivate let _count: E
     fileprivate let _scheduler: ImmediateSchedulerType
 
     init(start: E, count: E, scheduler: ImmediateSchedulerType) {
-        guard count >= 0 else {
+        if count < 0 {
             rxFatalError("count can't be negative")
         }
 
-        guard start &+ (count - 1) >= start || count == 0 else {
+        if start &+ (count - 1) < start {
             rxFatalError("overflow of count")
         }
 
-        self._start = start
-        self._count = count
-        self._scheduler = scheduler
+        _start = start
+        _count = count
+        _scheduler = scheduler
     }
     
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == E {
@@ -48,18 +48,18 @@ final private class RangeProducer<E: RxAbstractInteger>: Producer<E> {
     }
 }
 
-final private class RangeSink<O: ObserverType>: Sink<O> where O.E: RxAbstractInteger {
+final fileprivate class RangeSink<O: ObserverType> : Sink<O> where O.E: RxAbstractInteger {
     typealias Parent = RangeProducer<O.E>
     
     private let _parent: Parent
     
     init(parent: Parent, observer: O, cancel: Cancelable) {
-        self._parent = parent
+        _parent = parent
         super.init(observer: observer, cancel: cancel)
     }
     
     func run() -> Disposable {
-        return self._parent._scheduler.scheduleRecursive(0 as O.E) { i, recurse in
+        return _parent._scheduler.scheduleRecursive(0 as O.E) { i, recurse in
             if i < self._parent._count {
                 self.forwardOn(.next(self._parent._start + i))
                 recurse(i + 1)

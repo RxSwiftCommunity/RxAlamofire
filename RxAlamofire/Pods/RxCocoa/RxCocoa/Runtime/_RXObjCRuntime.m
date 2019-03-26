@@ -11,17 +11,16 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 #import <libkern/OSAtomic.h>
-#import <stdatomic.h>
 
 #import "include/_RX.h"
 #import "include/_RXObjCRuntime.h"
 
-// self + cmd
-#define HIDDEN_ARGUMENT_COUNT   2
-
 #if !DISABLE_SWIZZLING
 
 #define NSErrorParam NSError *__autoreleasing __nullable * __nullable
+
+// self + cmd
+#define HIDDEN_ARGUMENT_COUNT   2
 
 @class RXObjCRuntime;
 
@@ -42,8 +41,8 @@ static SEL       deallocSelector;
 static int RxSwizzlingTargetClassKey = 0;
 
 #if TRACE_RESOURCES
-_Atomic static int32_t numberOInterceptedMethods = 0;
-_Atomic static int32_t numberOfForwardedMethods = 0;
+static int32_t numberOInterceptedMethods = 0;
+static int32_t numberOfForwardedMethods = 0;
 #endif
 
 #define THREADING_HAZARD(class) \
@@ -130,8 +129,6 @@ SEL __nonnull RX_selector(SEL __nonnull selector) {
     return NSSelectorFromString([RX_PREFIX stringByAppendingString:selectorString]);
 }
 
-#endif
-
 BOOL RX_is_method_signature_void(NSMethodSignature * __nonnull methodSignature) {
     const char *methodReturnType = methodSignature.methodReturnType;
     return strcmp(methodReturnType, @encode(void)) == 0;
@@ -203,12 +200,6 @@ NSArray *RX_extract_arguments(NSInvocation *invocation) {
     
     return arguments;
 }
-
-IMP __nonnull RX_default_target_implementation(void) {
-    return _objc_msgForward;
-}
-
-#if !DISABLE_SWIZZLING
 
 void * __nonnull RX_reference_from_selector(SEL __nonnull selector) {
     return selector;
@@ -322,6 +313,10 @@ IMP __nullable RX_ensure_observing(id __nonnull target, SEL __nonnull selector, 
     }
 
     return targetImplementation;
+}
+
+IMP __nonnull RX_default_target_implementation(void) {
+    return _objc_msgForward;
 }
 
 // bodies
@@ -811,7 +806,7 @@ static NSMutableDictionary<NSString *, RXInterceptWithOptimizedObserver> *optimi
     ALWAYS(![self forwardingSelector:selector forClass:swizzlingImplementorClass], @"Already observing selector for class");
 
 #if TRACE_RESOURCES
-    atomic_fetch_add(&numberOfForwardedMethods, 1);
+    OSAtomicIncrement32Barrier(&numberOfForwardedMethods);
 #endif
     SEL rxSelector = RX_selector(selector);
 
@@ -938,7 +933,7 @@ replacementImplementationGenerator:(IMP (^)(IMP originalImplementation))replacem
     }
 
 #if TRACE_RESOURCES
-    atomic_fetch_add(&numberOInterceptedMethods, 1);
+    OSAtomicIncrement32Barrier(&numberOInterceptedMethods);
 #endif
     
     DLOG(@"Rx is swizzling `%@` for `%@`", NSStringFromSelector(selector), class);

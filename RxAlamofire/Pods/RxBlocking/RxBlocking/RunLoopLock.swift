@@ -22,17 +22,17 @@ import RxSwift
 final class RunLoopLock {
     let _currentRunLoop: CFRunLoop
 
-    var _calledRun = AtomicInt(0)
-    var _calledStop = AtomicInt(0)
+    var _calledRun: AtomicInt = 0
+    var _calledStop: AtomicInt = 0
     var _timeout: RxTimeInterval?
 
     init(timeout: RxTimeInterval?) {
-        self._timeout = timeout
-        self._currentRunLoop = CFRunLoopGetCurrent()
+        _timeout = timeout
+        _currentRunLoop = CFRunLoopGetCurrent()
     }
 
-    func dispatch(_ action: @escaping () -> Void) {
-        CFRunLoopPerformBlock(self._currentRunLoop, runLoopModeRaw) {
+    func dispatch(_ action: @escaping () -> ()) {
+        CFRunLoopPerformBlock(_currentRunLoop, runLoopModeRaw) {
             if CurrentThreadScheduler.isScheduleRequired {
                 _ = CurrentThreadScheduler.instance.schedule(()) { _ in
                     action()
@@ -43,24 +43,24 @@ final class RunLoopLock {
                 action()
             }
         }
-        CFRunLoopWakeUp(self._currentRunLoop)
+        CFRunLoopWakeUp(_currentRunLoop)
     }
 
     func stop() {
-        if decrement(&self._calledStop) > 1 {
+        if AtomicIncrement(&_calledStop) != 1 {
             return
         }
-        CFRunLoopPerformBlock(self._currentRunLoop, runLoopModeRaw) {
+        CFRunLoopPerformBlock(_currentRunLoop, runLoopModeRaw) {
             CFRunLoopStop(self._currentRunLoop)
         }
-        CFRunLoopWakeUp(self._currentRunLoop)
+        CFRunLoopWakeUp(_currentRunLoop)
     }
 
     func run() throws {
-        if increment(&self._calledRun) != 0 {
+        if AtomicIncrement(&_calledRun) != 1 {
             fatalError("Run can be only called once")
         }
-        if let timeout = self._timeout {
+        if let timeout = _timeout {
             #if os(Linux)
                 switch Int(CFRunLoopRunInMode(runLoopModeRaw, timeout, false)) {
                 case kCFRunLoopRunFinished:

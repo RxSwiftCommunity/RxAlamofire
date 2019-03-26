@@ -9,7 +9,7 @@
 class Sink<O : ObserverType> : Disposable {
     fileprivate let _observer: O
     fileprivate let _cancel: Cancelable
-    fileprivate var _disposed = AtomicInt(0)
+    fileprivate var _disposed: Bool
 
     #if DEBUG
         fileprivate let _synchronizationTracker = SynchronizationTracker()
@@ -17,59 +17,60 @@ class Sink<O : ObserverType> : Disposable {
 
     init(observer: O, cancel: Cancelable) {
 #if TRACE_RESOURCES
-        _ = Resources.incrementTotal()
+        let _ = Resources.incrementTotal()
 #endif
-        self._observer = observer
-        self._cancel = cancel
+        _observer = observer
+        _cancel = cancel
+        _disposed = false
     }
-
+    
     final func forwardOn(_ event: Event<O.E>) {
         #if DEBUG
-            self._synchronizationTracker.register(synchronizationErrorMessage: .default)
-            defer { self._synchronizationTracker.unregister() }
+            _synchronizationTracker.register(synchronizationErrorMessage: .default)
+            defer { _synchronizationTracker.unregister() }
         #endif
-        if isFlagSet(&self._disposed, 1) {
+        if _disposed {
             return
         }
-        self._observer.on(event)
+        _observer.on(event)
     }
-
+    
     final func forwarder() -> SinkForward<O> {
         return SinkForward(forward: self)
     }
 
     final var disposed: Bool {
-        return isFlagSet(&self._disposed, 1)
+        return _disposed
     }
 
     func dispose() {
-        fetchOr(&self._disposed, 1)
-        self._cancel.dispose()
+        _disposed = true
+        _cancel.dispose()
     }
 
     deinit {
 #if TRACE_RESOURCES
-       _ =  Resources.decrementTotal()
+       let _ =  Resources.decrementTotal()
 #endif
     }
 }
 
 final class SinkForward<O: ObserverType>: ObserverType {
     typealias E = O.E
-
+    
     private let _forward: Sink<O>
-
+    
     init(forward: Sink<O>) {
-        self._forward = forward
+        _forward = forward
     }
-
+    
     final func on(_ event: Event<E>) {
         switch event {
         case .next:
-            self._forward._observer.on(event)
+            _forward._observer.on(event)
         case .error, .completed:
-            self._forward._observer.on(event)
-            self._forward._cancel.dispose()
+            _forward._observer.on(event)
+            _forward._cancel.dispose()
         }
     }
 }

@@ -18,21 +18,21 @@ public final class PublishRelay<Element>: ObservableType {
     
     // Accepts `event` and emits it to subscribers
     public func accept(_ event: Element) {
-        self._subject.onNext(event)
+        _subject.onNext(event)
     }
     
     /// Initializes with internal empty subject.
     public init() {
-        self._subject = PublishSubject()
+        _subject = PublishSubject()
     }
 
     /// Subscribes observer
     public func subscribe<O: ObserverType>(_ observer: O) -> Disposable where O.E == E {
-        return self._subject.subscribe(observer)
+        return _subject.subscribe(observer)
     }
     
     /// - returns: Canonical interface for push style sequence
     public func asObservable() -> Observable<Element> {
-        return self._subject.asObservable()
+        return _subject.asObservable()
     }
 }

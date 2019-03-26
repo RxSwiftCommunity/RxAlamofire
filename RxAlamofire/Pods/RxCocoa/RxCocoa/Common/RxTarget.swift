@@ -24,13 +24,13 @@ class RxTarget : NSObject
 #endif
 
 #if DEBUG
-        MainScheduler.ensureRunningOnMainThread()
+        MainScheduler.ensureExecutingOnScheduler()
 #endif
     }
     
     func dispose() {
 #if DEBUG
-        MainScheduler.ensureRunningOnMainThread()
+        MainScheduler.ensureExecutingOnScheduler()
 #endif
         self.retainSelf = nil
     }

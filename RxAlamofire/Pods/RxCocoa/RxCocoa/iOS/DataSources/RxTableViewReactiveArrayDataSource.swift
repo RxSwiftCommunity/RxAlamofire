@@ -61,7 +61,7 @@ class RxTableViewReactiveArrayDataSource<Element>
     , SectionedViewDataSourceType {
     typealias CellFactory = (UITableView, Int, Element) -> UITableViewCell
     
-    var itemModels: [Element]?
+    var itemModels: [Element]? = nil
     
     func modelAtIndex(_ index: Int) -> Element? {
         return itemModels?[index]

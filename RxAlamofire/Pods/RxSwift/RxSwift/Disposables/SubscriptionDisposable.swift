@@ -11,11 +11,11 @@ struct SubscriptionDisposable<T: SynchronizedUnsubscribeType> : Disposable {
     private weak var _owner: T?
 
     init(owner: T, key: T.DisposeKey) {
-        self._owner = owner
-        self._key = key
+        _owner = owner
+        _key = key
     }
 
     func dispose() {
-        self._owner?.synchronizedUnsubscribe(self._key)
+        _owner?.synchronizedUnsubscribe(_key)
     }
 }

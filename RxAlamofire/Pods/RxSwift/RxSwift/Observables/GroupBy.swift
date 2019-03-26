@@ -21,24 +21,24 @@ extension ObservableType {
     }
 }
 
-final private class GroupedObservableImpl<Element>: Observable<Element> {
+final fileprivate class GroupedObservableImpl<Key, Element> : Observable<Element> {
     private var _subject: PublishSubject<Element>
     private var _refCount: RefCountDisposable
     
-    init(subject: PublishSubject<Element>, refCount: RefCountDisposable) {
-        self._subject = subject
-        self._refCount = refCount
+    init(key: Key, subject: PublishSubject<Element>, refCount: RefCountDisposable) {
+        _subject = subject
+        _refCount = refCount
     }
 
     override public func subscribe<O: ObserverType>(_ observer: O) -> Disposable where O.E == E {
-        let release = self._refCount.retain()
-        let subscription = self._subject.subscribe(observer)
+        let release = _refCount.retain()
+        let subscription = _subject.subscribe(observer)
         return Disposables.create(release, subscription)
     }
 }
 
 
-final private class GroupBySink<Key: Hashable, Element, O: ObserverType>
+final fileprivate class GroupBySink<Key: Hashable, Element, O: ObserverType>
     : Sink<O>
     , ObserverType where O.E == GroupedObservable<Key, Element> {
     typealias E = Element
@@ -51,32 +51,32 @@ final private class GroupBySink<Key: Hashable, Element, O: ObserverType>
     private var _groupedSubjectTable: [Key: PublishSubject<Element>]
     
     init(parent: Parent, observer: O, cancel: Cancelable) {
-        self._parent = parent
-        self._groupedSubjectTable = [Key: PublishSubject<Element>]()
+        _parent = parent
+        _groupedSubjectTable = [Key: PublishSubject<Element>]()
         super.init(observer: observer, cancel: cancel)
     }
     
     func run() -> Disposable {
-        self._refCountDisposable = RefCountDisposable(disposable: self._subscription)
+        _refCountDisposable = RefCountDisposable(disposable: _subscription)
         
-        self._subscription.setDisposable(self._parent._source.subscribe(self))
+        _subscription.setDisposable(_parent._source.subscribe(self))
         
-        return self._refCountDisposable
+        return _refCountDisposable
     }
     
     private func onGroupEvent(key: Key, value: Element) {
-        if let writer = self._groupedSubjectTable[key] {
+        if let writer = _groupedSubjectTable[key] {
             writer.on(.next(value))
         } else {
             let writer = PublishSubject<Element>()
-            self._groupedSubjectTable[key] = writer
+            _groupedSubjectTable[key] = writer
             
             let group = GroupedObservable(
                 key: key,
-                source: GroupedObservableImpl(subject: writer, refCount: _refCountDisposable)
+                source: GroupedObservableImpl(key: key, subject: writer, refCount: _refCountDisposable)
             )
             
-            self.forwardOn(.next(group))
+            forwardOn(.next(group))
             writer.on(.next(value))
         }
     }
@@ -85,46 +85,46 @@ final private class GroupBySink<Key: Hashable, Element, O: ObserverType>
         switch event {
         case let .next(value):
             do {
-                let groupKey = try self._parent._selector(value)
-                self.onGroupEvent(key: groupKey, value: value)
+                let groupKey = try _parent._selector(value)
+                onGroupEvent(key: groupKey, value: value)
             }
             catch let e {
-                self.error(e)
+                error(e)
                 return
             }
         case let .error(e):
-            self.error(e)
+            error(e)
         case .completed:
-            self.forwardOnGroups(event: .completed)
-            self.forwardOn(.completed)
-            self._subscription.dispose()
-            self.dispose()
+            forwardOnGroups(event: .completed)
+            forwardOn(.completed)
+            _subscription.dispose()
+            dispose()
         }
     }
 
     final func error(_ error: Swift.Error) {
-        self.forwardOnGroups(event: .error(error))
-        self.forwardOn(.error(error))
-        self._subscription.dispose()
-        self.dispose()
+        forwardOnGroups(event: .error(error))
+        forwardOn(.error(error))
+        _subscription.dispose()
+        dispose()
     }
     
     final func forwardOnGroups(event: Event<Element>) {
-        for writer in self._groupedSubjectTable.values {
+        for writer in _groupedSubjectTable.values {
             writer.on(event)
         }
     }
 }
 
-final private class GroupBy<Key: Hashable, Element>: Producer<GroupedObservable<Key,Element>> {
+final fileprivate class GroupBy<Key: Hashable, Element>: Producer<GroupedObservable<Key,Element>> {
     typealias KeySelector = (Element) throws -> Key
 
     fileprivate let _source: Observable<Element>
     fileprivate let _selector: KeySelector
     
     init(source: Observable<Element>, selector: @escaping KeySelector) {
-        self._source = source
-        self._selector = selector
+        _source = source
+        _selector = selector
     }
 
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == GroupedObservable<Key,Element> {

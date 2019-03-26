@@ -21,14 +21,14 @@ extension ObservableType {
     }
 }
 
-final private class UsingSink<ResourceType: Disposable, O: ObserverType>: Sink<O>, ObserverType {
+final fileprivate class UsingSink<ResourceType: Disposable, O: ObserverType> : Sink<O>, ObserverType {
     typealias SourceType = O.E
     typealias Parent = Using<SourceType, ResourceType>
 
     private let _parent: Parent
     
     init(parent: Parent, observer: O, cancel: Cancelable) {
-        self._parent = parent
+        _parent = parent
         super.init(observer: observer, cancel: cancel)
     }
     
@@ -36,9 +36,9 @@ final private class UsingSink<ResourceType: Disposable, O: ObserverType>: Sink<O
         var disposable = Disposables.create()
         
         do {
-            let resource = try self._parent._resourceFactory()
+            let resource = try _parent._resourceFactory()
             disposable = resource
-            let source = try self._parent._observableFactory(resource)
+            let source = try _parent._observableFactory(resource)
             
             return Disposables.create(
                 source.subscribe(self),
@@ -55,18 +55,18 @@ final private class UsingSink<ResourceType: Disposable, O: ObserverType>: Sink<O
     func on(_ event: Event<SourceType>) {
         switch event {
         case let .next(value):
-            self.forwardOn(.next(value))
+            forwardOn(.next(value))
         case let .error(error):
-            self.forwardOn(.error(error))
-            self.dispose()
+            forwardOn(.error(error))
+            dispose()
         case .completed:
-            self.forwardOn(.completed)
-            self.dispose()
+            forwardOn(.completed)
+            dispose()
         }
     }
 }
 
-final private class Using<SourceType, ResourceType: Disposable>: Producer<SourceType> {
+final fileprivate class Using<SourceType, ResourceType: Disposable>: Producer<SourceType> {
     
     typealias E = SourceType
     
@@ -78,8 +78,8 @@ final private class Using<SourceType, ResourceType: Disposable>: Producer<Source
     
     
     init(resourceFactory: @escaping ResourceFactory, observableFactory: @escaping ObservableFactory) {
-        self._resourceFactory = resourceFactory
-        self._observableFactory = observableFactory
+        _resourceFactory = resourceFactory
+        _observableFactory = observableFactory
     }
     
     override func run<O : ObserverType>(_ observer: O, cancel: Cancelable) -> (sink: Disposable, subscription: Disposable) where O.E == E {

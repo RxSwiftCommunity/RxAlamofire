@@ -15,7 +15,7 @@ public class Observable<Element> : ObservableType {
     
     init() {
 #if TRACE_RESOURCES
-        _ = Resources.incrementTotal()
+        let _ = Resources.incrementTotal()
 #endif
     }
     
@@ -29,7 +29,7 @@ public class Observable<Element> : ObservableType {
     
     deinit {
 #if TRACE_RESOURCES
-        _ = Resources.decrementTotal()
+        let _ = Resources.decrementTotal()
 #endif
     }
 

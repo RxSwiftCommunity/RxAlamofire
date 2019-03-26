@@ -24,17 +24,17 @@ extension ObserverType {
     ///
     /// - parameter element: Next element to send to observer(s)
     public func onNext(_ element: E) {
-        self.on(.next(element))
+        on(.next(element))
     }
     
     /// Convenience method equivalent to `on(.completed)`
     public func onCompleted() {
-        self.on(.completed)
+        on(.completed)
     }
     
     /// Convenience method equivalent to `on(.error(Swift.Error))`
     /// - parameter error: Swift.Error to send to observer(s)
     public func onError(_ error: Swift.Error) {
-        self.on(.error(error))
+        on(.error(error))
     }
 }
