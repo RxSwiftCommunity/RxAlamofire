@@ -1,7 +1,7 @@
 //
 //  Request.swift
 //
-//  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
+//  Copyright (c) 2014 Alamofire Software Foundation (http://alamofire.org/)
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
 //  of this software and associated documentation files (the "Software"), to deal
@@ -320,21 +320,16 @@ extension Request: CustomDebugStringConvertible {
 
         var headers: [AnyHashable: Any] = [:]
 
-        if let additionalHeaders = session.configuration.httpAdditionalHeaders {
-            for (field, value) in additionalHeaders where field != AnyHashable("Cookie") {
-                headers[field] = value
-            }
-        }
+        session.configuration.httpAdditionalHeaders?.filter {  $0.0 != AnyHashable("Cookie") }
+                                                    .forEach { headers[$0.0] = $0.1 }
 
-        if let headerFields = request.allHTTPHeaderFields {
-            for (field, value) in headerFields where field != "Cookie" {
-                headers[field] = value
-            }
-        }
+        request.allHTTPHeaderFields?.filter { $0.0 != "Cookie" }
+                                    .forEach { headers[$0.0] = $0.1 }
 
-        for (field, value) in headers {
-            let escapedValue = String(describing: value).replacingOccurrences(of: "\"", with: "\\\"")
-            components.append("-H \"\(field): \(escapedValue)\"")
+        components += headers.map {
+            let escapedValue = String(describing: $0.value).replacingOccurrences(of: "\"", with: "\\\"")
+
+            return "-H \"\($0.key): \(escapedValue)\""
         }
 
         if let httpBodyData = request.httpBody, let httpBody = String(data: httpBodyData, encoding: .utf8) {
