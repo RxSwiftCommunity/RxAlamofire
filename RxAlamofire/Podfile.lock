@@ -1,49 +1,54 @@
 PODS:
-  - Alamofire (4.7.3)
-  - OHHTTPStubs (6.1.0):
-    - OHHTTPStubs/Default (= 6.1.0)
-  - OHHTTPStubs/Core (6.1.0)
-  - OHHTTPStubs/Default (6.1.0):
+  - Alamofire (4.8.1)
+  - OHHTTPStubs (7.0.0):
+    - OHHTTPStubs/Default (= 7.0.0)
+  - OHHTTPStubs/Core (7.0.0)
+  - OHHTTPStubs/Default (7.0.0):
     - OHHTTPStubs/Core
     - OHHTTPStubs/JSON
     - OHHTTPStubs/NSURLSession
     - OHHTTPStubs/OHPathHelpers
-  - OHHTTPStubs/JSON (6.1.0):
+  - OHHTTPStubs/JSON (7.0.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/NSURLSession (6.1.0):
+  - OHHTTPStubs/NSURLSession (7.0.0):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/OHPathHelpers (6.1.0)
-  - OHHTTPStubs/Swift (6.1.0):
+  - OHHTTPStubs/OHPathHelpers (7.0.0)
+  - OHHTTPStubs/Swift (7.0.0):
     - OHHTTPStubs/Default
-  - RxBlocking (4.3.1):
-    - RxSwift (~> 4.0)
-  - RxCocoa (4.3.1):
-    - RxSwift (~> 4.0)
-  - RxSwift (4.3.1)
+  - RxAtomic (4.4.2)
+  - RxBlocking (4.4.2):
+    - RxAtomic (>= 4.4.2, ~> 4.4)
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxCocoa (4.4.2):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxSwift (4.4.2):
+    - RxAtomic (>= 4.4.2, ~> 4.4)
 
 DEPENDENCIES:
-  - Alamofire
-  - OHHTTPStubs (~> 6.0)
-  - OHHTTPStubs/Swift (~> 6.0)
-  - RxBlocking (~> 4.0)
-  - RxCocoa (~> 4)
-  - RxSwift (~> 4)
+  - Alamofire (~> 4.8)
+  - OHHTTPStubs (~> 7.0)
+  - OHHTTPStubs/Swift (~> 7.0)
+  - RxBlocking (~> 4.4)
+  - RxCocoa (~> 4.4)
+  - RxSwift (~> 4.4)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
     - OHHTTPStubs
+    - RxAtomic
     - RxBlocking
     - RxCocoa
     - RxSwift
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
-  OHHTTPStubs: 1e21c7d2c084b8153fc53d48400d8919d2d432d0
-  RxBlocking: 64c051285261ca2339481e91b5f70eb06b03660a
-  RxCocoa: 78763c7b07d02455598d9fc3c1ad091a28b73635
-  RxSwift: fe0fd770a43acdb7d0a53da411c9b892e69bb6e4
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  OHHTTPStubs: ef33a2c353110d306bb98f695435ec56ff5a26c3
+  RxAtomic: d00e97c10db88c6f08540e0bf2752fc5a2404167
+  RxBlocking: e96fdda1473d81332a6ed2cface935dc2167a122
+  RxCocoa: 477990dc3b4c3ff55fb0ac77e1cc06244e0aaec8
+  RxSwift: 74c29b693c8e42b0f64400e8b06564575742d649
 
-PODFILE CHECKSUM: 26c16059d25485386e9c33997cc4608f520f0a86
+PODFILE CHECKSUM: e01a88856a1eacbfea4ff30ed9cba8f35282731c
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.6.1

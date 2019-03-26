@@ -3,55 +3,94 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D424F8C2249E2EF0026E20B /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F882249E2EF0026E20B /* RxAtomic.framework */; };
+		6D424F8D2249E2EF0026E20B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F892249E2EF0026E20B /* RxCocoa.framework */; };
+		6D424F8E2249E2EF0026E20B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F8A2249E2EF0026E20B /* RxSwift.framework */; };
+		6D424F8F2249E2EF0026E20B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F8B2249E2EF0026E20B /* Alamofire.framework */; };
+		6D424FA52249E4670026E20B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F922249E2FF0026E20B /* Alamofire.framework */; };
+		6D424FA62249E4670026E20B /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F902249E2FF0026E20B /* RxAtomic.framework */; };
+		6D424FA72249E4670026E20B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F912249E2FF0026E20B /* RxCocoa.framework */; };
+		6D424FA82249E4670026E20B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F932249E2FF0026E20B /* RxSwift.framework */; };
+		6D424FA92249E46C0026E20B /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
+		6D424FAA2249E46C0026E20B /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
 		FC5686FE2150CD45009DE8D6 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FC5687092150CDC8009DE8D6 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
 		FC56870A2150CDC8009DE8D6 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
-		FC5687152150D090009DE8D6 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = FC5687132150D090009DE8D6 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FC5687192150D094009DE8D6 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
-		FC56871A2150D096009DE8D6 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D424F882249E2EF0026E20B /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/iOS/RxAtomic.framework; sourceTree = "<group>"; };
+		6D424F892249E2EF0026E20B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/iOS/RxCocoa.framework; sourceTree = "<group>"; };
+		6D424F8A2249E2EF0026E20B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
+		6D424F8B2249E2EF0026E20B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		6D424F902249E2FF0026E20B /* RxAtomic.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxAtomic.framework; path = Carthage/Build/tvOS/RxAtomic.framework; sourceTree = "<group>"; };
+		6D424F912249E2FF0026E20B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/tvOS/RxCocoa.framework; sourceTree = "<group>"; };
+		6D424F922249E2FF0026E20B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
+		6D424F932249E2FF0026E20B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
+		6D424F9D2249E3EE0026E20B /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		FC5686FD2150CD45009DE8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxAlamofire.swift; sourceTree = "<group>"; };
 		FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+RxAlamofire.swift"; sourceTree = "<group>"; };
 		FC5687082150CDC8009DE8D6 /* RxAlamofire.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
-		FC5687112150D090009DE8D6 /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5687132150D090009DE8D6 /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		FC5687142150D090009DE8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		6D424F9A2249E3EE0026E20B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D424FA52249E4670026E20B /* Alamofire.framework in Frameworks */,
+				6D424FA62249E4670026E20B /* RxAtomic.framework in Frameworks */,
+				6D424FA72249E4670026E20B /* RxCocoa.framework in Frameworks */,
+				6D424FA82249E4670026E20B /* RxSwift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F62150CD45009DE8D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		FC56870E2150D090009DE8D6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				6D424F8C2249E2EF0026E20B /* RxAtomic.framework in Frameworks */,
+				6D424F8D2249E2EF0026E20B /* RxCocoa.framework in Frameworks */,
+				6D424F8E2249E2EF0026E20B /* RxSwift.framework in Frameworks */,
+				6D424F8F2249E2EF0026E20B /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6D424F872249E2EF0026E20B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6D424F922249E2FF0026E20B /* Alamofire.framework */,
+				6D424F8B2249E2EF0026E20B /* Alamofire.framework */,
+				6D424F902249E2FF0026E20B /* RxAtomic.framework */,
+				6D424F882249E2EF0026E20B /* RxAtomic.framework */,
+				6D424F912249E2FF0026E20B /* RxCocoa.framework */,
+				6D424F892249E2EF0026E20B /* RxCocoa.framework */,
+				6D424F932249E2FF0026E20B /* RxSwift.framework */,
+				6D424F8A2249E2EF0026E20B /* RxSwift.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		FC5686EF2150CD45009DE8D6 = {
 			isa = PBXGroup;
 			children = (
-				FC5687042150CDC8009DE8D6 /* Sources */,
+				6D424F872249E2EF0026E20B /* Frameworks */,
+				FC5686FA2150CD45009DE8D6 /* Products */,
 				FC5686FB2150CD45009DE8D6 /* RxAlamofire-iOS */,
 				FC5687122150D090009DE8D6 /* RxAlamofire-tvOS */,
-				FC5686FA2150CD45009DE8D6 /* Products */,
+				FC5687042150CDC8009DE8D6 /* Sources */,
 			);
 			sourceTree = "<group>";
 		};
@@ -59,7 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */,
-				FC5687112150D090009DE8D6 /* RxAlamofire.framework */,
+				6D424F9D2249E3EE0026E20B /* RxAlamofire.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +142,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		6D424F982249E3EE0026E20B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F42150CD45009DE8D6 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -111,20 +157,30 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FC56870C2150D090009DE8D6 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FC5687152150D090009DE8D6 /* RxAlamofire.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		FC5686F82150CD45009DE8D6 /* RxAlamofire-iOS */ = {
+		6D424F9C2249E3EE0026E20B /* RxAlamofire tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FC5687012150CD45009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire-iOS" */;
+			buildConfigurationList = 6D424FA22249E3EE0026E20B /* Build configuration list for PBXNativeTarget "RxAlamofire tvOS" */;
+			buildPhases = (
+				6D424F982249E3EE0026E20B /* Headers */,
+				6D424F992249E3EE0026E20B /* Sources */,
+				6D424F9A2249E3EE0026E20B /* Frameworks */,
+				6D424F9B2249E3EE0026E20B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxAlamofire tvOS";
+			productName = "RxAlamofire-tvOS";
+			productReference = 6D424F9D2249E3EE0026E20B /* RxAlamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		FC5686F82150CD45009DE8D6 /* RxAlamofire iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FC5687012150CD45009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire iOS" */;
 			buildPhases = (
 				FC5686F42150CD45009DE8D6 /* Headers */,
 				FC5686F52150CD45009DE8D6 /* Sources */,
@@ -135,27 +191,9 @@
 			);
 			dependencies = (
 			);
-			name = "RxAlamofire-iOS";
+			name = "RxAlamofire iOS";
 			productName = "RxAlamofire-iOS";
 			productReference = FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		FC5687102150D090009DE8D6 /* RxAlamofire-tvOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = FC5687162150D090009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire-tvOS" */;
-			buildPhases = (
-				FC56870C2150D090009DE8D6 /* Headers */,
-				FC56870D2150D090009DE8D6 /* Sources */,
-				FC56870E2150D090009DE8D6 /* Frameworks */,
-				FC56870F2150D090009DE8D6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "RxAlamofire-tvOS";
-			productName = "RxAlamofire-tvOS";
-			productReference = FC5687112150D090009DE8D6 /* RxAlamofire.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -167,41 +205,42 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = RxSwiftCommunity;
 				TargetAttributes = {
-					FC5686F82150CD45009DE8D6 = {
-						CreatedOnToolsVersion = 10.0;
+					6D424F9C2249E3EE0026E20B = {
+						CreatedOnToolsVersion = 10.2;
 					};
-					FC5687102150D090009DE8D6 = {
+					FC5686F82150CD45009DE8D6 = {
 						CreatedOnToolsVersion = 10.0;
 					};
 				};
 			};
 			buildConfigurationList = FC5686F32150CD45009DE8D6 /* Build configuration list for PBXProject "_" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = FC5686EF2150CD45009DE8D6;
 			productRefGroup = FC5686FA2150CD45009DE8D6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FC5686F82150CD45009DE8D6 /* RxAlamofire-iOS */,
-				FC5687102150D090009DE8D6 /* RxAlamofire-tvOS */,
+				FC5686F82150CD45009DE8D6 /* RxAlamofire iOS */,
+				6D424F9C2249E3EE0026E20B /* RxAlamofire tvOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		FC5686F72150CD45009DE8D6 /* Resources */ = {
+		6D424F9B2249E3EE0026E20B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FC56870F2150D090009DE8D6 /* Resources */ = {
+		FC5686F72150CD45009DE8D6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -211,6 +250,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		6D424F992249E3EE0026E20B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D424FA92249E46C0026E20B /* RxAlamofire.swift in Sources */,
+				6D424FAA2249E46C0026E20B /* URLSession+RxAlamofire.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F52150CD45009DE8D6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -220,18 +268,63 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		FC56870D2150D090009DE8D6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				FC5687192150D094009DE8D6 /* RxAlamofire.swift in Sources */,
-				FC56871A2150D096009DE8D6 /* URLSession+RxAlamofire.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		6D424FA32249E3EE0026E20B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS";
+				INFOPLIST_FILE = "RxAlamofire-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS";
+				PRODUCT_NAME = RxAlamofire;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		6D424FA42249E3EE0026E20B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS";
+				INFOPLIST_FILE = "RxAlamofire-tvOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS";
+				PRODUCT_NAME = RxAlamofire;
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 		FC5686FF2150CD45009DE8D6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -291,6 +384,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -348,6 +442,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -376,7 +471,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS";
 				PRODUCT_NAME = RxAlamofire;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -403,70 +497,22 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS";
 				PRODUCT_NAME = RxAlamofire;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		FC5687172150D090009DE8D6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS";
-				INFOPLIST_FILE = "RxAlamofire-tvOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS";
-				PRODUCT_NAME = RxAlamofire;
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
-			};
-			name = Debug;
-		};
-		FC5687182150D090009DE8D6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				CODE_SIGN_STYLE = Automatic;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/tvOS";
-				INFOPLIST_FILE = "RxAlamofire-tvOS/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-					"$(PROJECT_DIR)/Carthage/Build/tvOS",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS";
-				PRODUCT_NAME = RxAlamofire;
-				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		6D424FA22249E3EE0026E20B /* Build configuration list for PBXNativeTarget "RxAlamofire tvOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D424FA32249E3EE0026E20B /* Debug */,
+				6D424FA42249E3EE0026E20B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FC5686F32150CD45009DE8D6 /* Build configuration list for PBXProject "_" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -476,20 +522,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FC5687012150CD45009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire-iOS" */ = {
+		FC5687012150CD45009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FC5687022150CD45009DE8D6 /* Debug */,
 				FC5687032150CD45009DE8D6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		FC5687162150D090009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire-tvOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				FC5687172150D090009DE8D6 /* Debug */,
-				FC5687182150D090009DE8D6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

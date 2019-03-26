@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ## Master
 
 #### Updated
+* Project compatible with Swift 5
 
 #### Fixed
 
