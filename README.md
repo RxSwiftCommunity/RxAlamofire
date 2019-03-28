@@ -17,7 +17,7 @@ A basic usage is (considering a simple currency converter):
 
 ```swift
 let formatter = NSNumberFormatter()
-formatter.numberStyle = .CurrencyStyle
+formatter.numberStyle = .currencyStyle
 formatter.currencyCode = "USD"
 if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!) {
 
@@ -172,7 +172,7 @@ pod 'RxAlamofire'
 Add following to `Cartfile`:
 
 ```
-github "RxSwiftCommunity/RxAlamofire" "master"
+github "RxSwiftCommunity/RxAlamofire" ~> 4.4
 ```
 
 ### Swift Package manager
@@ -189,7 +189,7 @@ let package = Package(
 
         dependencies: [
             .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git",
-                     from: "5.0.0"),
+                     from: "4.4.0"),
         ],
 
         targets: [
