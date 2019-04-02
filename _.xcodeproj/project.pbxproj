@@ -7,12 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6D424F8C2249E2EF0026E20B /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F882249E2EF0026E20B /* RxAtomic.framework */; };
 		6D424F8D2249E2EF0026E20B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F892249E2EF0026E20B /* RxCocoa.framework */; };
 		6D424F8E2249E2EF0026E20B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F8A2249E2EF0026E20B /* RxSwift.framework */; };
 		6D424F8F2249E2EF0026E20B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F8B2249E2EF0026E20B /* Alamofire.framework */; };
 		6D424FA52249E4670026E20B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F922249E2FF0026E20B /* Alamofire.framework */; };
-		6D424FA62249E4670026E20B /* RxAtomic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F902249E2FF0026E20B /* RxAtomic.framework */; };
 		6D424FA72249E4670026E20B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F912249E2FF0026E20B /* RxCocoa.framework */; };
 		6D424FA82249E4670026E20B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F932249E2FF0026E20B /* RxSwift.framework */; };
 		6D424FA92249E46C0026E20B /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
@@ -48,7 +46,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6D424FA52249E4670026E20B /* Alamofire.framework in Frameworks */,
-				6D424FA62249E4670026E20B /* RxAtomic.framework in Frameworks */,
 				6D424FA72249E4670026E20B /* RxCocoa.framework in Frameworks */,
 				6D424FA82249E4670026E20B /* RxSwift.framework in Frameworks */,
 			);
@@ -58,7 +55,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6D424F8C2249E2EF0026E20B /* RxAtomic.framework in Frameworks */,
 				6D424F8D2249E2EF0026E20B /* RxCocoa.framework in Frameworks */,
 				6D424F8E2249E2EF0026E20B /* RxSwift.framework in Frameworks */,
 				6D424F8F2249E2EF0026E20B /* Alamofire.framework in Frameworks */,

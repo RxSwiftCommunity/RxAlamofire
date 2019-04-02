@@ -4,8 +4,8 @@ use_frameworks!
 
 def common
   pod "Alamofire", "~> 4.8"
-  pod "RxSwift", "~> 4.4"
-  pod "RxCocoa", "~> 4.4"
+  pod "RxSwift", "~> 4.5"
+  pod "RxCocoa", "~> 4.5"
 end
 
 target "RxAlamofire-iOS-Example" do
@@ -28,7 +28,7 @@ target "RxAlamofireTests" do
   common
   pod "OHHTTPStubs", "~> 7.0"
   pod "OHHTTPStubs/Swift", "~> 7.0"
-  pod "RxBlocking", "~> 4.4"
+  pod "RxBlocking", "~> 4.5"
 end
 
 target "RxAlamofire-tvOS" do

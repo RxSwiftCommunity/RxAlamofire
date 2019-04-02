@@ -154,7 +154,6 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RxAtomic-iOS/RxAtomic.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa-iOS/RxCocoa.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework"
@@ -162,7 +161,6 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework"
-  install_framework "${BUILT_PRODUCTS_DIR}/RxAtomic-iOS/RxAtomic.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa-iOS/RxCocoa.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework"
