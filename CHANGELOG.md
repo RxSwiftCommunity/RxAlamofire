@@ -9,6 +9,11 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+## 4.4.1
+
+#### Updated
+* RxSwift updated to 4.5.0 to officially support Xcode 10.2.
+
 ## 4.4.0
 
 #### Updated

@@ -189,7 +189,7 @@ let package = Package(
 
         dependencies: [
             .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git",
-                     from: "4.4.0"),
+                     from: "4.4.1"),
         ],
 
         targets: [
@@ -207,4 +207,4 @@ To manual install this extension you should get the `RxAlamofire/Source/RxAlamof
 
 ## Requirements
 
-RxAlamofire requires Swift 5.0 and dedicated versions of Alamofire (4.8.1) and RxSwift (4.4.2).
+RxAlamofire requires Swift 5.0 and dedicated versions of Alamofire (4.8.2) and RxSwift (4.5.0).
