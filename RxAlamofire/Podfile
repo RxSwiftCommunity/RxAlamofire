@@ -8,8 +8,18 @@ def common
   pod "RxCocoa", "~> 4.5"
 end
 
+target "RxAlamofire-iOS" do
+  platform :ios, "8.0"
+  common
+end
+
 target "RxAlamofire-iOS-Example" do
-  platform :ios, "9.0"
+  platform :ios, "8.0"
+  common
+end
+
+target "RxAlamofire-tvOS" do
+  platform :tvos, "9.0"
   common
 end
 
@@ -18,8 +28,13 @@ target "RxAlamofire-tvOS-Example" do
   common
 end
 
-target "RxAlamofire-iOS" do
-  platform :ios, "9.0"
+target 'RxAlamofire-watchOS' do
+  platform :watchos, "3.0"
+  common
+end
+
+target 'RxAlamofire-macOS' do
+  platform :osx, "10.10"
   common
 end
 
@@ -29,9 +44,4 @@ target "RxAlamofireTests" do
   pod "OHHTTPStubs", "~> 7.0"
   pod "OHHTTPStubs/Swift", "~> 7.0"
   pod "RxBlocking", "~> 4.5"
-end
-
-target "RxAlamofire-tvOS" do
-  platform :tvos, "9.0"
-  common
 end
