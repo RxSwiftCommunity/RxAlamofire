@@ -1,5 +1,5 @@
 //
-//  SessionManager.swift
+//  Session.swift
 //
 //  Copyright (c) 2014-2018 Alamofire Software Foundation (http://alamofire.org/)
 //
@@ -31,9 +31,10 @@ open class Session {
     public let rootQueue: DispatchQueue
     public let requestQueue: DispatchQueue
     public let serializationQueue: DispatchQueue
-    public let adapter: RequestAdapter?
-    public let retrier: RequestRetrier?
+    public let interceptor: RequestInterceptor?
     public let serverTrustManager: ServerTrustManager?
+    public let redirectHandler: RedirectHandler?
+    public let cachedResponseHandler: CachedResponseHandler?
 
     public let session: URLSession
     public let eventMonitor: CompositeEventMonitor
@@ -42,60 +43,64 @@ open class Session {
     var requestTaskMap = RequestTaskMap()
     public let startRequestsImmediately: Bool
 
-    public init(startRequestsImmediately: Bool = true,
-                session: URLSession,
+    public init(session: URLSession,
                 delegate: SessionDelegate,
                 rootQueue: DispatchQueue,
+                startRequestsImmediately: Bool = true,
                 requestQueue: DispatchQueue? = nil,
                 serializationQueue: DispatchQueue? = nil,
-                adapter: RequestAdapter? = nil,
+                interceptor: RequestInterceptor? = nil,
                 serverTrustManager: ServerTrustManager? = nil,
-                retrier: RequestRetrier? = nil,
+                redirectHandler: RedirectHandler? = nil,
+                cachedResponseHandler: CachedResponseHandler? = nil,
                 eventMonitors: [EventMonitor] = []) {
-        precondition(session.delegate === delegate,
-                     "SessionManager(session:) initializer must be passed the delegate that has been assigned to the URLSession as the SessionDataProvider.")
         precondition(session.delegateQueue.underlyingQueue === rootQueue,
                      "SessionManager(session:) intializer must be passed the DispatchQueue used as the delegateQueue's underlyingQueue as rootQueue.")
 
-        self.startRequestsImmediately = startRequestsImmediately
         self.session = session
         self.delegate = delegate
         self.rootQueue = rootQueue
+        self.startRequestsImmediately = startRequestsImmediately
         self.requestQueue = requestQueue ?? DispatchQueue(label: "\(rootQueue.label).requestQueue", target: rootQueue)
         self.serializationQueue = serializationQueue ?? DispatchQueue(label: "\(rootQueue.label).serializationQueue", target: rootQueue)
-        self.adapter = adapter
-        self.retrier = retrier
+        self.interceptor = interceptor
         self.serverTrustManager = serverTrustManager
+        self.redirectHandler = redirectHandler
+        self.cachedResponseHandler = cachedResponseHandler
         eventMonitor = CompositeEventMonitor(monitors: defaultEventMonitors + eventMonitors)
         delegate.eventMonitor = eventMonitor
         delegate.stateProvider = self
     }
 
-    public convenience init(startRequestsImmediately: Bool = true,
-                            configuration: URLSessionConfiguration = .alamofireDefault,
+    public convenience init(configuration: URLSessionConfiguration = URLSessionConfiguration.af.default,
                             delegate: SessionDelegate = SessionDelegate(),
                             rootQueue: DispatchQueue = DispatchQueue(label: "org.alamofire.sessionManager.rootQueue"),
+                            startRequestsImmediately: Bool = true,
                             requestQueue: DispatchQueue? = nil,
                             serializationQueue: DispatchQueue? = nil,
-                            adapter: RequestAdapter? = nil,
+                            interceptor: RequestInterceptor? = nil,
                             serverTrustManager: ServerTrustManager? = nil,
-                            retrier: RequestRetrier? = nil,
+                            redirectHandler: RedirectHandler? = nil,
+                            cachedResponseHandler: CachedResponseHandler? = nil,
                             eventMonitors: [EventMonitor] = []) {
         let delegateQueue = OperationQueue(maxConcurrentOperationCount: 1, underlyingQueue: rootQueue, name: "org.alamofire.sessionManager.sessionDelegateQueue")
         let session = URLSession(configuration: configuration, delegate: delegate, delegateQueue: delegateQueue)
-        self.init(startRequestsImmediately: startRequestsImmediately,
-                  session: session,
+
+        self.init(session: session,
                   delegate: delegate,
                   rootQueue: rootQueue,
+                  startRequestsImmediately: startRequestsImmediately,
                   requestQueue: requestQueue,
                   serializationQueue: serializationQueue,
-                  adapter: adapter,
+                  interceptor: interceptor,
                   serverTrustManager: serverTrustManager,
-                  retrier: retrier,
+                  redirectHandler: redirectHandler,
+                  cachedResponseHandler: cachedResponseHandler,
                   eventMonitors: eventMonitors)
     }
 
     deinit {
+        finishRequestsForDeinit()
         session.invalidateAndCancel()
     }
 
@@ -118,13 +123,15 @@ open class Session {
                       method: HTTPMethod = .get,
                       parameters: Parameters? = nil,
                       encoding: ParameterEncoding = URLEncoding.default,
-                      headers: HTTPHeaders? = nil) -> DataRequest {
+                      headers: HTTPHeaders? = nil,
+                      interceptor: RequestInterceptor? = nil) -> DataRequest {
         let convertible = RequestConvertible(url: url,
                                              method: method,
                                              parameters: parameters,
                                              encoding: encoding,
                                              headers: headers)
-        return request(convertible)
+
+        return request(convertible, interceptor: interceptor)
     }
 
     struct RequestEncodableConvertible<Parameters: Encodable>: URLRequestConvertible {
@@ -145,21 +152,23 @@ open class Session {
                                              method: HTTPMethod = .get,
                                              parameters: Parameters? = nil,
                                              encoder: ParameterEncoder = JSONParameterEncoder.default,
-                                             headers: HTTPHeaders? = nil) -> DataRequest {
+                                             headers: HTTPHeaders? = nil,
+                                             interceptor: RequestInterceptor? = nil) -> DataRequest {
         let convertible = RequestEncodableConvertible(url: url,
                                                       method: method,
                                                       parameters: parameters,
                                                       encoder: encoder,
                                                       headers: headers)
 
-        return request(convertible)
+        return request(convertible, interceptor: interceptor)
     }
 
-    open func request(_ convertible: URLRequestConvertible) -> DataRequest {
+    open func request(_ convertible: URLRequestConvertible, interceptor: RequestInterceptor? = nil) -> DataRequest {
         let request = DataRequest(convertible: convertible,
                                   underlyingQueue: rootQueue,
                                   serializationQueue: serializationQueue,
                                   eventMonitor: eventMonitor,
+                                  interceptor: interceptor,
                                   delegate: self)
 
         perform(request)
@@ -174,6 +183,7 @@ open class Session {
                        parameters: Parameters? = nil,
                        encoding: ParameterEncoding = URLEncoding.default,
                        headers: HTTPHeaders? = nil,
+                       interceptor: RequestInterceptor? = nil,
                        to destination: DownloadRequest.Destination? = nil) -> DownloadRequest {
         let convertible = RequestConvertible(url: convertible,
                                              method: method,
@@ -181,7 +191,7 @@ open class Session {
                                              encoding: encoding,
                                              headers: headers)
 
-        return download(convertible, to: destination)
+        return download(convertible, interceptor: interceptor, to: destination)
     }
 
     open func download<Parameters: Encodable>(_ convertible: URLConvertible,
@@ -189,6 +199,7 @@ open class Session {
                                               parameters: Parameters? = nil,
                                               encoder: ParameterEncoder = JSONParameterEncoder.default,
                                               headers: HTTPHeaders? = nil,
+                                              interceptor: RequestInterceptor? = nil,
                                               to destination: DownloadRequest.Destination? = nil) -> DownloadRequest {
         let convertible = RequestEncodableConvertible(url: convertible,
                                                       method: method,
@@ -196,15 +207,17 @@ open class Session {
                                                       encoder: encoder,
                                                       headers: headers)
 
-        return download(convertible, to: destination)
+        return download(convertible, interceptor: interceptor, to: destination)
     }
 
     open func download(_ convertible: URLRequestConvertible,
+                       interceptor: RequestInterceptor? = nil,
                        to destination: DownloadRequest.Destination? = nil) -> DownloadRequest {
         let request = DownloadRequest(downloadable: .request(convertible),
                                       underlyingQueue: rootQueue,
                                       serializationQueue: serializationQueue,
                                       eventMonitor: eventMonitor,
+                                      interceptor: interceptor,
                                       delegate: self,
                                       destination: destination)
 
@@ -214,11 +227,13 @@ open class Session {
     }
 
     open func download(resumingWith data: Data,
+                       interceptor: RequestInterceptor? = nil,
                        to destination: DownloadRequest.Destination? = nil) -> DownloadRequest {
         let request = DownloadRequest(downloadable: .resumeData(data),
                                       underlyingQueue: rootQueue,
                                       serializationQueue: serializationQueue,
                                       eventMonitor: eventMonitor,
+                                      interceptor: interceptor,
                                       delegate: self,
                                       destination: destination)
 
@@ -255,81 +270,99 @@ open class Session {
     open func upload(_ data: Data,
                      to convertible: URLConvertible,
                      method: HTTPMethod = .post,
-                     headers: HTTPHeaders? = nil) -> UploadRequest {
+                     headers: HTTPHeaders? = nil,
+                     interceptor: RequestInterceptor? = nil) -> UploadRequest {
         let convertible = ParameterlessRequestConvertible(url: convertible, method: method, headers: headers)
 
-        return upload(data, with: convertible)
+        return upload(data, with: convertible, interceptor: interceptor)
     }
 
-    open func upload(_ data: Data, with convertible: URLRequestConvertible) -> UploadRequest {
-        return upload(.data(data), with: convertible)
+    open func upload(_ data: Data,
+                     with convertible: URLRequestConvertible,
+                     interceptor: RequestInterceptor? = nil) -> UploadRequest {
+        return upload(.data(data), with: convertible, interceptor: interceptor)
     }
 
     open func upload(_ fileURL: URL,
                      to convertible: URLConvertible,
                      method: HTTPMethod = .post,
-                     headers: HTTPHeaders? = nil) -> UploadRequest {
+                     headers: HTTPHeaders? = nil,
+                     interceptor: RequestInterceptor? = nil) -> UploadRequest {
         let convertible = ParameterlessRequestConvertible(url: convertible, method: method, headers: headers)
 
-        return upload(fileURL, with: convertible)
+        return upload(fileURL, with: convertible, interceptor: interceptor)
     }
 
-    open func upload(_ fileURL: URL, with convertible: URLRequestConvertible) -> UploadRequest {
-        return upload(.file(fileURL, shouldRemove: false), with: convertible)
+    open func upload(_ fileURL: URL,
+                     with convertible: URLRequestConvertible,
+                     interceptor: RequestInterceptor? = nil) -> UploadRequest {
+        return upload(.file(fileURL, shouldRemove: false), with: convertible, interceptor: interceptor)
     }
 
     open func upload(_ stream: InputStream,
                      to convertible: URLConvertible,
                      method: HTTPMethod = .post,
-                     headers: HTTPHeaders? = nil) -> UploadRequest {
+                     headers: HTTPHeaders? = nil,
+                     interceptor: RequestInterceptor? = nil) -> UploadRequest {
         let convertible = ParameterlessRequestConvertible(url: convertible, method: method, headers: headers)
 
-        return upload(stream, with: convertible)
+        return upload(stream, with: convertible, interceptor: interceptor)
     }
 
-    open func upload(_ stream: InputStream, with convertible: URLRequestConvertible) -> UploadRequest {
-        return upload(.stream(stream), with: convertible)
+    open func upload(_ stream: InputStream,
+                     with convertible: URLRequestConvertible,
+                     interceptor: RequestInterceptor? = nil) -> UploadRequest {
+        return upload(.stream(stream), with: convertible, interceptor: interceptor)
     }
 
     open func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                     usingThreshold encodingMemoryThreshold: UInt64 = MultipartUpload.encodingMemoryThreshold,
+                     usingThreshold encodingMemoryThreshold: UInt64 = MultipartFormData.encodingMemoryThreshold,
                      fileManager: FileManager = .default,
                      to url: URLConvertible,
                      method: HTTPMethod = .post,
-                     headers: HTTPHeaders? = nil) -> UploadRequest {
+                     headers: HTTPHeaders? = nil,
+                     interceptor: RequestInterceptor? = nil) -> UploadRequest {
         let convertible = ParameterlessRequestConvertible(url: url, method: method, headers: headers)
 
-        return upload(multipartFormData: multipartFormData, usingThreshold: encodingMemoryThreshold, with: convertible)
+        let formData = MultipartFormData(fileManager: fileManager)
+        multipartFormData(formData)
+
+        return upload(multipartFormData: formData,
+                      usingThreshold: encodingMemoryThreshold,
+                      with: convertible,
+                      interceptor: interceptor)
     }
 
-    open func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                     usingThreshold encodingMemoryThreshold: UInt64 = MultipartUpload.encodingMemoryThreshold,
-                     fileManager: FileManager = .default,
-                     with request: URLRequestConvertible) -> UploadRequest {
+    open func upload(multipartFormData: MultipartFormData,
+                     usingThreshold encodingMemoryThreshold: UInt64 = MultipartFormData.encodingMemoryThreshold,
+                     with request: URLRequestConvertible,
+                     interceptor: RequestInterceptor? = nil) -> UploadRequest {
         let multipartUpload = MultipartUpload(isInBackgroundSession: (session.configuration.identifier != nil),
                                               encodingMemoryThreshold: encodingMemoryThreshold,
                                               request: request,
-                                              fileManager: fileManager,
-                                              multipartBuilder: multipartFormData)
+                                              multipartFormData: multipartFormData)
 
-        return upload(multipartUpload)
+        return upload(multipartUpload, interceptor: interceptor)
     }
 
     // MARK: - Internal API
 
     // MARK: Uploadable
 
-    func upload(_ uploadable: UploadRequest.Uploadable, with convertible: URLRequestConvertible) -> UploadRequest {
+    func upload(_ uploadable: UploadRequest.Uploadable,
+                with convertible: URLRequestConvertible,
+                interceptor: RequestInterceptor?) -> UploadRequest {
         let uploadable = Upload(request: convertible, uploadable: uploadable)
 
-        return upload(uploadable)
+        return upload(uploadable, interceptor: interceptor)
     }
 
-    func upload(_ upload: UploadConvertible) -> UploadRequest {
+    func upload(_ upload: UploadConvertible, interceptor: RequestInterceptor?) -> UploadRequest {
         let request = UploadRequest(convertible: upload,
                                     underlyingQueue: rootQueue,
                                     serializationQueue: serializationQueue,
                                     eventMonitor: eventMonitor,
+                                    interceptor: interceptor,
                                     delegate: self)
 
         perform(request)
@@ -373,6 +406,8 @@ open class Session {
 
     func perform(_ request: DownloadRequest) {
         requestQueue.async {
+            guard !request.isCancelled else { return }
+
             switch request.downloadable {
             case let .request(convertible):
                 self.performSetupOperations(for: request, convertible: convertible)
@@ -389,16 +424,18 @@ open class Session {
 
             guard !request.isCancelled else { return }
 
-            if let adapter = adapter {
-                adapter.adapt(initialRequest) { (result) in
+            if let adapter = adapter(for: request) {
+                adapter.adapt(initialRequest, for: self) { result in
                     do {
-                        let adaptedRequest = try result.unwrap()
+                        let adaptedRequest = try result.get()
+
                         self.rootQueue.async {
                             request.didAdaptInitialRequest(initialRequest, to: adaptedRequest)
                             self.didCreateURLRequest(adaptedRequest, for: request)
                         }
                     } catch {
-                        self.rootQueue.async { request.didFailToAdaptURLRequest(initialRequest, withError: error) }
+                        let adaptError = AFError.requestAdaptationFailed(error: error)
+                        self.rootQueue.async { request.didFailToAdaptURLRequest(initialRequest, withError: adaptError) }
                     }
                 }
             } else {
@@ -418,7 +455,7 @@ open class Session {
         requestTaskMap[request] = task
         request.didCreateTask(task)
 
-        resumeOrSuspendTask(task, ifNecessaryForRequest: request)
+        updateStatesForTask(task, request: request)
     }
 
     func didReceiveResumeData(_ data: Data, for request: DownloadRequest) {
@@ -428,19 +465,50 @@ open class Session {
         requestTaskMap[request] = task
         request.didCreateTask(task)
 
-        resumeOrSuspendTask(task, ifNecessaryForRequest: request)
+        updateStatesForTask(task, request: request)
     }
 
-    func resumeOrSuspendTask(_ task: URLSessionTask, ifNecessaryForRequest request: Request) {
-        if startRequestsImmediately || request.isResumed {
+    func updateStatesForTask(_ task: URLSessionTask, request: Request) {
+        switch (startRequestsImmediately, request.state) {
+        case (true, .initialized):
+            request.resume()
+        case (false, .initialized):
+            // Do nothing.
+            break
+        case (_, .resumed):
             task.resume()
-            request.didResume()
-        }
-
-        if request.isSuspended {
+            request.didResumeTask(task)
+        case (_, .suspended):
             task.suspend()
-            request.didSuspend()
+            request.didSuspendTask(task)
+        case (_, .cancelled):
+            task.cancel()
+            request.didCancelTask(task)
         }
+    }
+
+    // MARK: - Adapters and Retriers
+
+    func adapter(for request: Request) -> RequestAdapter? {
+        if let requestInterceptor = request.interceptor, let sessionInterceptor = interceptor {
+            return Interceptor(adapters: [requestInterceptor, sessionInterceptor])
+        } else {
+            return request.interceptor ?? interceptor
+        }
+    }
+
+    func retrier(for request: Request) -> RequestRetrier? {
+        if let requestInterceptor = request.interceptor, let sessionInterceptor = interceptor {
+            return Interceptor(retriers: [requestInterceptor, sessionInterceptor])
+        } else {
+            return request.interceptor ?? interceptor
+        }
+    }
+
+    // MARK: - Invalidation
+
+    func finishRequestsForDeinit() {
+        requestTaskMap.requests.forEach { $0.finish(error: AFError.sessionDeinitialized) }
     }
 }
 
@@ -451,48 +519,58 @@ extension Session: RequestDelegate {
         return session.configuration
     }
 
-    public func willRetryRequest(_ request: Request) -> Bool {
-        return (retrier != nil)
+    public func retryResult(for request: Request, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        guard let retrier = retrier(for: request) else {
+            rootQueue.async { completion(.doNotRetry) }
+            return
+        }
+
+        retrier.retry(request, for: self, dueTo: error) { retryResult in
+            self.rootQueue.async {
+                guard let retryResultError = retryResult.error else { completion(retryResult); return }
+
+                let retryError = AFError.requestRetryFailed(retryError: retryResultError, originalError: error)
+                completion(.doNotRetryWithError(retryError))
+            }
+        }
     }
 
-    public func retryRequest(_ request: Request, ifNecessaryWithError error: Error) {
-        guard let retrier = retrier else { return }
-
-        retrier.should(self, retry: request, with: error) { (shouldRetry, retryInterval) in
-            guard !request.isCancelled else { return }
-
-            self.rootQueue.async {
+    public func retryRequest(_ request: Request, withDelay timeDelay: TimeInterval?) {
+        self.rootQueue.async {
+            let retry: () -> Void = {
                 guard !request.isCancelled else { return }
 
-                guard shouldRetry else { request.finish(); return }
+                request.prepareForRetry()
+                self.perform(request)
+            }
 
-                self.rootQueue.after(retryInterval) {
-                    guard !request.isCancelled else { return }
-
-                    request.requestIsRetrying()
-                    self.perform(request)
-                }
+            if let retryDelay = timeDelay {
+                self.rootQueue.after(retryDelay) { retry() }
+            } else {
+                retry()
             }
         }
     }
 
     public func cancelRequest(_ request: Request) {
         rootQueue.async {
+            request.didCancel()
+
             guard let task = self.requestTaskMap[request] else {
-                request.didCancel()
                 request.finish()
                 return
             }
 
             task.cancel()
-            request.didCancel()
+            request.didCancelTask(task)
         }
     }
 
     public func cancelDownloadRequest(_ request: DownloadRequest, byProducingResumeData: @escaping (Data?) -> Void) {
         rootQueue.async {
+            request.didCancel()
+
             guard let downloadTask = self.requestTaskMap[request] as? URLSessionDownloadTask else {
-                request.didCancel()
                 request.finish()
                 return
             }
@@ -500,7 +578,7 @@ extension Session: RequestDelegate {
             downloadTask.cancel { (data) in
                 self.rootQueue.async {
                     byProducingResumeData(data)
-                    request.didCancel()
+                    request.didCancelTask(downloadTask)
                 }
             }
         }
@@ -508,24 +586,32 @@ extension Session: RequestDelegate {
 
     public func suspendRequest(_ request: Request) {
         rootQueue.async {
-            guard !request.isCancelled, let task = self.requestTaskMap[request] else { return }
+            guard !request.isCancelled else { return }
+
+            request.didSuspend()
+
+            guard let task = self.requestTaskMap[request] else { return }
 
             task.suspend()
-            request.didSuspend()
+            request.didSuspendTask(task)
         }
     }
 
     public func resumeRequest(_ request: Request) {
         rootQueue.async {
-            guard !request.isCancelled, let task = self.requestTaskMap[request] else { return }
+            guard !request.isCancelled else { return }
+
+            request.didResume()
+
+            guard let task = self.requestTaskMap[request] else { return }
 
             task.resume()
-            request.didResume()
+            request.didResumeTask(task)
         }
     }
 }
 
-// MARK: - SessionDelegateDelegate
+// MARK: - SessionStateProvider
 
 extension Session: SessionStateProvider {
     public func request(for task: URLSessionTask) -> Request? {
@@ -536,8 +622,12 @@ extension Session: SessionStateProvider {
         requestTaskMap[task] = nil
     }
 
-    public func credential(for task: URLSessionTask, protectionSpace: URLProtectionSpace) -> URLCredential? {
+    public func credential(for task: URLSessionTask, in protectionSpace: URLProtectionSpace) -> URLCredential? {
         return requestTaskMap[task]?.credential ??
                session.configuration.urlCredentialStorage?.defaultCredential(for: protectionSpace)
+    }
+
+    public func cancelRequestsForSessionInvalidation(with error: Error?) {
+        requestTaskMap.requests.forEach { $0.finish(error: AFError.sessionInvalidated(error: error)) }
     }
 }

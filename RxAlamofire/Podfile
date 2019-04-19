@@ -1,36 +1,47 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source "https://github.com/CocoaPods/Specs.git"
 
 use_frameworks!
 
 def common
-    pod 'Alamofire', '5.0.0.beta.1'
-    pod 'RxSwift', '~> 4'
-    pod 'RxCocoa', '~> 4'
+  pod 'Alamofire', '5.0.0.beta.5'
+  pod 'RxSwift', :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => 'master'
+  pod 'RxCocoa', :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => 'master'
 end
 
-target 'RxAlamofire-iOS-Example' do
-    platform :ios, '10.0'
-    common
+target "RxAlamofire-iOS" do
+  platform :ios, "10.0"
+  common
 end
 
-target 'RxAlamofire-tvOS-Example' do
-    platform :tvos, '10.0'
-    common
+target "RxAlamofireTests" do
+  platform :ios, "10.0"
+  common
+  pod "OHHTTPStubs", "~> 7.0"
+  pod "OHHTTPStubs/Swift", "~> 7.0"
+  pod "RxBlocking", :git => 'https://github.com/ReactiveX/RxSwift.git', :branch => 'master'
 end
 
-target 'RxAlamofire-iOS' do
-    platform :ios, '10.0'
-   common
+target "RxAlamofire-iOS-Example" do
+  platform :ios, "10.0"
+  common
 end
 
-target 'RxAlamofireTests' do
-    platform :ios, '10.0'
-    common
-    pod 'OHHTTPStubs/Swift', '~> 6.0'
-    pod 'RxBlocking', '~> 4.0'
+target "RxAlamofire-tvOS" do
+  platform :tvos, "10.0"
+  common
 end
 
-target 'RxAlamofire-tvOS' do
-    platform :tvos, '10.0'
-    common
+target "RxAlamofire-tvOS-Example" do
+  platform :tvos, "10.0"
+  common
+end
+
+target 'RxAlamofire-watchOS' do
+  platform :watchos, "3.0"
+  common
+end
+
+target 'RxAlamofire-macOS' do
+  platform :osx, "10.12"
+  common
 end

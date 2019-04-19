@@ -42,7 +42,7 @@ public struct DataResponse<Value> {
     public let serializationDuration: TimeInterval
 
     /// The result of response serialization.
-    public let result: Result<Value>
+    public let result: AFResult<Value>
 
     /// Returns the associated value of the result if it is a success, `nil` otherwise.
     public var value: Value? { return result.value }
@@ -58,13 +58,13 @@ public struct DataResponse<Value> {
     ///   - data:                  The `Data` returned by the server.
     ///   - metrics:               The `URLSessionTaskMetrics` of the serialized response.
     ///   - serializationDuration: The duration taken by serialization.
-    ///   - result:                The `Result` of response serialization.
+    ///   - result:                The `AFResult` of response serialization.
     public init(request: URLRequest?,
                 response: HTTPURLResponse?,
                 data: Data?,
                 metrics: URLSessionTaskMetrics?,
                 serializationDuration: TimeInterval,
-                result: Result<Value>) {
+                result: AFResult<Value>) {
         self.request = request
         self.response = response
         self.data = data
@@ -80,7 +80,7 @@ extension DataResponse: CustomStringConvertible, CustomDebugStringConvertible {
     /// The textual representation used when written to an output stream, which includes whether the result was a
     /// success or failure.
     public var description: String {
-        return result.debugDescription
+        return "\(result)"
     }
 
     /// The debug textual representation used when written to an output stream, which includes the URL request, the URL
@@ -88,8 +88,9 @@ extension DataResponse: CustomStringConvertible, CustomDebugStringConvertible {
     /// result.
     public var debugDescription: String {
         let requestDescription = request.map { "\($0.httpMethod!) \($0)" } ?? "nil"
+        let requestBody = request?.httpBody.map { String(decoding: $0, as: UTF8.self) } ?? "None"
         let responseDescription = response.map { (response) in
-            let sortedHeaders = response.httpHeaders.sorted()
+            let sortedHeaders = response.headers.sorted()
 
             return """
                    [Status Code]: \(response.statusCode)
@@ -97,15 +98,18 @@ extension DataResponse: CustomStringConvertible, CustomDebugStringConvertible {
                    \(sortedHeaders)
                    """
         } ?? "nil"
+        let responseBody = data.map { String(decoding: $0, as: UTF8.self) } ?? "None"
         let metricsDescription = metrics.map { "\($0.taskInterval.duration)s" } ?? "None"
 
         return """
         [Request]: \(requestDescription)
+        [Request Body]: \n\(requestBody)
         [Response]: \n\(responseDescription)
+        [Response Body]: \n\(responseBody)
         [Data]: \(data?.description ?? "None")
         [Network Duration]: \(metricsDescription)
         [Serialization Duration]: \(serializationDuration)s
-        [Result]: \(result.debugDescription)
+        [Result]: \(result)
         """
     }
 }
@@ -220,7 +224,7 @@ public struct DownloadResponse<Value> {
     public let serializationDuration: TimeInterval
 
     /// The result of response serialization.
-    public let result: Result<Value>
+    public let result: AFResult<Value>
 
     /// Returns the associated value of the result if it is a success, `nil` otherwise.
     public var value: Value? { return result.value }
@@ -238,7 +242,7 @@ public struct DownloadResponse<Value> {
     ///   - resumeData:            The resume `Data` generated if the request was cancelled.
     ///   - metrics:               The `URLSessionTaskMetrics` of the serialized response.
     ///   - serializationDuration: The duration taken by serialization.
-    ///   - result:                The `Result` of response serialization.
+    ///   - result:                The `AFResult` of response serialization.
     public init(
         request: URLRequest?,
         response: HTTPURLResponse?,
@@ -246,7 +250,7 @@ public struct DownloadResponse<Value> {
         resumeData: Data?,
         metrics: URLSessionTaskMetrics?,
         serializationDuration: TimeInterval,
-        result: Result<Value>)
+        result: AFResult<Value>)
     {
         self.request = request
         self.response = response
@@ -264,7 +268,7 @@ extension DownloadResponse: CustomStringConvertible, CustomDebugStringConvertibl
     /// The textual representation used when written to an output stream, which includes whether the result was a
     /// success or failure.
     public var description: String {
-        return result.debugDescription
+        return "\(result)"
     }
 
     /// The debug textual representation used when written to an output stream, which includes the URL request, the URL
@@ -272,8 +276,9 @@ extension DownloadResponse: CustomStringConvertible, CustomDebugStringConvertibl
     /// actions, and the response serialization result.
     public var debugDescription: String {
         let requestDescription = request.map { "\($0.httpMethod!) \($0)" } ?? "nil"
+        let requestBody = request?.httpBody.map { String(decoding: $0, as: UTF8.self) } ?? "None"
         let responseDescription = response.map { (response) in
-            let sortedHeaders = response.httpHeaders.sorted()
+            let sortedHeaders = response.headers.sorted()
 
             return """
                    [Status Code]: \(response.statusCode)
@@ -286,12 +291,13 @@ extension DownloadResponse: CustomStringConvertible, CustomDebugStringConvertibl
 
         return """
         [Request]: \(requestDescription)
+        [Request Body]: \n\(requestBody)
         [Response]: \n\(responseDescription)
         [File URL]: \(fileURL?.path ?? "nil")
         [ResumeData]: \(resumeDataDescription)
         [Network Duration]: \(metricsDescription)
         [Serialization Duration]: \(serializationDuration)s
-        [Result]: \(result.debugDescription)
+        [Result]: \(result)
         """
     }
 }

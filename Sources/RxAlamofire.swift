@@ -813,7 +813,7 @@ extension Reactive where Base: DataRequest {
      - parameter responseSerializer: The the serializer.
      - returns: The observable of `(NSHTTPURLResponse, T.SerializedObject)` for the created download request.
      */
-    public func responseResult<T: DataResponseSerializerProtocol>(queue: DispatchQueue? = nil,
+    public func responseResult<T: DataResponseSerializerProtocol>(queue: DispatchQueue = .main,
         responseSerializer: T)
         -> Observable<(HTTPURLResponse, T.SerializedObject)>
     {
@@ -844,11 +844,12 @@ extension Reactive where Base: DataRequest {
             let request = self.base
 
             request.responseJSON { response in
-                if let error = response.result.error {
-                    observer.on(.error(error))
-                } else {
+                switch response.result {
+                case .success:
                     observer.on(.next(response))
                     observer.on(.completed)
+                case let .failure(error):
+                    observer.on(.error(error))
                 }
             }
 
@@ -866,7 +867,7 @@ extension Reactive where Base: DataRequest {
      - returns: The observable of `T.SerializedObject` for the created download request.
      */
     public func result<T: DataResponseSerializerProtocol>(
-        queue: DispatchQueue? = nil,
+        queue: DispatchQueue = .main,
         responseSerializer: T)
         -> Observable<T.SerializedObject>
     {

@@ -1,0 +1,6 @@
+framework module Pods_RxAlamofire_watchOS {
+  umbrella header "Pods-RxAlamofire-watchOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

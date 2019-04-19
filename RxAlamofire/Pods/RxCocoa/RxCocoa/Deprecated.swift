@@ -50,7 +50,7 @@ extension ObservableType {
      */
     @available(*, deprecated, renamed: "bind(to:)")
     public func bindTo(_ variable: Variable<E>) -> Disposable {
-        return subscribe { e in
+        return self.subscribe { e in
             switch e {
             case let .next(element):
                 variable.value = element
@@ -121,7 +121,7 @@ extension ObservableType {
      */
     @available(*, deprecated, renamed: "bind(onNext:)")
     public func bindNext(_ onNext: @escaping (E) -> Void) -> Disposable {
-        return subscribe(onNext: onNext, onError: { error in
+        return self.subscribe(onNext: onNext, onError: { error in
             let error = "Binding error: \(error)"
             #if DEBUG
                 rxFatalError(error)
@@ -245,7 +245,7 @@ extension ObservableType {
  **This shouldn't be used in normal release builds.**
  */
 @available(*, deprecated, renamed: "SharingScheduler.mock(scheduler:action:)")
-public func driveOnScheduler(_ scheduler: SchedulerType, action: () -> ()) {
+public func driveOnScheduler(_ scheduler: SchedulerType, action: () -> Void) {
     SharingScheduler.mock(scheduler: scheduler, action: action)
 }
 
@@ -314,7 +314,7 @@ public final class UIBindingObserver<UIElementType, Value> : ObserverType where 
         switch event {
         case .next(let element):
             if let view = self.UIElement {
-                binding(view, element)
+                self.binding(view, element)
             }
         case .error(let error):
             bindingError(error)
@@ -327,7 +327,7 @@ public final class UIBindingObserver<UIElementType, Value> : ObserverType where 
     ///
     /// - returns: type erased observer.
     public func asObserver() -> AnyObserver<Value> {
-        return AnyObserver(eventHandler: on)
+        return AnyObserver(eventHandler: self.on)
     }
 }
 
@@ -355,13 +355,9 @@ extension Reactive where Base: UIImageView {
                 if image != nil {
                     let transition = CATransition()
                     transition.duration = 0.25
-                    #if swift(>=4.2)
-                        transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-                        transition.type = CATransitionType(rawValue: transitionType)
-                    #else
-                        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                        transition.type = transitionType
-                    #endif
+                    transition.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
+                    transition.type = CATransitionType(rawValue: transitionType)
+
                     imageView.layer.add(transition, forKey: kCATransition)
                 }
             }
@@ -395,13 +391,8 @@ extension Reactive where Base: UISegmentedControl {
                     if value != nil {
                         let transition = CATransition()
                         transition.duration = 0.25
-#if swift(>=4.2)
                         transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
                         transition.type = CATransitionType(rawValue: transitionType)
-#else
-                        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                        transition.type = transitionType
-#endif
                         control.layer?.add(transition, forKey: kCATransition)
                     }
                 }
@@ -440,8 +431,8 @@ extension SharedSequenceConvertibleType where SharingStrategy == DriverSharingSt
      - returns: Disposable object that can be used to unsubscribe the observer from the variable.
      */
     public func drive(_ variable: Variable<E>) -> Disposable {
-        MainScheduler.ensureExecutingOnScheduler(errorMessage: errorMessage)
-        return drive(onNext: { e in
+        MainScheduler.ensureRunningOnMainThread(errorMessage: errorMessage)
+        return self.drive(onNext: { e in
             variable.value = e
         })
     }
@@ -454,8 +445,8 @@ extension SharedSequenceConvertibleType where SharingStrategy == DriverSharingSt
      - returns: Disposable object that can be used to unsubscribe the observer from the variable.
      */
     public func drive(_ variable: Variable<E?>) -> Disposable {
-        MainScheduler.ensureExecutingOnScheduler(errorMessage: errorMessage)
-        return drive(onNext: { e in
+        MainScheduler.ensureRunningOnMainThread(errorMessage: errorMessage)
+        return self.drive(onNext: { e in
             variable.value = e
         })
     }
@@ -472,7 +463,7 @@ extension ObservableType {
      - returns: Disposable object that can be used to unsubscribe the observer.
      */
     public func bind(to variable: Variable<E>) -> Disposable {
-        return subscribe { e in
+        return self.subscribe { e in
             switch e {
             case let .next(element):
                 variable.value = element
