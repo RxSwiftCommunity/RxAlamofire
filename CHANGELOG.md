@@ -9,6 +9,12 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+## 4.4.2
+
+#### Updated
+* Support macOS and watchOS through Carthage 
+* Added Example projects for macOS and watchOS 
+
 ## 4.4.1
 
 #### Updated

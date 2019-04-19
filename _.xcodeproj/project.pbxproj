@@ -15,6 +15,18 @@
 		6D424FA82249E4670026E20B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D424F932249E2FF0026E20B /* RxSwift.framework */; };
 		6D424FA92249E46C0026E20B /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
 		6D424FAA2249E46C0026E20B /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
+		6D6BB88C22696FF700D2098B /* RxAlamofire_watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6BB88A22696FF700D2098B /* RxAlamofire_watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D6BB8902269700600D2098B /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
+		6D6BB8912269700800D2098B /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
+		6D6BB8A72269707200D2098B /* RxAlamofire_macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6BB8992269707100D2098B /* RxAlamofire_macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6D6BB8AF2269713600D2098B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6BB8AE2269713600D2098B /* Alamofire.framework */; };
+		6D6BB8B1226971CA00D2098B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6BB8B0226971CA00D2098B /* Alamofire.framework */; };
+		6D6BB8B32269727700D2098B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6BB8B22269727700D2098B /* RxSwift.framework */; };
+		6D6BB8B52269746A00D2098B /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6BB8B42269746A00D2098B /* RxSwift.framework */; };
+		6D6BB8B72269747300D2098B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6BB8B62269747300D2098B /* RxCocoa.framework */; };
+		6D6BB8B9226974C600D2098B /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D6BB8B8226974C600D2098B /* RxCocoa.framework */; };
+		6D6BB8BA2269750C00D2098B /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
+		6D6BB8BB2269750E00D2098B /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
 		FC5686FE2150CD45009DE8D6 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FC5687092150CDC8009DE8D6 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
 		FC56870A2150CDC8009DE8D6 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
@@ -30,6 +42,18 @@
 		6D424F922249E2FF0026E20B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/tvOS/Alamofire.framework; sourceTree = "<group>"; };
 		6D424F932249E2FF0026E20B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/tvOS/RxSwift.framework; sourceTree = "<group>"; };
 		6D424F9D2249E3EE0026E20B /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D6BB88822696FF700D2098B /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D6BB88A22696FF700D2098B /* RxAlamofire_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire_watchOS.h; sourceTree = "<group>"; };
+		6D6BB88B22696FF700D2098B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D6BB8972269707100D2098B /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6D6BB8992269707100D2098B /* RxAlamofire_macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire_macOS.h; sourceTree = "<group>"; };
+		6D6BB89A2269707100D2098B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6D6BB8AE2269713600D2098B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/watchOS/Alamofire.framework; sourceTree = "<group>"; };
+		6D6BB8B0226971CA00D2098B /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
+		6D6BB8B22269727700D2098B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
+		6D6BB8B42269746A00D2098B /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/watchOS/RxSwift.framework; sourceTree = "<group>"; };
+		6D6BB8B62269747300D2098B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/Mac/RxCocoa.framework; sourceTree = "<group>"; };
+		6D6BB8B8226974C600D2098B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/watchOS/RxCocoa.framework; sourceTree = "<group>"; };
 		FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		FC5686FD2150CD45009DE8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -51,6 +75,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6D6BB88522696FF700D2098B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D6BB8AF2269713600D2098B /* Alamofire.framework in Frameworks */,
+				6D6BB8B52269746A00D2098B /* RxSwift.framework in Frameworks */,
+				6D6BB8B9226974C600D2098B /* RxCocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D6BB8942269707100D2098B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D6BB8B32269727700D2098B /* RxSwift.framework in Frameworks */,
+				6D6BB8B1226971CA00D2098B /* Alamofire.framework in Frameworks */,
+				6D6BB8B72269747300D2098B /* RxCocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FC5686F62150CD45009DE8D6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -67,8 +111,14 @@
 		6D424F872249E2EF0026E20B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6D6BB8B62269747300D2098B /* RxCocoa.framework */,
+				6D6BB8B8226974C600D2098B /* RxCocoa.framework */,
+				6D6BB8B22269727700D2098B /* RxSwift.framework */,
+				6D6BB8B42269746A00D2098B /* RxSwift.framework */,
 				6D424F922249E2FF0026E20B /* Alamofire.framework */,
 				6D424F8B2249E2EF0026E20B /* Alamofire.framework */,
+				6D6BB8AE2269713600D2098B /* Alamofire.framework */,
+				6D6BB8B0226971CA00D2098B /* Alamofire.framework */,
 				6D424F902249E2FF0026E20B /* RxAtomic.framework */,
 				6D424F882249E2EF0026E20B /* RxAtomic.framework */,
 				6D424F912249E2FF0026E20B /* RxCocoa.framework */,
@@ -79,13 +129,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		6D6BB88922696FF700D2098B /* RxAlamofire-watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				6D6BB88A22696FF700D2098B /* RxAlamofire_watchOS.h */,
+				6D6BB88B22696FF700D2098B /* Info.plist */,
+			);
+			path = "RxAlamofire-watchOS";
+			sourceTree = "<group>";
+		};
+		6D6BB8982269707100D2098B /* RxAlamofire-macOS */ = {
+			isa = PBXGroup;
+			children = (
+				6D6BB8992269707100D2098B /* RxAlamofire_macOS.h */,
+				6D6BB89A2269707100D2098B /* Info.plist */,
+			);
+			path = "RxAlamofire-macOS";
+			sourceTree = "<group>";
+		};
 		FC5686EF2150CD45009DE8D6 = {
 			isa = PBXGroup;
 			children = (
 				6D424F872249E2EF0026E20B /* Frameworks */,
 				FC5686FA2150CD45009DE8D6 /* Products */,
 				FC5686FB2150CD45009DE8D6 /* RxAlamofire-iOS */,
+				6D6BB8982269707100D2098B /* RxAlamofire-macOS */,
 				FC5687122150D090009DE8D6 /* RxAlamofire-tvOS */,
+				6D6BB88922696FF700D2098B /* RxAlamofire-watchOS */,
 				FC5687042150CDC8009DE8D6 /* Sources */,
 			);
 			sourceTree = "<group>";
@@ -95,6 +165,8 @@
 			children = (
 				FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */,
 				6D424F9D2249E3EE0026E20B /* RxAlamofire.framework */,
+				6D6BB88822696FF700D2098B /* RxAlamofire.framework */,
+				6D6BB8972269707100D2098B /* RxAlamofire.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,9 +183,9 @@
 		FC5687042150CDC8009DE8D6 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				FC5687082150CDC8009DE8D6 /* RxAlamofire.h */,
 				FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */,
 				FC5687062150CDC8009DE8D6 /* Cocoa */,
-				FC5687082150CDC8009DE8D6 /* RxAlamofire.h */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -142,6 +214,22 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D6BB88322696FF700D2098B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D6BB88C22696FF700D2098B /* RxAlamofire_watchOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D6BB8922269707100D2098B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D6BB8A72269707200D2098B /* RxAlamofire_macOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,6 +262,42 @@
 			productReference = 6D424F9D2249E3EE0026E20B /* RxAlamofire.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		6D6BB88722696FF700D2098B /* RxAlamofire watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D6BB88F22696FF700D2098B /* Build configuration list for PBXNativeTarget "RxAlamofire watchOS" */;
+			buildPhases = (
+				6D6BB88322696FF700D2098B /* Headers */,
+				6D6BB88422696FF700D2098B /* Sources */,
+				6D6BB88522696FF700D2098B /* Frameworks */,
+				6D6BB88622696FF700D2098B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxAlamofire watchOS";
+			productName = "RxAlamofire watchOS";
+			productReference = 6D6BB88822696FF700D2098B /* RxAlamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		6D6BB8962269707100D2098B /* RxAlamofire macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6D6BB8A82269707200D2098B /* Build configuration list for PBXNativeTarget "RxAlamofire macOS" */;
+			buildPhases = (
+				6D6BB8922269707100D2098B /* Headers */,
+				6D6BB8932269707100D2098B /* Sources */,
+				6D6BB8942269707100D2098B /* Frameworks */,
+				6D6BB8952269707100D2098B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxAlamofire macOS";
+			productName = "RxAlamofire macOS";
+			productReference = 6D6BB8972269707100D2098B /* RxAlamofire.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		FC5686F82150CD45009DE8D6 /* RxAlamofire iOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC5687012150CD45009DE8D6 /* Build configuration list for PBXNativeTarget "RxAlamofire iOS" */;
@@ -198,11 +322,18 @@
 		FC5686F02150CD45009DE8D6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = RxSwiftCommunity;
 				TargetAttributes = {
 					6D424F9C2249E3EE0026E20B = {
 						CreatedOnToolsVersion = 10.2;
+					};
+					6D6BB88722696FF700D2098B = {
+						CreatedOnToolsVersion = 10.2.1;
+					};
+					6D6BB8962269707100D2098B = {
+						CreatedOnToolsVersion = 10.2.1;
 					};
 					FC5686F82150CD45009DE8D6 = {
 						CreatedOnToolsVersion = 10.0;
@@ -224,12 +355,28 @@
 			targets = (
 				FC5686F82150CD45009DE8D6 /* RxAlamofire iOS */,
 				6D424F9C2249E3EE0026E20B /* RxAlamofire tvOS */,
+				6D6BB88722696FF700D2098B /* RxAlamofire watchOS */,
+				6D6BB8962269707100D2098B /* RxAlamofire macOS */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6D424F9B2249E3EE0026E20B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D6BB88622696FF700D2098B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D6BB8952269707100D2098B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -252,6 +399,24 @@
 			files = (
 				6D424FA92249E46C0026E20B /* RxAlamofire.swift in Sources */,
 				6D424FAA2249E46C0026E20B /* URLSession+RxAlamofire.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D6BB88422696FF700D2098B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D6BB8902269700600D2098B /* RxAlamofire.swift in Sources */,
+				6D6BB8912269700800D2098B /* URLSession+RxAlamofire.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D6BB8932269707100D2098B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6D6BB8BB2269750E00D2098B /* RxAlamofire.swift in Sources */,
+				6D6BB8BA2269750C00D2098B /* URLSession+RxAlamofire.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,6 +483,128 @@
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = 3;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		6D6BB88D22696FF700D2098B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = "RxAlamofire-watchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-watchOS";
+				PRODUCT_NAME = RxAlamofire;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Debug;
+		};
+		6D6BB88E22696FF700D2098B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = "RxAlamofire-watchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-watchOS";
+				PRODUCT_NAME = RxAlamofire;
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
+			};
+			name = Release;
+		};
+		6D6BB8A92269707200D2098B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "RxAlamofire-macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS";
+				PRODUCT_NAME = RxAlamofire;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		6D6BB8AA2269707200D2098B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				INFOPLIST_FILE = "RxAlamofire-macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS";
+				PRODUCT_NAME = RxAlamofire;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -505,6 +792,24 @@
 			buildConfigurations = (
 				6D424FA32249E3EE0026E20B /* Debug */,
 				6D424FA42249E3EE0026E20B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D6BB88F22696FF700D2098B /* Build configuration list for PBXNativeTarget "RxAlamofire watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D6BB88D22696FF700D2098B /* Debug */,
+				6D6BB88E22696FF700D2098B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6D6BB8A82269707200D2098B /* Build configuration list for PBXNativeTarget "RxAlamofire macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6D6BB8A92269707200D2098B /* Debug */,
+				6D6BB8AA2269707200D2098B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
