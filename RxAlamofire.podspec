@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name = "RxAlamofire"
 
-  s.version = "4.4.2"
+  s.version = "5.0.0"
   s.license = "MIT"
   s.summary = "RxSwift wrapper around the elegant HTTP networking in Swift Alamofire"
   s.homepage = "https://github.com/RxSwiftCommunity/RxAlamofire"
@@ -9,9 +9,9 @@ Pod::Spec.new do |s|
   s.source = { :git => "https://github.com/RxSwiftCommunity/RxAlamofire.git", :tag => s.version }
   s.swift_version = "5.0"
 
-  s.ios.deployment_target = "8.0"
-  s.osx.deployment_target = "10.10"
-  s.tvos.deployment_target = "9.0"
+  s.ios.deployment_target = "10.0"
+  s.osx.deployment_target = "10.12"
+  s.tvos.deployment_target = "10.0"
   s.watchos.deployment_target = "3.0"
 
   s.requires_arc = true
@@ -20,8 +20,8 @@ Pod::Spec.new do |s|
 
   s.subspec "Core" do |ss|
     ss.source_files = "Sources/*.swift"
-    ss.dependency "RxSwift", "~> 4.5"
-    ss.dependency "Alamofire", "~> 4.8"
+    ss.dependency "RxSwift", "~> 5.0"
+    ss.dependency "Alamofire", "~> 5.0"
     ss.framework = "Foundation"
   end
 
