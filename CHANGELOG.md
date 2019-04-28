@@ -9,6 +9,11 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+## 4.5.0
+
+#### Fixed
+*  #144 until RxSwift 5.0.0 is released
+
 ## 4.4.1
 
 #### Updated
