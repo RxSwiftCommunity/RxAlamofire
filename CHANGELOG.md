@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
 ## 4.5.0
 
 #### Fixed
-*  #144 until RxSwift 5.0.0 is released
+*  Minimum Swift version is 4.2 (More details in #144)
 
 ## 4.4.1
 
