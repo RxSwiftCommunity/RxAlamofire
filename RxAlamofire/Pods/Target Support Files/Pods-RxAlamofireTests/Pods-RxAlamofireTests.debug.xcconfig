@@ -1,9 +1,9 @@
 ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-iOS9.0" "${PODS_CONFIGURATION_BUILD_DIR}/OHHTTPStubs" "${PODS_CONFIGURATION_BUILD_DIR}/RxBlocking" "${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa-iOS9.0" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-iOS9.0"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-iOS9.0" "${PODS_CONFIGURATION_BUILD_DIR}/OHHTTPStubs" "${PODS_CONFIGURATION_BUILD_DIR}/RxBlocking" "${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa-iOS9.0" "${PODS_CONFIGURATION_BUILD_DIR}/RxRelay-iOS9.0" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-iOS9.0"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-iOS9.0/Alamofire.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/OHHTTPStubs/OHHTTPStubs.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxBlocking/RxBlocking.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa-iOS9.0/RxCocoa.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-iOS9.0/RxSwift.framework/Headers"
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-iOS9.0/Alamofire.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/OHHTTPStubs/OHHTTPStubs.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxBlocking/RxBlocking.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa-iOS9.0/RxCocoa.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxRelay-iOS9.0/RxRelay.framework/Headers" "${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-iOS9.0/RxSwift.framework/Headers"
 LD_RUNPATH_SEARCH_PATHS = $(inherited) '@executable_path/Frameworks' '@loader_path/Frameworks'
-OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "CFNetwork" -framework "Foundation" -framework "OHHTTPStubs" -framework "RxBlocking" -framework "RxCocoa" -framework "RxSwift"
+OTHER_LDFLAGS = $(inherited) -framework "Alamofire" -framework "CFNetwork" -framework "Foundation" -framework "OHHTTPStubs" -framework "RxBlocking" -framework "RxCocoa" -framework "RxRelay" -framework "RxSwift"
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)

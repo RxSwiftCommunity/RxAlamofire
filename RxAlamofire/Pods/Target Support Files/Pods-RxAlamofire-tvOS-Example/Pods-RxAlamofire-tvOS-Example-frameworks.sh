@@ -155,11 +155,13 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-tvOS9.0/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa-tvOS9.0/RxCocoa.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/RxRelay-tvOS9.0/RxRelay.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift-tvOS9.0/RxSwift.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-tvOS9.0/Alamofire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxCocoa-tvOS9.0/RxCocoa.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/RxRelay-tvOS9.0/RxRelay.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RxSwift-tvOS9.0/RxSwift.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then

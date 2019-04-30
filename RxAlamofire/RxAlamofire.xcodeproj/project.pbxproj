@@ -13,12 +13,12 @@
 		56449C1CD74C2F9DA6E361DE /* Pods_RxAlamofire_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AB955D56DE87A0393B06407 /* Pods_RxAlamofire_macOS.framework */; };
 		5DBD1C248ECC28C220A08A11 /* Pods_RxAlamofire_tvOS_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 916077E66DA3A0C0C678E892 /* Pods_RxAlamofire_tvOS_Example.framework */; };
 		5FDB5FC7FE2D2B02FF0BBEE2 /* Pods_RxAlamofire_iOS_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BDA364C7F68B162EA3340DAE /* Pods_RxAlamofire_iOS_Example.framework */; };
-		637D95951C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		637D95961C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		637D95991C4E37F200F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		637D959A1C4E37F200F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		637D959D1C4E380300F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
-		637D959E1C4E380300F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		637D95951C4E37CE00F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		637D95961C4E37CE00F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		637D95991C4E37F200F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		637D959A1C4E37F200F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		637D959D1C4E380300F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
+		637D959E1C4E380300F1FA67 /* BuildFile in Resources */ = {isa = PBXBuildFile; };
 		69711E225747D999E8A42D79 /* Pods_RxAlamofire_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A18A956266B69233C2607A84 /* Pods_RxAlamofire_iOS.framework */; };
 		6D6BB8D62269792900D2098B /* RxAlamofire_watchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6BB8D42269792900D2098B /* RxAlamofire_watchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6D6BB8E322697A7300D2098B /* RxAlamofire_macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D6BB8E122697A7300D2098B /* RxAlamofire_macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -671,15 +671,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				637D95991C4E37F200F1FA67 /* (null) in Resources */,
+				637D95991C4E37F200F1FA67 /* BuildFile in Resources */,
 				C87D2C921D8F34CF003F5936 /* LaunchScreen.storyboard in Resources */,
-				637D959E1C4E380300F1FA67 /* (null) in Resources */,
-				637D959D1C4E380300F1FA67 /* (null) in Resources */,
-				637D95951C4E37CE00F1FA67 /* (null) in Resources */,
+				637D959E1C4E380300F1FA67 /* BuildFile in Resources */,
+				637D959D1C4E380300F1FA67 /* BuildFile in Resources */,
+				637D95951C4E37CE00F1FA67 /* BuildFile in Resources */,
 				C87D2C911D8F34CF003F5936 /* Assets.xcassets in Resources */,
 				C87D2C931D8F34CF003F5936 /* Main.storyboard in Resources */,
-				637D95961C4E37CE00F1FA67 /* (null) in Resources */,
-				637D959A1C4E37F200F1FA67 /* (null) in Resources */,
+				637D95961C4E37CE00F1FA67 /* BuildFile in Resources */,
+				637D959A1C4E37F200F1FA67 /* BuildFile in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -807,6 +807,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-iOS-Example/Pods-RxAlamofire-iOS-Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS8.0/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS8.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-iOS8.0/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS8.0/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -815,6 +816,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -833,6 +835,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofireTests/Pods-RxAlamofireTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS9.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-iOS9.0/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS9.0/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
@@ -843,6 +846,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
@@ -885,6 +889,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-tvOS-Example/Pods-RxAlamofire-tvOS-Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire-tvOS9.0/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa-tvOS9.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-tvOS9.0/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift-tvOS9.0/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -893,6 +898,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
