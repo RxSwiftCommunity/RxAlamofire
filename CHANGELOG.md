@@ -9,6 +9,14 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+## 5.0.0
+
+#### Updated
+* Support macOS and watchOS through Carthage 
+* Added Example projects for macOS and watchOS 
+* Uses RxSwift 5.0.0
+* Upgrade project to Swift 5.0
+
 ## 4.5.0
 
 #### Fixed
