@@ -1,0 +1,5 @@
+${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-tvOS-Example/Pods-RxAlamofire-tvOS-Example-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Alamofire-tvOS9.0/Alamofire.framework
+${BUILT_PRODUCTS_DIR}/RxCocoa-tvOS9.0/RxCocoa.framework
+${BUILT_PRODUCTS_DIR}/RxRelay-tvOS9.0/RxRelay.framework
+${BUILT_PRODUCTS_DIR}/RxSwift-tvOS9.0/RxSwift.framework

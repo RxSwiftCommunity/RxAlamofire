@@ -25,11 +25,8 @@ jobs:
           paths:
             - Carthage
       - run:
-          name: Run Tests (Swift 4.2)
-          command: set -o pipefail && xcodebuild test SWIFT_VERSION=4.2 -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift4_2.html
-      - run:
           name: Run Tests (Swift 5)
-          command: set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
+          command: set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -scheme 'RxAlamofire-iOS-Example' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
       - store_artifacts:
           path: /tmp/xcode-test-results
   "RxAlamofire Release":
