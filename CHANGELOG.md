@@ -9,6 +9,11 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+## 4.5.0
+
+#### Fixed
+*  Minimum Swift version is 4.2 (More details in #144)
+
 ## 4.4.1
 
 #### Updated
