@@ -12,21 +12,27 @@ jobs:
     steps:
       - checkout
       - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $XCODE_TEST_REPORTS
-      - restore_cache:
-          keys:
-            - v1-dep-{{ .Branch }}-
-            - v1-dep-master-
-            - v1-dep-
+      # - restore_cache:
+      #     keys:
+      #       - v1-dep-{{ .Branch }}-
+      #       - v1-dep-master-
+      #       - v1-dep-
       - run: 
           name: Bootstrap Carthage
-          command: scripts/bootstrap-if-needed.sh
+          command: scripts/bootstrap.sh
       - save_cache:
           key: v1-dep-{{ .Branch }}-{{ epoch }}
           paths:
             - Carthage
       - run:
+          name: Install Pods for Test project
+          command: set -o pipefail && pod install --project-directory=RxAlamofire/
+      - run:
+          name: Run Tests (Swift 4.2)
+          command: set -o pipefail && xcodebuild test SWIFT_VERSION=4.2 -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
+      - run:
           name: Run Tests (Swift 5)
-          command: set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -scheme 'RxAlamofire-iOS-Example' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
+          command: set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
       - store_artifacts:
           path: /tmp/xcode-test-results
   "RxAlamofire Release":

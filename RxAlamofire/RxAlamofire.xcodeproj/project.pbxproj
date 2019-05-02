@@ -804,9 +804,22 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-iOS-Example/Pods-RxAlamofire-iOS-Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-iOS-Example/Pods-RxAlamofire-iOS-Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS8.0/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS8.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-iOS8.0/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS8.0/RxSwift.framework",
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-iOS-Example/Pods-RxAlamofire-iOS-Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -821,9 +834,26 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofireTests/Pods-RxAlamofireTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofireTests/Pods-RxAlamofireTests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS9.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-iOS9.0/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS9.0/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework",
+				"${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework",
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofireTests/Pods-RxAlamofireTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OHHTTPStubs.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBlocking.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -860,9 +890,22 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-tvOS-Example/Pods-RxAlamofire-tvOS-Example-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-tvOS-Example/Pods-RxAlamofire-tvOS-Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-tvOS9.0/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-tvOS9.0/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-tvOS9.0/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-tvOS9.0/RxSwift.framework",
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RxAlamofire-tvOS-Example/Pods-RxAlamofire-tvOS-Example-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
