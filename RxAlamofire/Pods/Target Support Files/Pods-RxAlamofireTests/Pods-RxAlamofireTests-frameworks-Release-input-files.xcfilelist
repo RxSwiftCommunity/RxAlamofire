@@ -1,7 +1,0 @@
-${PODS_ROOT}/Target Support Files/Pods-RxAlamofireTests/Pods-RxAlamofireTests-frameworks.sh
-${BUILT_PRODUCTS_DIR}/Alamofire-iOS9.0/Alamofire.framework
-${BUILT_PRODUCTS_DIR}/RxCocoa-iOS9.0/RxCocoa.framework
-${BUILT_PRODUCTS_DIR}/RxRelay-iOS9.0/RxRelay.framework
-${BUILT_PRODUCTS_DIR}/RxSwift-iOS9.0/RxSwift.framework
-${BUILT_PRODUCTS_DIR}/OHHTTPStubs/OHHTTPStubs.framework
-${BUILT_PRODUCTS_DIR}/RxBlocking/RxBlocking.framework

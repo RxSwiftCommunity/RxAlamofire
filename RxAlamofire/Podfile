@@ -1,6 +1,7 @@
 source "https://github.com/CocoaPods/Specs.git"
 
 use_frameworks!
+platform :ios, "9.0"
 
 def common
   pod "Alamofire", "~> 4.8"
@@ -9,17 +10,14 @@ def common
 end
 
 target "RxAlamofire-iOS" do
-  platform :ios, "8.0"
   common
 end
 
 target "RxAlamofire-iOS-Example" do
-  platform :ios, "8.0"
   common
 end
 
 target "RxAlamofireTests" do
-  platform :ios, "9.0"
   common
   pod "OHHTTPStubs", "~> 8.0"
   pod "OHHTTPStubs/Swift", "~> 8.0"

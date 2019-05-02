@@ -12,20 +12,8 @@ jobs:
     steps:
       - checkout
       - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $XCODE_TEST_REPORTS
-      # - restore_cache:
-      #     keys:
-      #       - v1-dep-{{ .Branch }}-
-      #       - v1-dep-master-
-      #       - v1-dep-
-      - run: 
-          name: Bootstrap Carthage
-          command: scripts/bootstrap.sh
-      - save_cache:
-          key: v1-dep-{{ .Branch }}-{{ epoch }}
-          paths:
-            - Carthage
       - run:
-          name: Install Pods for Test project
+          name: Install Pods
           command: set -o pipefail && pod install --project-directory=RxAlamofire/
       - run:
           name: Run Tests (Swift 4.2)

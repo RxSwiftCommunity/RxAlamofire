@@ -1,6 +1,0 @@
-framework module RxRelay {
-  umbrella header "RxRelay-watchOS3.0-umbrella.h"
-
-  export *
-  module * { export * }
-}

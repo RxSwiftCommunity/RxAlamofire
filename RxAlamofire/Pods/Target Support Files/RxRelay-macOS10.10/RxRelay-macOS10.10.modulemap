@@ -1,6 +1,0 @@
-framework module RxRelay {
-  umbrella header "RxRelay-macOS10.10-umbrella.h"
-
-  export *
-  module * { export * }
-}
