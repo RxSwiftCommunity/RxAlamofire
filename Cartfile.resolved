@@ -1,2 +1,3 @@
 github "Alamofire/Alamofire" "4.8.2"
-github "ReactiveX/RxSwift" "4.5.0"
+github "AliSoftware/OHHTTPStubs" "8.0.0"
+github "ReactiveX/RxSwift" "5.0.1"

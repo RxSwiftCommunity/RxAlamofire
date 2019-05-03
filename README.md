@@ -172,7 +172,7 @@ pod 'RxAlamofire'
 Add following to `Cartfile`:
 
 ```
-github "RxSwiftCommunity/RxAlamofire" ~> 4.4
+github "RxSwiftCommunity/RxAlamofire" ~> 5.0
 ```
 
 ### Swift Package manager
@@ -207,4 +207,6 @@ To manual install this extension you should get the `RxAlamofire/Source/RxAlamof
 
 ## Requirements
 
-RxAlamofire requires Swift 5.0 and dedicated versions of Alamofire (4.8.2) and RxSwift (4.5.0).
+RxAlamofire requires Swift 5.0 and dedicated versions of Alamofire (4.8.2) and RxSwift (5.0.0).
+
+For the last Swift 4.2 support, please use RxAlamofire 4.5.0.
