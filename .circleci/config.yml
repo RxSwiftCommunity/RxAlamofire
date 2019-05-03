@@ -12,9 +12,15 @@ jobs:
     steps:
       - checkout
       - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $XCODE_TEST_REPORTS
+      - restore_cache:
+          key: RxAlamofire-Test-Carthage-Dependency
       - run:
-          name: Install Pods
+          name: Install Carthage
           command: set -o pipefail && carthage update --cache-builds --new-resolver --configuration Debug
+      - save_cache:
+          paths: 
+            - Carthage
+          key: RxAlamofire-Test-Carthage-Dependency
       - run:
           name: Run Tests (Swift 4.2)
           command: set -o pipefail && xcodebuild test SWIFT_VERSION=4.2 -scheme 'RxAlamofire iOS' -project '_.xcodeproj' -sdk iphonesimulator -destination "name=iPhone X" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift42.html
