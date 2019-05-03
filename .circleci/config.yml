@@ -14,13 +14,13 @@ jobs:
       - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $XCODE_TEST_REPORTS
       - run:
           name: Install Pods
-          command: set -o pipefail && pod install --project-directory=RxAlamofire/
+          command: set -o pipefail && carthage update --cache-builds --new-resolver --configuration Debug
       - run:
           name: Run Tests (Swift 4.2)
-          command: set -o pipefail && xcodebuild test SWIFT_VERSION=4.2 -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
+          command: set -o pipefail && xcodebuild test SWIFT_VERSION=4.2 -scheme 'RxAlamofire iOS' -project '_.xcodeproj' -sdk iphonesimulator -destination "name=iPhone X" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift42.html
       - run:
           name: Run Tests (Swift 5)
-          command: set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -scheme 'RxAlamofireTests' -workspace 'RxAlamofire/RxAlamofire.xcworkspace' -sdk iphonesimulator -destination "name=iPhone 8" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
+          command: set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -scheme 'RxAlamofire iOS' -project '_.xcodeproj' -sdk iphonesimulator -destination "name=iPhone X" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
       - store_artifacts:
           path: /tmp/xcode-test-results
   "RxAlamofire Release":

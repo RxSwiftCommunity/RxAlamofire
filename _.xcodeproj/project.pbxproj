@@ -28,9 +28,9 @@
 		6D6BB8BA2269750C00D2098B /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
 		6D6BB8BB2269750E00D2098B /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
 		6DEC5EF1227BDBB600D29B54 /* RxAlamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */; };
-		6DEC5EF9227BDBC500D29B54 /* ValidateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC5EF7227BDBC500D29B54 /* ValidateTests.swift */; };
-		6DEC5EFA227BDBC500D29B54 /* RxAlamofireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC5EF8227BDBC500D29B54 /* RxAlamofireTests.swift */; };
 		6DEC5EFC227BDC9900D29B54 /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DEC5EFB227BDC9900D29B54 /* OHHTTPStubs.framework */; };
+		6DEC5EFF227BE09100D29B54 /* ValidateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC5EFD227BE09000D29B54 /* ValidateTests.swift */; };
+		6DEC5F00227BE09100D29B54 /* RxAlamofireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DEC5EFE227BE09100D29B54 /* RxAlamofireTests.swift */; };
 		FC5686FE2150CD45009DE8D6 /* RxAlamofire.h in Headers */ = {isa = PBXBuildFile; fileRef = FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FC5687092150CDC8009DE8D6 /* RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687052150CDC8009DE8D6 /* RxAlamofire.swift */; };
 		FC56870A2150CDC8009DE8D6 /* URLSession+RxAlamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5687072150CDC8009DE8D6 /* URLSession+RxAlamofire.swift */; };
@@ -70,9 +70,9 @@
 		6D6BB8B8226974C600D2098B /* RxCocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxCocoa.framework; path = Carthage/Build/watchOS/RxCocoa.framework; sourceTree = "<group>"; };
 		6DEC5EEC227BDBB500D29B54 /* RxAlamofireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxAlamofireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DEC5EF0227BDBB600D29B54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6DEC5EF7227BDBC500D29B54 /* ValidateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidateTests.swift; path = RxAlamofire/RxAlamofireTests/ValidateTests.swift; sourceTree = SOURCE_ROOT; };
-		6DEC5EF8227BDBC500D29B54 /* RxAlamofireTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxAlamofireTests.swift; path = RxAlamofire/RxAlamofireTests/RxAlamofireTests.swift; sourceTree = SOURCE_ROOT; };
 		6DEC5EFB227BDC9900D29B54 /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		6DEC5EFD227BE09000D29B54 /* ValidateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValidateTests.swift; sourceTree = "<group>"; };
+		6DEC5EFE227BE09100D29B54 /* RxAlamofireTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxAlamofireTests.swift; sourceTree = "<group>"; };
 		FC5686F92150CD45009DE8D6 /* RxAlamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxAlamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC5686FC2150CD45009DE8D6 /* RxAlamofire.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RxAlamofire.h; sourceTree = "<group>"; };
 		FC5686FD2150CD45009DE8D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -179,8 +179,8 @@
 		6DEC5EED227BDBB600D29B54 /* RxAlamofireTests */ = {
 			isa = PBXGroup;
 			children = (
-				6DEC5EF8227BDBC500D29B54 /* RxAlamofireTests.swift */,
-				6DEC5EF7227BDBC500D29B54 /* ValidateTests.swift */,
+				6DEC5EFE227BE09100D29B54 /* RxAlamofireTests.swift */,
+				6DEC5EFD227BE09000D29B54 /* ValidateTests.swift */,
 				6DEC5EF0227BDBB600D29B54 /* Info.plist */,
 			);
 			path = RxAlamofireTests;
@@ -189,13 +189,13 @@
 		FC5686EF2150CD45009DE8D6 = {
 			isa = PBXGroup;
 			children = (
-				6DEC5EED227BDBB600D29B54 /* RxAlamofireTests */,
 				6D424F872249E2EF0026E20B /* Frameworks */,
 				FC5686FA2150CD45009DE8D6 /* Products */,
 				FC5686FB2150CD45009DE8D6 /* RxAlamofire-iOS */,
 				6D6BB8982269707100D2098B /* RxAlamofire-macOS */,
 				FC5687122150D090009DE8D6 /* RxAlamofire-tvOS */,
 				6D6BB88922696FF700D2098B /* RxAlamofire-watchOS */,
+				6DEC5EED227BDBB600D29B54 /* RxAlamofireTests */,
 				FC5687042150CDC8009DE8D6 /* Sources */,
 			);
 			sourceTree = "<group>";
@@ -496,8 +496,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6DEC5EFA227BDBC500D29B54 /* RxAlamofireTests.swift in Sources */,
-				6DEC5EF9227BDBC500D29B54 /* ValidateTests.swift in Sources */,
+				6DEC5EFF227BE09100D29B54 /* ValidateTests.swift in Sources */,
+				6DEC5F00227BE09100D29B54 /* RxAlamofireTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

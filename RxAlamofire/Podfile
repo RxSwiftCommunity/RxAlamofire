@@ -17,13 +17,6 @@ target "RxAlamofire-iOS-Example" do
   common
 end
 
-target "RxAlamofireTests" do
-  common
-  pod "OHHTTPStubs", "~> 8.0"
-  pod "OHHTTPStubs/Swift", "~> 8.0"
-  pod "RxBlocking", "~> 5.0"
-end
-
 target "RxAlamofire-tvOS" do
   platform :tvos, "9.0"
   common
