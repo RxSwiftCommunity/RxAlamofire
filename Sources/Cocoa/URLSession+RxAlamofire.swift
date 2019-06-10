@@ -6,6 +6,7 @@
 //  Copyright © 2015 Bonto.ch. All rights reserved.
 //
 
+#if os(iOS) || os(tvOS) || os(macOS) || os(watchOS)
 import Foundation
 
 import Alamofire
@@ -99,3 +100,4 @@ extension Reactive where Base: URLSession {
     }
   }
 }
+#endif
