@@ -11,10 +11,25 @@ import Alamofire
 import RxSwift
 import RxAlamofire
 
+enum APIError: Error {
+    case invalidInput
+    case badResposne
+    
+    func toNSError() -> NSError {
+        let domain = "com.github.rxswiftcommunity.rxalamofire"
+        switch self {
+        case .invalidInput:
+            return NSError(domain: domain, code: -1, userInfo: [NSLocalizedDescriptionKey: "Input should be a valid number"])
+        case .badResposne:
+            return NSError(domain: domain, code: -2, userInfo: [NSLocalizedDescriptionKey: "Bad response"])
+        }
+    }
+}
+
 class MasterViewController: UIViewController, UITextFieldDelegate {
     
-    let sourceStringURL = "http://api.fixer.io/latest?base=EUR&symbols=USD"
     let disposeBag = DisposeBag()
+    let exchangeRateEndpoint = "https://api.exchangeratesapi.io/latest?base=EUR&symbols=USD"
     
     @IBOutlet weak var fromTextField: UITextField!
     @IBOutlet weak var toTextField: UITextField!
@@ -24,16 +39,6 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: - UI Actions
@@ -41,28 +46,29 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
     @IBAction func convertPressed(_ sender: UIButton) {
         fromTextField.resignFirstResponder()
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.currencyCode = "USD"
-        if let fromValue = NumberFormatter().number(from: self.fromTextField.text ?? "")?.floatValue {
-            RxAlamofire.requestJSON(.get, sourceStringURL)
-                .debug()
-                .subscribe(onNext: { [weak self] (r, json) in
-                    if let dict = json as? [String: AnyObject] {
-                        let valDict = dict["rates"] as! Dictionary<String, AnyObject>
-                        if let conversionRate = valDict["USD"] as? Float {
-                            self?.toTextField.text = formatter
-                                .string(from: NSNumber(value: conversionRate * fromValue))
-                        }
-                    }
-                    }, onError: { [weak self] (error) in
-                        self?.displayError(error as NSError)
-                })
-                .disposed(by: disposeBag)
-
-        } else {
-            self.toTextField.text = "Invalid Input!"
+        guard let fromText = self.fromTextField.text, let fromValue = Double(fromText) else {
+            self.displayError(APIError.invalidInput.toNSError())
+            return
         }
+        
+        RxAlamofire.requestJSON(.get, exchangeRateEndpoint)
+            .debug()
+            .flatMap { (_, json) -> Observable<Double> in
+                guard
+                    let body = json as? [String: Any],
+                    let rates = body["rates"] as? [String: Any],
+                    let rate = rates["USD"] as? Double
+                else {
+                    return .error(APIError.badResposne.toNSError())
+                }
+                return .just(rate)
+            }
+            .subscribe(onNext: { [weak self] (rate) in
+                self?.toTextField.text = "\(rate * fromValue)"
+            }, onError: { [weak self] e in
+                self?.displayError(e as NSError)
+            })
+            .disposed(by: self.disposeBag)
     }
 
 
