@@ -724,27 +724,28 @@ extension ObservableType where Element == DataRequest {
 
 extension ObservableType where Element: DownloadRequest {
     
-    public func response() -> Observable<DefaultDownloadResponse> {
-        return flatMap { $0.rx.response() }
-    }
+  public func response() -> Observable<DefaultDownloadResponse> {
+    return flatMap { $0.rx.response() }
+  }
     
-    public func responseSerialized<Serializer: DownloadResponseSerializerProtocol>(
-        queue: DispatchQueue? = nil,
-        responseSerializer: Serializer
-    )
-        -> Observable<DownloadResponse<Serializer.SerializedObject>>
-    {
-        return flatMap { $0.rx.responseSerialized(queue: queue, responseSerializer: responseSerializer) }
-    }
+  public func responseSerialized<Serializer: DownloadResponseSerializerProtocol>(
+    queue: DispatchQueue? = nil,
+    responseSerializer: Serializer
+  )
+    -> Observable<DownloadResponse<Serializer.SerializedObject>>
+  {
+    return flatMap { $0.rx.responseSerialized(queue: queue, responseSerializer: responseSerializer) }
+  }
     
-    public func responseResult<Serializer: DownloadResponseSerializerProtocol>(
-        queue: DispatchQueue? = nil,
-        responseSerializer: Serializer
-    )
-        -> Observable<Serializer.SerializedObject>
-    {
-        return flatMap { $0.rx.responseResult(queue: queue, responseSerializer: responseSerializer) }
-    }
+  public func responseResult<Serializer: DownloadResponseSerializerProtocol>(
+    queue: DispatchQueue? = nil,
+    responseSerializer: Serializer
+  )
+    -> Observable<Serializer.SerializedObject>
+  {
+    return flatMap { $0.rx.responseResult(queue: queue, responseSerializer: responseSerializer) }
+  }
+
 }
 
 // MARK: Request - Validation
@@ -930,47 +931,47 @@ extension Reactive where Base: DataRequest {
 
 extension Reactive where Base: DownloadRequest {
     
-    public func response() -> Single<DefaultDownloadResponse> {
-        return Single.create { cb in
-            let request = self.base.response(completionHandler: { (response) in
-                cb(.success(response))
-            })
-            return Disposables.create(with: request.cancel)
-        }
+  public func response() -> Single<DefaultDownloadResponse> {
+    return Single.create { cb in
+      let request = self.base.response {
+        cb(.success($0))
+      }
+      return Disposables.create(with: request.cancel)
     }
+  }
     
-    public func responseSerialized<Serializer: DownloadResponseSerializerProtocol>(
-        queue: DispatchQueue? = nil,
-        responseSerializer: Serializer
-    )
-        -> Single<DownloadResponse<Serializer.SerializedObject>>
-    {
-        return Single.create { cb in
-            let request = self.base.response(
-                queue: queue,
-                responseSerializer: responseSerializer
-            ) { (response) in
-                cb(.success(response))
-            }
-            
-            return Disposables.create(with: request.cancel)
-        }
+  public func responseSerialized<Serializer: DownloadResponseSerializerProtocol>(
+    queue: DispatchQueue? = nil,
+    responseSerializer: Serializer
+  )
+    -> Single<DownloadResponse<Serializer.SerializedObject>>
+  {
+    return Single.create { cb in
+      let request = self.base.response(
+        queue: queue,
+        responseSerializer: responseSerializer
+      ) {
+        cb(.success($0))
+      }
+        
+      return Disposables.create(with: request.cancel)
     }
+  }
     
-    public func responseResult<Serializer: DownloadResponseSerializerProtocol>(
-        queue: DispatchQueue? = nil,
-        responseSerializer: Serializer
-    )
-        -> Single<Serializer.SerializedObject>
-    {
-        return responseSerialized(queue: queue, responseSerializer: responseSerializer)
-            .flatMap { response -> Single<Serializer.SerializedObject> in
-                switch response.result {
-                case .success(let r):   return .just(r)
-                case .failure(let e):   return .error(e)
-                }
-            }
-    }
+  public func responseResult<Serializer: DownloadResponseSerializerProtocol>(
+    queue: DispatchQueue? = nil,
+    responseSerializer: Serializer
+  )
+    -> Single<Serializer.SerializedObject>
+  {
+    return responseSerialized(queue: queue, responseSerializer: responseSerializer)
+      .flatMap { response -> Single<Serializer.SerializedObject> in
+        switch response.result {
+        case .success(let r):   return .just(r)
+        case .failure(let e):   return .error(e)
+        }
+      }
+  }
 }
 
 extension Reactive where Base: Request {
