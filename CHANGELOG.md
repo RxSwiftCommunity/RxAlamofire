@@ -9,6 +9,8 @@ All notable changes to this project will be documented in this file.
 
 #### Fixed
 
+* Fixed exchange rate api error in example project
+
 ## 5.0.0
 
 #### Updated
