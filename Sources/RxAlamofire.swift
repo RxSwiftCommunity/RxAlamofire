@@ -931,10 +931,15 @@ extension Reactive where Base: DataRequest {
 
 extension Reactive where Base: DownloadRequest {
     
-  public func response() -> Single<DefaultDownloadResponse> {
-    return Single.create { cb in
-      let request = self.base.response {
-        cb(.success($0))
+  public func response() -> Observable<DefaultDownloadResponse> {
+    return Observable.create { observer in
+      let request = self.base.response { response in
+        if let error = response.error {
+          observer.onError(error)
+        } else {
+          observer.onNext(response)
+          observer.onCompleted()
+        }
       }
       return Disposables.create(with: request.cancel)
     }
@@ -944,16 +949,20 @@ extension Reactive where Base: DownloadRequest {
     queue: DispatchQueue? = nil,
     responseSerializer: Serializer
   )
-    -> Single<DownloadResponse<Serializer.SerializedObject>>
+    -> Observable<DownloadResponse<Serializer.SerializedObject>>
   {
-    return Single.create { cb in
+    return Observable.create { observer in
       let request = self.base.response(
         queue: queue,
         responseSerializer: responseSerializer
-      ) {
-        cb(.success($0))
+      ) { response in
+        if let error = response.error {
+          observer.onError(error)
+        } else {
+          observer.onNext(response)
+          observer.onCompleted()
+        }
       }
-        
       return Disposables.create(with: request.cancel)
     }
   }
@@ -962,14 +971,14 @@ extension Reactive where Base: DownloadRequest {
     queue: DispatchQueue? = nil,
     responseSerializer: Serializer
   )
-    -> Single<Serializer.SerializedObject>
+    -> Observable<Serializer.SerializedObject>
   {
     return responseSerialized(queue: queue, responseSerializer: responseSerializer)
-      .flatMap { response -> Single<Serializer.SerializedObject> in
-        switch response.result {
-        case .success(let r):   return .just(r)
-        case .failure(let e):   return .error(e)
+      .map {
+        guard let value = $0.value else {
+          throw RxAlamofireUnknownError
         }
+        return value
       }
   }
 }
