@@ -7,6 +7,8 @@ All notable changes to this project will be documented in this file.
 
 #### Updated
 
+* Add response methods for `Observable<DownloadRequest>`.
+
 #### Fixed
 
 * Fixed exchange rate api error in example project

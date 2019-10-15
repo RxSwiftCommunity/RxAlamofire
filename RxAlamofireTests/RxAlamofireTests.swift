@@ -109,4 +109,54 @@ class RxAlamofireSpec: XCTestCase {
         let different = RxProgress(bytesWritten: 2000, totalBytes: 4000)
         XCTAssertNotEqual(subject, different)
     }
+    
+    func testDownloadResponse() {
+        do {
+            let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+            let fileURL = temporaryDirectory.appendingPathComponent("\(UUID().uuidString).json")
+            
+            let destination: DownloadRequest.DownloadFileDestination = { _, _ in (fileURL, []) }
+            let request = download(
+                "http://myjsondata.com",
+                to: destination
+            )
+            
+            let defaultResponse = try request.rx
+                .response()
+                .toBlocking()
+                .first()!
+            
+            XCTAssertEqual(defaultResponse.response?.statusCode, 200)
+            XCTAssertNotNil(defaultResponse.destinationURL)
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+
+    func testDownloadResponseSerialized() {
+        do {
+            let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+            let fileURL = temporaryDirectory.appendingPathComponent("\(UUID().uuidString).json")
+            
+            let destination: DownloadRequest.DownloadFileDestination = { _, _ in (fileURL, []) }
+            let request = download(
+                "http://myjsondata.com",
+                to: destination
+            )
+            
+            let jsonResponse = try request.rx
+                .responseSerialized(responseSerializer: DownloadRequest.jsonResponseSerializer())
+                .toBlocking()
+                .first()!
+            
+            XCTAssertEqual(jsonResponse.response?.statusCode, 200)
+            guard let json = jsonResponse.value as? [String: Any] else {
+                XCTFail("Bad Response")
+                return
+            }
+            XCTAssertEqual(json["hello"] as? String, "world")
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
 }

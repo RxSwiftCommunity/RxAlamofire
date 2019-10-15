@@ -722,6 +722,32 @@ extension ObservableType where Element == DataRequest {
   }
 }
 
+extension ObservableType where Element: DownloadRequest {
+    
+  public func response() -> Observable<DefaultDownloadResponse> {
+    return flatMap { $0.rx.response() }
+  }
+    
+  public func responseSerialized<Serializer: DownloadResponseSerializerProtocol>(
+    queue: DispatchQueue? = nil,
+    responseSerializer: Serializer
+  )
+    -> Observable<DownloadResponse<Serializer.SerializedObject>>
+  {
+    return flatMap { $0.rx.responseSerialized(queue: queue, responseSerializer: responseSerializer) }
+  }
+    
+  public func responseResult<Serializer: DownloadResponseSerializerProtocol>(
+    queue: DispatchQueue? = nil,
+    responseSerializer: Serializer
+  )
+    -> Observable<Serializer.SerializedObject>
+  {
+    return flatMap { $0.rx.responseResult(queue: queue, responseSerializer: responseSerializer) }
+  }
+
+}
+
 // MARK: Request - Validation
 
 extension ObservableType where Element == DataRequest {
@@ -898,6 +924,62 @@ extension Reactive where Base: DataRequest {
 
   public func propertyList(options: PropertyListSerialization.ReadOptions = PropertyListSerialization.ReadOptions()) -> Observable<Any> {
     return result(responseSerializer: Base.propertyListResponseSerializer(options: options))
+  }
+}
+
+// MARK: Reactive + DownloadRequest
+
+extension Reactive where Base: DownloadRequest {
+    
+  public func response() -> Observable<DefaultDownloadResponse> {
+    return Observable.create { observer in
+      let request = self.base.response { response in
+        if let error = response.error {
+          observer.onError(error)
+        } else {
+          observer.onNext(response)
+          observer.onCompleted()
+        }
+      }
+      return Disposables.create(with: request.cancel)
+    }
+  }
+    
+  public func responseSerialized<Serializer: DownloadResponseSerializerProtocol>(
+    queue: DispatchQueue? = nil,
+    responseSerializer: Serializer
+  )
+    -> Observable<DownloadResponse<Serializer.SerializedObject>>
+  {
+    return Observable.create { observer in
+      let request = self.base.response(
+        queue: queue,
+        responseSerializer: responseSerializer
+      ) { response in
+        if let error = response.error {
+          observer.onError(error)
+        } else {
+          observer.onNext(response)
+          observer.onCompleted()
+        }
+      }
+      return Disposables.create(with: request.cancel)
+    }
+  }
+    
+  public func responseResult<Serializer: DownloadResponseSerializerProtocol>(
+    queue: DispatchQueue? = nil,
+    responseSerializer: Serializer
+  )
+    -> Observable<Serializer.SerializedObject>
+  {
+    return responseSerialized(queue: queue, responseSerializer: responseSerializer)
+      .map {
+        guard let value = $0.value else {
+          throw RxAlamofireUnknownError
+        }
+        return value
+      }
   }
 }
 
