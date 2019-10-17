@@ -55,55 +55,55 @@ let stringURL = ""
 let session = URLSession.shared()
 
 _ = session.rx
-.json(.get, stringURL)
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .json(.get, stringURL)
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 _ = session.rx
-.data(.get, stringURL)
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .data(.get, stringURL)
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // MARK: With Alamofire engine
 
 _ = json(.get, stringURL)
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // validation
 _ = request(.get, stringURL)
-.validate(statusCode: 200..<300)
-.validate(contentType: ["application/json"])
-.responseJSON()
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .validate(statusCode: 200..<300)
+    .validate(contentType: ["application/json"])
+    .responseJSON()
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // progress
 _ = request(.get, stringURL)
-.progress()
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .progress()
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // just fire upload and display progress
 _ = upload(Data(), urlRequest: try! RxAlamofire.urlRequest(.get, stringURL))
-.progress()
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .progress()
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // progress and final result
 // uploading files with progress showing is processing intensive operation anyway, so
 // this doesn't add much overhead
 _ = request(.get, stringURL)
-.flatMap { request -> Observable<(Data?, RxProgress)> in
-let dataPart = request.rx
-.data()
-.map { d -> Data? in d }
-.startWith(nil as Data?)
-let progressPart = request.rx.progress()
-return Observable.combineLatest(dataPart, progressPart) { ($0, $1) }
-}
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .flatMap { request -> Observable<(Data?, RxProgress)> in
+        let dataPart = request.rx
+            .data()
+            .map { d -> Data? in d }
+            .startWith(nil as Data?)
+        let progressPart = request.rx.progress()
+        return Observable.combineLatest(dataPart, progressPart) { ($0, $1) }
+    }
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 
 // MARK: Alamofire manager
@@ -113,49 +113,49 @@ let manager = SessionManager.default
 
 // simple case
 _ = manager.rx.json(.get, stringURL)
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // URLHTTPResponse + JSON
 _ = manager.rx.responseJSON(.get, stringURL)
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // URLHTTPResponse + String
 _ = manager.rx.responseString(.get, stringURL)
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + JSON
 _ = manager.rx.request(.get, stringURL)
-.validate(statusCode: 200 ..< 300)
-.validate(contentType: ["text/json"])
-.json()
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .validate(statusCode: 200 ..< 300)
+    .validate(contentType: ["text/json"])
+    .json()
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + URLHTTPResponse + JSON
 _ = manager.rx.request(.get, stringURL)
-.validate(statusCode: 200 ..< 300)
-.validate(contentType: ["text/json"])
-.responseJSON()
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .validate(statusCode: 200 ..< 300)
+    .validate(contentType: ["text/json"])
+    .responseJSON()
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + URLHTTPResponse + String + Progress
 _ = manager.rx.request(.get, stringURL)
-.validate(statusCode: 200 ..< 300)
-.validate(contentType: ["text/something"])
-.flatMap { request -> Observable<(String?, RxProgress)> in
-let stringPart = request.rx
-.string()
-.map { d -> String? in d }
-.startWith(nil as String?)
-let progressPart = request.rx.progress()
-return Observable.combineLatest(stringPart, progressPart) { ($0, $1) }
-}
-.observeOn(MainScheduler.instance)
-.subscribe { print($0) }
+    .validate(statusCode: 200 ..< 300)
+    .validate(contentType: ["text/something"])
+    .flatMap { request -> Observable<(String?, RxProgress)> in
+        let stringPart = request.rx
+            .string()
+            .map { d -> String? in d }
+            .startWith(nil as String?)
+        let progressPart = request.rx.progress()
+        return Observable.combineLatest(stringPart, progressPart) { ($0, $1) }
+    }
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
 ```
 
 ## 설치하기
