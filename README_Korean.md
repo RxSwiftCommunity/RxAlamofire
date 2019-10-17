@@ -12,7 +12,7 @@ RxAlamofire는 Swift [Alamofire](https://github.com/Alamofire/Alamofire)의 우�
 
 ## 시작하기
 
-Alamofire라이브러리에 RxSwift를 적용하는 것은 네트워크 요청을 더욱 더 유연하고 멋있게 수행할 수 있도록 해줍니다.
+Alamofire 라이브러리에 RxSwift를 적용하는 것은 네트워크 요청을 더욱 더 유연하고 멋있게 수행할 수 있도록 해줍니다.
 Alamofire는 가장 강력한 프레임워크이며 RxSwift를 사용함으로써 더욱 더 단순하고 효과적인 방법으로 응답을 구성할 수 있게 됩니다.
 
 기본적인 사용법은 다음과 같습니다.
@@ -25,22 +25,22 @@ formatter.currencyCode = "USD"
 if let fromValue = NSNumberFormatter().numberFromString(self.fromTextField.text!) {
 
 RxAlamofire.requestJSON(.get, sourceStringURL)
-.debug()
-.subscribe(onNext: { [weak self] (r, json) in
-if let dict = json as? [String: AnyObject] {
-let valDict = dict["rates"] as! Dictionary<String, AnyObject>
-if let conversionRate = valDict["USD"] as? Float {
-self?.toTextField.text = formatter
-.string(from: NSNumber(value: conversionRate * fromValue))
-}
-}
-}, onError: { [weak self] (error) in
-self?.displayError(error as NSError)
-})
-.disposed(by: disposeBag)
+                .debug()
+                .subscribe(onNext: { [weak self] (r, json) in
+                    if let dict = json as? [String: AnyObject] {
+                        let valDict = dict["rates"] as! Dictionary<String, AnyObject>
+                        if let conversionRate = valDict["USD"] as? Float {
+                            self?.toTextField.text = formatter
+                                .string(from: NSNumber(value: conversionRate * fromValue))
+                        }
+                    }
+                    }, onError: { [weak self] (error) in
+                        self?.displayError(error as NSError)
+                })
+                .disposed(by: disposeBag)
 
 } else {
-self.toTextField.text = "Invalid Input!"
+    self.toTextField.text = "Invalid Input!"
 }
 ```
 
@@ -206,10 +206,10 @@ dependencies: ["RxAlamofire"])
 
 ### 직접 설치하기(수동)
 
-이 확장을 수동으로 설치하려면 RxSwift 및 Alamofire와 함께 프로젝트에 `RxAlamofire/Source/RxAlamofire.swift`를 가져와야합니다.
+이 확장을 수동으로 설치하려면 RxSwift 및 Alamofire와 함께 프로젝트에 `RxAlamofire/Source/RxAlamofire.swift`를 추가해야합니다.
 
 ## 요구 사항
 
 RxAlamofire에는 Swift 5.0과 Alamofire (4.8.2) 및 RxSwift (5.0.0) 버전이 필요합니다.
 
-Swift 4.2 버전을 사용하고 계신다면, RxAlamofire 4.5.0버전을 사용해주시기 바랍니다.
+Swift 4.2 버전을 사용하고 계신다면, RxAlamofire 4.5.0 버전을 사용해주시기 바랍니다.
