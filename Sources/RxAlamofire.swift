@@ -357,11 +357,25 @@ protocol RxAlamofireResponse {
 }
 
 extension DataResponse: RxAlamofireResponse {
-    var error: Error? { nil }
+    var error: Error? {
+        switch result {
+        case let .failure(error):
+            return error
+        default:
+            return nil
+        }
+    }
 }
 
 extension DownloadResponse: RxAlamofireResponse {
-    var error: Error? { nil }
+    var error: Error? {
+        switch result {
+        case let .failure(error):
+            return error
+        default:
+            return nil
+        }
+    }
 }
 
 extension DataRequest: RxAlamofireRequest {
