@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (5.0.0-beta.5)
+  - Alamofire (5.0.0)
   - OHHTTPStubs (7.0.0):
     - OHHTTPStubs/Default (= 7.0.0)
   - OHHTTPStubs/Core (7.0.0)
@@ -15,14 +15,17 @@ PODS:
   - OHHTTPStubs/OHPathHelpers (7.0.0)
   - OHHTTPStubs/Swift (7.0.0):
     - OHHTTPStubs/Default
-  - RxBlocking (5.0.0):
+  - RxBlocking (5.1.1):
     - RxSwift (~> 5)
-  - RxCocoa (5.0.0):
+  - RxCocoa (5.1.1):
+    - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxSwift (5.0.0)
+  - RxRelay (5.1.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.1.1)
 
 DEPENDENCIES:
-  - Alamofire (= 5.0.0.beta.5)
+  - Alamofire (= 5.0.0)
   - OHHTTPStubs (~> 7.0)
   - OHHTTPStubs/Swift (~> 7.0)
   - RxBlocking (from `https://github.com/ReactiveX/RxSwift.git`, branch `master`)
@@ -30,9 +33,10 @@ DEPENDENCIES:
   - RxSwift (from `https://github.com/ReactiveX/RxSwift.git`, branch `master`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - OHHTTPStubs
+    - RxRelay
 
 EXTERNAL SOURCES:
   RxBlocking:
@@ -47,22 +51,23 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   RxBlocking:
-    :commit: 27b42ed7584a044d9ec6d7968c0d5f464abdcf93
+    :commit: 29e484f264ef365f13dc472a1b20ce51f1a1c0a4
     :git: https://github.com/ReactiveX/RxSwift.git
   RxCocoa:
-    :commit: 27b42ed7584a044d9ec6d7968c0d5f464abdcf93
+    :commit: 29e484f264ef365f13dc472a1b20ce51f1a1c0a4
     :git: https://github.com/ReactiveX/RxSwift.git
   RxSwift:
-    :commit: 27b42ed7584a044d9ec6d7968c0d5f464abdcf93
+    :commit: 29e484f264ef365f13dc472a1b20ce51f1a1c0a4
     :git: https://github.com/ReactiveX/RxSwift.git
 
 SPEC CHECKSUMS:
-  Alamofire: 9afb08f7f43efcc71c072374e720fcf67521317d
+  Alamofire: 58ff2bfb8daaacaa233d5c36e37b10a5248f59b1
   OHHTTPStubs: ef33a2c353110d306bb98f695435ec56ff5a26c3
-  RxBlocking: b430885a4df9bb43f7f1fbde70c93971f9f09a3e
-  RxCocoa: 151e15d568fe107218a268839a0ee879c7bdd660
-  RxSwift: eec1542ecd862a870a1f26b1812a76b36dbc9333
+  RxBlocking: 5f700a78cad61ce253ebd37c9a39b5ccc76477b4
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: fdd97cebee2f2fc2d46d0656a4dbb0ec7cc850f8
+PODFILE CHECKSUM: 0cd6dc90bf8c590968c8aa8f7d61d2be45750df4
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4

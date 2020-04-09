@@ -356,9 +356,13 @@ protocol RxAlamofireResponse {
     var error: Error? { get }
 }
 
-extension DataResponse: RxAlamofireResponse {}
+extension DataResponse: RxAlamofireResponse {
+    var error: Error? { nil }
+}
 
-extension DownloadResponse: RxAlamofireResponse {}
+extension DownloadResponse: RxAlamofireResponse {
+    var error: Error? { nil }
+}
 
 extension DataRequest: RxAlamofireRequest {
     func responseWith(completionHandler: @escaping (RxAlamofireResponse) -> Void) {
@@ -684,8 +688,8 @@ extension Reactive where Base: Alamofire.Session {
 
 // MARK: Request - Common Response Handlers
 
-extension ObservableType where E == DataRequest {
-    public func responseJSON() -> Observable<DataResponse<Any>> {
+extension ObservableType where Element == DataRequest {
+    public func responseJSON() -> Observable<DataResponse<Any, AFError>> {
         return flatMap { $0.rx.responseJSON() }
     }
 
@@ -776,7 +780,7 @@ extension Reactive where Base: DataRequest {
         }
     }
 
-    public func responseJSON() -> Observable<DataResponse<Any>> {
+    public func responseJSON() -> Observable<DataResponse<Any, AFError>> {
         return Observable.create { observer in
             let request = self.base
 
