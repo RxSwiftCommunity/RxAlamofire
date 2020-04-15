@@ -7,6 +7,13 @@ All notable changes to this project will be documented in this file.
 
 * Nothing yet!
 
+## 5.2.0
+
+#### Updated
+* Uses Alamafire 5.1.0
+* Uses RxSwift 5.1.0
+* Upgrade project to Swift 5.1
+
 ## 5.1.0
 
 #### Updated
