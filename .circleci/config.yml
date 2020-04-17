@@ -8,7 +8,7 @@ jobs:
       XCODE_TEST_REPORTS: /tmp/xcode-test-results
       LANG: en_US.UTF-8
     macos:
-      xcode: '10.2.0'
+      xcode: '11.4'
     steps:
       - checkout
       - run: mkdir -p $CIRCLE_ARTIFACTS $CIRCLE_TEST_REPORTS $XCODE_TEST_REPORTS
@@ -22,11 +22,8 @@ jobs:
             - Carthage
           key: RxAlamofire-Test-Carthage-Dependency
       - run:
-          name: Run Tests (Swift 4.2)
-          command: set -o pipefail && xcodebuild test SWIFT_VERSION=4.2 -scheme 'RxAlamofire iOS' -project '_.xcodeproj' -sdk iphonesimulator -destination "name=iPhone X" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift42.html
-      - run:
-          name: Run Tests (Swift 5)
-          command: set -o pipefail && xcodebuild test SWIFT_VERSION=5.0 -scheme 'RxAlamofire iOS' -project '_.xcodeproj' -sdk iphonesimulator -destination "name=iPhone X" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift5.html
+          name: Run Tests (Swift 5.1)
+          command: set -o pipefail && xcodebuild test SWIFT_VERSION=5.1 -scheme 'RxAlamofire iOS' -project '_.xcodeproj' -sdk iphonesimulator -destination "platform=iOS simulator,OS=13.4,name=iPhone 11" | xcpretty -c -r html --output $XCODE_TEST_REPORTS/iOS_Swift51.html
       - run:
           name: Swift Package Build
           command: swift build
@@ -39,7 +36,7 @@ jobs:
     environment:
       LANG: en_US.UTF-8
     macos:
-      xcode: '10.2.0'
+      xcode: '11.4'
     steps:
       - checkout
       - run:
