@@ -123,20 +123,25 @@ class RxAlamofireSpec: XCTestCase {
                 to: destination
             )
             
-            let defaultResponse = try request
-                .map { $0.response }
-                .toBlocking()
-                .first()!
+            let testDownloadResponseExpectation = expectation(description: "testDownloadResponse expectation")
             
-            XCTAssertEqual(defaultResponse?.statusCode, 200)
-            XCTAssertNotNil(defaultResponse?.url)
+            _ = request
+                .map {
+                    $0.response { downloadResponse in
+                        XCTAssertEqual(downloadResponse.response?.statusCode, 200)
+                        XCTAssertNotNil(downloadResponse.fileURL)
+                        testDownloadResponseExpectation.fulfill()
+                    }
+                }
+                .subscribe {}
+            
+            wait(for: [testDownloadResponseExpectation], timeout: 5)
         } catch {
             XCTFail("\(error)")
         }
     }
-
+    
     func testDownloadResponseSerialized() {
-      let testDownloadResponseExpectation = expectation(description: "testDownloadResponse expectation")
         do {
             let temporaryDirectory = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
             let fileURL = temporaryDirectory.appendingPathComponent("\(UUID().uuidString).json")
@@ -147,20 +152,20 @@ class RxAlamofireSpec: XCTestCase {
                 URLRequest(url: myUrl),
                 to: destination
             )
-          
-          _ = try request
-            .map {
-              $0.responseJSON { jsonResponse in
-                guard let json = jsonResponse.value as? [String: Any] else { XCTFail("Bad Response"); return }
-                XCTAssertEqual(json["hello"] as? String, "world")
-                testDownloadResponseExpectation.fulfill()
-            }}
-            .toBlocking()
-//            .first()!
-              
-//          guard let json = jsonResponse.value as? [String: Any] else { XCTFail("Bad Response"); return }
-//          XCTAssertEqual(json["hello"] as? String, "world")
-          wait(for: [testDownloadResponseExpectation], timeout: 10000)
+            
+            let testDownloadResponseExpectation = expectation(description: "testDownloadResponse expectation")
+            
+            _ = request
+                .map {
+                    $0.responseJSON { jsonResponse in
+                        guard let json = jsonResponse.value as? [String: Any] else { XCTFail("Bad Response"); return }
+                        XCTAssertEqual(json["hello"] as? String, "world")
+                        testDownloadResponseExpectation.fulfill()
+                    }
+                }
+                .subscribe {}
+            
+            wait(for: [testDownloadResponseExpectation], timeout: 5)
         } catch {
             XCTFail("\(error)")
         }
