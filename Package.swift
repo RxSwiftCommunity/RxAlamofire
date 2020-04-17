@@ -29,6 +29,6 @@ let package = Package(
       dependencies: ["RxSwift", "Alamofire", "RxCocoa"],
       path: "Sources")
   ],
-  swiftLanguageVersions: [.v5_1]
+  swiftLanguageVersions: [.v5]
 )
 
