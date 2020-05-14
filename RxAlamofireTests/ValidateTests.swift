@@ -31,17 +31,17 @@ class ValidateSpec: XCTestCase {
         manager = Session()
         
         _ = stub(condition: isHost("200.xyz")) { _ in
-            return OHHTTPStubsResponse(data: Dummy.DataJSON, statusCode: 200, headers: ["Content-Type":"application/json"])
+            return HTTPStubsResponse(data: Dummy.DataJSON, statusCode: 200, headers: ["Content-Type":"application/json"])
         }
         
         _ = stub(condition: isHost("401.xyz")) { _ in
-            return OHHTTPStubsResponse(data: Dummy.DataJSON, statusCode: 401, headers: ["Content-Type":"text/xml"])
+            return HTTPStubsResponse(data: Dummy.DataJSON, statusCode: 401, headers: ["Content-Type":"text/xml"])
         }
     }
     
     override func tearDown() {
         super.tearDown()
-        OHHTTPStubs.removeAllStubs()
+        HTTPStubs.removeAllStubs()
     }
     
     func testShouldThrowWhenValidateFails() {

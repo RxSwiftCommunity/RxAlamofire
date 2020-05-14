@@ -37,17 +37,17 @@ class RxAlamofireSpec: XCTestCase {
 		manager = Session()
 		
 		_ = stub(condition: isHost("mywebservice.com")) { _ in
-			return OHHTTPStubsResponse(data: Dummy.DataStringData, statusCode:200, headers:nil)
+			return HTTPStubsResponse(data: Dummy.DataStringData, statusCode:200, headers:nil)
 		}
 		
 		_ = stub(condition: isHost("myjsondata.com")) { _ in
-			return OHHTTPStubsResponse(data: Dummy.DataJSON, statusCode:200, headers:["Content-Type":"application/json"])
+			return HTTPStubsResponse(data: Dummy.DataJSON, statusCode:200, headers:["Content-Type":"application/json"])
 		}
 	}
 	
 	override func tearDown() {
 		super.tearDown()
-		OHHTTPStubs.removeAllStubs()
+		HTTPStubs.removeAllStubs()
 	}
 	
 	//MARK: Tests
