@@ -12,13 +12,13 @@ end
 target "RxAlamofire-iOS" do
   common
 end
-
-target "RxAlamofireTests" do
-  common
-  pod "OHHTTPStubs", "~> 7.0"
-  pod "OHHTTPStubs/Swift", "~> 7.0"
-  pod "RxBlocking", "~> 4.5"
-end
+#
+#target "RxAlamofireTests" do
+#  common
+#  pod "OHHTTPStubs", "~> 7.0"
+#  pod "OHHTTPStubs/Swift", "~> 7.0"
+#  pod "RxBlocking", "~> 4.5"
+#end
 
 
 target "RxAlamofire-iOS-Example" do
