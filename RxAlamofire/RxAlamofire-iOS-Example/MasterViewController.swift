@@ -153,9 +153,8 @@ func exampleUsages() {
     
     
     // MARK: Alamofire manager
-    // same methods with with any alamofire manager
-    
-    let manager = SessionManager.default
+    // same methods with any alamofire manager
+    let manager = Session.default
     
     // simple case
     _ = manager.rx.json(.get, stringURL)
