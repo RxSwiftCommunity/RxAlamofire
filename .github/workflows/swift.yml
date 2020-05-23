@@ -2,7 +2,8 @@ name: Build pipeline
 
 on:
   push:
-    branches: [master]
+    branches: 
+      - 'feature/**'
   pull_request:
     branches: [master]
 
