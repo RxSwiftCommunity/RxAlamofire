@@ -20,10 +20,9 @@ public protocol ControlEventType : ObservableType {
 
     Properties:
 
-    - it never fails,
     - it doesn’t send any initial value on subscription,
     - it `Complete`s the sequence when the control deallocates,
-    - it never errors out, and
+    - it never errors out
     - it delivers events on `MainScheduler.instance`.
 
     **The implementation of `ControlEvent` will ensure that sequence of events is being subscribed on main scheduler
@@ -33,7 +32,7 @@ public protocol ControlEventType : ObservableType {
 
     **If they aren’t, using this trait will communicate wrong properties, and could potentially break someone’s code.**
 
-    **If the `events` observable sequence passed into thr initializer doesn’t satisfy all enumerated
+    **If the `events` observable sequence passed into the initializer doesn’t satisfy all enumerated
      properties, don’t use this trait.**
 */
 public struct ControlEvent<PropertyType> : ControlEventType {

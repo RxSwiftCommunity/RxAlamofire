@@ -1,0 +1,186 @@
+name: RxAlamofire
+options:
+  minimumXcodeGenVersion: "2.15.1"
+  developmentLanguage: en
+  usesTabs: false
+  indentWidth: 2
+  tabWidth: 2
+  xcodeVersion: "1140"
+  deploymentTarget:
+    iOS: "10.0"
+  carthageExecutablePath: "`which carthage`"
+  defaultConfig: "Release"
+configs:
+  Debug: debug
+  Release: release
+attributes:
+  ORGANIZATIONNAME: RxSwiftCommunity
+schemes:
+  RxAlamofire iOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofire iOS: all
+        RxAlamofireTests iOS: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+      targets:
+        - RxAlamofireTests iOS
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+  RxAlamofire macOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofire macOS: all
+        RxAlamofireTests macOS: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+      targets:
+        - RxAlamofireTests macOS
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+  RxAlamofire watchOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofire watchOS: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+  RxAlamofire tvOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofire tvOS: all
+        RxAlamofireTests tvOS: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+      targets:
+        - RxAlamofireTests tvOS
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+targets:
+  RxAlamofire iOS:
+    settings:
+      PRODUCT_NAME: RxAlamofire
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS
+    platform: iOS
+    type: framework
+    sources:
+      - Sources/RxAlamofire
+    dependencies:
+      - carthage: Alamofire
+      - carthage: RxCocoa
+      - carthage: RxSwift
+      - carthage: RxRelay
+  RxAlamofire macOS:
+    settings:
+      PRODUCT_NAME: RxAlamofire
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS
+    platform: macOS
+    type: framework
+    sources:
+      - Sources/RxAlamofire
+    dependencies:
+      - carthage: Alamofire
+      - carthage: RxCocoa
+      - carthage: RxSwift
+      - carthage: RxRelay
+  RxAlamofire tvOS:
+    settings:
+      PRODUCT_NAME: RxAlamofire
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS
+    platform: tvOS
+    type: framework
+    sources:
+      - Sources/RxAlamofire
+    dependencies:
+      - carthage: Alamofire
+      - carthage: RxCocoa
+      - carthage: RxSwift
+      - carthage: RxRelay
+  RxAlamofire watchOS:
+    settings:
+      PRODUCT_NAME: RxAlamofire
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-watchOS
+    platform: watchOS
+    type: framework
+    sources:
+      - Sources/RxAlamofire
+    dependencies:
+      - carthage: Alamofire
+      - carthage: RxCocoa
+      - carthage: RxSwift
+      - carthage: RxRelay
+  RxAlamofireTests iOS:
+    platform: iOS
+    type: bundle.unit-test
+    sources:
+      - path: Tests/RxAlamofireTests
+    dependencies:
+      - target: RxAlamofire iOS
+      - carthage: OHHTTPStubs
+      - carthage: RxBlocking
+      - carthage: RxTest
+  RxAlamofireTests macOS:
+    platform: macOS
+    type: bundle.unit-test
+    settings:
+      CODE_SIGN_IDENTITY: ""
+    sources:
+      - path: Tests/RxAlamofireTests
+    dependencies:
+      - target: RxAlamofire macOS
+      - carthage: OHHTTPStubs
+      - carthage: RxBlocking
+      - carthage: RxTest
+  RxAlamofireTests tvOS:
+    platform: tvOS
+    type: bundle.unit-test
+    sources:
+      - path: Tests/RxAlamofireTests
+    dependencies:
+      - target: RxAlamofire tvOS
+      - carthage: OHHTTPStubs
+      - carthage: RxBlocking
+      - carthage: RxTest
+
