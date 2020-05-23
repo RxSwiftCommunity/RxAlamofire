@@ -220,12 +220,6 @@ extension ObservableType {
             fatalError()
         }
     }
-    extension UIWebView {
-        @available(*, unavailable, message: "createRxDelegateProxy is now unavailable, check DelegateProxyFactory")
-        public func createRxDelegateProxy() -> RxWebViewDelegateProxy {
-            fatalError()
-        }
-    }
 #endif
 
 #if os(macOS)
@@ -406,8 +400,6 @@ extension Reactive where Base: UISegmentedControl {
         }
     }
 #endif
-
-import RxSwift
 
 @available(*, deprecated, message: "Variable is deprecated. Please use `BehaviorRelay` as a replacement.")
 extension Variable {

@@ -1,12 +1,12 @@
-source "https://github.com/CocoaPods/Specs.git"
+source 'https://cdn.cocoapods.org/'
 
 use_frameworks!
 platform :ios, "10.0"
 
 def common
-  pod "Alamofire", "~> 5.0"
-  pod "RxSwift", "~> 5.0"
-  pod "RxCocoa", "~> 5.0"
+  pod "Alamofire", "~> 5.1"
+  pod "RxSwift", "~> 5.1"
+  pod "RxCocoa", "~> 5.1"
 end
 
 target "RxAlamofire-iOS" do

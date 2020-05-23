@@ -1,0 +1,5 @@
+output: ../docs/RxAlamofire
+module: RxAlamofire
+xcodebuild_arguments: 
+  - -scheme
+  - RxAlamofire iOS
