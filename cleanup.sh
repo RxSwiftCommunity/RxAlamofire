@@ -1,8 +1,9 @@
 if which swiftformat >/dev/null; then
-`which swiftformat` "Sources" --config ./.swiftformat --quiet
-`which swiftformat` "Tests" --config ./.swiftformat --quiet
-`which swiftformat` "RxAlamofire" --config ./.swiftformat --quiet
-`which swiftformat` "Package.swift" --config ./.swiftformat --quiet
+`which swiftformat` "Sources" --config .swiftformat --quiet
+`which swiftformat` "Tests" --config .swiftformat --quiet
+`which swiftformat` "Examples/RxAlamofireDemo-tvOS" --config .swiftformat --quiet
+`which swiftformat` "Examples/RxAlamofireDemo-iOS" --config .swiftformat --quiet
+`which swiftformat` "Package.swift" --config .swiftformat --quiet
 else
 echo "error: swiftformat not installed, do `sh setup.sh` to install swiftformat."
 exit 1

@@ -58,10 +58,14 @@ class RxAlamofireSpec: XCTestCase {
 
   func testJSONRequest() {
     do {
-      let (result, obj) = try requestJSON(HTTPMethod.get, "http://myjsondata.com").toBlocking().first()!
-      let json = obj as! [String: Any]
+      guard let (result, obj) = try requestJSON(HTTPMethod.get, "http://myjsondata.com").toBlocking().first(),
+        let json = obj as? [String: Any],
+        let res = json["hello"] as? String else {
+        XCTFail("errored out")
+        return
+      }
       XCTAssertEqual(result.statusCode, 200)
-      XCTAssertEqual(json["hello"] as! String, "world")
+      XCTAssertEqual(res, "world")
     } catch {
       XCTFail("\(error)")
     }

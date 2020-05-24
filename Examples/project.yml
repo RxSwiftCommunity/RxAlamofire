@@ -1,0 +1,74 @@
+name: RxAlamofireDemo
+options:
+  minimumXcodeGenVersion: "2.15.1"
+  developmentLanguage: en
+  usesTabs: false
+  indentWidth: 2
+  tabWidth: 2
+  xcodeVersion: "1140"
+  deploymentTarget:
+    iOS: "10.0"
+  defaultConfig: "Release"
+configs:
+  Debug: debug
+  Release: release
+attributes:
+  ORGANIZATIONNAME: RxSwiftCommunity
+schemes:
+  RxAlamofireDemo-iOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofireDemo-iOS: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+  RxAlamofireDemo-tvOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofireDemo-tvOS: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+targets:
+  RxAlamofireDemo-iOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "10.0"
+    sources: [RxAlamofireDemo-iOS]
+    settings:
+      INFOPLIST_FILE: RxAlamofireDemo-iOS/Info.plist
+      PRODUCT_NAME: RxAlamofireDemo-iOS
+      OTHER_LDFLAGS: -ObjC
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.iOSDemo
+      ASSETCATALOG_COMPILER_APPICON_NAME: $(APP_ICON_NAME)
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+  RxAlamofireDemo-tvOS:
+    type: application
+    platform: tvOS
+    deploymentTarget: "10.0"
+    sources: [RxAlamofireDemo-tvOS]
+    settings:
+      INFOPLIST_FILE: RxAlamofireDemo-tvOS/Info.plist
+      PRODUCT_NAME: RxAlamofireDemo-tvOS
+      OTHER_LDFLAGS: -ObjC
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.tvOSDemo
+      ASSETCATALOG_COMPILER_APPICON_NAME: $(APP_ICON_NAME)
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
