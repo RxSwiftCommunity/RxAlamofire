@@ -274,6 +274,67 @@ public func json(_ method: HTTPMethod,
                                              headers: headers)
 }
 
+// MARK: Decodable
+
+/**
+Creates an observable of the returned decoded Decodable as `T` and the response.
+
+- parameter method: Alamofire method object
+- parameter url: An object adopting `URLConvertible`
+- parameter parameters: A dictionary containing all necessary options
+- parameter encoding: The kind of encoding used to process parameters
+- parameter header: A dictionary containing all the additional headers
+
+- returns: An observable of the tuple `(NSHTTPURLResponse, T)`
+*/
+public func requestDecodable<T: Decodable>(_ method: HTTPMethod,
+                                           _ url: URLConvertible,
+                                           parameters: Parameters? = nil,
+                                           encoding: ParameterEncoding = URLEncoding.default,
+                                           headers: HTTPHeaders? = nil)
+  -> Observable<(HTTPURLResponse, T)> {
+    return Alamofire.Session.default.rx.responseDecodable(method,
+                                                          url,
+                                                          parameters: parameters,
+                                                          encoding: encoding,
+                                                          headers: headers)
+}
+
+/**
+ Creates an observable of the returned decoded Decodable as `T` and the response.
+
+ - parameter urlRequest: An object adopting `URLRequestConvertible`
+
+ - returns: An observable of the tuple `(NSHTTPURLResponse, T)`
+ */
+public func requestDecodable<T: Decodable>(_ urlRequest: URLRequestConvertible) -> Observable<(HTTPURLResponse, T)> {
+  return request(urlRequest).flatMap { $0.rx.responseDecodable() }
+}
+
+/**
+Creates an observable of the returned decoded Decodable.
+
+- parameter method: Alamofire method object
+- parameter url: An object adopting `URLConvertible`
+- parameter parameters: A dictionary containing all necessary options
+- parameter encoding: The kind of encoding used to process parameters
+- parameter header: A dictionary containing all the additional headers
+
+- returns: An observable of the decoded Decodable as `T`
+*/
+public func decodable<T: Decodable>(_ method: HTTPMethod,
+                                    _ url: URLConvertible,
+                                    parameters: Parameters? = nil,
+                                    encoding: ParameterEncoding = URLEncoding.default,
+                                    headers: HTTPHeaders? = nil)
+  -> Observable<T> {
+    return Alamofire.Session.default.rx.decodable(method,
+                                                  url,
+                                                  parameters: parameters,
+                                                  encoding: encoding,
+                                                  headers: headers)
+}
+
 // MARK: Upload
 
 /**
@@ -622,6 +683,55 @@ extension Reactive where Base: Alamofire.Session {
                      headers: headers).flatMap { $0.rx.json() }
   }
 
+  // MARK: Decodable
+
+  /**
+   Creates an observable of the data decoded from Decodable and processed as tuple `(NSHTTPURLResponse, T)`.
+
+   - parameter url: An object adopting `URLRequestConvertible`
+   - parameter parameters: A dictionary containing all necessary options
+   - parameter encoding: The kind of encoding used to process parameters
+   - parameter header: A dictionary containing all the additional headers
+
+   - returns: An observable of the tuple `(NSHTTPURLResponse, T)`
+   */
+  public func responseDecodable<T: Decodable>(_ method: HTTPMethod,
+                                              _ url: URLConvertible,
+                                              parameters: Parameters? = nil,
+                                              encoding: ParameterEncoding = URLEncoding.default,
+                                              headers: HTTPHeaders? = nil)
+    -> Observable<(HTTPURLResponse, T)> {
+      return request(method,
+                     url,
+                     parameters: parameters,
+                     encoding: encoding,
+                     headers: headers).flatMap { $0.rx.responseDecodable() }
+  }
+
+  /**
+   Creates an observable of the data decoded from Decodable and processed as `T`.
+
+   - parameter URLRequest: An object adopting `URLRequestConvertible`
+   - parameter parameters: A dictionary containing all necessary options
+   - parameter encoding: The kind of encoding used to process parameters
+   - parameter header: A dictionary containing all the additional headers
+
+   - returns: An observable of `T`
+   */
+  public func decodable<T: Decodable>(_ method: HTTPMethod,
+                                      _ url: URLConvertible,
+                                      parameters: Parameters? = nil,
+                                      encoding: ParameterEncoding = URLEncoding.default,
+                                      headers: HTTPHeaders? = nil)
+    -> Observable<T> {
+      return request(method,
+                     url,
+                     parameters: parameters,
+                     encoding: encoding,
+                     headers: headers).flatMap { $0.rx.decodable() }
+  }
+    
+
   // MARK: Upload
 
   /**
@@ -895,6 +1005,29 @@ extension Reactive where Base: DataRequest {
   public func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
     return result(responseSerializer: JSONResponseSerializer(options: options))
   }
+
+  /**
+  Returns an `Observable` of a serialized Decodable for the current request.
+
+  - parameter decoder: The `DataDecoder`. `JSONDecoder()` by default.
+
+  - returns: An instance of `Observable<(HTTPURLResponse, T)>`
+  */
+  public func responseDecodable<T: Decodable>(decoder: DataDecoder = JSONDecoder()) -> Observable<(HTTPURLResponse, T)> {
+    return responseResult(responseSerializer: DecodableResponseSerializer(decoder: decoder))
+  }
+
+  /**
+    Returns an `Observable` of a serialized Decodable for the current request.
+
+    - parameter decoder: The `DataDecoder`. `JSONDecoder()` by default.
+
+    - returns: An instance of `Observable<T>`
+    */
+  public func decodable<T: Decodable>(decoder: DataDecoder = JSONDecoder()) -> Observable<T> {
+    return result(responseSerializer: DecodableResponseSerializer(decoder: decoder))
+  }
+
 }
 
 extension Reactive where Base: Request {

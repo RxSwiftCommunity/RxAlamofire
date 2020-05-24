@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ## Master
 
-* Nothing yet!
+#### Updated
+* Add extensions for Decodable
 
 ## 5.2.0
 
