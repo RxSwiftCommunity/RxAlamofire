@@ -3,7 +3,7 @@ RxAlamofire
 
 RxAlamofire is a [RxSwift](https://github.com/ReactiveX/RxSwift) wrapper around the elegant HTTP networking in Swift [Alamofire](https://github.com/Alamofire/Alamofire).
 
-[![CircleCI](https://img.shields.io/circleci/project/github/RxSwiftCommunity/RxAlamofire/master.svg)](https://circleci.com/gh/RxSwiftCommunity/RxAlamofire/tree/master)
+![Build pipeline](https://github.com/RxSwiftCommunity/RxAlamofire/workflows/Build%20pipeline/badge.svg?branch=master)
 [![Version](https://img.shields.io/cocoapods/v/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)
 [![License](https://img.shields.io/cocoapods/l/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)
 [![Platform](https://img.shields.io/cocoapods/p/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)

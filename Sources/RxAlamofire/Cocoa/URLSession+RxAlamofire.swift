@@ -25,11 +25,11 @@
                      encoding: ParameterEncoding = URLEncoding.default,
                      headers: HTTPHeaders? = nil) -> Observable<Any> {
       do {
-        let request = try RxAlamofire.urlRequest(method,
-                                                 url,
-                                                 parameters: parameters,
-                                                 encoding: encoding,
-                                                 headers: headers)
+        let request = try urlRequest(method,
+                                     url,
+                                     parameters: parameters,
+                                     encoding: encoding,
+                                     headers: headers)
         return json(request: request)
       } catch {
         return Observable.error(error)
@@ -53,11 +53,11 @@
                          encoding: ParameterEncoding = URLEncoding.default,
                          headers: HTTPHeaders? = nil) -> Observable<(response: HTTPURLResponse, data: Data)> {
       do {
-        let request = try RxAlamofire.urlRequest(method,
-                                                 url,
-                                                 parameters: parameters,
-                                                 encoding: encoding,
-                                                 headers: headers)
+        let request = try urlRequest(method,
+                                     url,
+                                     parameters: parameters,
+                                     encoding: encoding,
+                                     headers: headers)
         return response(request: request)
       } catch {
         return Observable.error(error)
@@ -81,11 +81,11 @@
                      encoding: ParameterEncoding = URLEncoding.default,
                      headers: HTTPHeaders? = nil) -> Observable<Data> {
       do {
-        let request = try RxAlamofire.urlRequest(method,
-                                                 url,
-                                                 parameters: parameters,
-                                                 encoding: encoding,
-                                                 headers: headers)
+        let request = try urlRequest(method,
+                                     url,
+                                     parameters: parameters,
+                                     encoding: encoding,
+                                     headers: headers)
         return data(request: request)
       } catch {
         return Observable.error(error)

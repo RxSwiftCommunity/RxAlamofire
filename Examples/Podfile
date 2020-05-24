@@ -1,0 +1,28 @@
+source "https://cdn.cocoapods.org/"
+project "RxAlamofireDemo.xcodeproj"
+use_frameworks!
+
+def common
+  pod "RxAlamofire/RxCocoa", :path => "../"
+end
+
+def common_tests
+  pod "OHHTTPStubs", "~> 9.0"
+  pod "OHHTTPStubs/Swift", "~> 9.0"
+  pod "RxBlocking", "~> 5.1"
+end
+
+target "RxAlamofireDemo-iOS" do
+  platform :ios, "10.0"
+  common
+end
+
+# target "RxAlamofireDemo-macOS" do
+#   platform :osx, "10.12"
+#   common
+# end
+
+target "RxAlamofireDemo-tvOS" do
+  platform :tvos, "10.0"
+  common
+end
