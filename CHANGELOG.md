@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## 5.3.0 (2020-05-25)
+
+
+### Features
+
+* **#173:** Implement danger and improve PR pipeline ([c75b0ef](https://github.com/RxSwiftCommunity/RxAlamofire/commits/c75b0efd37cd0ae90b465d4f7772ff4ee276b5b3)), closes [#173](https://github.com/RxSwiftCommunity/RxAlamofire/issues/173)
+* **#173:** Regenerate project ([ebbfdbe](https://github.com/RxSwiftCommunity/RxAlamofire/commits/ebbfdbe588aa26a1a4b0623e4e68a41c4857d5d5)), closes [#173](https://github.com/RxSwiftCommunity/RxAlamofire/issues/173)
+* **#174:** Build pipeline to run on feature and PR ([78115aa](https://github.com/RxSwiftCommunity/RxAlamofire/commits/78115aac1941852ab1f4b8a3d369782948acaf68)), closes [#174](https://github.com/RxSwiftCommunity/RxAlamofire/issues/174)
+
 ### 1.0.1 (2020-05-25)
 
 ## 5.2.0 (2020-04-18)
