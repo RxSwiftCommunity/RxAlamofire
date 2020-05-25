@@ -6,32 +6,76 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, 'skip ci')"
+    runs-on: macos-latest
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: Bump version
         run: |
+          git config --global user.name "RxAlamofire Maintainers"
+          git config --global user.email "rxalamofire@rxswift.org"
+          export CHANGELOG=$(git log $(git describe --tags --abbrev=0)..HEAD --oneline)
+          CHANGELOG="${CHANGELOG//$'%'/%25}"
+          CHANGELOG="${CHANGELOG//$'\n'/%0A}"
+          CHANGELOG="${CHANGELOG//$'\r'/%0D}"
+          CHANGELOG="$CHANGELOG%0A%0A$(xcodebuild -version)"
+          echo "::set-env name=RELEASE_NOTES::$CHANGELOG"
           npx standard-version
-          echo '::set-env name=RELEASE_VERSION::$(git describe --tags `git rev-list --tags --max-count=1`)'
+          echo "::set-env name=RELEASE_VERSION::$(git describe --abbrev=0 | tr -d '\n')"
+          echo ${{ env.RELEASE_NOTES }}
 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Create Release
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ github.ref }}
-      #     release_name: RxAlamofire ${{ github.ref }}
-      #     body: |
-      #       Changes in this Release
-      #       - First Change
-      #       - Second Change
-      #     draft: false
-      #     prerelease: false
+      - name: Restore Carthage Cache
+        uses: actions/cache@v1
+        with:
+          path: Carthage
+          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}-release
+          restore-keys: |
+            ${{ runner.os }}-carthage-
+
+      - name: Resolving Carthage dependencies and build framework
+        run: |
+          carthage update --cache-builds --new-resolver --configuration Release
+          carthage build --archive --cache-builds --configuration Release
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.RELEASE_VERSION }}
+          release_name: RxAlamofire ${{ env.RELEASE_VERSION }}
+          body: ${{ env.RELEASE_NOTES }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./RxAlamofire.framework.zip
+          asset_name: RxAlamofire.framework.zip
+          asset_content_type: application/zip
+
+      - name: Deploy to Cocoapods
+        run: |
+          set -eo pipefail
+          export RELEASE_VERSION=$(git describe --tags `git rev-list --tags --max-count=1`)
+          pod lib lint --allow-warnings
+          pod trunk push --allow-warnings
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
