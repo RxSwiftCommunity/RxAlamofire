@@ -1,9 +1,9 @@
 PODS:
   - Alamofire (5.2.0)
-  - RxAlamofire/Core (5.3.0):
+  - RxAlamofire/Core (5.2.0):
     - Alamofire (~> 5.1)
     - RxSwift (~> 5.1)
-  - RxAlamofire/RxCocoa (5.3.0):
+  - RxAlamofire/RxCocoa (5.2.0):
     - RxAlamofire/Core
     - RxCocoa (~> 5.1)
   - RxCocoa (5.1.1):
@@ -29,7 +29,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: c1ca147559e730bfb2182c8c7aafbdd90a867987
-  RxAlamofire: 739785bc0e47ce5f72eefbbb03e065790d753f92
+  RxAlamofire: 4ab3d1228b1df5800275d470704e3de295f74c77
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
