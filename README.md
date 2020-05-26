@@ -3,7 +3,7 @@ RxAlamofire
 
 RxAlamofire is a [RxSwift](https://github.com/ReactiveX/RxSwift) wrapper around the elegant HTTP networking in Swift [Alamofire](https://github.com/Alamofire/Alamofire).
 
-![Build pipeline](https://github.com/RxSwiftCommunity/RxAlamofire/workflows/Build%20pipeline/badge.svg?branch=master)
+![Create release](https://github.com/RxSwiftCommunity/RxAlamofire/workflows/Create%20release/badge.svg)
 [![Version](https://img.shields.io/cocoapods/v/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)
 [![License](https://img.shields.io/cocoapods/l/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)
 [![Platform](https://img.shields.io/cocoapods/p/RxAlamofire.svg?style=flat)](http://cocoapods.org/pods/RxAlamofire)
@@ -172,7 +172,7 @@ pod 'RxAlamofire'
 Add following to `Cartfile`:
 
 ```
-github "RxSwiftCommunity/RxAlamofire" ~> 5.2
+github "RxSwiftCommunity/RxAlamofire" ~> 5.3
 ```
 
 ### Swift Package manager
@@ -189,7 +189,7 @@ let package = Package(
 
         dependencies: [
             .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git",
-                     from: "5.2.0"),
+                     from: "5.3.1"),
         ],
 
         targets: [
