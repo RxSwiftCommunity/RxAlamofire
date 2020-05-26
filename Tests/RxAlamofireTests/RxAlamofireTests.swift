@@ -6,14 +6,18 @@ import RxCocoa
 import RxSwift
 import XCTest
 
-@testable import Alamofire
-
 private struct Dummy {
   static let DataStringContent = "Hello World"
   static let DataStringData = DataStringContent.data(using: String.Encoding.utf8)!
   static let DataJSONContent = "{\"hello\":\"world\", \"foo\":\"bar\", \"zero\": 0}"
   static let DataJSON = DataJSONContent.data(using: String.Encoding.utf8)!
   static let GithubURL = "http://github.com/RxSwiftCommunity"
+
+  struct DecodableJSON: Decodable {
+    let hello: String
+    let foo: String
+    let zero: Int
+  }
 }
 
 class RxAlamofireSpec: XCTestCase {
@@ -161,6 +165,45 @@ class RxAlamofireSpec: XCTestCase {
         .subscribe {}
 
       wait(for: [testDownloadResponseExpectation], timeout: 5)
+    } catch {
+      XCTFail("\(error)")
+    }
+  }
+
+  func testRequestDecodable() {
+    do {
+      let response: (HTTPURLResponse, Dummy.DecodableJSON)? = try requestDecodable(.get, "http://myjsondata.com").toBlocking().first()
+
+      XCTAssertEqual(response?.0.statusCode, 200)
+      XCTAssertEqual(response?.1.hello, "world")
+      XCTAssertEqual(response?.1.foo, "bar")
+      XCTAssertEqual(response?.1.zero, 0)
+    } catch {
+      XCTFail("\(error)")
+    }
+  }
+
+  func testRequestDecodableURLRequest() {
+    do {
+      let urlRequest = try URLRequest(url: "http://myjsondata.com", method: .get)
+      let response: (HTTPURLResponse, Dummy.DecodableJSON)? = try requestDecodable(urlRequest).toBlocking().first()
+
+      XCTAssertEqual(response?.0.statusCode, 200)
+      XCTAssertEqual(response?.1.hello, "world")
+      XCTAssertEqual(response?.1.foo, "bar")
+      XCTAssertEqual(response?.1.zero, 0)
+    } catch {
+      XCTFail("\(error)")
+    }
+  }
+
+  func testDecodable() {
+    do {
+       let obj: Dummy.DecodableJSON? = try decodable(.get, "http://myjsondata.com").toBlocking().first()
+
+      XCTAssertEqual(obj?.hello, "world")
+      XCTAssertEqual(obj?.foo, "bar")
+      XCTAssertEqual(obj?.zero, 0)
     } catch {
       XCTFail("\(error)")
     }
