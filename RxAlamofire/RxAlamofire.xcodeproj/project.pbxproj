@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D359EA6248062E400BF725B /* InterceptorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D359EA5248062E400BF725B /* InterceptorTests.swift */; };
 		1D545682246D3514000DBC17 /* ValidateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D545681246D3514000DBC17 /* ValidateTests.swift */; };
 		1D545684246D38DB000DBC17 /* RxAlamofireTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D545683246D38DB000DBC17 /* RxAlamofireTests.swift */; };
 		637D95951C4E37CE00F1FA67 /* (null) in Resources */ = {isa = PBXBuildFile; };
@@ -101,6 +102,7 @@
 		0CE8B9F7DD530C635ADA55BB /* Pods-RxAlamofire-iOS-Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofire-iOS-Example.debug.xcconfig"; path = "Target Support Files/Pods-RxAlamofire-iOS-Example/Pods-RxAlamofire-iOS-Example.debug.xcconfig"; sourceTree = "<group>"; };
 		0FA657EFE8C428C8C900C68B /* Pods_RxAlamofire_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlamofire_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12DFDAE8858A29178AECB65A /* Pods_RxAlamofire_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlamofire_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D359EA5248062E400BF725B /* InterceptorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterceptorTests.swift; path = ../../RxAlamofireTests/InterceptorTests.swift; sourceTree = "<group>"; };
 		1D545677246D34F2000DBC17 /* RxAlamofireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxAlamofireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D54567B246D34F2000DBC17 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1D545681246D3514000DBC17 /* ValidateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ValidateTests.swift; path = ../../RxAlamofireTests/ValidateTests.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				1D545683246D38DB000DBC17 /* RxAlamofireTests.swift */,
+				1D359EA5248062E400BF725B /* InterceptorTests.swift */,
 				1D545681246D3514000DBC17 /* ValidateTests.swift */,
 				1D54567B246D34F2000DBC17 /* Info.plist */,
 			);
@@ -888,6 +891,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D545684246D38DB000DBC17 /* RxAlamofireTests.swift in Sources */,
+				1D359EA6248062E400BF725B /* InterceptorTests.swift in Sources */,
 				1D545682246D3514000DBC17 /* ValidateTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
