@@ -59,12 +59,12 @@ class RxAlamofireSpec: XCTestCase {
 
   // MARK: Tests
   func testBasicRequest() {
-      do {
-        let result = try requestResponse(HTTPMethod.get, "http://mywebservice.com").toBlocking().first()!
-        XCTAssertEqual(result.statusCode, 200)
-      } catch {
-        XCTFail("\(error)")
-      }
+    do {
+      let result = try requestResponse(HTTPMethod.get, "http://mywebservice.com").toBlocking().first()!
+      XCTAssertEqual(result.statusCode, 200)
+    } catch {
+      XCTFail("\(error)")
+    }
   }
 
   func testStringRequest() {
@@ -79,8 +79,9 @@ class RxAlamofireSpec: XCTestCase {
 
   func testJSONRequest() {
     do {
-      guard let (result, obj) = try requestJSON(HTTPMethod.get, "http://myjsondata.com").toBlocking().first(),
-        let json = obj as? [String: Any],
+      let (result, obj) = try requestJSON(HTTPMethod.get, "http://myjsondata.com")
+        .toBlocking().single()
+      guard let json = obj as? [String: Any],
         let res = json["hello"] as? String else {
         XCTFail("errored out")
         return
@@ -151,7 +152,7 @@ class RxAlamofireSpec: XCTestCase {
             testDownloadResponseExpectation.fulfill()
           }
         }
-        .subscribe {}
+        .subscribe { _ in }
 
       wait(for: [testDownloadResponseExpectation], timeout: 5)
     } catch {
@@ -174,12 +175,15 @@ class RxAlamofireSpec: XCTestCase {
       _ = request
         .map {
           $0.responseJSON { jsonResponse in
-            guard let json = jsonResponse.value as? [String: Any] else { XCTFail("Bad Response"); return }
+            print(jsonResponse)
+            guard let json = jsonResponse.value as? [String: Any]
+            else { XCTFail("Bad Response"); return
+            }
             XCTAssertEqual(json["hello"] as? String, "world")
             testDownloadResponseExpectation.fulfill()
           }
         }
-        .subscribe {}
+        .subscribe { _ in }
 
       wait(for: [testDownloadResponseExpectation], timeout: 5)
     } catch {
