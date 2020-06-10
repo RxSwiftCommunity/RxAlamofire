@@ -10,6 +10,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Fetch all tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
 
       - name: Resolve dependencies
         run: |
@@ -65,7 +70,10 @@ jobs:
 
       - name: Build Cocoapods iOS Demo
         run: |
+          set -eo pipefail
           cd Examples
+          export RELEASE_VERSION="$(git describe --abbrev=0 | tr -d '\n')"
+          RELEASE_VERSION=${RELEASE_VERSION:1}
           xcodegen
           pod install --repo-update
           xcodebuild build -scheme 'RxAlamofireDemo-iOS' -workspace 'RxAlamofireDemo.xcworkspace' -sdk iphonesimulator -destination "platform=iOS simulator,name=iPhone 11"
