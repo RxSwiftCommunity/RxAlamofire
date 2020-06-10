@@ -199,7 +199,7 @@ class RxAlamofireSpec: XCTestCase {
 
   func testDecodable() {
     do {
-       let obj: Dummy.DecodableJSON? = try decodable(.get, "http://myjsondata.com").toBlocking().first()
+      let obj: Dummy.DecodableJSON? = try decodable(.get, "http://myjsondata.com").toBlocking().first()
 
       XCTAssertEqual(obj?.hello, "world")
       XCTAssertEqual(obj?.foo, "bar")
