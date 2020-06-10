@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.3.2](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.3.2%0Dv5.3.1) (2020-06-10)
+
+
+### Bug Fixes
+
+* indentation ([e475215](https://github.com/RxSwiftCommunity/RxAlamofire/commits/e47521554cb501e4a935459da70b63af28f51200))
+* To include tag version in buildflow ([de1058d](https://github.com/RxSwiftCommunity/RxAlamofire/commits/de1058d827b131273505d115b3d4404a33887c78))
+
 ### [5.3.1](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.3.1%0Dv5.3.0) (2020-05-25)
 
 ## 5.3.0 (2020-05-25)
