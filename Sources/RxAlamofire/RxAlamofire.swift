@@ -349,7 +349,7 @@ public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable
 public func upload(_ file: URL,
                    to url: URLConvertible,
                    method: HTTPMethod,
-                  headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
   return Alamofire.Session.default.rx.upload(file, to: url, method: method, headers: headers)
 }
 
@@ -366,7 +366,7 @@ public func upload(_ file: URL,
 public func upload(_ file: URL,
                    to url: URLConvertible,
                    method: HTTPMethod,
-                  headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+                   headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
   return Alamofire.Session.default.rx.upload(file, to: url, method: method, headers: headers)
 }
 
@@ -395,7 +395,7 @@ public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observabl
 public func upload(_ data: Data,
                    to url: URLConvertible,
                    method: HTTPMethod,
-                  headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
   return Alamofire.Session.default.rx.upload(data, to: url, method: method, headers: headers)
 }
 
@@ -412,7 +412,7 @@ public func upload(_ data: Data,
 public func upload(_ data: Data,
                    to url: URLConvertible,
                    method: HTTPMethod,
-                  headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+                   headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
   return Alamofire.Session.default.rx.upload(data, to: url, method: method, headers: headers)
 }
 
@@ -439,9 +439,9 @@ public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> 
  - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(_ stream: InputStream,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                    headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
   return Alamofire.Session.default.rx.upload(stream, to: url, method: method, headers: headers)
 }
 
@@ -456,9 +456,9 @@ public func upload(_ stream: InputStream,
  - returns: The observable of `RxProgress` for the created request.
  */
 public func upload(_ stream: InputStream,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                    headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
   return Alamofire.Session.default.rx.upload(stream, to: url, method: method, headers: headers)
 }
 
@@ -471,7 +471,7 @@ public func upload(_ stream: InputStream,
  - returns: The observable of `UploadRequest` for the created upload request.
  */
 public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                          urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
+                   urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
   return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, urlRequest: urlRequest)
 }
 
@@ -486,9 +486,9 @@ public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
  - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                              to url: URLConvertible,
-                              method: HTTPMethod,
-                             headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
   return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
 }
 
@@ -503,9 +503,9 @@ public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
  - returns: The observable of `RxProgress` for the created request.
  */
 public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                              to url: URLConvertible,
-                              method: HTTPMethod,
-                             headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
   return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
 }
 
@@ -896,7 +896,7 @@ extension Reactive where Base: Alamofire.Session {
   public func upload(_ file: URL,
                      to url: URLConvertible,
                      method: HTTPMethod,
-                    headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(file, to: url, method: method, headers: headers)
     }
@@ -915,7 +915,7 @@ extension Reactive where Base: Alamofire.Session {
   public func upload(_ file: URL,
                      to url: URLConvertible,
                      method: HTTPMethod,
-                    headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
     return upload(file, to: url, method: method, headers: headers)
       .flatMap { $0.rx.progress() }
   }
@@ -947,7 +947,7 @@ extension Reactive where Base: Alamofire.Session {
   public func upload(_ data: Data,
                      to url: URLConvertible,
                      method: HTTPMethod,
-                    headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(data, to: url, method: method, headers: headers)
     }
@@ -966,7 +966,7 @@ extension Reactive where Base: Alamofire.Session {
   public func upload(_ data: Data,
                      to url: URLConvertible,
                      method: HTTPMethod,
-                    headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
     return upload(data, to: url, method: method, headers: headers)
       .flatMap { $0.rx.progress() }
   }
@@ -997,9 +997,9 @@ extension Reactive where Base: Alamofire.Session {
    - returns: The observable of `UploadRequest` for the created request.
    */
   public func upload(_ stream: InputStream,
-                       to url: URLConvertible,
-                       method: HTTPMethod,
-                      headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(stream, to: url, method: method, headers: headers)
     }
@@ -1016,9 +1016,9 @@ extension Reactive where Base: Alamofire.Session {
    - returns: The observable of `RxProgress` for the created request.
    */
   public func upload(_ stream: InputStream,
-                       to url: URLConvertible,
-                       method: HTTPMethod,
-                      headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
     return upload(stream, to: url, method: method, headers: headers)
       .flatMap { $0.rx.progress() }
   }
@@ -1032,7 +1032,7 @@ extension Reactive where Base: Alamofire.Session {
    - returns: The observable of `UploadRequest` for the created upload request.
    */
   public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                            urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
+                     urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(multipartFormData: multipartFormData, with: urlRequest)
     }
@@ -1049,9 +1049,9 @@ extension Reactive where Base: Alamofire.Session {
    - returns: The observable of `UploadRequest` for the created request.
    */
   public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                                to url: URLConvertible,
-                                method: HTTPMethod,
-                               headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
     }
@@ -1068,9 +1068,9 @@ extension Reactive where Base: Alamofire.Session {
    - returns: The observable of `RxProgress` for the created request.
    */
   public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                                to url: URLConvertible,
-                                method: HTTPMethod,
-                               headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
     return upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
       .flatMap { $0.rx.progress() }
   }
