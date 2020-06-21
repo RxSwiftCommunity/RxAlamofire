@@ -51,31 +51,34 @@ public func urlRequest(_ method: HTTPMethod,
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of a the `Request`
  */
 public func request(_ method: HTTPMethod,
                     _ url: URLConvertible,
                     parameters: Parameters? = nil,
                     encoding: ParameterEncoding = URLEncoding.default,
-                    headers: HTTPHeaders? = nil)
+                    headers: HTTPHeaders? = nil,
+                    interceptor: RequestInterceptor? = nil)
   -> Observable<DataRequest> {
   return Alamofire.Session.default.rx.request(method,
                                               url,
                                               parameters: parameters,
                                               encoding: encoding,
-                                              headers: headers)
+                                              headers: headers,
+                                              interceptor: interceptor)
 }
 
 /**
  Creates an observable of the generated `Request`.
 
  - parameter urlRequest: An object adopting `URLRequestConvertible`
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of a the `Request`
  */
-public func request(_ urlRequest: URLRequestConvertible) -> Observable<DataRequest> {
-  return Alamofire.Session.default.rx.request(urlRequest: urlRequest)
+public func request(_ urlRequest: URLRequestConvertible,
+                    interceptor: RequestInterceptor? = nil) -> Observable<DataRequest> {
+  return Alamofire.Session.default.rx.request(urlRequest: urlRequest, interceptor: interceptor)
 }
 
 // MARK: data
@@ -88,31 +91,34 @@ public func request(_ urlRequest: URLRequestConvertible) -> Observable<DataReque
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of a tuple containing `(NSHTTPURLResponse, NSData)`
  */
 public func requestData(_ method: HTTPMethod,
                         _ url: URLConvertible,
                         parameters: Parameters? = nil,
                         encoding: ParameterEncoding = URLEncoding.default,
-                        headers: HTTPHeaders? = nil)
+                        headers: HTTPHeaders? = nil,
+                        interceptor: RequestInterceptor? = nil)
   -> Observable<(HTTPURLResponse, Data)> {
   return Alamofire.Session.default.rx.responseData(method,
                                                    url,
                                                    parameters: parameters,
                                                    encoding: encoding,
-                                                   headers: headers)
+                                                   headers: headers,
+                                                   interceptor: interceptor)
 }
 
 /**
  Creates an observable of the `(NSHTTPURLResponse, NSData)` instance.
 
  - parameter urlRequest: An object adopting `URLRequestConvertible`
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of a tuple containing `(NSHTTPURLResponse, NSData)`
  */
-public func requestData(_ urlRequest: URLRequestConvertible) -> Observable<(HTTPURLResponse, Data)> {
-  return request(urlRequest).flatMap { $0.rx.responseData() }
+public func requestData(_ urlRequest: URLRequestConvertible,
+                        interceptor: RequestInterceptor? = nil) -> Observable<(HTTPURLResponse, Data)> {
+  return request(urlRequest, interceptor: interceptor).flatMap { $0.rx.responseData() }
 }
 
 /**
@@ -123,20 +129,22 @@ public func requestData(_ urlRequest: URLRequestConvertible) -> Observable<(HTTP
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of `NSData`
  */
 public func data(_ method: HTTPMethod,
                  _ url: URLConvertible,
                  parameters: Parameters? = nil,
                  encoding: ParameterEncoding = URLEncoding.default,
-                 headers: HTTPHeaders? = nil)
+                 headers: HTTPHeaders? = nil,
+                 interceptor: RequestInterceptor? = nil)
   -> Observable<Data> {
   return Alamofire.Session.default.rx.data(method,
                                            url,
                                            parameters: parameters,
                                            encoding: encoding,
-                                           headers: headers)
+                                           headers: headers,
+                                           interceptor: interceptor)
 }
 
 // MARK: string
@@ -149,31 +157,34 @@ public func data(_ method: HTTPMethod,
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
  */
 public func requestString(_ method: HTTPMethod,
                           _ url: URLConvertible,
                           parameters: Parameters? = nil,
                           encoding: ParameterEncoding = URLEncoding.default,
-                          headers: HTTPHeaders? = nil)
+                          headers: HTTPHeaders? = nil,
+                          interceptor: RequestInterceptor? = nil)
   -> Observable<(HTTPURLResponse, String)> {
   return Alamofire.Session.default.rx.responseString(method,
                                                      url,
                                                      parameters: parameters,
                                                      encoding: encoding,
-                                                     headers: headers)
+                                                     headers: headers,
+                                                     interceptor: interceptor)
 }
 
 /**
  Creates an observable of the returned decoded string and response.
 
  - parameter urlRequest: An object adopting `URLRequestConvertible`
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
  */
-public func requestString(_ urlRequest: URLRequestConvertible) -> Observable<(HTTPURLResponse, String)> {
-  return request(urlRequest).flatMap { $0.rx.responseString() }
+public func requestString(_ urlRequest: URLRequestConvertible,
+                          interceptor: RequestInterceptor? = nil) -> Observable<(HTTPURLResponse, String)> {
+  return request(urlRequest, interceptor: interceptor).flatMap { $0.rx.responseString() }
 }
 
 /**
@@ -184,20 +195,22 @@ public func requestString(_ urlRequest: URLRequestConvertible) -> Observable<(HT
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of `String`
  */
 public func string(_ method: HTTPMethod,
                    _ url: URLConvertible,
                    parameters: Parameters? = nil,
                    encoding: ParameterEncoding = URLEncoding.default,
-                   headers: HTTPHeaders? = nil)
+                   headers: HTTPHeaders? = nil,
+                   interceptor: RequestInterceptor? = nil)
   -> Observable<String> {
   return Alamofire.Session.default.rx.string(method,
                                              url,
                                              parameters: parameters,
                                              encoding: encoding,
-                                             headers: headers)
+                                             headers: headers,
+                                             interceptor: interceptor)
 }
 
 // MARK: JSON
@@ -210,31 +223,34 @@ public func string(_ method: HTTPMethod,
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
  */
 public func requestJSON(_ method: HTTPMethod,
                         _ url: URLConvertible,
                         parameters: Parameters? = nil,
                         encoding: ParameterEncoding = URLEncoding.default,
-                        headers: HTTPHeaders? = nil)
+                        headers: HTTPHeaders? = nil,
+                        interceptor: RequestInterceptor? = nil)
   -> Observable<(HTTPURLResponse, Any)> {
   return Alamofire.Session.default.rx.responseJSON(method,
                                                    url,
                                                    parameters: parameters,
                                                    encoding: encoding,
-                                                   headers: headers)
+                                                   headers: headers,
+                                                   interceptor: interceptor)
 }
 
 /**
  Creates an observable of the returned decoded JSON as `AnyObject` and the response.
 
  - parameter urlRequest: An object adopting `URLRequestConvertible`
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
  */
-public func requestJSON(_ urlRequest: URLRequestConvertible) -> Observable<(HTTPURLResponse, Any)> {
-  return request(urlRequest).flatMap { $0.rx.responseJSON() }
+public func requestJSON(_ urlRequest: URLRequestConvertible,
+                        interceptor: RequestInterceptor? = nil) -> Observable<(HTTPURLResponse, Any)> {
+  return request(urlRequest, interceptor: interceptor).flatMap { $0.rx.responseJSON() }
 }
 
 /**
@@ -245,20 +261,22 @@ public func requestJSON(_ urlRequest: URLRequestConvertible) -> Observable<(HTTP
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of the decoded JSON as `Any`
  */
 public func json(_ method: HTTPMethod,
                  _ url: URLConvertible,
                  parameters: Parameters? = nil,
                  encoding: ParameterEncoding = URLEncoding.default,
-                 headers: HTTPHeaders? = nil)
+                 headers: HTTPHeaders? = nil,
+                 interceptor: RequestInterceptor? = nil)
   -> Observable<Any> {
   return Alamofire.Session.default.rx.json(method,
                                            url,
                                            parameters: parameters,
                                            encoding: encoding,
-                                           headers: headers)
+                                           headers: headers,
+                                           interceptor: interceptor)
 }
 
 // MARK: Decodable
@@ -271,31 +289,34 @@ public func json(_ method: HTTPMethod,
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of the tuple `(NSHTTPURLResponse, T)`
  */
 public func requestDecodable<T: Decodable>(_ method: HTTPMethod,
                                            _ url: URLConvertible,
                                            parameters: Parameters? = nil,
                                            encoding: ParameterEncoding = URLEncoding.default,
-                                           headers: HTTPHeaders? = nil)
+                                           headers: HTTPHeaders? = nil,
+                                           interceptor: RequestInterceptor? = nil)
   -> Observable<(HTTPURLResponse, T)> {
   return Alamofire.Session.default.rx.responseDecodable(method,
                                                         url,
                                                         parameters: parameters,
                                                         encoding: encoding,
-                                                        headers: headers)
+                                                        headers: headers,
+                                                        interceptor: interceptor)
 }
 
 /**
  Creates an observable of the returned decoded Decodable as `T` and the response.
 
  - parameter urlRequest: An object adopting `URLRequestConvertible`
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of the tuple `(NSHTTPURLResponse, T)`
  */
-public func requestDecodable<T: Decodable>(_ urlRequest: URLRequestConvertible) -> Observable<(HTTPURLResponse, T)> {
-  return request(urlRequest).flatMap { $0.rx.responseDecodable() }
+public func requestDecodable<T: Decodable>(_ urlRequest: URLRequestConvertible,
+                                           interceptor: RequestInterceptor? = nil) -> Observable<(HTTPURLResponse, T)> {
+  return request(urlRequest, interceptor: interceptor).flatMap { $0.rx.responseDecodable() }
 }
 
 /**
@@ -306,20 +327,22 @@ public func requestDecodable<T: Decodable>(_ urlRequest: URLRequestConvertible) 
  - parameter parameters: A dictionary containing all necessary options
  - parameter encoding: The kind of encoding used to process parameters
  - parameter header: A dictionary containing all the additional headers
-
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: An observable of the decoded Decodable as `T`
  */
 public func decodable<T: Decodable>(_ method: HTTPMethod,
                                     _ url: URLConvertible,
                                     parameters: Parameters? = nil,
                                     encoding: ParameterEncoding = URLEncoding.default,
-                                    headers: HTTPHeaders? = nil)
+                                    headers: HTTPHeaders? = nil,
+                                    interceptor: RequestInterceptor? = nil)
   -> Observable<T> {
   return Alamofire.Session.default.rx.decodable(method,
                                                 url,
                                                 parameters: parameters,
                                                 encoding: encoding,
-                                                headers: headers)
+                                                headers: headers,
+                                                interceptor: interceptor)
 }
 
 // MARK: Upload
@@ -328,36 +351,45 @@ public func decodable<T: Decodable>(_ method: HTTPMethod,
  Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
  The request is started immediately.
 
+ - parameter file: An instance of NSURL holding the information of the local file.
  - parameter urlRequest: The request object to start the upload.
- - paramenter file: An instance of NSURL holding the information of the local file.
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: The observable of `UploadRequest` for the created request.
  */
-public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-  return Alamofire.Session.default.rx.upload(file, urlRequest: urlRequest)
+public func upload(_ file: URL,
+                   urlRequest: URLRequestConvertible,
+                   interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(file, urlRequest: urlRequest, interceptor: interceptor)
 }
 
 /**
  Returns an observable of a request using the shared manager instance to upload any data to a specified URL.
  The request is started immediately.
 
+ - parameter data: An instance of NSData holdint the data to upload.
  - parameter urlRequest: The request object to start the upload.
- - paramenter data: An instance of NSData holdint the data to upload.
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: The observable of `UploadRequest` for the created request.
  */
-public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-  return Alamofire.Session.default.rx.upload(data, urlRequest: urlRequest)
+public func upload(_ data: Data,
+                   urlRequest: URLRequestConvertible,
+                   interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(data, urlRequest: urlRequest, interceptor: interceptor)
 }
 
 /**
  Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
  The request is started immediately.
 
+ - parameter stream: The stream to upload.
  - parameter urlRequest: The request object to start the upload.
- - paramenter stream: The stream to upload.
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: The observable of `Request` for the created upload request.
  */
-public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
-  return Alamofire.Session.default.rx.upload(stream, urlRequest: urlRequest)
+public func upload(_ stream: InputStream,
+                   urlRequest: URLRequestConvertible,
+                   interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(stream, urlRequest: urlRequest, interceptor: interceptor)
 }
 
 // MARK: Download
@@ -365,12 +397,14 @@ public func upload(_ stream: InputStream, urlRequest: URLRequestConvertible) -> 
 /**
  Creates a download request using the shared manager instance for the specified URL request.
  - parameter urlRequest:  The URL request.
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - parameter destination: The closure used to determine the destination of the downloaded file.
  - returns: The observable of `DownloadRequest` for the created download request.
  */
 public func download(_ urlRequest: URLRequestConvertible,
+                     interceptor: RequestInterceptor? = nil,
                      to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
-  return Alamofire.Session.default.rx.download(urlRequest, to: destination)
+  return Alamofire.Session.default.rx.download(urlRequest, interceptor: interceptor, to: destination)
 }
 
 // MARK: Resume Data
@@ -382,12 +416,14 @@ public func download(_ urlRequest: URLRequestConvertible,
  - parameter resumeData:  The resume data. This is an opaque data blob produced by `NSURLSessionDownloadTask`
  when a task is cancelled. See `NSURLSession -downloadTaskWithResumeData:` for additional
  information.
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - parameter destination: The closure used to determine the destination of the downloaded file.
  - returns: The observable of `Request` for the created download request.
  */
 public func download(resumeData: Data,
+                     interceptor: RequestInterceptor? = nil,
                      to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
-  return Alamofire.Session.default.rx.download(resumeData: resumeData, to: destination)
+  return Alamofire.Session.default.rx.download(resumeData: resumeData, interceptor: interceptor, to: destination)
 }
 
 // MARK: Manager - Extension of Manager
@@ -488,21 +524,23 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the `Request`
    */
   public func request(_ method: HTTPMethod,
                       _ url: URLConvertible,
                       parameters: Parameters? = nil,
                       encoding: ParameterEncoding = URLEncoding.default,
-                      headers: HTTPHeaders? = nil)
+                      headers: HTTPHeaders? = nil,
+                      interceptor: RequestInterceptor? = nil)
     -> Observable<DataRequest> {
     return request { manager in
       manager.request(url,
                       method: method,
                       parameters: parameters,
                       encoding: encoding,
-                      headers: headers)
+                      headers: headers,
+                      interceptor: interceptor)
     }
   }
 
@@ -510,16 +548,14 @@ extension Reactive where Base: Alamofire.Session {
    Creates an observable of the `Request`.
 
    - parameter URLRequest: An object adopting `URLRequestConvertible`
-   - parameter parameters: A dictionary containing all necessary options
-   - parameter encoding: The kind of encoding used to process parameters
-   - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the `Request`
    */
-  public func request(urlRequest: URLRequestConvertible)
+  public func request(urlRequest: URLRequestConvertible,
+                      interceptor: RequestInterceptor? = nil)
     -> Observable<DataRequest> {
     return request { manager in
-      manager.request(urlRequest)
+      manager.request(urlRequest, interceptor: interceptor)
     }
   }
 
@@ -532,20 +568,22 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the tuple `(NSHTTPURLResponse, NSData)`
    */
   public func responseData(_ method: HTTPMethod,
                            _ url: URLConvertible,
                            parameters: Parameters? = nil,
                            encoding: ParameterEncoding = URLEncoding.default,
-                           headers: HTTPHeaders? = nil)
+                           headers: HTTPHeaders? = nil,
+                           interceptor: RequestInterceptor? = nil)
     -> Observable<(HTTPURLResponse, Data)> {
     return request(method,
                    url,
                    parameters: parameters,
                    encoding: encoding,
-                   headers: headers).flatMap { $0.rx.responseData() }
+                   headers: headers,
+                   interceptor: interceptor).flatMap { $0.rx.responseData() }
   }
 
   /**
@@ -555,20 +593,22 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of `NSData`
    */
   public func data(_ method: HTTPMethod,
                    _ url: URLConvertible,
                    parameters: Parameters? = nil,
                    encoding: ParameterEncoding = URLEncoding.default,
-                   headers: HTTPHeaders? = nil)
+                   headers: HTTPHeaders? = nil,
+                   interceptor: RequestInterceptor? = nil)
     -> Observable<Data> {
     return request(method,
                    url,
                    parameters: parameters,
                    encoding: encoding,
-                   headers: headers).flatMap { $0.rx.data() }
+                   headers: headers,
+                   interceptor: interceptor).flatMap { $0.rx.data() }
   }
 
   // MARK: string
@@ -580,20 +620,22 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
    */
   public func responseString(_ method: HTTPMethod,
                              _ url: URLConvertible,
                              parameters: Parameters? = nil,
                              encoding: ParameterEncoding = URLEncoding.default,
-                             headers: HTTPHeaders? = nil)
+                             headers: HTTPHeaders? = nil,
+                             interceptor: RequestInterceptor? = nil)
     -> Observable<(HTTPURLResponse, String)> {
     return request(method,
                    url,
                    parameters: parameters,
                    encoding: encoding,
-                   headers: headers).flatMap { $0.rx.responseString() }
+                   headers: headers,
+                   interceptor: interceptor).flatMap { $0.rx.responseString() }
   }
 
   /**
@@ -603,20 +645,22 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of `String`
    */
   public func string(_ method: HTTPMethod,
                      _ url: URLConvertible,
                      parameters: Parameters? = nil,
                      encoding: ParameterEncoding = URLEncoding.default,
-                     headers: HTTPHeaders? = nil)
+                     headers: HTTPHeaders? = nil,
+                     interceptor: RequestInterceptor? = nil)
     -> Observable<String> {
     return request(method,
                    url,
                    parameters: parameters,
                    encoding: encoding,
-                   headers: headers)
+                   headers: headers,
+                   interceptor: interceptor)
       .flatMap { (request) -> Observable<String> in
         request.rx.string()
       }
@@ -631,20 +675,22 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
    */
   public func responseJSON(_ method: HTTPMethod,
                            _ url: URLConvertible,
                            parameters: Parameters? = nil,
                            encoding: ParameterEncoding = URLEncoding.default,
-                           headers: HTTPHeaders? = nil)
+                           headers: HTTPHeaders? = nil,
+                           interceptor: RequestInterceptor? = nil)
     -> Observable<(HTTPURLResponse, Any)> {
     return request(method,
                    url,
                    parameters: parameters,
                    encoding: encoding,
-                   headers: headers).flatMap { $0.rx.responseJSON() }
+                   headers: headers,
+                   interceptor: interceptor).flatMap { $0.rx.responseJSON() }
   }
 
   /**
@@ -654,20 +700,22 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of `AnyObject`
    */
   public func json(_ method: HTTPMethod,
                    _ url: URLConvertible,
                    parameters: Parameters? = nil,
                    encoding: ParameterEncoding = URLEncoding.default,
-                   headers: HTTPHeaders? = nil)
+                   headers: HTTPHeaders? = nil,
+                   interceptor: RequestInterceptor? = nil)
     -> Observable<Any> {
     return request(method,
                    url,
                    parameters: parameters,
                    encoding: encoding,
-                   headers: headers).flatMap { $0.rx.json() }
+                   headers: headers,
+                   interceptor: interceptor).flatMap { $0.rx.json() }
   }
 
   // MARK: Decodable
@@ -679,20 +727,22 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the tuple `(NSHTTPURLResponse, T)`
    */
   public func responseDecodable<T: Decodable>(_ method: HTTPMethod,
                                               _ url: URLConvertible,
                                               parameters: Parameters? = nil,
                                               encoding: ParameterEncoding = URLEncoding.default,
-                                              headers: HTTPHeaders? = nil)
+                                              headers: HTTPHeaders? = nil,
+                                              interceptor: RequestInterceptor? = nil)
     -> Observable<(HTTPURLResponse, T)> {
     return request(method,
                    url,
                    parameters: parameters,
                    encoding: encoding,
-                   headers: headers).flatMap { $0.rx.responseDecodable() }
+                   headers: headers,
+                   interceptor: interceptor).flatMap { $0.rx.responseDecodable() }
   }
 
   /**
@@ -702,20 +752,22 @@ extension Reactive where Base: Alamofire.Session {
    - parameter parameters: A dictionary containing all necessary options
    - parameter encoding: The kind of encoding used to process parameters
    - parameter header: A dictionary containing all the additional headers
-
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of `T`
    */
   public func decodable<T: Decodable>(_ method: HTTPMethod,
                                       _ url: URLConvertible,
                                       parameters: Parameters? = nil,
                                       encoding: ParameterEncoding = URLEncoding.default,
-                                      headers: HTTPHeaders? = nil)
+                                      headers: HTTPHeaders? = nil,
+                                      interceptor: RequestInterceptor? = nil)
     -> Observable<T> {
     return request(method,
                    url,
                    parameters: parameters,
                    encoding: encoding,
-                   headers: headers).flatMap { $0.rx.decodable() }
+                   headers: headers,
+                   interceptor: interceptor).flatMap { $0.rx.decodable() }
   }
 
   // MARK: Upload
@@ -724,13 +776,16 @@ extension Reactive where Base: Alamofire.Session {
    Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
    The request is started immediately.
 
+   - parameter file: An instance of NSURL holding the information of the local file.
    - parameter urlRequest: The request object to start the upload.
-   - paramenter file: An instance of NSURL holding the information of the local file.
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: The observable of `AnyObject` for the created request.
    */
-  public func upload(_ file: URL, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
+  public func upload(_ file: URL,
+                     urlRequest: URLRequestConvertible,
+                     interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
     return request { manager in
-      manager.upload(file, with: urlRequest)
+      manager.upload(file, with: urlRequest, interceptor: interceptor)
     }
   }
 
@@ -738,13 +793,16 @@ extension Reactive where Base: Alamofire.Session {
    Returns an observable of a request using the shared manager instance to upload any data to a specified URL.
    The request is started immediately.
 
+   - parameter data: An instance of Data holdint the data to upload.
    - parameter urlRequest: The request object to start the upload.
-   - paramenter data: An instance of Data holdint the data to upload.
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: The observable of `UploadRequest` for the created request.
    */
-  public func upload(_ data: Data, urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
+  public func upload(_ data: Data,
+                     urlRequest: URLRequestConvertible,
+                     interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
     return request { manager in
-      manager.upload(data, with: urlRequest)
+      manager.upload(data, with: urlRequest, interceptor: interceptor)
     }
   }
 
@@ -752,14 +810,16 @@ extension Reactive where Base: Alamofire.Session {
    Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
    The request is started immediately.
 
+   - parameter stream: The stream to upload.
    - parameter urlRequest: The request object to start the upload.
-   - paramenter stream: The stream to upload.
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: The observable of `(NSData?, RxProgress)` for the created upload request.
    */
   public func upload(_ stream: InputStream,
-                     urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
+                     urlRequest: URLRequestConvertible,
+                     interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
     return request { manager in
-      manager.upload(stream, with: urlRequest)
+      manager.upload(stream, with: urlRequest, interceptor: interceptor)
     }
   }
 
@@ -768,13 +828,15 @@ extension Reactive where Base: Alamofire.Session {
   /**
    Creates a download request using the shared manager instance for the specified URL request.
    - parameter urlRequest:  The URL request.
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - parameter destination: The closure used to determine the destination of the downloaded file.
    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
    */
   public func download(_ urlRequest: URLRequestConvertible,
+                       interceptor: RequestInterceptor? = nil,
                        to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
     return request { manager in
-      manager.download(urlRequest, to: destination)
+      manager.download(urlRequest, interceptor: interceptor, to: destination)
     }
   }
 
@@ -785,13 +847,15 @@ extension Reactive where Base: Alamofire.Session {
    - parameter resumeData:  The resume data. This is an opaque data blob produced by `NSURLSessionDownloadTask`
    when a task is cancelled. See `NSURLSession -downloadTaskWithResumeData:` for additional
    information.
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - parameter destination: The closure used to determine the destination of the downloaded file.
    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
    */
   public func download(resumeData: Data,
+                       interceptor: RequestInterceptor? = nil,
                        to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
     return request { manager in
-      manager.download(resumingWith: resumeData, to: destination)
+      manager.download(resumingWith: resumeData, interceptor: interceptor, to: destination)
     }
   }
 }

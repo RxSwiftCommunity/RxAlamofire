@@ -42,6 +42,14 @@ class RxAlamofireSpec: XCTestCase {
     _ = HTTPStubs.stubRequests(passingTest: isHost("myjsondata.com"), withStubResponse: { _ in
       HTTPStubsResponse(data: Dummy.DataJSON, statusCode: 200, headers: ["Content-Type": "application/json"])
             })
+
+    _ = HTTPStubs.stubRequests(passingTest: isHost("interceptor.com"), withStubResponse: { request in
+      guard request.url?.path != "/retry" else {
+        return HTTPStubsResponse(data: Dummy.DataJSON, statusCode: 401, headers: ["Content-Type": "application/json"])
+      }
+
+      return HTTPStubsResponse(data: Dummy.DataJSON, statusCode: 200, headers: ["Content-Type": "application/json"])
+          })
   }
 
   override func tearDown() {
@@ -209,6 +217,34 @@ class RxAlamofireSpec: XCTestCase {
     }
   }
 
+  func testInterceptorAdapt() {
+    do {
+      let interceptor = TestInterceptor()
+      let result = try requestData(HTTPMethod.get, "http://interceptor.com", interceptor: interceptor)
+        .toBlocking().first()!
+      XCTAssertEqual(result.0.statusCode, 200)
+      XCTAssertEqual(interceptor.adapt, 1)
+      XCTAssertEqual(interceptor.retry, 0)
+    } catch {
+      XCTFail("\(error)")
+    }
+  }
+
+  func testInterceptorRetry() {
+    do {
+      let interceptor = TestInterceptor()
+      let result = try request(HTTPMethod.get, "http://interceptor.com/retry", interceptor: interceptor)
+        .validate()
+        .responseData()
+        .toBlocking().last()!
+      XCTAssertEqual(result.0.statusCode, 200)
+      XCTAssertEqual(interceptor.adapt, 2)
+      XCTAssertEqual(interceptor.retry, 1)
+    } catch {
+      XCTFail("\(error)")
+    }
+  }
+
   var allTests = [
     "testBasicRequest": testBasicRequest,
     "testJSONRequest": testJSONRequest,
@@ -216,4 +252,29 @@ class RxAlamofireSpec: XCTestCase {
     "testDownloadResponse": testDownloadResponse,
     "testDownloadResponseSerialized": testDownloadResponseSerialized
   ]
+}
+
+final class TestInterceptor: RequestInterceptor {
+  private(set) var retry = 0
+  private(set) var adapt = 0
+  private var hasRetried = false
+
+  func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
+    if hasRetried {
+      var request = URLRequest(url: URL(string: "http://interceptor.com")!)
+      request.method = urlRequest.method
+      request.headers = urlRequest.headers
+      completion(.success(request))
+    } else {
+      completion(.success(urlRequest))
+    }
+
+    adapt += 1
+  }
+
+  func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+    completion(hasRetried ? .doNotRetry : .retry)
+    hasRetried = true
+    retry += 1
+  }
 }
