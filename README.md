@@ -103,28 +103,28 @@ _ = request(.get, stringURL)
     .subscribe { print($0) }
 
 
-// MARK: Alamofire manager
-// same methods with any alamofire manager
+// MARK: Alamofire Session
+// same methods with any Alamofire Session
 
-let manager = SessionManager.default
+let session = Session.default
 
 // simple case
-_ = manager.rx.json(.get, stringURL)
+_ = session.rx.json(.get, stringURL)
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // URLHTTPResponse + JSON
-_ = manager.rx.responseJSON(.get, stringURL)
+_ = session.rx.responseJSON(.get, stringURL)
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // URLHTTPResponse + String
-_ = manager.rx.responseString(.get, stringURL)
+_ = session.rx.responseString(.get, stringURL)
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + JSON
-_ = manager.rx.request(.get, stringURL)
+_ = session.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/json"])
     .json()
@@ -132,7 +132,7 @@ _ = manager.rx.request(.get, stringURL)
     .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + URLHTTPResponse + JSON
-_ = manager.rx.request(.get, stringURL)
+_ = session.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/json"])
     .responseJSON()
@@ -140,7 +140,7 @@ _ = manager.rx.request(.get, stringURL)
     .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + URLHTTPResponse + String + Progress
-_ = manager.rx.request(.get, stringURL)
+_ = session.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/something"])
     .flatMap { request -> Observable<(String?, RxProgress)> in
@@ -151,6 +151,17 @@ _ = manager.rx.request(.get, stringURL)
         let progressPart = request.rx.progress()
         return Observable.combineLatest(stringPart, progressPart) { ($0, $1) }
     }
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
+
+// Interceptor + URLHTTPResponse + Validation + JSON
+let adapter = // Some RequestAdapter
+let retrier = // Some RequestRetrier
+let interceptor = Interceptor(adapter: adapter, retrier: retrier)
+_ = session.rx.request(.get, stringURL)
+    .validate()
+    .validate(contentType: ["text/json"])
+    .responseJSON()
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
 ```

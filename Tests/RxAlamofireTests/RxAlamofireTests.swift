@@ -255,7 +255,6 @@ class RxAlamofireSpec: XCTestCase {
 }
 
 final class TestInterceptor: RequestInterceptor {
-
   private(set) var retry = 0
   private(set) var adapt = 0
   private var hasRetried = false
