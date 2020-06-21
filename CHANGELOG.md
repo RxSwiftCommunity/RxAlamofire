@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.4.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.4.0%0Dv5.3.2) (2020-06-21)
+
+
+### Features
+
+* **#185:** Support Alamofire Interceptor ([f059d88](https://github.com/RxSwiftCommunity/RxAlamofire/commits/f059d88212e4191ef16567211fdcd3632215c819)), closes [#185](https://github.com/RxSwiftCommunity/RxAlamofire/issues/185)
+
 ### [5.3.2](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.3.2%0Dv5.3.1) (2020-06-10)
 
 
