@@ -363,6 +363,40 @@ public func upload(_ file: URL,
 }
 
 /**
+ Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter file: An instance of `URL` holding the information of the local file.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `UploadRequest` for the created request.
+ */
+public func upload(_ file: URL,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(file, to: url, method: method, headers: headers)
+}
+
+/**
+ Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter file: An instance of `URL` holding the information of the local file.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `RxProgress` for the created request.
+ */
+public func upload(_ file: URL,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+  return Alamofire.Session.default.rx.upload(file, to: url, method: method, headers: headers)
+}
+
+/**
  Returns an observable of a request using the shared manager instance to upload any data to a specified URL.
  The request is started immediately.
 
@@ -378,6 +412,40 @@ public func upload(_ data: Data,
 }
 
 /**
+ Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter data: An instance of `Data` holding the information of the local file.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `UploadRequest` for the created request.
+ */
+public func upload(_ data: Data,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(data, to: url, method: method, headers: headers)
+}
+
+/**
+ Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter data: An instance of `Data` holding the information of the local file.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `RxProgress` for the created request.
+ */
+public func upload(_ data: Data,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+  return Alamofire.Session.default.rx.upload(data, to: url, method: method, headers: headers)
+}
+
+/**
  Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
  The request is started immediately.
 
@@ -390,6 +458,87 @@ public func upload(_ stream: InputStream,
                    urlRequest: URLRequestConvertible,
                    interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
   return Alamofire.Session.default.rx.upload(stream, urlRequest: urlRequest, interceptor: interceptor)
+}
+
+/**
+ Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter stream: The `InputStream` to upload.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `UploadRequest` for the created request.
+ */
+public func upload(_ stream: InputStream,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(stream, to: url, method: method, headers: headers)
+}
+
+/**
+ Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter stream: The `InputStream` to upload.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `RxProgress` for the created request.
+ */
+public func upload(_ stream: InputStream,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+  return Alamofire.Session.default.rx.upload(stream, to: url, method: method, headers: headers)
+}
+
+/**
+ Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
+ The request is started immediately.
+
+ - parameter multipartFormData: The block for building `MultipartFormData`.
+ - parameter urlRequest: The request object to start the upload.
+ - returns: The observable of `UploadRequest` for the created upload request.
+ */
+public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+                   urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, urlRequest: urlRequest)
+}
+
+/**
+ Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter multipartFormData: The block for building `MultipartFormData`.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `UploadRequest` for the created request.
+ */
+public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
+}
+
+/**
+ Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter multipartFormData: The block for building `MultipartFormData`.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `RxProgress` for the created request.
+ */
+public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+  return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
 }
 
 // MARK: Download
@@ -790,6 +939,43 @@ extension Reactive where Base: Alamofire.Session {
   }
 
   /**
+   Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+   The request is started immediately.
+
+   - parameter file: An instance of `URL` holding the information of the local file.
+   - parameter url: An object adopting `URLConvertible`
+   - parameter method: Alamofire method object
+   - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - returns: The observable of `UploadRequest` for the created request.
+   */
+  public func upload(_ file: URL,
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+    return request { manager in
+      manager.upload(file, to: url, method: method, headers: headers)
+    }
+  }
+
+  /**
+   Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+   The request is started immediately.
+
+   - parameter file: An instance of `URL` holding the information of the local file.
+   - parameter url: An object adopting `URLConvertible`
+   - parameter method: Alamofire method object
+   - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - returns: The observable of `RxProgress` for the created request.
+   */
+  public func upload(_ file: URL,
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+    return upload(file, to: url, method: method, headers: headers)
+      .flatMap { $0.rx.progress() }
+  }
+
+  /**
    Returns an observable of a request using the shared manager instance to upload any data to a specified URL.
    The request is started immediately.
 
@@ -807,6 +993,43 @@ extension Reactive where Base: Alamofire.Session {
   }
 
   /**
+   Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+   The request is started immediately.
+
+   - parameter data: An instance of `Data` holding the information of the local file.
+   - parameter url: An object adopting `URLConvertible`
+   - parameter method: Alamofire method object
+   - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - returns: The observable of `UploadRequest` for the created request.
+   */
+  public func upload(_ data: Data,
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+    return request { manager in
+      manager.upload(data, to: url, method: method, headers: headers)
+    }
+  }
+
+  /**
+   Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+   The request is started immediately.
+
+   - parameter data: An instance of `Data` holding the information of the local file.
+   - parameter url: An object adopting `URLConvertible`
+   - parameter method: Alamofire method object
+   - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - returns: The observable of `RxProgress` for the created request.
+   */
+  public func upload(_ data: Data,
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+    return upload(data, to: url, method: method, headers: headers)
+      .flatMap { $0.rx.progress() }
+  }
+
+  /**
    Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
    The request is started immediately.
 
@@ -821,6 +1044,95 @@ extension Reactive where Base: Alamofire.Session {
     return request { manager in
       manager.upload(stream, with: urlRequest, interceptor: interceptor)
     }
+  }
+
+  /**
+   Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+   The request is started immediately.
+
+   - parameter stream: The `InputStream` to upload.
+   - parameter url: An object adopting `URLConvertible`
+   - parameter method: Alamofire method object
+   - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - returns: The observable of `UploadRequest` for the created request.
+   */
+  public func upload(_ stream: InputStream,
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+    return request { manager in
+      manager.upload(stream, to: url, method: method, headers: headers)
+    }
+  }
+
+  /**
+   Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+   The request is started immediately.
+
+   - parameter stream: The `InputStream` to upload.
+   - parameter url: An object adopting `URLConvertible`
+   - parameter method: Alamofire method object
+   - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - returns: The observable of `RxProgress` for the created request.
+   */
+  public func upload(_ stream: InputStream,
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+    return upload(stream, to: url, method: method, headers: headers)
+      .flatMap { $0.rx.progress() }
+  }
+
+  /**
+   Returns an observable of a request using the shared manager instance to upload any stream to a specified URL.
+   The request is started immediately.
+
+   - parameter multipartFormData: The block for building `MultipartFormData`.
+   - parameter urlRequest: The request object to start the upload.
+   - returns: The observable of `UploadRequest` for the created upload request.
+   */
+  public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+                     urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
+    return request { manager in
+      manager.upload(multipartFormData: multipartFormData, with: urlRequest)
+    }
+  }
+
+  /**
+   Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+   The request is started immediately.
+
+   - parameter multipartFormData: The block for building `MultipartFormData`.
+   - parameter url: An object adopting `URLConvertible`
+   - parameter method: Alamofire method object
+   - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - returns: The observable of `UploadRequest` for the created request.
+   */
+  public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+    return request { manager in
+      manager.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
+    }
+  }
+
+  /**
+   Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+   The request is started immediately.
+
+   - parameter multipartFormData: The block for building `MultipartFormData`.
+   - parameter url: An object adopting `URLConvertible`
+   - parameter method: Alamofire method object
+   - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - returns: The observable of `RxProgress` for the created request.
+   */
+  public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+                     to url: URLConvertible,
+                     method: HTTPMethod,
+                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+    return upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
+      .flatMap { $0.rx.progress() }
   }
 
   // MARK: Download
