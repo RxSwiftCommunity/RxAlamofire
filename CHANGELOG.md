@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.5.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.5.0%0Dv5.4.0) (2020-06-22)
+
+
+### Features
+
+* **#183:** Upload extensions ([4db992c](https://github.com/RxSwiftCommunity/RxAlamofire/commits/4db992c6ff1179d957075687f407fcf9e8a28845)), closes [#183](https://github.com/RxSwiftCommunity/RxAlamofire/issues/183)
+
 ## [5.4.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.4.0%0Dv5.3.2) (2020-06-21)
 
 
