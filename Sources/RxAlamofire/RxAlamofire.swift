@@ -81,6 +81,72 @@ public func request(_ urlRequest: URLRequestConvertible,
   return Alamofire.Session.default.rx.request(urlRequest: urlRequest, interceptor: interceptor)
 }
 
+// MARK: response
+
+/**
+ Creates an observable of the `NSHTTPURLResponse` instance.
+
+ - parameter method: Alamofire method object
+ - parameter url: An object adopting `URLConvertible`
+ - parameter parameters: A dictionary containing all necessary options
+ - parameter encoding: The kind of encoding used to process parameters
+ - parameter header: A dictionary containing all the additional headers
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
+ - returns: An observable of `NSHTTPURLResponse`
+ */
+public func requestResponse(_ method: HTTPMethod,
+                            _ url: URLConvertible,
+                            parameters: Parameters? = nil,
+                            encoding: ParameterEncoding = URLEncoding.default,
+                            headers: HTTPHeaders? = nil,
+                            interceptor: RequestInterceptor? = nil)
+  -> Observable<HTTPURLResponse> {
+  return Alamofire.Session.default.rx.response(method,
+                                               url,
+                                               parameters: parameters,
+                                               encoding: encoding,
+                                               headers: headers,
+                                               interceptor: interceptor)
+}
+
+/**
+ Creates an observable of the `NSHTTPURLResponse` instance.
+
+ - parameter urlRequest: An object adopting `URLRequestConvertible`
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
+ - returns: An observable of `NSHTTPURLResponse`
+ */
+public func requestResponse(_ urlRequest: URLRequestConvertible,
+                            interceptor: RequestInterceptor? = nil) -> Observable<HTTPURLResponse> {
+  return request(urlRequest, interceptor: interceptor).flatMap { $0.rx.response() }
+}
+
+/**
+ Creates an observable of the returned data.
+
+ - parameter method: Alamofire method object
+ - parameter url: An object adopting `URLConvertible`
+ - parameter parameters: A dictionary containing all necessary options
+ - parameter encoding: The kind of encoding used to process parameters
+ - parameter header: A dictionary containing all the additional headers
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
+ - returns: An observable of `NSHTTPURLResponse`
+ */
+public func response(_ method: HTTPMethod,
+                     _ url: URLConvertible,
+                     parameters: Parameters? = nil,
+                     encoding: ParameterEncoding = URLEncoding.default,
+                     headers: HTTPHeaders? = nil,
+                     interceptor: RequestInterceptor? = nil)
+  -> Observable<HTTPURLResponse> {
+  return Alamofire.Session.default.rx.response(method,
+                                               url,
+                                               parameters: parameters,
+                                               encoding: encoding,
+                                               headers: headers,
+                                               interceptor: interceptor)
+}
+
 // MARK: data
 
 /**
@@ -708,6 +774,33 @@ extension Reactive where Base: Alamofire.Session {
     }
   }
 
+  // MARK: response
+
+  /**
+   Creates an observable of the response
+
+   - parameter url: An object adopting `URLConvertible`
+   - parameter parameters: A dictionary containing all necessary options
+   - parameter encoding: The kind of encoding used to process parameters
+   - parameter header: A dictionary containing all the additional headers
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
+   - returns: An observable of  `NSHTTPURLResponse`
+   */
+  public func response(_ method: HTTPMethod,
+                       _ url: URLConvertible,
+                       parameters: Parameters? = nil,
+                       encoding: ParameterEncoding = URLEncoding.default,
+                       headers: HTTPHeaders? = nil,
+                       interceptor: RequestInterceptor? = nil)
+    -> Observable<HTTPURLResponse> {
+    return request(method,
+                   url,
+                   parameters: parameters,
+                   encoding: encoding,
+                   headers: headers,
+                   interceptor: interceptor).flatMap { $0.rx.response() }
+  }
+
   // MARK: data
 
   /**
@@ -1195,6 +1288,10 @@ extension ObservableType where Element == DataRequest {
     return flatMap { $0.rx.responseData() }
   }
 
+  public func response() -> Observable<HTTPURLResponse> {
+    return flatMap { $0.rx.response() }
+  }
+
   public func data() -> Observable<Data> {
     return flatMap { $0.rx.data() }
   }
@@ -1232,6 +1329,35 @@ extension Reactive where Base: DataRequest {
   /// - returns: A validated request based on the status code
   func validateSuccessfulResponse() -> DataRequest {
     return base.validate(statusCode: 200..<300)
+  }
+
+  /**
+   Transform a request into an observable of the response
+
+   - parameter queue: The dispatch queue to use.
+   - returns: The observable of `NSHTTPURLResponse` for the created request.
+   */
+  public func response(queue: DispatchQueue = .main)
+    -> Observable<HTTPURLResponse> {
+    return Observable.create { observer in
+      let dataRequest = self.base
+        .response(queue: queue) { (packedResponse) -> Void in
+          switch packedResponse.result {
+          case .success:
+            if let httpResponse = packedResponse.response {
+              observer.on(.next(httpResponse))
+              observer.on(.completed)
+            } else {
+              observer.on(.error(RxAlamofireUnknownError))
+            }
+          case let .failure(error):
+            observer.on(.error(error as Error))
+          }
+        }
+      return Disposables.create {
+        dataRequest.cancel()
+      }
+    }
   }
 
   /**

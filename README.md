@@ -52,6 +52,11 @@ let stringURL = ""
 let session = URLSession.shared()
 
 _ = session.rx
+    .response(.get, stringURL)
+    .observeOn(MainScheduler.instance)
+    .subscribe { print($0) }
+
+_ = session.rx
     .json(.get, stringURL)
     .observeOn(MainScheduler.instance)
     .subscribe { print($0) }
