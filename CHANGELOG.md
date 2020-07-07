@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.6.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.6.0%0Dv5.5.0) (2020-07-07)
+
+
+### Features
+
+* **#186:** Create Rx extensions mapping to Alamofire response method ([c04ea5b](https://github.com/RxSwiftCommunity/RxAlamofire/commits/c04ea5bfb0f0f7306742f266e24c5f09a12d0f9e)), closes [#186](https://github.com/RxSwiftCommunity/RxAlamofire/issues/186)
+
 ## [5.5.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.5.0%0Dv5.4.0) (2020-06-22)
 
 
