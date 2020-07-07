@@ -59,6 +59,15 @@ class RxAlamofireSpec: XCTestCase {
 
   // MARK: Tests
   func testBasicRequest() {
+      do {
+        let result = try requestResponse(HTTPMethod.get, "http://mywebservice.com").toBlocking().first()!
+        XCTAssertEqual(result.statusCode, 200)
+      } catch {
+        XCTFail("\(error)")
+      }
+  }
+
+  func testStringRequest() {
     do {
       let (result, string) = try requestString(HTTPMethod.get, "http://mywebservice.com").toBlocking().first()!
       XCTAssertEqual(result.statusCode, 200)
