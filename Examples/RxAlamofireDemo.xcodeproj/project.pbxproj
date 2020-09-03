@@ -7,57 +7,57 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		05AA5D8868C65172EBAEC362 /* Pods_RxAlamofireDemo_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9683A1C8591D2CE718417DCF /* Pods_RxAlamofireDemo_tvOS.framework */; };
 		3F29C1D238D7440D6E0C8BCE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F7271A4F80C948F936313DBE /* Assets.xcassets */; };
 		64DA349C9D9674EE13A63AC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE9DC7445276BFFE3FB7CE3A /* LaunchScreen.storyboard */; };
+		6AAE2358211588FCA47F4E1C /* Pods_RxAlamofireDemo_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C13F19F7775B766DE480A67A /* Pods_RxAlamofireDemo_iOS.framework */; };
 		73F2E935F51EDE70A109B9AC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FA475134236412946FFBA69 /* Main.storyboard */; };
 		9A25F858A46BD64153B1F306 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3877B88F53D476595CB50DFA /* LaunchScreen.storyboard */; };
 		A14200E42DB3E318983D2229 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4E7F4114A7052FFD8A2A9F /* AppDelegate.swift */; };
 		A27C12EFDC6101039332DF18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFCA4FD6D17BA390A457D5BF /* Assets.xcassets */; };
 		AB379D985FDEA4918C2D5775 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E6C90E12C4D1ABA5ADDB027E /* Main.storyboard */; };
 		AE9A737EC3B3616AC8619D05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8915C664E1FB811EDB084220 /* AppDelegate.swift */; };
+		CCEE9468D2C420D95E3F0FEF /* Pods_RxAlamofireDemo_tvOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9DA0317D97DCA22E1E4FBB9 /* Pods_RxAlamofireDemo_tvOS.framework */; };
 		D3C37A8C5995404D21F836BE /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50DE7FEAF2E41466297683B1 /* MasterViewController.swift */; };
 		ED85E8F8234D9445CEA660A1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF3DDF93C31550723B3770EC /* ViewController.swift */; };
-		FFFEDF2824DB6B0203E263DE /* Pods_RxAlamofireDemo_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25DBD9A9D11DC7B0D2637201 /* Pods_RxAlamofireDemo_iOS.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A430193106D525A6810C755 /* Pods-RxAlamofireDemo-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireDemo-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RxAlamofireDemo-tvOS/Pods-RxAlamofireDemo-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		1C5DAFAF0EFD58F023F001A5 /* Pods-RxAlamofireDemo-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireDemo-iOS.debug.xcconfig"; path = "Target Support Files/Pods-RxAlamofireDemo-iOS/Pods-RxAlamofireDemo-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		1F1A0AAE3B789DB38B483CCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		25DBD9A9D11DC7B0D2637201 /* Pods_RxAlamofireDemo_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlamofireDemo_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3745E1AB21E401142C5AEBE8 /* RxAlamofireDemo-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "RxAlamofireDemo-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		50DE7FEAF2E41466297683B1 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		575397FA1B61CDE8AF29E3F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		7EFEFB55D35CBC4A151E5C4C /* Pods-RxAlamofireDemo-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireDemo-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RxAlamofireDemo-tvOS/Pods-RxAlamofireDemo-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		7F8CFA6BD5CB48EA9D147CC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8915C664E1FB811EDB084220 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		89DBB397AB50F00B0B0E6282 /* Pods-RxAlamofireDemo-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireDemo-tvOS.release.xcconfig"; path = "Target Support Files/Pods-RxAlamofireDemo-tvOS/Pods-RxAlamofireDemo-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		9683A1C8591D2CE718417DCF /* Pods_RxAlamofireDemo_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlamofireDemo_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A76B7B529DFFA371EC2B66CC /* RxAlamofireDemo-tvOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "RxAlamofireDemo-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B92CF7C6121B35EBF20E5647 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		BB6C9C86F1961199B499BF8A /* Pods-RxAlamofireDemo-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireDemo-iOS.release.xcconfig"; path = "Target Support Files/Pods-RxAlamofireDemo-iOS/Pods-RxAlamofireDemo-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		BD4E7F4114A7052FFD8A2A9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		C13F19F7775B766DE480A67A /* Pods_RxAlamofireDemo_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlamofireDemo_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C88A13BAA77B9E31B2EF0A5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		DE6586FA96B6D1DD63965832 /* Pods-RxAlamofireDemo-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireDemo-iOS.debug.xcconfig"; path = "Target Support Files/Pods-RxAlamofireDemo-iOS/Pods-RxAlamofireDemo-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		CDD08CE84F4B7DA37BDD15D2 /* Pods-RxAlamofireDemo-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireDemo-iOS.release.xcconfig"; path = "Target Support Files/Pods-RxAlamofireDemo-iOS/Pods-RxAlamofireDemo-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		DF3DDF93C31550723B3770EC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E9DA0317D97DCA22E1E4FBB9 /* Pods_RxAlamofireDemo_tvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxAlamofireDemo_tvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F2EC7721DBC007BD823E9BA2 /* Pods-RxAlamofireDemo-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxAlamofireDemo-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RxAlamofireDemo-tvOS/Pods-RxAlamofireDemo-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		F7271A4F80C948F936313DBE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC2BE5FB8EE4BCEAB84AB1D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FFCA4FD6D17BA390A457D5BF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3AF1F9E042E4B65E4EA33FB2 /* Frameworks */ = {
+		78BB45E1EBA1E2743B8FF148 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFFEDF2824DB6B0203E263DE /* Pods_RxAlamofireDemo_iOS.framework in Frameworks */,
+				CCEE9468D2C420D95E3F0FEF /* Pods_RxAlamofireDemo_tvOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		BFE986CC5652A714CF749584 /* Frameworks */ = {
+		FA0E617AA88E58142FACF4E7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				05AA5D8868C65172EBAEC362 /* Pods_RxAlamofireDemo_tvOS.framework in Frameworks */,
+				6AAE2358211588FCA47F4E1C /* Pods_RxAlamofireDemo_iOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,24 +70,21 @@
 				B073605EBCAB374097F4EEEE /* RxAlamofireDemo-iOS */,
 				A83B3E7D5AE013777F3FA15E /* RxAlamofireDemo-tvOS */,
 				AF4F1B3199D5B36C7FDE5A7D /* Products */,
-				5BD9E1C327083BEFB6C9C00F /* Pods */,
-				F63A8BEBD7F4052E1F964E20 /* Frameworks */,
+				B143CF0B53E2B98261EBCA0A /* Pods */,
+				7BDA69A88B0AD093501B8179 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
 			tabWidth = 2;
 			usesTabs = 0;
 		};
-		5BD9E1C327083BEFB6C9C00F /* Pods */ = {
+		7BDA69A88B0AD093501B8179 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DE6586FA96B6D1DD63965832 /* Pods-RxAlamofireDemo-iOS.debug.xcconfig */,
-				BB6C9C86F1961199B499BF8A /* Pods-RxAlamofireDemo-iOS.release.xcconfig */,
-				7EFEFB55D35CBC4A151E5C4C /* Pods-RxAlamofireDemo-tvOS.debug.xcconfig */,
-				89DBB397AB50F00B0B0E6282 /* Pods-RxAlamofireDemo-tvOS.release.xcconfig */,
+				C13F19F7775B766DE480A67A /* Pods_RxAlamofireDemo_iOS.framework */,
+				E9DA0317D97DCA22E1E4FBB9 /* Pods_RxAlamofireDemo_tvOS.framework */,
 			);
-			name = Pods;
-			path = Pods;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		A83B3E7D5AE013777F3FA15E /* RxAlamofireDemo-tvOS */ = {
@@ -125,13 +122,16 @@
 			path = "RxAlamofireDemo-iOS";
 			sourceTree = "<group>";
 		};
-		F63A8BEBD7F4052E1F964E20 /* Frameworks */ = {
+		B143CF0B53E2B98261EBCA0A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				25DBD9A9D11DC7B0D2637201 /* Pods_RxAlamofireDemo_iOS.framework */,
-				9683A1C8591D2CE718417DCF /* Pods_RxAlamofireDemo_tvOS.framework */,
+				1C5DAFAF0EFD58F023F001A5 /* Pods-RxAlamofireDemo-iOS.debug.xcconfig */,
+				CDD08CE84F4B7DA37BDD15D2 /* Pods-RxAlamofireDemo-iOS.release.xcconfig */,
+				F2EC7721DBC007BD823E9BA2 /* Pods-RxAlamofireDemo-tvOS.debug.xcconfig */,
+				0A430193106D525A6810C755 /* Pods-RxAlamofireDemo-tvOS.release.xcconfig */,
 			);
-			name = Frameworks;
+			name = Pods;
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,11 +141,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 424A81A30577F4B87602EEE2 /* Build configuration list for PBXNativeTarget "RxAlamofireDemo-tvOS" */;
 			buildPhases = (
-				30BC2E7C29E904D46149CC33 /* [CP] Check Pods Manifest.lock */,
+				94CDFAE23771D9B2173971BD /* [CP] Check Pods Manifest.lock */,
 				59E4F1333C1BDED174EFEDE4 /* Sources */,
 				8B84663C33E52BAADAEC7708 /* Resources */,
-				BFE986CC5652A714CF749584 /* Frameworks */,
-				0E3A67A569587F4341351128 /* [CP] Embed Pods Frameworks */,
+				78BB45E1EBA1E2743B8FF148 /* Frameworks */,
+				62CBFE25DA9ED717BA40A742 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -160,11 +160,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0DC9C8FA99500E79BF744747 /* Build configuration list for PBXNativeTarget "RxAlamofireDemo-iOS" */;
 			buildPhases = (
-				FB0817D2215B31BB7FBCE613 /* [CP] Check Pods Manifest.lock */,
+				938150A4799AF6A3BF8510C5 /* [CP] Check Pods Manifest.lock */,
 				632B9F06FAB36677B4F42678 /* Sources */,
 				EFC235935020AB88C22A5865 /* Resources */,
-				3AF1F9E042E4B65E4EA33FB2 /* Frameworks */,
-				F65AF7CC69C1EF555E572750 /* [CP] Embed Pods Frameworks */,
+				FA0E617AA88E58142FACF4E7 /* Frameworks */,
+				DCD5222D4A6D5A3850AB85AE /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -228,7 +228,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0E3A67A569587F4341351128 /* [CP] Embed Pods Frameworks */ = {
+		62CBFE25DA9ED717BA40A742 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -245,7 +245,29 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxAlamofireDemo-tvOS/Pods-RxAlamofireDemo-tvOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		30BC2E7C29E904D46149CC33 /* [CP] Check Pods Manifest.lock */ = {
+		938150A4799AF6A3BF8510C5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RxAlamofireDemo-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		94CDFAE23771D9B2173971BD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -267,7 +289,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F65AF7CC69C1EF555E572750 /* [CP] Embed Pods Frameworks */ = {
+		DCD5222D4A6D5A3850AB85AE /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -282,28 +304,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxAlamofireDemo-iOS/Pods-RxAlamofireDemo-iOS-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		FB0817D2215B31BB7FBCE613 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-RxAlamofireDemo-iOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -367,7 +367,7 @@
 /* Begin XCBuildConfiguration section */
 		1624C07873A55B02A4CC0A58 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE6586FA96B6D1DD63965832 /* Pods-RxAlamofireDemo-iOS.debug.xcconfig */;
+			baseConfigurationReference = 1C5DAFAF0EFD58F023F001A5 /* Pods-RxAlamofireDemo-iOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APP_ICON_NAME)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -498,7 +498,7 @@
 		};
 		5E58EA97C86DBE5438EE92C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BB6C9C86F1961199B499BF8A /* Pods-RxAlamofireDemo-iOS.release.xcconfig */;
+			baseConfigurationReference = CDD08CE84F4B7DA37BDD15D2 /* Pods-RxAlamofireDemo-iOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APP_ICON_NAME)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -519,7 +519,7 @@
 		};
 		6263A63E8232F10F3800C3B3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89DBB397AB50F00B0B0E6282 /* Pods-RxAlamofireDemo-tvOS.release.xcconfig */;
+			baseConfigurationReference = 0A430193106D525A6810C755 /* Pods-RxAlamofireDemo-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APP_ICON_NAME)";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -540,7 +540,7 @@
 		};
 		94CD077ECEDD6660F048EB3A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7EFEFB55D35CBC4A151E5C4C /* Pods-RxAlamofireDemo-tvOS.debug.xcconfig */;
+			baseConfigurationReference = F2EC7721DBC007BD823E9BA2 /* Pods-RxAlamofireDemo-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "$(APP_ICON_NAME)";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
