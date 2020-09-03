@@ -1,2 +1,2 @@
 github "ReactiveX/RxSwift" ~> 5.1
-github "Alamofire/Alamofire" ~> 5.1
+github "Alamofire/Alamofire" ~> 5.2
