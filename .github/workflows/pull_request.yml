@@ -53,7 +53,7 @@ jobs:
             ${{ runner.os }}-carthage-
 
       - name: Carthage Xcode Script
-      - run: |
+        run: |
           xcconfig=$(mktemp /tmp/static.xcconfig.XXXXXX)
           trap 'rm -f "$xcconfig"' INT TERM HUP EXIT
           CURRENT_XCODE_VERSION=$(xcodebuild -version | grep "Build version" | cut -d' ' -f3)
