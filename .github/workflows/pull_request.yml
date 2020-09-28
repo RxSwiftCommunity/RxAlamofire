@@ -2,7 +2,7 @@ name: Lint, build and test
 
 on:
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   build:
@@ -51,6 +51,16 @@ jobs:
           key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
           restore-keys: |
             ${{ runner.os }}-carthage-
+
+      - name: Carthage Xcode Script
+      - run: |
+          xcconfig=$(mktemp /tmp/static.xcconfig.XXXXXX)
+          trap 'rm -f "$xcconfig"' INT TERM HUP EXIT
+          CURRENT_XCODE_VERSION=$(xcodebuild -version | grep "Build version" | cut -d' ' -f3)
+          echo "EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64__XCODE_1200__BUILD_$CURRENT_XCODE_VERSION = arm64 arm64e armv7 armv7s armv6 armv8" >> $xcconfig
+          echo 'EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64__XCODE_1200 = $(EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64__XCODE_1200__BUILD_$(XCODE_PRODUCT_BUILD_VERSION))' >> $xcconfig
+          echo 'EXCLUDED_ARCHS = $(inherited) $(EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_$(EFFECTIVE_PLATFORM_SUFFIX)__NATIVE_ARCH_64_BIT_$(NATIVE_ARCH_64_BIT)__XCODE_$(XCODE_VERSION_MAJOR))' >> $xcconfig
+          export XCODE_XCCONFIG_FILE="$xcconfig"
 
       - name: Resolving Carthage dependencies
         run: |
