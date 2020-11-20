@@ -22,14 +22,10 @@ jobs:
           git config --global user.name "RxAlamofire Maintainers"
           git config --global user.email "rxalamofire@rxswift.org"
           export CHANGELOG=$(git log $(git describe --tags --abbrev=0)..HEAD --oneline)
-          CHANGELOG="${CHANGELOG//$'%'/%25}"
-          CHANGELOG="${CHANGELOG//$'\n'/%0A}"
-          CHANGELOG="${CHANGELOG//$'\r'/%0D}"
-          CHANGELOG="$CHANGELOG%0A%0A$(xcodebuild -version)"
-          echo "::set-env name=RELEASE_NOTES::$CHANGELOG"
+          CHANGELOG="${CHANGELOG\n\n$(xcodebuild -version)}"
+          echo "RELEASE_NOTES=$CHANGELOG" >> $GITHUB_ENV
           npx standard-version
-          echo "::set-env name=RELEASE_VERSION::$(git describe --abbrev=0 | tr -d '\n')"
-          echo ${{ env.RELEASE_NOTES }}
+          echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
 
       - name: Push changes
         uses: ad-m/github-push-action@master
