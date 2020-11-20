@@ -1326,11 +1326,6 @@ extension Request: ReactiveCompatible {}
 extension Reactive where Base: DataRequest {
   // MARK: Defaults
 
-  /// - returns: A validated request based on the status code
-  func validateSuccessfulResponse() -> DataRequest {
-    return base.validate(statusCode: 200..<300)
-  }
-
   /**
    Transform a request into an observable of the response
 
@@ -1422,7 +1417,7 @@ extension Reactive where Base: DataRequest {
                                                         responseSerializer: T)
     -> Observable<T.SerializedObject> {
     return Observable.create { observer in
-      let dataRequest = self.validateSuccessfulResponse()
+      let dataRequest = self.base
         .response(queue: queue, responseSerializer: responseSerializer) { (packedResponse) -> Void in
           switch packedResponse.result {
           case let .success(result):
