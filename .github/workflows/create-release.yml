@@ -7,7 +7,7 @@ on:
 jobs:
   build:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
-    runs-on: macos-latest
+    runs-on: macos-11.0
 
     steps:
       - uses: actions/checkout@v2
@@ -21,15 +21,14 @@ jobs:
         run: |
           git config --global user.name "RxAlamofire Maintainers"
           git config --global user.email "rxalamofire@rxswift.org"
-          export CHANGELOG=$(git log $(git describe --tags --abbrev=0)..HEAD --oneline)
-          CHANGELOG="${CHANGELOG//$'%'/%25}"
-          CHANGELOG="${CHANGELOG//$'\n'/%0A}"
-          CHANGELOG="${CHANGELOG//$'\r'/%0D}"
-          CHANGELOG="$CHANGELOG%0A%0A$(xcodebuild -version)"
-          echo "::set-env name=RELEASE_NOTES::$CHANGELOG"
           npx standard-version
-          echo "::set-env name=RELEASE_VERSION::$(git describe --abbrev=0 | tr -d '\n')"
-          echo ${{ env.RELEASE_NOTES }}
+          echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
+      
+      # - name: Changelog
+      #   uses: scottbrenner/generate-changelog-action@master
+      #   id: Changelog
+      #   env:
+      #     REPO: ${{ github.repository }}
 
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -67,7 +66,8 @@ jobs:
         with:
           tag_name: ${{ env.RELEASE_VERSION }}
           release_name: RxAlamofire ${{ env.RELEASE_VERSION }}
-          body: ${{ env.RELEASE_NOTES }}
+          # body: |
+          #   ${{ steps.Changelog.outputs.changelog }}
           draft: false
           prerelease: false
 
