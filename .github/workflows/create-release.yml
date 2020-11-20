@@ -22,7 +22,7 @@ jobs:
           git config --global user.name "RxAlamofire Maintainers"
           git config --global user.email "rxalamofire@rxswift.org"
           export CHANGELOG=$(git log $(git describe --tags --abbrev=0)..HEAD --oneline)
-          CHANGELOG="${CHANGELOG\n\n$(xcodebuild -version)}"
+          CHANGELOG="${CHANGELOG}\n\n$(xcodebuild -version)"
           echo "RELEASE_NOTES=$CHANGELOG" >> $GITHUB_ENV
           npx standard-version
           echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
