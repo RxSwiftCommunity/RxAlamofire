@@ -25,21 +25,21 @@ public func urlRequest(_ method: HTTPMethod,
                        encoding: ParameterEncoding = URLEncoding.default,
                        headers: HTTPHeaders? = nil)
   throws -> Foundation.URLRequest {
-    var mutableURLRequest = Foundation.URLRequest(url: try url.asURL())
-    mutableURLRequest.httpMethod = method.rawValue
+  var mutableURLRequest = Foundation.URLRequest(url: try url.asURL())
+  mutableURLRequest.httpMethod = method.rawValue
 
-    if let headers = headers {
-      for header in headers {
-        mutableURLRequest.setValue(header.value, forHTTPHeaderField: header.name)
-      }
+  if let headers = headers {
+    for header in headers {
+      mutableURLRequest.setValue(header.value, forHTTPHeaderField: header.name)
     }
-
-    if let parameters = parameters {
-      mutableURLRequest = try encoding.encode(mutableURLRequest, with: parameters)
-    }
-
-    return mutableURLRequest
   }
+
+  if let parameters = parameters {
+    mutableURLRequest = try encoding.encode(mutableURLRequest, with: parameters)
+  }
+
+  return mutableURLRequest
+}
 
 // MARK: Request
 
@@ -693,7 +693,7 @@ extension DownloadRequest: RxAlamofireRequest {
   }
 }
 
-extension Reactive where Base: Alamofire.Session {
+public extension Reactive where Base: Alamofire.Session {
   // MARK: Generic request convenience
 
   /**
@@ -703,7 +703,7 @@ extension Reactive where Base: Alamofire.Session {
 
    - returns: A generic observable of created data request
    */
-  func request<R: RxAlamofireRequest>(_ createRequest: @escaping (Alamofire.Session) throws -> R) -> Observable<R> {
+  internal func request<R: RxAlamofireRequest>(_ createRequest: @escaping (Alamofire.Session) throws -> R) -> Observable<R> {
     return Observable.create { observer -> Disposable in
       let request: R
       do {
@@ -742,12 +742,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the `Request`
    */
-  public func request(_ method: HTTPMethod,
-                      _ url: URLConvertible,
-                      parameters: Parameters? = nil,
-                      encoding: ParameterEncoding = URLEncoding.default,
-                      headers: HTTPHeaders? = nil,
-                      interceptor: RequestInterceptor? = nil)
+  func request(_ method: HTTPMethod,
+               _ url: URLConvertible,
+               parameters: Parameters? = nil,
+               encoding: ParameterEncoding = URLEncoding.default,
+               headers: HTTPHeaders? = nil,
+               interceptor: RequestInterceptor? = nil)
     -> Observable<DataRequest> {
     return request { manager in
       manager.request(url,
@@ -766,8 +766,8 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the `Request`
    */
-  public func request(urlRequest: URLRequestConvertible,
-                      interceptor: RequestInterceptor? = nil)
+  func request(urlRequest: URLRequestConvertible,
+               interceptor: RequestInterceptor? = nil)
     -> Observable<DataRequest> {
     return request { manager in
       manager.request(urlRequest, interceptor: interceptor)
@@ -786,12 +786,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of  `NSHTTPURLResponse`
    */
-  public func response(_ method: HTTPMethod,
-                       _ url: URLConvertible,
-                       parameters: Parameters? = nil,
-                       encoding: ParameterEncoding = URLEncoding.default,
-                       headers: HTTPHeaders? = nil,
-                       interceptor: RequestInterceptor? = nil)
+  func response(_ method: HTTPMethod,
+                _ url: URLConvertible,
+                parameters: Parameters? = nil,
+                encoding: ParameterEncoding = URLEncoding.default,
+                headers: HTTPHeaders? = nil,
+                interceptor: RequestInterceptor? = nil)
     -> Observable<HTTPURLResponse> {
     return request(method,
                    url,
@@ -813,12 +813,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the tuple `(NSHTTPURLResponse, NSData)`
    */
-  public func responseData(_ method: HTTPMethod,
-                           _ url: URLConvertible,
-                           parameters: Parameters? = nil,
-                           encoding: ParameterEncoding = URLEncoding.default,
-                           headers: HTTPHeaders? = nil,
-                           interceptor: RequestInterceptor? = nil)
+  func responseData(_ method: HTTPMethod,
+                    _ url: URLConvertible,
+                    parameters: Parameters? = nil,
+                    encoding: ParameterEncoding = URLEncoding.default,
+                    headers: HTTPHeaders? = nil,
+                    interceptor: RequestInterceptor? = nil)
     -> Observable<(HTTPURLResponse, Data)> {
     return request(method,
                    url,
@@ -838,12 +838,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of `NSData`
    */
-  public func data(_ method: HTTPMethod,
-                   _ url: URLConvertible,
-                   parameters: Parameters? = nil,
-                   encoding: ParameterEncoding = URLEncoding.default,
-                   headers: HTTPHeaders? = nil,
-                   interceptor: RequestInterceptor? = nil)
+  func data(_ method: HTTPMethod,
+            _ url: URLConvertible,
+            parameters: Parameters? = nil,
+            encoding: ParameterEncoding = URLEncoding.default,
+            headers: HTTPHeaders? = nil,
+            interceptor: RequestInterceptor? = nil)
     -> Observable<Data> {
     return request(method,
                    url,
@@ -865,12 +865,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the tuple `(NSHTTPURLResponse, String)`
    */
-  public func responseString(_ method: HTTPMethod,
-                             _ url: URLConvertible,
-                             parameters: Parameters? = nil,
-                             encoding: ParameterEncoding = URLEncoding.default,
-                             headers: HTTPHeaders? = nil,
-                             interceptor: RequestInterceptor? = nil)
+  func responseString(_ method: HTTPMethod,
+                      _ url: URLConvertible,
+                      parameters: Parameters? = nil,
+                      encoding: ParameterEncoding = URLEncoding.default,
+                      headers: HTTPHeaders? = nil,
+                      interceptor: RequestInterceptor? = nil)
     -> Observable<(HTTPURLResponse, String)> {
     return request(method,
                    url,
@@ -890,12 +890,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of `String`
    */
-  public func string(_ method: HTTPMethod,
-                     _ url: URLConvertible,
-                     parameters: Parameters? = nil,
-                     encoding: ParameterEncoding = URLEncoding.default,
-                     headers: HTTPHeaders? = nil,
-                     interceptor: RequestInterceptor? = nil)
+  func string(_ method: HTTPMethod,
+              _ url: URLConvertible,
+              parameters: Parameters? = nil,
+              encoding: ParameterEncoding = URLEncoding.default,
+              headers: HTTPHeaders? = nil,
+              interceptor: RequestInterceptor? = nil)
     -> Observable<String> {
     return request(method,
                    url,
@@ -920,12 +920,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the tuple `(NSHTTPURLResponse, AnyObject)`
    */
-  public func responseJSON(_ method: HTTPMethod,
-                           _ url: URLConvertible,
-                           parameters: Parameters? = nil,
-                           encoding: ParameterEncoding = URLEncoding.default,
-                           headers: HTTPHeaders? = nil,
-                           interceptor: RequestInterceptor? = nil)
+  func responseJSON(_ method: HTTPMethod,
+                    _ url: URLConvertible,
+                    parameters: Parameters? = nil,
+                    encoding: ParameterEncoding = URLEncoding.default,
+                    headers: HTTPHeaders? = nil,
+                    interceptor: RequestInterceptor? = nil)
     -> Observable<(HTTPURLResponse, Any)> {
     return request(method,
                    url,
@@ -945,12 +945,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of `AnyObject`
    */
-  public func json(_ method: HTTPMethod,
-                   _ url: URLConvertible,
-                   parameters: Parameters? = nil,
-                   encoding: ParameterEncoding = URLEncoding.default,
-                   headers: HTTPHeaders? = nil,
-                   interceptor: RequestInterceptor? = nil)
+  func json(_ method: HTTPMethod,
+            _ url: URLConvertible,
+            parameters: Parameters? = nil,
+            encoding: ParameterEncoding = URLEncoding.default,
+            headers: HTTPHeaders? = nil,
+            interceptor: RequestInterceptor? = nil)
     -> Observable<Any> {
     return request(method,
                    url,
@@ -972,12 +972,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of the tuple `(NSHTTPURLResponse, T)`
    */
-  public func responseDecodable<T: Decodable>(_ method: HTTPMethod,
-                                              _ url: URLConvertible,
-                                              parameters: Parameters? = nil,
-                                              encoding: ParameterEncoding = URLEncoding.default,
-                                              headers: HTTPHeaders? = nil,
-                                              interceptor: RequestInterceptor? = nil)
+  func responseDecodable<T: Decodable>(_ method: HTTPMethod,
+                                       _ url: URLConvertible,
+                                       parameters: Parameters? = nil,
+                                       encoding: ParameterEncoding = URLEncoding.default,
+                                       headers: HTTPHeaders? = nil,
+                                       interceptor: RequestInterceptor? = nil)
     -> Observable<(HTTPURLResponse, T)> {
     return request(method,
                    url,
@@ -997,12 +997,12 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: An observable of `T`
    */
-  public func decodable<T: Decodable>(_ method: HTTPMethod,
-                                      _ url: URLConvertible,
-                                      parameters: Parameters? = nil,
-                                      encoding: ParameterEncoding = URLEncoding.default,
-                                      headers: HTTPHeaders? = nil,
-                                      interceptor: RequestInterceptor? = nil)
+  func decodable<T: Decodable>(_ method: HTTPMethod,
+                               _ url: URLConvertible,
+                               parameters: Parameters? = nil,
+                               encoding: ParameterEncoding = URLEncoding.default,
+                               headers: HTTPHeaders? = nil,
+                               interceptor: RequestInterceptor? = nil)
     -> Observable<T> {
     return request(method,
                    url,
@@ -1023,9 +1023,9 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: The observable of `AnyObject` for the created request.
    */
-  public func upload(_ file: URL,
-                     urlRequest: URLRequestConvertible,
-                     interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
+  func upload(_ file: URL,
+              urlRequest: URLRequestConvertible,
+              interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(file, with: urlRequest, interceptor: interceptor)
     }
@@ -1041,10 +1041,10 @@ extension Reactive where Base: Alamofire.Session {
    - parameter headers: A `HTTPHeaders` containing all the additional headers
    - returns: The observable of `UploadRequest` for the created request.
    */
-  public func upload(_ file: URL,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+  func upload(_ file: URL,
+              to url: URLConvertible,
+              method: HTTPMethod,
+              headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(file, to: url, method: method, headers: headers)
     }
@@ -1060,10 +1060,10 @@ extension Reactive where Base: Alamofire.Session {
    - parameter headers: A `HTTPHeaders` containing all the additional headers
    - returns: The observable of `RxProgress` for the created request.
    */
-  public func upload(_ file: URL,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+  func upload(_ file: URL,
+              to url: URLConvertible,
+              method: HTTPMethod,
+              headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
     return upload(file, to: url, method: method, headers: headers)
       .flatMap { $0.rx.progress() }
   }
@@ -1077,9 +1077,9 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: The observable of `UploadRequest` for the created request.
    */
-  public func upload(_ data: Data,
-                     urlRequest: URLRequestConvertible,
-                     interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
+  func upload(_ data: Data,
+              urlRequest: URLRequestConvertible,
+              interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(data, with: urlRequest, interceptor: interceptor)
     }
@@ -1095,10 +1095,10 @@ extension Reactive where Base: Alamofire.Session {
    - parameter headers: A `HTTPHeaders` containing all the additional headers
    - returns: The observable of `UploadRequest` for the created request.
    */
-  public func upload(_ data: Data,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+  func upload(_ data: Data,
+              to url: URLConvertible,
+              method: HTTPMethod,
+              headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(data, to: url, method: method, headers: headers)
     }
@@ -1114,10 +1114,10 @@ extension Reactive where Base: Alamofire.Session {
    - parameter headers: A `HTTPHeaders` containing all the additional headers
    - returns: The observable of `RxProgress` for the created request.
    */
-  public func upload(_ data: Data,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+  func upload(_ data: Data,
+              to url: URLConvertible,
+              method: HTTPMethod,
+              headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
     return upload(data, to: url, method: method, headers: headers)
       .flatMap { $0.rx.progress() }
   }
@@ -1131,9 +1131,9 @@ extension Reactive where Base: Alamofire.Session {
    - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: The observable of `(NSData?, RxProgress)` for the created upload request.
    */
-  public func upload(_ stream: InputStream,
-                     urlRequest: URLRequestConvertible,
-                     interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
+  func upload(_ stream: InputStream,
+              urlRequest: URLRequestConvertible,
+              interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(stream, with: urlRequest, interceptor: interceptor)
     }
@@ -1149,10 +1149,10 @@ extension Reactive where Base: Alamofire.Session {
    - parameter headers: A `HTTPHeaders` containing all the additional headers
    - returns: The observable of `UploadRequest` for the created request.
    */
-  public func upload(_ stream: InputStream,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+  func upload(_ stream: InputStream,
+              to url: URLConvertible,
+              method: HTTPMethod,
+              headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(stream, to: url, method: method, headers: headers)
     }
@@ -1168,10 +1168,10 @@ extension Reactive where Base: Alamofire.Session {
    - parameter headers: A `HTTPHeaders` containing all the additional headers
    - returns: The observable of `RxProgress` for the created request.
    */
-  public func upload(_ stream: InputStream,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+  func upload(_ stream: InputStream,
+              to url: URLConvertible,
+              method: HTTPMethod,
+              headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
     return upload(stream, to: url, method: method, headers: headers)
       .flatMap { $0.rx.progress() }
   }
@@ -1184,8 +1184,8 @@ extension Reactive where Base: Alamofire.Session {
    - parameter urlRequest: The request object to start the upload.
    - returns: The observable of `UploadRequest` for the created upload request.
    */
-  public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                     urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
+  func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+              urlRequest: URLRequestConvertible) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(multipartFormData: multipartFormData, with: urlRequest)
     }
@@ -1201,10 +1201,10 @@ extension Reactive where Base: Alamofire.Session {
    - parameter headers: A `HTTPHeaders` containing all the additional headers
    - returns: The observable of `UploadRequest` for the created request.
    */
-  public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                     headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+  func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+              to url: URLConvertible,
+              method: HTTPMethod,
+              headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
     return request { manager in
       manager.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
     }
@@ -1220,10 +1220,10 @@ extension Reactive where Base: Alamofire.Session {
    - parameter headers: A `HTTPHeaders` containing all the additional headers
    - returns: The observable of `RxProgress` for the created request.
    */
-  public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
-                     to url: URLConvertible,
-                     method: HTTPMethod,
-                     headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
+  func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+              to url: URLConvertible,
+              method: HTTPMethod,
+              headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
     return upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
       .flatMap { $0.rx.progress() }
   }
@@ -1237,9 +1237,9 @@ extension Reactive where Base: Alamofire.Session {
    - parameter destination: The closure used to determine the destination of the downloaded file.
    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
    */
-  public func download(_ urlRequest: URLRequestConvertible,
-                       interceptor: RequestInterceptor? = nil,
-                       to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
+  func download(_ urlRequest: URLRequestConvertible,
+                interceptor: RequestInterceptor? = nil,
+                to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
     return request { manager in
       manager.download(urlRequest, interceptor: interceptor, to: destination)
     }
@@ -1256,9 +1256,9 @@ extension Reactive where Base: Alamofire.Session {
    - parameter destination: The closure used to determine the destination of the downloaded file.
    - returns: The observable of `(NSData?, RxProgress)` for the created download request.
    */
-  public func download(resumeData: Data,
-                       interceptor: RequestInterceptor? = nil,
-                       to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
+  func download(resumeData: Data,
+                interceptor: RequestInterceptor? = nil,
+                to destination: @escaping DownloadRequest.Destination) -> Observable<DownloadRequest> {
     return request { manager in
       manager.download(resumingWith: resumeData, interceptor: interceptor, to: destination)
     }
@@ -1267,63 +1267,63 @@ extension Reactive where Base: Alamofire.Session {
 
 // MARK: Request - Common Response Handlers
 
-extension ObservableType where Element == DataRequest {
-  public func responseJSON() -> Observable<DataResponse<Any, AFError>> {
+public extension ObservableType where Element == DataRequest {
+  func responseJSON() -> Observable<DataResponse<Any, AFError>> {
     return flatMap { $0.rx.responseJSON() }
   }
 
-  public func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
+  func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
     return flatMap { $0.rx.json(options: options) }
   }
 
-  public func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
+  func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
     return flatMap { $0.rx.responseString(encoding: encoding) }
   }
 
-  public func string(encoding: String.Encoding? = nil) -> Observable<String> {
+  func string(encoding: String.Encoding? = nil) -> Observable<String> {
     return flatMap { $0.rx.string(encoding: encoding) }
   }
 
-  public func responseData() -> Observable<(HTTPURLResponse, Data)> {
+  func responseData() -> Observable<(HTTPURLResponse, Data)> {
     return flatMap { $0.rx.responseData() }
   }
 
-  public func response() -> Observable<HTTPURLResponse> {
+  func response() -> Observable<HTTPURLResponse> {
     return flatMap { $0.rx.response() }
   }
 
-  public func data() -> Observable<Data> {
+  func data() -> Observable<Data> {
     return flatMap { $0.rx.data() }
   }
 
-  public func progress() -> Observable<RxProgress> {
+  func progress() -> Observable<RxProgress> {
     return flatMap { $0.rx.progress() }
   }
 }
 
 // MARK: Request - Validation
 
-extension ObservableType where Element == DataRequest {
-  public func validate<S: Sequence>(statusCode: S) -> Observable<Element> where S.Element == Int {
+public extension ObservableType where Element == DataRequest {
+  func validate<S: Sequence>(statusCode: S) -> Observable<Element> where S.Element == Int {
     return map { $0.validate(statusCode: statusCode) }
   }
 
-  public func validate() -> Observable<Element> {
+  func validate() -> Observable<Element> {
     return map { $0.validate() }
   }
 
-  public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Observable<Element> where S.Iterator.Element == String {
+  func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Observable<Element> where S.Iterator.Element == String {
     return map { $0.validate(contentType: acceptableContentTypes) }
   }
 
-  public func validate(_ validation: @escaping DataRequest.Validation) -> Observable<Element> {
+  func validate(_ validation: @escaping DataRequest.Validation) -> Observable<Element> {
     return map { $0.validate(validation) }
   }
 }
 
 extension Request: ReactiveCompatible {}
 
-extension Reactive where Base: DataRequest {
+public extension Reactive where Base: DataRequest {
   // MARK: Defaults
 
   /**
@@ -1332,7 +1332,7 @@ extension Reactive where Base: DataRequest {
    - parameter queue: The dispatch queue to use.
    - returns: The observable of `NSHTTPURLResponse` for the created request.
    */
-  public func response(queue: DispatchQueue = .main)
+  func response(queue: DispatchQueue = .main)
     -> Observable<HTTPURLResponse> {
     return Observable.create { observer in
       let dataRequest = self.base
@@ -1362,8 +1362,8 @@ extension Reactive where Base: DataRequest {
    - parameter responseSerializer: The the serializer.
    - returns: The observable of `(NSHTTPURLResponse, T.SerializedObject)` for the created download request.
    */
-  public func responseResult<T: DataResponseSerializerProtocol>(queue: DispatchQueue = .main,
-                                                                responseSerializer: T)
+  func responseResult<T: DataResponseSerializerProtocol>(queue: DispatchQueue = .main,
+                                                         responseSerializer: T)
     -> Observable<(HTTPURLResponse, T.SerializedObject)> {
     return Observable.create { observer in
       let dataRequest = self.base
@@ -1386,7 +1386,7 @@ extension Reactive where Base: DataRequest {
     }
   }
 
-  public func responseJSON() -> Observable<DataResponse<Any, AFError>> {
+  func responseJSON() -> Observable<DataResponse<Any, AFError>> {
     return Observable.create { observer in
       let request = self.base
 
@@ -1413,8 +1413,8 @@ extension Reactive where Base: DataRequest {
    - parameter responseSerializer: The the serializer.
    - returns: The observable of `T.SerializedObject` for the created download request.
    */
-  public func result<T: DataResponseSerializerProtocol>(queue: DispatchQueue = .main,
-                                                        responseSerializer: T)
+  func result<T: DataResponseSerializerProtocol>(queue: DispatchQueue = .main,
+                                                 responseSerializer: T)
     -> Observable<T.SerializedObject> {
     return Observable.create { observer in
       let dataRequest = self.base
@@ -1444,11 +1444,11 @@ extension Reactive where Base: DataRequest {
 
    - returns: An instance of `Observable<NSData>`
    */
-  public func responseData() -> Observable<(HTTPURLResponse, Data)> {
+  func responseData() -> Observable<(HTTPURLResponse, Data)> {
     return responseResult(responseSerializer: DataResponseSerializer())
   }
 
-  public func data() -> Observable<Data> {
+  func data() -> Observable<Data> {
     return result(responseSerializer: DataResponseSerializer())
   }
 
@@ -1459,11 +1459,11 @@ extension Reactive where Base: DataRequest {
 
    - returns: An instance of `Observable<String>`
    */
-  public func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
+  func responseString(encoding: String.Encoding? = nil) -> Observable<(HTTPURLResponse, String)> {
     return responseResult(responseSerializer: StringResponseSerializer(encoding: encoding))
   }
 
-  public func string(encoding: String.Encoding? = nil) -> Observable<String> {
+  func string(encoding: String.Encoding? = nil) -> Observable<String> {
     return result(responseSerializer: StringResponseSerializer(encoding: encoding))
   }
 
@@ -1474,7 +1474,7 @@ extension Reactive where Base: DataRequest {
 
    - returns: An instance of `Observable<AnyObject>`
    */
-  public func responseJSON(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<(HTTPURLResponse, Any)> {
+  func responseJSON(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<(HTTPURLResponse, Any)> {
     return responseResult(responseSerializer: JSONResponseSerializer(options: options))
   }
 
@@ -1485,7 +1485,7 @@ extension Reactive where Base: DataRequest {
 
    - returns: An instance of `Observable<AnyObject>`
    */
-  public func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
+  func json(options: JSONSerialization.ReadingOptions = .allowFragments) -> Observable<Any> {
     return result(responseSerializer: JSONResponseSerializer(options: options))
   }
 
@@ -1496,7 +1496,7 @@ extension Reactive where Base: DataRequest {
 
    - returns: An instance of `Observable<(HTTPURLResponse, T)>`
    */
-  public func responseDecodable<T: Decodable>(decoder: DataDecoder = JSONDecoder()) -> Observable<(HTTPURLResponse, T)> {
+  func responseDecodable<T: Decodable>(decoder: Alamofire.DataDecoder = JSONDecoder()) -> Observable<(HTTPURLResponse, T)> {
     return responseResult(responseSerializer: DecodableResponseSerializer(decoder: decoder))
   }
 
@@ -1507,12 +1507,12 @@ extension Reactive where Base: DataRequest {
 
    - returns: An instance of `Observable<T>`
    */
-  public func decodable<T: Decodable>(decoder: DataDecoder = JSONDecoder()) -> Observable<T> {
+  func decodable<T: Decodable>(decoder: Alamofire.DataDecoder = JSONDecoder()) -> Observable<T> {
     return result(responseSerializer: DecodableResponseSerializer(decoder: decoder))
   }
 }
 
-extension Reactive where Base: Request {
+public extension Reactive where Base: Request {
   // MARK: Request - Upload and download progress
 
   /**
@@ -1525,7 +1525,7 @@ extension Reactive where Base: Request {
 
    - returns: An instance of `Observable<RxProgress>`
    */
-  public func progress() -> Observable<RxProgress> {
+  func progress() -> Observable<RxProgress> {
     return Observable.create { observer in
       let handler: Request.ProgressHandler = { progress in
         let rxProgress = RxProgress(bytesWritten: progress.completedUnitCount,
@@ -1567,12 +1567,12 @@ public struct RxProgress {
   }
 }
 
-extension RxProgress {
-  public var bytesRemaining: Int64 {
+public extension RxProgress {
+  var bytesRemaining: Int64 {
     return totalBytes - bytesWritten
   }
 
-  public var completed: Float {
+  var completed: Float {
     if totalBytes > 0 {
       return Float(bytesWritten) / Float(totalBytes)
     } else {

@@ -58,7 +58,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
         self?.toTextField.text = "\(rate * fromValue)"
       }, onError: { [weak self] e in
         self?.displayError(e as NSError)
-            })
+      })
       .disposed(by: disposeBag)
   }
 
@@ -213,9 +213,9 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
 
       let postInfo = NSMutableString()
       if let postDict = postJSON as? [String: AnyObject],
-        let commentsArray = commentsJSON as? [[String: AnyObject]],
-        let postTitle = postDict["title"] as? String,
-        let postBody = postDict["body"] as? String {
+         let commentsArray = commentsJSON as? [[String: AnyObject]],
+         let postTitle = postDict["title"] as? String,
+         let postBody = postDict["body"] as? String {
         postInfo.append("Title: ")
         postInfo.append(postTitle)
         postInfo.append("\n\n")
@@ -223,7 +223,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
         postInfo.append("\n\n\nComments:\n")
         for comment in commentsArray {
           if let email = comment["email"] as? String,
-            let body = comment["body"] as? String {
+             let body = comment["body"] as? String {
             postInfo.append(email)
             postInfo.append(": ")
             postInfo.append(body)
@@ -236,7 +236,7 @@ class MasterViewController: UIViewController, UITextFieldDelegate {
     }, onError: { e in
       self.dummyDataTextView.text = "An Error Occurred"
       self.displayError(e as NSError)
-            }).disposed(by: disposeBag)
+    }).disposed(by: disposeBag)
   }
 
   // MARK: - Utils
