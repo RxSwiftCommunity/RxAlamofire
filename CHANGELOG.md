@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.7.1](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.7.1%0Dv5.7.0) (2020-12-05)
+
 ## [5.7.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.7.0%0Dv5.6.2) (2020-12-05)
 
 
