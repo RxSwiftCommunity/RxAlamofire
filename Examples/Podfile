@@ -9,7 +9,7 @@ end
 def common_tests
   pod "OHHTTPStubs", "~> 9.1"
   pod "OHHTTPStubs/Swift", "~> 9.1"
-  pod "RxBlocking", "~> 5.1"
+  pod "RxBlocking", "~> 6.0"
 end
 
 target "RxAlamofireDemo-iOS" do

@@ -6,7 +6,7 @@ import RxCocoa
 import RxSwift
 import XCTest
 
-private struct Dummy {
+private enum Dummy {
   static let DataStringContent = "Hello World"
   static let DataStringData = DataStringContent.data(using: String.Encoding.utf8)!
   static let DataJSONContent = "{\"hello\":\"world\", \"foo\":\"bar\", \"zero\": 0}"
@@ -41,7 +41,7 @@ class RxAlamofireSpec: XCTestCase {
 
     _ = HTTPStubs.stubRequests(passingTest: isHost("myjsondata.com"), withStubResponse: { _ in
       HTTPStubsResponse(data: Dummy.DataJSON, statusCode: 200, headers: ["Content-Type": "application/json"])
-            })
+    })
 
     _ = HTTPStubs.stubRequests(passingTest: isHost("interceptor.com"), withStubResponse: { request in
       guard request.url?.path != "/retry" else {
@@ -49,7 +49,7 @@ class RxAlamofireSpec: XCTestCase {
       }
 
       return HTTPStubsResponse(data: Dummy.DataJSON, statusCode: 200, headers: ["Content-Type": "application/json"])
-          })
+    })
   }
 
   override func tearDown() {
@@ -59,12 +59,12 @@ class RxAlamofireSpec: XCTestCase {
 
   // MARK: Tests
   func testBasicRequest() {
-      do {
-        let result = try requestResponse(HTTPMethod.get, "http://mywebservice.com").toBlocking().first()!
-        XCTAssertEqual(result.statusCode, 200)
-      } catch {
-        XCTFail("\(error)")
-      }
+    do {
+      let result = try requestResponse(HTTPMethod.get, "http://mywebservice.com").toBlocking().first()!
+      XCTAssertEqual(result.statusCode, 200)
+    } catch {
+      XCTFail("\(error)")
+    }
   }
 
   func testStringRequest() {
@@ -80,8 +80,9 @@ class RxAlamofireSpec: XCTestCase {
   func testJSONRequest() {
     do {
       guard let (result, obj) = try requestJSON(HTTPMethod.get, "http://myjsondata.com").toBlocking().first(),
-        let json = obj as? [String: Any],
-        let res = json["hello"] as? String else {
+            let json = obj as? [String: Any],
+            let res = json["hello"] as? String
+      else {
         XCTFail("errored out")
         return
       }
