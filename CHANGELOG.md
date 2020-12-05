@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.7.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.7.0%0Dv5.6.2) (2020-12-05)
+
+
+### Features
+
+* Validate successful response made non-default behavior on request ([6ec9800](https://github.com/RxSwiftCommunity/RxAlamofire/commits/6ec9800b3c5f24cb52f1b1eacefbdd7633cc67e5))
+
+
+### Bug Fixes
+
+* Carthage Xcode 12 Workaround ([f15b911](https://github.com/RxSwiftCommunity/RxAlamofire/commits/f15b9119b4a052faeb808f5c803b3e4280becea0))
+* Deprecated set-env command in GA ([e3761f3](https://github.com/RxSwiftCommunity/RxAlamofire/commits/e3761f3a4f5c450f2ec28287d54a857638b8a25f))
+
 ### [5.6.2](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v5.6.2%0Dv5.6.1) (2020-09-28)
 
 
