@@ -1,9 +1,9 @@
 PODS:
-  - Alamofire (5.2.0)
-  - RxAlamofire/Core (5.6.0):
-    - Alamofire (~> 5.2)
+  - Alamofire (5.4.0)
+  - RxAlamofire/Core (5.0.0):
+    - Alamofire (~> 5.4)
     - RxSwift (~> 5.1)
-  - RxAlamofire/RxCocoa (5.6.0):
+  - RxAlamofire/RxCocoa (5.0.0):
     - RxAlamofire/Core
     - RxCocoa (~> 5.1)
   - RxCocoa (5.1.1):
@@ -28,12 +28,12 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Alamofire: c1ca147559e730bfb2182c8c7aafbdd90a867987
-  RxAlamofire: bfeac70e273b248d686c7c6aee08cae934d65c18
+  Alamofire: 3b6a534a3df22db367e4dedeeca73d1ddfcf0e2f
+  RxAlamofire: 94b1d6c9d4cada13fad706f6ca0df777ba25427a
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: 87577e46619859a5ff08dd18af527a2f96b51859
+PODFILE CHECKSUM: 9140f995889a245f4d0dc5f05c91c276c4aa4d63
 
-COCOAPODS: 1.9.3
+COCOAPODS: 1.10.0
