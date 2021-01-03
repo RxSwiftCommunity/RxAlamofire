@@ -8,6 +8,9 @@ options:
   xcodeVersion: "1140"
   deploymentTarget:
     iOS: "10.0"
+    macOS: "10.12"
+    tvOS: "10.0"
+    watchOS: "3.0"
   carthageExecutablePath: "`which carthage`"
   defaultConfig: "Release"
 configs:
@@ -103,6 +106,9 @@ targets:
     settings:
       PRODUCT_NAME: RxAlamofire
       PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS
+      BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+      SKIP_INSTALL: NO
+      SUPPORTS_MACCATALYST: NO
     platform: iOS
     type: framework
     sources:
@@ -116,6 +122,8 @@ targets:
     settings:
       PRODUCT_NAME: RxAlamofire
       PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS
+      BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+      SKIP_INSTALL: NO
     platform: macOS
     type: framework
     sources:
@@ -129,6 +137,8 @@ targets:
     settings:
       PRODUCT_NAME: RxAlamofire
       PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS
+      BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+      SKIP_INSTALL: NO
     platform: tvOS
     type: framework
     sources:
@@ -142,6 +152,8 @@ targets:
     settings:
       PRODUCT_NAME: RxAlamofire
       PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-watchOS
+      BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+      SKIP_INSTALL: NO
     platform: watchOS
     type: framework
     sources:
@@ -183,4 +195,3 @@ targets:
       - carthage: OHHTTPStubs
       - carthage: RxBlocking
       - carthage: RxTest
-

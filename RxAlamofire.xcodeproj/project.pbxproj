@@ -649,6 +649,7 @@
 		09E9D5CB0C0AA8D801E7ED87 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -668,7 +669,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -677,6 +678,7 @@
 		240A13B96272DD86C40BB0A6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -692,7 +694,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-watchOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -701,6 +703,7 @@
 		3026FD9AF091FC2EF5C8A480 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -721,7 +724,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -747,6 +750,7 @@
 		39072B322A71963487E93F92 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -762,7 +766,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-watchOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 4;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -771,6 +775,7 @@
 		3CF1EEA2912CE0124C7965C1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -790,7 +795,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = appletvos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 3;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -867,6 +872,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -874,12 +880,15 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Debug;
 		};
 		5696B824894E06850090A14A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -899,7 +908,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -908,6 +918,7 @@
 		7935FE1A966F3A03CCA0B2C0 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -928,7 +939,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -954,6 +965,7 @@
 		8B25F905EA75E4D468B5866A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
@@ -973,7 +985,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS";
 				PRODUCT_NAME = RxAlamofire;
 				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
+				SUPPORTS_MACCATALYST = NO;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1025,12 +1038,15 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 3.0;
 			};
 			name = Release;
 		};
