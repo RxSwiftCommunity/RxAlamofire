@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+git config --global user.name "RxAlamofire Maintainers"
+git config --global user.email "rxalamofire@rxswift.org"
+npx standard-version
+echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
+export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
+VERSION=${VERSION:1}
+echo $VERSION
+npx podspec-bump -w -i "$VERSION"

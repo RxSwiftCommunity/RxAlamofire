@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name = "RxAlamofire"
   # Version to always follow latest tag, with fallback to major
-  s.version = "6.1.0"
+  s.version = "6.1.1"
   s.license = "MIT"
   s.summary = "RxSwift wrapper around the elegant HTTP networking in Swift Alamofire"
   s.homepage = "https://github.com/RxSwiftCommunity/RxAlamofire"
