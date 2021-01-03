@@ -188,7 +188,7 @@ pod 'RxAlamofire'
 Add following to `Cartfile`:
 
 ```
-github "RxSwiftCommunity/RxAlamofire" ~> 5.3
+github "RxSwiftCommunity/RxAlamofire" ~> 6.1
 ```
 
 ### Swift Package manager
@@ -196,7 +196,7 @@ github "RxSwiftCommunity/RxAlamofire" ~> 5.3
 Create a `Package.swift`  file
 
 ```
-// swift-tools-version:4.0
+// swift-tools-version:5.0
 
 import PackageDescription
 
@@ -205,7 +205,7 @@ let package = Package(
 
         dependencies: [
             .package(url: "https://github.com/RxSwiftCommunity/RxAlamofire.git",
-                     from: "5.3.1"),
+                     from: "6.1.0"),
         ],
 
         targets: [
@@ -223,7 +223,9 @@ To manual install this extension you should get the `RxAlamofire/Source/RxAlamof
 
 ## Requirements
 
-RxAlamofire requires Swift 5.1 and dedicated versions of Alamofire (5.1.0) and RxSwift (5.1.0).
+RxAlamofire requires Swift 5.1 and dedicated versions of Alamofire (5.4.1) and RxSwift (6.0.0).
+
+For the last RxSwift 5.1 support, please use RxAlamofire 5.7.1.
 
 For the last Swift 5.0 support, please use RxAlamofire 5.1.0.
 

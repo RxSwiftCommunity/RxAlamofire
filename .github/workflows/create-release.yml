@@ -19,10 +19,14 @@ jobs:
 
       - name: Bump version
         run: |
+          set -euo pipefail
           git config --global user.name "RxAlamofire Maintainers"
           git config --global user.email "rxalamofire@rxswift.org"
           npx standard-version
           echo "RELEASE_VERSION=$(git describe --abbrev=0 | tr -d '\n')" >> $GITHUB_ENV
+          export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
+          VERSION=${VERSION:1}
+          npx podspec-bump -w -i $VERSION
 
       # - name: Changelog
       #   uses: scottbrenner/generate-changelog-action@master
