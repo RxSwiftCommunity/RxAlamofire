@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v6.1.0%0Dv6.0.0) (2021-01-03)
+
+
+### Features
+
+* Enable XCFramework ([cbb899c](https://github.com/RxSwiftCommunity/RxAlamofire/commits/cbb899ca8712ea50d60110484ce0b12de99ab8da))
+
 ## [6.0.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v6.0.0%0Dv5.7.1) (2021-01-02)
 
 
