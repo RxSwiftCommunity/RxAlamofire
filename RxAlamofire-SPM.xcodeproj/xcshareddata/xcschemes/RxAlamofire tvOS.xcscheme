@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-               BuildableName = "RxAlamofire iOS.framework"
-               BlueprintName = "RxAlamofire iOS"
-               ReferencedContainer = "container:RxAlamofire.xcodeproj">
+               BlueprintIdentifier = "0ABF4B23486CA463BD24F631"
+               BuildableName = "RxAlamofire tvOS.framework"
+               BlueprintName = "RxAlamofire tvOS"
+               ReferencedContainer = "container:RxAlamofire-SPM.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -34,10 +34,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
-            BlueprintName = "RxAlamofire iOS"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
+            BlueprintIdentifier = "0ABF4B23486CA463BD24F631"
+            BuildableName = "RxAlamofire tvOS.framework"
+            BlueprintName = "RxAlamofire tvOS"
+            ReferencedContainer = "container:RxAlamofire-SPM.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
@@ -56,10 +56,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
-            BlueprintName = "RxAlamofire iOS"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
+            BlueprintIdentifier = "0ABF4B23486CA463BD24F631"
+            BuildableName = "RxAlamofire tvOS.framework"
+            BlueprintName = "RxAlamofire tvOS"
+            ReferencedContainer = "container:RxAlamofire-SPM.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
@@ -75,10 +75,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
-            BlueprintName = "RxAlamofire iOS"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
+            BlueprintIdentifier = "0ABF4B23486CA463BD24F631"
+            BuildableName = "RxAlamofire tvOS.framework"
+            BlueprintName = "RxAlamofire tvOS"
+            ReferencedContainer = "container:RxAlamofire-SPM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>

@@ -26,14 +26,11 @@ schemes:
       buildImplicitDependencies: true
       targets:
         RxAlamofire iOS: all
-        RxAlamofireTests iOS: [test]
     run:
       config: Debug
     test:
       config: Debug
       gatherCoverageData: true
-      targets:
-        - RxAlamofireTests iOS
     profile:
       config: Release
     analyze:
@@ -48,14 +45,11 @@ schemes:
       buildImplicitDependencies: true
       targets:
         RxAlamofire macOS: all
-        RxAlamofireTests macOS: [test]
     run:
       config: Debug
     test:
       config: Debug
       gatherCoverageData: true
-      targets:
-        - RxAlamofireTests macOS
     profile:
       config: Release
     analyze:
@@ -86,14 +80,11 @@ schemes:
       buildImplicitDependencies: true
       targets:
         RxAlamofire tvOS: all
-        RxAlamofireTests tvOS: [test]
     run:
       config: Debug
     test:
       config: Debug
       gatherCoverageData: true
-      targets:
-        - RxAlamofireTests tvOS
     profile:
       config: Release
     analyze:
@@ -101,6 +92,13 @@ schemes:
     archive:
       config: Release
       revealArchiveInOrganizer: true
+packages:
+  RxSwift:
+    url: https://github.com/ReactiveX/RxSwift.git
+    from: 6.0.0
+  Alamofire:
+    url: https://github.com/Alamofire/Alamofire.git
+    from: 5.4.1
 targets:
   RxAlamofire iOS:
     settings:
@@ -114,10 +112,13 @@ targets:
     sources:
       - Sources/RxAlamofire
     dependencies:
-      - carthage: Alamofire
-      - carthage: RxCocoa
-      - carthage: RxSwift
-      - carthage: RxRelay
+      - package: Alamofire
+      - package: RxSwift
+        product: RxSwift
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxSwift
+        product: RxRelay
   RxAlamofire macOS:
     settings:
       PRODUCT_NAME: RxAlamofire
@@ -129,10 +130,13 @@ targets:
     sources:
       - Sources/RxAlamofire
     dependencies:
-      - carthage: Alamofire
-      - carthage: RxCocoa
-      - carthage: RxSwift
-      - carthage: RxRelay
+      - package: Alamofire
+      - package: RxSwift
+        product: RxSwift
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxSwift
+        product: RxRelay
   RxAlamofire tvOS:
     settings:
       PRODUCT_NAME: RxAlamofire
@@ -144,10 +148,13 @@ targets:
     sources:
       - Sources/RxAlamofire
     dependencies:
-      - carthage: Alamofire
-      - carthage: RxCocoa
-      - carthage: RxSwift
-      - carthage: RxRelay
+      - package: Alamofire
+      - package: RxSwift
+        product: RxSwift
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxSwift
+        product: RxRelay
   RxAlamofire watchOS:
     settings:
       PRODUCT_NAME: RxAlamofire
@@ -159,39 +166,10 @@ targets:
     sources:
       - Sources/RxAlamofire
     dependencies:
-      - carthage: Alamofire
-      - carthage: RxCocoa
-      - carthage: RxSwift
-      - carthage: RxRelay
-  RxAlamofireTests iOS:
-    platform: iOS
-    type: bundle.unit-test
-    sources:
-      - path: Tests/RxAlamofireTests
-    dependencies:
-      - target: RxAlamofire iOS
-      - carthage: OHHTTPStubs
-      - carthage: RxBlocking
-      - carthage: RxTest
-  RxAlamofireTests macOS:
-    platform: macOS
-    type: bundle.unit-test
-    settings:
-      CODE_SIGN_IDENTITY: ""
-    sources:
-      - path: Tests/RxAlamofireTests
-    dependencies:
-      - target: RxAlamofire macOS
-      - carthage: OHHTTPStubs
-      - carthage: RxBlocking
-      - carthage: RxTest
-  RxAlamofireTests tvOS:
-    platform: tvOS
-    type: bundle.unit-test
-    sources:
-      - path: Tests/RxAlamofireTests
-    dependencies:
-      - target: RxAlamofire tvOS
-      - carthage: OHHTTPStubs
-      - carthage: RxBlocking
-      - carthage: RxTest
+      - package: Alamofire
+      - package: RxSwift
+        product: RxSwift
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxSwift
+        product: RxRelay

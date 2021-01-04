@@ -20,20 +20,6 @@
                ReferencedContainer = "container:RxAlamofire.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F3F892F0D536F3C46DA7B4D7"
-               BuildableName = "RxAlamofireTests macOS.xctest"
-               BlueprintName = "RxAlamofireTests macOS"
-               ReferencedContainer = "container:RxAlamofire.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -44,16 +30,6 @@
       onlyGenerateCoverageForSpecifiedTargets = "NO"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F3F892F0D536F3C46DA7B4D7"
-               BuildableName = "RxAlamofireTests macOS.xctest"
-               BlueprintName = "RxAlamofireTests macOS"
-               ReferencedContainer = "container:RxAlamofire.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

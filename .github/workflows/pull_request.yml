@@ -44,51 +44,10 @@ jobs:
         run: |
           xcodegen
 
-      - name: Restore Carthage Cache
-        uses: actions/cache@v1
-        with:
-          path: Carthage
-          key: ${{ runner.os }}-carthage-${{ hashFiles('**/Cartfile.resolved') }}
-          restore-keys: |
-            ${{ runner.os }}-carthage-
-
-      - name: Resolving Carthage dependencies
-        run: |
-          set -euo pipefail
-
-          xcconfig=$(mktemp /tmp/static.xcconfig.XXXXXX)
-          trap 'rm -f "$xcconfig"' INT TERM HUP EXIT
-
-          # For Xcode 12 make sure EXCLUDED_ARCHS is set to arm architectures otherwise
-          # the build will fail on lipo due to duplicate architectures.
-
-          CURRENT_XCODE_VERSION=$(xcodebuild -version | grep "Build version" | cut -d' ' -f3)
-          echo "EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64__XCODE_1200__BUILD_$CURRENT_XCODE_VERSION = arm64 arm64e armv7 armv7s armv6 armv8" >> $xcconfig
-
-          echo 'EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64__XCODE_1200 = $(EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_simulator__NATIVE_ARCH_64_BIT_x86_64__XCODE_1200__BUILD_$(XCODE_PRODUCT_BUILD_VERSION))' >> $xcconfig
-          echo 'EXCLUDED_ARCHS = $(inherited) $(EXCLUDED_ARCHS__EFFECTIVE_PLATFORM_SUFFIX_$(EFFECTIVE_PLATFORM_SUFFIX)__NATIVE_ARCH_64_BIT_$(NATIVE_ARCH_64_BIT)__XCODE_$(XCODE_VERSION_MAJOR))' >> $xcconfig
-
-          export XCODE_XCCONFIG_FILE="$xcconfig"
-          carthage update --cache-builds --new-resolver --configuration Debug
-
-      - name: Testing RxAlamofire iOS framework
-        run: |
-          xcodebuild test -scheme 'RxAlamofire iOS' -project 'RxAlamofire.xcodeproj' -sdk iphonesimulator -destination "platform=iOS simulator,name=iPhone 11"
-
-      - name: Testing RxAlamofire tvOS framework
-        run: |
-          xcodebuild test -scheme 'RxAlamofire tvOS' -project 'RxAlamofire.xcodeproj' -destination "platform=tvOS simulator,name=Apple TV 4K"
-
-      - name: Testing RxAlamofire macOS framework
-        run: |
-          xcodebuild test -scheme 'RxAlamofire macOS' -project 'RxAlamofire.xcodeproj'
-
       - name: Build Cocoapods iOS Demo
         run: |
           set -eo pipefail
           cd Examples
-          export RELEASE_VERSION="$(git describe --abbrev=0 | tr -d '\n')"
-          RELEASE_VERSION=${RELEASE_VERSION:1}
           xcodegen
           pod install --repo-update
           xcodebuild build -scheme 'RxAlamofireDemo-iOS' -workspace 'RxAlamofireDemo.xcworkspace' -sdk iphonesimulator -destination "platform=iOS simulator,name=iPhone 11"

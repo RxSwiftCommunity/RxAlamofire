@@ -152,7 +152,7 @@ class RxAlamofireSpec: XCTestCase {
             testDownloadResponseExpectation.fulfill()
           }
         }
-        .subscribe {}
+        .subscribe(onDisposed: {})
 
       wait(for: [testDownloadResponseExpectation], timeout: 5)
     } catch {
@@ -180,7 +180,7 @@ class RxAlamofireSpec: XCTestCase {
             testDownloadResponseExpectation.fulfill()
           }
         }
-        .subscribe {}
+        .subscribe(onDisposed: {})
 
       wait(for: [testDownloadResponseExpectation], timeout: 5)
     } catch {
