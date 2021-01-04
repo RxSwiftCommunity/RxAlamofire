@@ -6,7 +6,7 @@ Pod::Spec.new do |s|
   s.summary = "RxSwift wrapper around the elegant HTTP networking in Swift Alamofire"
   s.homepage = "https://github.com/RxSwiftCommunity/RxAlamofire"
   s.authors = { "RxSwift Community" => "community@rxswift.org" }
-  s.source = { :git => "https://github.com/RxSwiftCommunity/RxAlamofire.git", :tag => "v" + ENV['RELEASE_VERSION'] }
+  s.source = { :git => "https://github.com/RxSwiftCommunity/RxAlamofire.git", :tag => "v" + s.version.to_s }
   s.swift_version = "5.1"
 
   s.ios.deployment_target = "10.0"
