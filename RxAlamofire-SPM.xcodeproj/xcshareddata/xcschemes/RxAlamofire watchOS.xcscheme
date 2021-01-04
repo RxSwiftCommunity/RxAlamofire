@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-               BuildableName = "RxAlamofire iOS.framework"
-               BlueprintName = "RxAlamofire iOS"
-               ReferencedContainer = "container:RxAlamofire.xcodeproj">
+               BlueprintIdentifier = "C80B7B69A8FE472A0415D6A0"
+               BuildableName = "RxAlamofire watchOS.framework"
+               BlueprintName = "RxAlamofire watchOS"
+               ReferencedContainer = "container:RxAlamofire-SPM.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      codeCoverageEnabled = "YES"
       onlyGenerateCoverageForSpecifiedTargets = "NO"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
@@ -34,14 +33,12 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
-            BlueprintName = "RxAlamofire iOS"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
+            BlueprintIdentifier = "C80B7B69A8FE472A0415D6A0"
+            BuildableName = "RxAlamofire watchOS.framework"
+            BlueprintName = "RxAlamofire watchOS"
+            ReferencedContainer = "container:RxAlamofire-SPM.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -56,10 +53,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
-            BlueprintName = "RxAlamofire iOS"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
+            BlueprintIdentifier = "C80B7B69A8FE472A0415D6A0"
+            BuildableName = "RxAlamofire watchOS.framework"
+            BlueprintName = "RxAlamofire watchOS"
+            ReferencedContainer = "container:RxAlamofire-SPM.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
@@ -75,10 +72,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
-            BlueprintName = "RxAlamofire iOS"
-            ReferencedContainer = "container:RxAlamofire.xcodeproj">
+            BlueprintIdentifier = "C80B7B69A8FE472A0415D6A0"
+            BuildableName = "RxAlamofire watchOS.framework"
+            BlueprintName = "RxAlamofire watchOS"
+            ReferencedContainer = "container:RxAlamofire-SPM.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>

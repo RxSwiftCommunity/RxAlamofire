@@ -1,0 +1,175 @@
+name: RxAlamofire-SPM
+options:
+  minimumXcodeGenVersion: "2.15.1"
+  developmentLanguage: en
+  usesTabs: false
+  indentWidth: 2
+  tabWidth: 2
+  xcodeVersion: "1140"
+  deploymentTarget:
+    iOS: "10.0"
+    macOS: "10.12"
+    tvOS: "10.0"
+    watchOS: "3.0"
+  carthageExecutablePath: "`which carthage`"
+  defaultConfig: "Release"
+configs:
+  Debug: debug
+  Release: release
+attributes:
+  ORGANIZATIONNAME: RxSwiftCommunity
+schemes:
+  RxAlamofire iOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofire iOS: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+  RxAlamofire macOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofire macOS: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+  RxAlamofire watchOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofire watchOS: all
+    run:
+      config: Debug
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+  RxAlamofire tvOS:
+    scheme: {}
+    build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
+      targets:
+        RxAlamofire tvOS: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      gatherCoverageData: true
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
+      revealArchiveInOrganizer: true
+packages:
+  RxSwift:
+    url: https://github.com/ReactiveX/RxSwift.git
+    from: 6.0.0
+  Alamofire:
+    url: https://github.com/Alamofire/Alamofire.git
+    from: 5.4.1
+targets:
+  RxAlamofire iOS:
+    settings:
+      PRODUCT_NAME: RxAlamofire
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-iOS
+      BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+      SKIP_INSTALL: NO
+      SUPPORTS_MACCATALYST: NO
+    platform: iOS
+    type: framework
+    sources:
+      - Sources/RxAlamofire
+    dependencies:
+      - package: Alamofire
+      - package: RxSwift
+        product: RxSwift
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxSwift
+        product: RxRelay
+  RxAlamofire macOS:
+    settings:
+      PRODUCT_NAME: RxAlamofire
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-macOS
+      BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+      SKIP_INSTALL: NO
+    platform: macOS
+    type: framework
+    sources:
+      - Sources/RxAlamofire
+    dependencies:
+      - package: Alamofire
+      - package: RxSwift
+        product: RxSwift
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxSwift
+        product: RxRelay
+  RxAlamofire tvOS:
+    settings:
+      PRODUCT_NAME: RxAlamofire
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-tvOS
+      BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+      SKIP_INSTALL: NO
+    platform: tvOS
+    type: framework
+    sources:
+      - Sources/RxAlamofire
+    dependencies:
+      - package: Alamofire
+      - package: RxSwift
+        product: RxSwift
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxSwift
+        product: RxRelay
+  RxAlamofire watchOS:
+    settings:
+      PRODUCT_NAME: RxAlamofire
+      PRODUCT_BUNDLE_IDENTIFIER: RxSwiftCommunity.RxAlamofire.RxAlamofire-watchOS
+      BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+      SKIP_INSTALL: NO
+    platform: watchOS
+    type: framework
+    sources:
+      - Sources/RxAlamofire
+    dependencies:
+      - package: Alamofire
+      - package: RxSwift
+        product: RxSwift
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxSwift
+        product: RxRelay
