@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-               BuildableName = "RxAlamofire iOS.framework"
+               BuildableName = "RxAlamofire.framework"
                BlueprintName = "RxAlamofire iOS"
                ReferencedContainer = "container:RxAlamofire.xcodeproj">
             </BuildableReference>
@@ -26,22 +26,19 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      codeCoverageEnabled = "YES"
-      onlyGenerateCoverageForSpecifiedTargets = "NO"
-      shouldUseLaunchSchemeArgsEnv = "YES">
-      <Testables>
-      </Testables>
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
+            BuildableName = "RxAlamofire.framework"
             BlueprintName = "RxAlamofire iOS"
             ReferencedContainer = "container:RxAlamofire.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <CommandLineArguments>
-      </CommandLineArguments>
+      <Testables>
+      </Testables>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -57,13 +54,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
+            BuildableName = "RxAlamofire.framework"
             BlueprintName = "RxAlamofire iOS"
             ReferencedContainer = "container:RxAlamofire.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -76,13 +71,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "73D12D3780EBC65D207E1F16"
-            BuildableName = "RxAlamofire iOS.framework"
+            BuildableName = "RxAlamofire.framework"
             BlueprintName = "RxAlamofire iOS"
             ReferencedContainer = "container:RxAlamofire.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <CommandLineArguments>
-      </CommandLineArguments>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -9,3 +9,5 @@ export VERSION="$(git describe --abbrev=0 | tr -d '\n')"
 VERSION=${VERSION:1}
 echo $VERSION
 npx podspec-bump -w -i "$VERSION"
+git add -A
+git commit --amend --no-edit

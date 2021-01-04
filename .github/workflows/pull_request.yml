@@ -40,10 +40,6 @@ jobs:
           swift build
           swift test
 
-      - name: Generate Xcodeproj
-        run: |
-          xcodegen
-
       - name: Build Cocoapods iOS Demo
         run: |
           set -eo pipefail
