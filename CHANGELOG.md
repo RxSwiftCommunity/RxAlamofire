@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.2](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v6.1.2%0Dv6.1.1) (2021-01-05)
+
+
+### Bug Fixes
+
+* Bump version script fix ([e3f47f4](https://github.com/RxSwiftCommunity/RxAlamofire/commits/e3f47f480432f305403cc9cefcd65bb346268377))
+* remove unused step ([b233d56](https://github.com/RxSwiftCommunity/RxAlamofire/commits/b233d56929c9166835dd4b0f8b84c8c13e881cd9))
+
 ### [6.1.1](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v6.1.1%0Dv6.1.0) (2021-01-03)
 
 ## [6.1.0](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v6.1.0%0Dv6.0.0) (2021-01-03)
