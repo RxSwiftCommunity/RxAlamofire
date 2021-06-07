@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [6.1.2](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v6.1.2%0Dv6.1.1) (2021-06-07)
+
+
+### Bug Fixes
+
+* Bump version script fix ([e3f47f4](https://github.com/RxSwiftCommunity/RxAlamofire/commits/e3f47f480432f305403cc9cefcd65bb346268377))
+* Carthage project files ([85249da](https://github.com/RxSwiftCommunity/RxAlamofire/commits/85249da4129c28fadcbc64d111469a0493f608f8))
+* remove unused step ([b233d56](https://github.com/RxSwiftCommunity/RxAlamofire/commits/b233d56929c9166835dd4b0f8b84c8c13e881cd9))
+* support RxSwift 6.2 for Carthage ([6c6508e](https://github.com/RxSwiftCommunity/RxAlamofire/commits/6c6508e0e389ac91718ebfe0c72eb469533c5d08))
+
 ### [6.1.2](https://github.com/RxSwiftCommunity/RxAlamofire/branches/compare/v6.1.2%0Dv6.1.1) (2021-01-05)
 
 
