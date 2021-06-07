@@ -92,13 +92,6 @@ schemes:
     archive:
       config: Release
       revealArchiveInOrganizer: true
-packages:
-  RxSwift:
-    url: https://github.com/ReactiveX/RxSwift.git
-    from: 6.0.0
-  Alamofire:
-    url: https://github.com/Alamofire/Alamofire.git
-    from: 5.4.1
 targets:
   RxAlamofire iOS:
     settings:
@@ -112,13 +105,10 @@ targets:
     sources:
       - Sources/RxAlamofire
     dependencies:
-      - package: Alamofire
-      - package: RxSwift
-        product: RxSwift
-      - package: RxSwift
-        product: RxCocoa
-      - package: RxSwift
-        product: RxRelay
+      - carthage: Alamofire
+      - carthage: RxSwift
+      - carthage: RxCocoa
+      - carthage: RxRelay
   RxAlamofire macOS:
     settings:
       PRODUCT_NAME: RxAlamofire
@@ -130,13 +120,10 @@ targets:
     sources:
       - Sources/RxAlamofire
     dependencies:
-      - package: Alamofire
-      - package: RxSwift
-        product: RxSwift
-      - package: RxSwift
-        product: RxCocoa
-      - package: RxSwift
-        product: RxRelay
+      - carthage: Alamofire
+      - carthage: RxSwift
+      - carthage: RxCocoa
+      - carthage: RxRelay
   RxAlamofire tvOS:
     settings:
       PRODUCT_NAME: RxAlamofire
@@ -148,13 +135,10 @@ targets:
     sources:
       - Sources/RxAlamofire
     dependencies:
-      - package: Alamofire
-      - package: RxSwift
-        product: RxSwift
-      - package: RxSwift
-        product: RxCocoa
-      - package: RxSwift
-        product: RxRelay
+      - carthage: Alamofire
+      - carthage: RxSwift
+      - carthage: RxCocoa
+      - carthage: RxRelay
   RxAlamofire watchOS:
     settings:
       PRODUCT_NAME: RxAlamofire
@@ -166,10 +150,7 @@ targets:
     sources:
       - Sources/RxAlamofire
     dependencies:
-      - package: Alamofire
-      - package: RxSwift
-        product: RxSwift
-      - package: RxSwift
-        product: RxCocoa
-      - package: RxSwift
-        product: RxRelay
+      - carthage: Alamofire
+      - carthage: RxSwift
+      - carthage: RxCocoa
+      - carthage: RxRelay
