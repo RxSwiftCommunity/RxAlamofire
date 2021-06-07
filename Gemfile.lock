@@ -126,7 +126,7 @@ GEM
     rake (13.0.3)
     rchardet (1.8.0)
     redcarpet (3.5.1)
-    rexml (3.2.4)
+    rexml (3.2.5)
     rouge (3.26.0)
     ruby-macho (1.4.0)
     ruby2_keywords (0.0.2)
@@ -156,6 +156,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   cocoapods (~> 1.10)
