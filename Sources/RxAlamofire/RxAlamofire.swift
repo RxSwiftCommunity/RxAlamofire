@@ -604,7 +604,57 @@ public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
                    to url: URLConvertible,
                    method: HTTPMethod,
                    headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
-  return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
+  return Alamofire.Session.default.rx.upload(
+    multipartFormData: multipartFormData,
+    to: url,
+    method: method,
+    headers: headers)
+}
+
+/**
+ Returns an observable of a request using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter multipartFormData: The block for building `MultipartFormData`.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `UploadRequest` for the created request.
+ */
+public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil,
+                   interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(
+    multipartFormData: multipartFormData,
+    to: url,
+    method: method,
+    headers: headers,
+    interceptor: interceptor)
+}
+
+/**
+ Returns an observable of a request progress using the shared manager instance to upload a specific file to a specified URL.
+ The request is started immediately.
+
+ - parameter multipartFormData: The block for building `MultipartFormData`.
+ - parameter url: An object adopting `URLConvertible`
+ - parameter method: Alamofire method object
+ - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - returns: The observable of `RxProgress` for the created request.
+ */
+public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
+                   to url: URLConvertible,
+                   method: HTTPMethod,
+                   headers: HTTPHeaders? = nil,
+                   interceptor: RequestInterceptor? = nil) -> Observable<RxProgress> {
+  return Alamofire.Session.default.rx.upload(
+    multipartFormData: multipartFormData,
+    to: url,
+    method: method,
+    headers: headers,
+    interceptor: interceptor)
 }
 
 // MARK: Download
@@ -1204,9 +1254,14 @@ public extension Reactive where Base: Alamofire.Session {
   func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
               to url: URLConvertible,
               method: HTTPMethod,
-              headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+              headers: HTTPHeaders? = nil,
+              interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
     return request { manager in
-      manager.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
+      manager.upload(multipartFormData: multipartFormData,
+                     to: url,
+                     method: method,
+                     headers: headers,
+                     interceptor: interceptor)
     }
   }
 
@@ -1223,8 +1278,13 @@ public extension Reactive where Base: Alamofire.Session {
   func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
               to url: URLConvertible,
               method: HTTPMethod,
-              headers: HTTPHeaders? = nil) -> Observable<RxProgress> {
-    return upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
+              headers: HTTPHeaders? = nil,
+              interceptor: RequestInterceptor? = nil) -> Observable<RxProgress> {
+    return upload(multipartFormData: multipartFormData,
+                  to: url,
+                  method: method,
+                  headers: headers,
+                  interceptor: interceptor)
       .flatMap { $0.rx.progress() }
   }
 
