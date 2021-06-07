@@ -6,6 +6,8 @@ rm -rf xcarchives/*
 rm -rf RxAlamofire.xcframework.zip
 rm -rf RxAlamofire.xcframework
 
+brew bundle
+
 xcodegen --spec project-spm.yml
 
 xcodebuild archive -quiet -project RxAlamofire-SPM.xcodeproj -configuration Release -scheme "RxAlamofire iOS" -destination "generic/platform=iOS" -archivePath "xcarchives/RxAlamofire-iOS" SKIP_INSTALL=NO SKIP_INSTALL=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES OTHER_CFLAGS="-fembed-bitcode" BITCODE_GENERATION_MODE="bitcode" ENABLE_BITCODE=YES | xcpretty --color --simple
