@@ -1444,8 +1444,8 @@ public extension Reactive where Base: DataRequest {
 
    - returns: An instance of `Observable<NSData>`
    */
-  func responseData() -> Observable<(HTTPURLResponse, Data)> {
-    return responseResult(responseSerializer: DataResponseSerializer())
+    func responseData(dataResponseSerializer: DataResponseSerializer = DataResponseSerializer()) -> Observable<(HTTPURLResponse, Data)> {
+    return responseResult(responseSerializer: dataResponseSerializer)
   }
 
   func data() -> Observable<Data> {
