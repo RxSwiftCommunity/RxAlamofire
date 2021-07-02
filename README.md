@@ -53,23 +53,23 @@ let session = URLSession.shared()
 
 _ = session.rx
     .response(.get, stringURL)
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 _ = session.rx
     .json(.get, stringURL)
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 _ = session.rx
     .data(.get, stringURL)
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // MARK: With Alamofire engine
 
 _ = json(.get, stringURL)
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // validation
@@ -77,19 +77,19 @@ _ = request(.get, stringURL)
     .validate(statusCode: 200..<300)
     .validate(contentType: ["application/json"])
     .responseJSON()
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // progress
 _ = request(.get, stringURL)
     .progress()
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // just fire upload and display progress
 _ = upload(Data(), urlRequest: try! RxAlamofire.urlRequest(.get, stringURL))
     .progress()
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // progress and final result
@@ -104,7 +104,7 @@ _ = request(.get, stringURL)
         let progressPart = request.rx.progress()
         return Observable.combineLatest(dataPart, progressPart) { ($0, $1) }
     }
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 
@@ -115,17 +115,17 @@ let session = Session.default
 
 // simple case
 _ = session.rx.json(.get, stringURL)
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // URLHTTPResponse + JSON
 _ = session.rx.responseJSON(.get, stringURL)
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // URLHTTPResponse + String
 _ = session.rx.responseString(.get, stringURL)
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + JSON
@@ -133,7 +133,7 @@ _ = session.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/json"])
     .json()
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + URLHTTPResponse + JSON
@@ -141,7 +141,7 @@ _ = session.rx.request(.get, stringURL)
     .validate(statusCode: 200 ..< 300)
     .validate(contentType: ["text/json"])
     .responseJSON()
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // URLHTTPResponse + Validation + URLHTTPResponse + String + Progress
@@ -156,7 +156,7 @@ _ = session.rx.request(.get, stringURL)
         let progressPart = request.rx.progress()
         return Observable.combineLatest(stringPart, progressPart) { ($0, $1) }
     }
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 
 // Interceptor + URLHTTPResponse + Validation + JSON
@@ -167,7 +167,7 @@ _ = session.rx.request(.get, stringURL)
     .validate()
     .validate(contentType: ["text/json"])
     .responseJSON()
-    .observeOn(MainScheduler.instance)
+    .observe(on: MainScheduler.instance)
     .subscribe { print($0) }
 ```
 
