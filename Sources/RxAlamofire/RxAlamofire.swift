@@ -581,13 +581,15 @@ public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
  - parameter url: An object adopting `URLConvertible`
  - parameter method: Alamofire method object
  - parameter headers: A `HTTPHeaders` containing all the additional headers
+ - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
  - returns: The observable of `UploadRequest` for the created request.
  */
 public func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
                    to url: URLConvertible,
                    method: HTTPMethod,
-                   headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
-  return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
+                   headers: HTTPHeaders? = nil,
+                   interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
+  return Alamofire.Session.default.rx.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers, interceptor: interceptor)
 }
 
 /**
@@ -1199,14 +1201,16 @@ public extension Reactive where Base: Alamofire.Session {
    - parameter url: An object adopting `URLConvertible`
    - parameter method: Alamofire method object
    - parameter headers: A `HTTPHeaders` containing all the additional headers
+   - parameter interceptor: `RequestInterceptor` value to be used by the returned `DataRequest`. `nil` by default.
    - returns: The observable of `UploadRequest` for the created request.
    */
   func upload(multipartFormData: @escaping (MultipartFormData) -> Void,
               to url: URLConvertible,
               method: HTTPMethod,
-              headers: HTTPHeaders? = nil) -> Observable<UploadRequest> {
+              headers: HTTPHeaders? = nil,
+              interceptor: RequestInterceptor? = nil) -> Observable<UploadRequest> {
     return request { manager in
-      manager.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers)
+      manager.upload(multipartFormData: multipartFormData, to: url, method: method, headers: headers, interceptor: interceptor)
     }
   }
 
